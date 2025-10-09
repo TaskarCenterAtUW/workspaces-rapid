@@ -75,7 +75,7 @@
     "lodash-es": "~4.17.21",
     "mapillary-js": "^4.1.2",
     "maplibre-gl": "^3.6.2",
-    "marked": "~15.0.6",
+    "marked": "~16.4.0",
     "name-suggestion-index": "~6.0.20250126",
     "node-diff3": "~3.1.2",
     "osm-auth": "2.5.0",
