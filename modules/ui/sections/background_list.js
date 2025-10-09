@@ -1,16 +1,14 @@
-import { descending as d3_descending, ascending as d3_ascending } from 'd3-array';
-import { select as d3_select } from 'd3-selection';
-import { easeCubicInOut as d3_easeCubicInOut } from 'd3-ease';
+import { select } from 'd3-selection';
+import { easeCubicInOut } from 'd3-ease';
 import { numWrap } from '@rapid-sdk/math';
 import debounce from 'lodash-es/debounce.js';
 
-import { uiTooltip } from '../tooltip.js';
 import { ImagerySource } from '../../core/lib/index.js';
 import { uiIcon } from '../icon.js';
-import { uiCmd } from '../cmd.js';
 import { uiSettingsCustomBackground } from '../settings/custom_background.js';
-import { uiMapInMap } from '../map_in_map.js';
 import { uiSection } from '../section.js';
+import { uiTooltip } from '../tooltip.js';
+import { utilCmd } from '../../util/cmd.js';
 
 
 /** uiSectionBackgroundList
@@ -35,7 +33,6 @@ export function uiSectionBackgroundList(context) {
   const imagery = context.systems.imagery;
   const l10n = context.systems.l10n;
   const map = context.systems.map;
-  const map3d = context.systems.map3d;
   const storage = context.systems.storage;
   const ui = context.systems.ui;
 
@@ -43,9 +40,9 @@ export function uiSectionBackgroundList(context) {
     .label(l10n.t('background.backgrounds'))
     .disclosureContent(render);
 
-  let _backgroundList = d3_select(null);
+  let _backgroundList = select(null);
+  let _keys = null;
 
-  const customSource = imagery.getSourceByID('custom');
   const settingsCustomBackground = uiSettingsCustomBackground(context)
     .on('change', customChanged);
 
@@ -77,6 +74,10 @@ export function uiSectionBackgroundList(context) {
    * Render the background list and the checkboxes below it
    */
   function render(selection) {
+    const map3d = context.systems.map3d;
+    const BackgroundCard = ui.InfoCards.BackgroundCard;
+    const LocationCard = ui.InfoCards.LocationCard;
+
     // the main background list
     const container = selection.selectAll('.layer-background-list')
       .data([0]);
@@ -99,7 +100,7 @@ export function uiSectionBackgroundList(context) {
       .append('label')
       .call(uiTooltip(context)
         .title(l10n.t('background.minimap.tooltip'))
-        .shortcut(l10n.t('background.minimap.key'))
+        .shortcut(l10n.t('shortcuts.command.toggle_minimap.key'))
         .placement('top')
       );
 
@@ -108,7 +109,7 @@ export function uiSectionBackgroundList(context) {
       .attr('type', 'checkbox')
       .on('change', d3_event => {
         d3_event.preventDefault();
-        uiMapInMap.toggle();
+        ui.Minimap.toggle();
       });
 
     minimapLabelEnter
@@ -122,7 +123,7 @@ export function uiSectionBackgroundList(context) {
       .append('label')
       .call(uiTooltip(context)
         .title(l10n.t('background.3dmap.tooltip'))
-        .shortcut(uiCmd('⌘' + l10n.t('background.3dmap.key')))
+        .shortcut(utilCmd('⌘' + l10n.t('shortcuts.command.toggle_3dmap.key')))
         .placement('top')
       );
 
@@ -147,17 +148,14 @@ export function uiSectionBackgroundList(context) {
       .append('label')
       .call(uiTooltip(context)
         .title(l10n.t('background.panel.tooltip'))
-        .shortcut(uiCmd('⌘⇧' + l10n.t('info_panels.background.key')))
+        .shortcut(utilCmd('⌘⇧' + l10n.t('shortcuts.command.toggle_background_card.key')))
         .placement('top')
       );
 
     panelLabelEnter
       .append('input')
       .attr('type', 'checkbox')
-      .on('change', d3_event => {
-        d3_event.preventDefault();
-        ui.info.toggle('background');
-      });
+      .on('change', BackgroundCard.toggle);
 
     panelLabelEnter
       .append('span')
@@ -169,17 +167,14 @@ export function uiSectionBackgroundList(context) {
       .append('label')
       .call(uiTooltip(context)
         .title(l10n.t('background.location_panel.tooltip'))
-        .shortcut(uiCmd('⌘⇧' + l10n.t('info_panels.location.key')))
+        .shortcut(utilCmd('⌘⇧' + l10n.t('shortcuts.command.toggle_location_card.key')))
         .placement('top')
       );
 
     locPanelLabelEnter
       .append('input')
       .attr('type', 'checkbox')
-      .on('change', d3_event => {
-        d3_event.preventDefault();
-        ui.info.toggle('location');
-      });
+      .on('change', LocationCard.toggle);
 
     locPanelLabelEnter
       .append('span')
@@ -207,9 +202,19 @@ export function uiSectionBackgroundList(context) {
     const extrasList = selection.selectAll('.bg-extras-list');
 
     extrasList.selectAll('.map3d-toggle-item')
-      .classed('active', d => map3d.visible)
-      .selectAll('.map3d-toggle-checkbox')
-      .property('checked', d => map3d.visible);
+      .classed('active', map3d.visible)
+      .selectAll('input')
+      .property('checked', map3d.visible);
+
+    extrasList.selectAll('.background-panel-toggle-item')
+      .classed('active', BackgroundCard.visible)
+      .selectAll('input')
+      .property('checked', BackgroundCard.visible);
+
+    extrasList.selectAll('.location-panel-toggle-item')
+      .classed('active', LocationCard.visible)
+      .selectAll('input')
+      .property('checked', LocationCard.visible);
   }
 
 
@@ -218,7 +223,7 @@ export function uiSectionBackgroundList(context) {
    */
   function setTooltips(selection) {
     selection.each((d, i, nodes) => {
-      const item = d3_select(nodes[i]).select('label');
+      const item = select(nodes[i]).select('label');
       const placement = (i < nodes.length / 2) ? 'bottom' : 'top';
 
       const tooltip = uiTooltip(context).placement(placement);
@@ -230,7 +235,7 @@ export function uiSectionBackgroundList(context) {
       };
       if (d.id === previousBackgroundID()) {
         titleHtml += '<br/><br/>' + l10n.t('background.switch');
-        tooltip.shortcut(uiCmd('⌘' + l10n.t('background.key')));
+        tooltip.shortcut(utilCmd('⌘' + l10n.t('shortcuts.command.background_switch.key')));
       }
 
       if (titleHtml) {
@@ -249,7 +254,8 @@ export function uiSectionBackgroundList(context) {
       : _favoriteIDs.has(b.id) && !_favoriteIDs.has(a.id) ? 1
       : a.best && !b.best ? -1
       : b.best && !a.best ? 1
-      : d3_descending(a.area, b.area) || d3_ascending(a.name, b.name) || 0;
+      : (b.area !== a.area) ? b.area - a.area   // descending
+      : a.name.localeCompare(b.name);
   }
 
 
@@ -291,7 +297,7 @@ export function uiSectionBackgroundList(context) {
 
     listItemsEnter
       .each((d, i, nodes) => {
-        const li = d3_select(nodes[i]);
+        const li = select(nodes[i]);
 
         // Wayback gets an extra dropdown for picking the date
         if (d.id === 'EsriWayback') {
@@ -343,11 +349,10 @@ export function uiSectionBackgroundList(context) {
 
     listItems
       .each((d, i, nodes) => {
-        const li = d3_select(nodes[i]);
+        const li = select(nodes[i]);
 
         li
           .classed('active', d => imagery.showsLayer(d))
-          .classed('switch', d => d.id === previousBackgroundID())
           .call(setTooltips)
           .selectAll('input')
           .property('checked', d => imagery.showsLayer(d));
@@ -415,6 +420,7 @@ export function uiSectionBackgroundList(context) {
    * @param  data - Object containing settings for the custom imagery
    */
   function customChanged(d) {
+    const customSource = imagery.getSourceByID('custom');
     if (d?.template) {
       customSource.template = d.template;
       chooseBackground(undefined, customSource);
@@ -459,7 +465,7 @@ export function uiSectionBackgroundList(context) {
     d3_event.preventDefault();
 
     const target = d3_event.currentTarget;
-    const selection = d3_select(target);
+    const selection = select(target);
     selection.node().blur();  // remove focus after click
 
     if (_favoriteIDs.has(d.id)) {
@@ -473,14 +479,14 @@ export function uiSectionBackgroundList(context) {
     const vals = [..._favoriteIDs];
     storage.setItem('background-favorites', JSON.stringify(vals));
 
-    d3_select(target.parentElement)
+    select(target.parentElement)
       .transition()
       .duration(300)
-      .ease(d3_easeCubicInOut)
+      .ease(easeCubicInOut)
       .style('background-color', 'orange')
         .transition()
         .duration(300)
-        .ease(d3_easeCubicInOut)
+        .ease(easeCubicInOut)
         .style('background-color', null);
 
     renderIfVisible();
@@ -556,22 +562,38 @@ export function uiSectionBackgroundList(context) {
   }
 
 
-  const deferredOnMapDraw = debounce(onMapDraw, 1000, { leading: true, trailing: true });
+  /**
+   * _setupKeybinding
+   * This sets up the keybinding, replacing existing if needed
+   */
+  function _setupKeybinding() {
+    const keybinding = context.keybinding();
+    const l10n = context.systems.l10n;
 
+    if (Array.isArray(_keys)) {
+      keybinding.off(_keys);
+    }
+
+    const swapBackgroundKey = utilCmd('⌘' + l10n.t('shortcuts.command.background_switch.key'));
+    const nextBackgroundKey = l10n.t('shortcuts.command.background_next.key');
+    const prevBackgroundKey = l10n.t('shortcuts.command.background_previous.key');
+
+    _keys = [swapBackgroundKey, nextBackgroundKey, prevBackgroundKey];
+
+    keybinding
+      .on(swapBackgroundKey, swapBackground)
+      .on(nextBackgroundKey, nextBackground)
+      .on(prevBackgroundKey, prevBackground);
+  }
+
+
+  // Event listeners
+  const deferredOnMapDraw = debounce(onMapDraw, 1000, { leading: true, trailing: true });
   imagery.on('imagerychange', renderIfVisible);
   map.on('draw', deferredOnMapDraw);
+  l10n.on('localechange', _setupKeybinding);
 
-  const swapBackgroundKey = uiCmd('⌘' + l10n.t('background.key'));
-  const nextBackgroundKey = l10n.t('background.next_background.key');
-  const prevBackgroundKey = l10n.t('background.previous_background.key');
-
-  context.keybinding()
-    .off([swapBackgroundKey, nextBackgroundKey, prevBackgroundKey]);
-
-  context.keybinding()
-    .on(swapBackgroundKey, swapBackground)
-    .on(nextBackgroundKey, nextBackground)
-    .on(prevBackgroundKey, prevBackground);
+  _setupKeybinding();
 
   return section;
 }

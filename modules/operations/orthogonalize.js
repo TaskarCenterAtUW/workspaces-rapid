@@ -12,7 +12,6 @@ export function operationOrthogonalize(context, selectedIDs) {
   const storage = context.systems.storage;
   const viewport = context.viewport;
 
-  const multi = selectedIDs.length === 1 ? 'single' : 'multiple';
   const entities = selectedIDs.map(entityID => graph.hasEntity(entityID)).filter(Boolean);
   const isNew = entities.every(entity => entity.isNew());
   const extent = utilTotalExtent(entities, graph);
@@ -119,8 +118,8 @@ export function operationOrthogonalize(context, selectedIDs) {
   operation.tooltip = function() {
     const disabledReason = operation.disabled();
     return disabledReason ?
-      l10n.t(`operations.orthogonalize.${disabledReason}.${multi}`) :
-      l10n.t(`operations.orthogonalize.description.${_type}.${multi}`);
+      l10n.t(`operations.orthogonalize.${disabledReason}`, { n: selectedIDs.length }) :
+      l10n.t(`operations.orthogonalize.description.${_type}`, { n: selectedIDs.length });
   };
 
 
@@ -130,7 +129,7 @@ export function operationOrthogonalize(context, selectedIDs) {
 
 
   operation.id = 'orthogonalize';
-  operation.keys = [ l10n.t('operations.orthogonalize.key') ];
+  operation.keys = [ l10n.t('shortcuts.command.orthogonalize.key') ];
   operation.title = l10n.t('operations.orthogonalize.title');
   operation.behavior = new KeyOperationBehavior(context, operation);
 

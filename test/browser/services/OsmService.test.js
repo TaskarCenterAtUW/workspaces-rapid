@@ -1,22 +1,28 @@
 describe('OsmService', () => {
   let _osm, spy;
 
+  class MockGfxSystem {
+    constructor()     {}
+    deferredRedraw()  {}
+    immediateRedraw() {}
+  }
+
   class MockContext {
     constructor() {
       this.systems = {
+        gfx:       new MockGfxSystem(),
         locations: new Rapid.LocationSystem(this)
       };
-      this.viewport = new sdk.Viewport();
-      this.viewport.transform = { x: -116508, y: 0, k: sdk.geoZoomToScale(14) };  // [10°, 0°]
+      this.viewport = new Rapid.sdk.Viewport();
+      this.viewport.transform = { x: -116508, y: 0, k: Rapid.sdk.geoZoomToScale(14) };  // [10°, 0°]
       this.viewport.dimensions = [64, 64];
     }
-    deferredRedraw()  { }
   }
 
 
   beforeEach(() => {
     spy = sinon.spy();
-    fetchMock.reset();
+    fetchMock.removeRoutes().clearHistory();
 
     const capabilitiesJSON =
 `{
@@ -169,10 +175,10 @@ describe('OsmService', () => {
 }`;
 
     fetchMock
-      .mock(/api\/capabilities\.json/, { status: 200, body: capabilitiesJSON, headers: { 'Content-Type': 'application/json' } })
-      .mock(/api\/capabilities(?!\.json)/, { status: 200, body: capabilitiesXML, headers: { 'Content-Type': 'application/xml' } })
-      .mock(/user\/details\.json/, { status: 200, body: userJSON, headers: { 'Content-Type': 'application/json' } })
-      .mock(/changesets\.json/, { status: 200, body: changesetJSON, headers: { 'Content-Type': 'application/json' } });
+      .route(/api\/capabilities\.json/, { status: 200, body: capabilitiesJSON, headers: { 'Content-Type': 'application/json' } })
+      .route(/api\/capabilities(?!\.json)/, { status: 200, body: capabilitiesXML, headers: { 'Content-Type': 'application/xml' } })
+      .route(/user\/details\.json/, { status: 200, body: userJSON, headers: { 'Content-Type': 'application/json' } })
+      .route(/changesets\.json/, { status: 200, body: changesetJSON, headers: { 'Content-Type': 'application/json' } });
 
 
     _osm = new Rapid.OsmService(new MockContext());
@@ -183,7 +189,7 @@ describe('OsmService', () => {
 
   afterEach(() => {
     _osm.throttledReloadApiStatus.cancel();
-    fetchMock.reset();
+    fetchMock.removeRoutes().clearHistory();
   });
 
 
@@ -316,7 +322,7 @@ describe('OsmService', () => {
     const okResponse = { status: 200, body: body, headers: { 'Content-Type': 'application/json' } };
 
     it('returns an object', done => {
-      fetchMock.mock(/map\.json/, okResponse);
+      fetchMock.route(/map\.json/, okResponse);
 
       _osm.loadFromAPI(path, (err, result) => {
         expect(err).to.not.be.ok;
@@ -330,21 +336,21 @@ describe('OsmService', () => {
       const badResponse = { status: 400, body: 'Bad Request', headers: { 'Content-Type': 'text/plain' } };
 
       fetchMock
-        .mock((url, { headers }) => /map\.json/.test(url) && !!headers?.Authorization, badResponse)
-        .mock((url, { headers }) => /map\.json/.test(url) && !headers?.Authorization,  okResponse);
+        .route(match => /map\.json/.test(match.url) && match.options.headers?.authorization,  badResponse)
+        .route(match => /map\.json/.test(match.url) && !match.options.headers?.authorization, okResponse);
 
       loginAsync()
         .then(() => {
-          fetchMock.resetHistory();
+          fetchMock.clearHistory();
           _osm.loadFromAPI(path, (err, result) => {
             expect(err).to.be.not.ok;
             expect(typeof result).to.eql('object');
             expect(_osm.authenticated()).to.be.not.ok;
 
-            const calls = fetchMock.calls();
+            const calls = fetchMock.callHistory.calls();
             expect(calls).to.have.lengthOf.at.least(2);   // auth, unauth, capabilities
-            expect(calls[0][1]).to.have.nested.property('headers.Authorization');
-            expect(calls[1][1]).to.not.have.nested.property('headers.Authorization');
+            expect(calls[0].options.headers || {}).to.have.property('authorization');
+            expect(calls[1].options.headers || {}).to.not.have.property('authorization');
             done();
           });
         });
@@ -355,21 +361,21 @@ describe('OsmService', () => {
       const badResponse = { status: 401, body: 'Unauthorized', headers: { 'Content-Type': 'text/plain' } };
 
       fetchMock
-        .mock((url, { headers }) => /map\.json/.test(url) && !!headers?.Authorization, badResponse)
-        .mock((url, { headers }) => /map\.json/.test(url) && !headers?.Authorization,  okResponse);
+        .route(match => /map\.json/.test(match.url) && match.options.headers?.authorization,  badResponse)
+        .route(match => /map\.json/.test(match.url) && !match.options.headers?.authorization, okResponse);
 
       loginAsync()
         .then(() => {
-          fetchMock.resetHistory();
+          fetchMock.clearHistory();
           _osm.loadFromAPI(path, (err, result) => {
             expect(err).to.be.not.ok;
             expect(typeof result).to.eql('object');
             expect(_osm.authenticated()).to.be.not.ok;
 
-            const calls = fetchMock.calls();
+            const calls = fetchMock.callHistory.calls();
             expect(calls).to.have.lengthOf.at.least(2);   // auth, unauth, capabilities
-            expect(calls[0][1]).to.have.nested.property('headers.Authorization');
-            expect(calls[1][1]).to.not.have.nested.property('headers.Authorization');
+            expect(calls[0].options.headers || {}).to.have.property('authorization');
+            expect(calls[1].options.headers || {}).to.not.have.property('authorization');
             done();
           });
         });
@@ -378,22 +384,22 @@ describe('OsmService', () => {
     it('retries an authenticated call unauthenticated if 403 Forbidden', done => {
       const badResponse = { status: 403, body: 'Forbidden', headers: { 'Content-Type': 'text/plain' } };
 
-      fetchMock
-        .mock((url, { headers }) => /map\.json/.test(url) && !!headers?.Authorization, badResponse)
-        .mock((url, { headers }) => /map\.json/.test(url) && !headers?.Authorization,  okResponse);
+    fetchMock
+       .route(match => /map\.json/.test(match.url) && match.options.headers?.authorization,  badResponse)
+       .route(match => /map\.json/.test(match.url) && !match.options.headers?.authorization, okResponse);
 
       loginAsync()
         .then(() => {
-          fetchMock.resetHistory();
+          fetchMock.clearHistory();
           _osm.loadFromAPI(path, (err, result) => {
             expect(err).to.be.not.ok;
             expect(typeof result).to.eql('object');
             expect(_osm.authenticated()).to.be.not.ok;
 
-            const calls = fetchMock.calls();
+            const calls = fetchMock.callHistory.calls();
             expect(calls).to.have.lengthOf.at.least(2);   // auth, unauth, capabilities
-            expect(calls[0][1]).to.have.nested.property('headers.Authorization');
-            expect(calls[1][1]).to.not.have.nested.property('headers.Authorization');
+            expect(calls[0].options.headers || {}).to.have.property('authorization');
+            expect(calls[1].options.headers || {}).to.not.have.property('authorization');
             done();
           });
         });
@@ -417,7 +423,7 @@ describe('OsmService', () => {
     const partialResponse = { status: 200, body: partialBody, headers: { 'Content-Type': 'application/json' } };
 
     it('returns a partial JSON error', done => {
-      fetchMock.mock(/map\.json/, partialResponse);
+      fetchMock.route(/map\.json/, partialResponse);
 
       _osm.loadFromAPI(path, err => {
         expect(err.message).to.eql('Partial JSON');
@@ -444,7 +450,7 @@ describe('OsmService', () => {
     });
 
     it('calls callback when data tiles are loaded', done => {
-      fetchMock.mock(/map\.json/, {
+      fetchMock.route(/map\.json/, {
         body: tileBody,
         status: 200,
         headers: { 'Content-Type': 'application/json' }
@@ -465,7 +471,7 @@ describe('OsmService', () => {
       expect(_osm.isDataLoaded([-74.0444216, 40.6694299])).to.be.false;
 
       const bbox = { minX: -75, minY: 40, maxX: -74, maxY: 41, id: 'fake' };
-      _osm._tileCache.rtree.insert(bbox);
+      _osm._tileCache.rbush.insert(bbox);
 
       expect(_osm.isDataLoaded([-74.0444216, 40.6694299])).to.be.true;
     });
@@ -491,7 +497,7 @@ describe('OsmService', () => {
 }`;
 
     it('loads a node', done => {
-      fetchMock.mock(/node\/1\.json/, {
+      fetchMock.route(/node\/1\.json/, {
         body: nodeBody,
         status: 200,
         headers: { 'Content-Type': 'application/json' }
@@ -507,7 +513,7 @@ describe('OsmService', () => {
 
 
     it('loads a way', done => {
-      fetchMock.mock(/way\/1\/full\.json/, {
+      fetchMock.route(/way\/1\/full\.json/, {
         body: wayBody,
         status: 200,
         headers: { 'Content-Type': 'application/json' }
@@ -523,7 +529,7 @@ describe('OsmService', () => {
 
 
     it('does not ignore repeat requests', done => {
-      fetchMock.mock(/node\/1\.json/, {
+      fetchMock.route(/node\/1\.json/, {
         body: nodeBody,
         status: 200,
         headers: { 'Content-Type': 'application/json' }
@@ -562,7 +568,7 @@ describe('OsmService', () => {
 }`;
 
     it('loads a node', done => {
-      fetchMock.mock(/node\/1\/1\.json/, {
+      fetchMock.route(/node\/1\/1\.json/, {
         body: nodeBody,
         status: 200,
         headers: { 'Content-Type': 'application/json' }
@@ -578,7 +584,7 @@ describe('OsmService', () => {
 
 
     it('loads a way', done => {
-      fetchMock.mock(/way\/1\/1\.json/, {
+      fetchMock.route(/way\/1\/1\.json/, {
         body: wayBody,
         status: 200,
         headers: { 'Content-Type': 'application/json' }
@@ -594,7 +600,7 @@ describe('OsmService', () => {
 
 
     it('does not ignore repeat requests', done => {
-      fetchMock.mock(/node\/1\/1\.json/, {
+      fetchMock.route(/node\/1\/1\.json/, {
         body: nodeBody,
         status: 200,
         headers: { 'Content-Type': 'application/json' }
@@ -650,8 +656,8 @@ describe('OsmService', () => {
   describe('#caches', () => {
     it('loads reset caches', () => {
       const caches = _osm.caches();
-      expect(caches.tile).to.have.all.keys(['lastv','toLoad','loaded','inflight','seen','rtree']);
-      expect(caches.note).to.have.all.keys(['lastv','toLoad','loaded','inflight','inflightPost','note','closed','rtree']);
+      expect(caches.tile).to.have.all.keys(['lastv','toLoad','loaded','inflight','seen','rbush']);
+      expect(caches.note).to.have.all.keys(['lastv','toLoad','loaded','inflight','inflightPost','note','closed','rbush']);
       expect(caches.user).to.have.all.keys(['toLoad','user']);
     });
 
@@ -716,20 +722,18 @@ describe('OsmService', () => {
 </osm>`;
 
     it('fires loadedNotes when notes are loaded', done => {
-      fetchMock.mock(/notes\?/, {
+      fetchMock.route(/notes\?/, {
         body: notesBody,
         status: 200,
         headers: { 'Content-Type': 'text/xml' }
       });
 
-      _osm.on('loadedNotes', spy);
-      _osm.loadNotes({ /*no options*/ });
-
-      window.setTimeout(() => {
-        // was: calledOnce, now called multiple times as we fetch margin tiles
-        expect(spy.called).to.be.ok;
+      _osm.on('loadedNotes', () => {
+        expect(fetchMock.callHistory.calls()).to.have.lengthOf.at.least(1);
         done();
-      }, 50);
+      });
+
+      _osm.loadNotes({ /*no options*/ });
     });
   });
 
@@ -742,7 +746,7 @@ describe('OsmService', () => {
         { minX: 10, minY: 1, maxX: 10, maxY: 1, data: { key: '2', loc: [10,1] } }
       ];
 
-      _osm.caches('get').note.rtree.load(notes);
+      _osm.caches('get').note.rbush.load(notes);
       const result = _osm.getNotes();
       expect(result).to.deep.eql([
         { key: '0', loc: [10,0] },
@@ -781,10 +785,10 @@ describe('OsmService', () => {
       const result = _osm.replaceNote(note);
       expect(result.id).to.eql('2');
       expect(_osm.caches().note.note['2']).to.eql(note);
-      const rtree = _osm.caches().note.rtree;
-      const result_rtree = rtree.search({ 'minX': -1, 'minY': -1, 'maxX': 1, 'maxY': 1 });
-      expect(result_rtree.length).to.eql(1);
-      expect(result_rtree[0].data).to.eql(note);
+      const rbush = _osm.caches().note.rbush;
+      const result_rbush = rbush.search({ 'minX': -1, 'minY': -1, 'maxX': 1, 'maxY': 1 });
+      expect(result_rbush.length).to.eql(1);
+      expect(result_rbush[0].data).to.eql(note);
     });
 
     it('replaces a note', () => {
@@ -794,10 +798,10 @@ describe('OsmService', () => {
       const result = _osm.replaceNote(note);
       expect(result.status).to.eql('closed');
 
-      const rtree = _osm.caches().note.rtree;
-      const result_rtree = rtree.search({ 'minX': -1, 'minY': -1, 'maxX': 1, 'maxY': 1 });
-      expect(result_rtree.length).to.eql(1);
-      expect(result_rtree[0].data.status).to.eql('closed');
+      const rbush = _osm.caches().note.rbush;
+      const result_rbush = rbush.search({ 'minX': -1, 'minY': -1, 'maxX': 1, 'maxY': 1 });
+      expect(result_rbush.length).to.eql(1);
+      expect(result_rbush[0].data.status).to.eql('closed');
     });
   });
 

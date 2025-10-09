@@ -18,8 +18,7 @@
     },
     "modes": {
       "add_area": {
-        "title": "ناوە",
-        "filter_tooltip": "ناوچەکان"
+        "title": "ناوە"
       },
       "add_line": {
         "title": "هێڵ"
@@ -28,8 +27,7 @@
         "title": "خاڵ"
       },
       "add_note": {
-        "title": "تێبینی",
-        "label": "نووسینی تێبینی"
+        "title": "تێبینی"
       },
       "browse": {
         "title": "گەڕان"
@@ -48,9 +46,6 @@
       "orthogonalize": {
         "title": "چوارگۆشە"
       },
-      "straighten": {
-        "key": "باشوور"
-      },
       "delete": {
         "title": "سڕینەوە",
         "annotation": {
@@ -63,9 +58,6 @@
       },
       "rotate": {
         "title": "وەرگێڕان"
-      },
-      "extract": {
-        "key": "ڕۆژهەڵات"
       }
     },
     "restriction": {
@@ -98,15 +90,13 @@
       "background": {
         "title": "پاشبنەما",
         "source": "سەرچاوە",
-        "description": "ناساندن",
-        "unknown": "نەناسراو"
+        "description": "ناساندن"
       },
       "history": {
         "title": "مێژوو",
         "version": "وەشان",
         "last_edit": "دوا دەستکاری",
         "edited_by": "دەستکرای کراوە لەلایەن",
-        "unknown": "نەناسراو",
         "note_comments": "سەرنجەکان",
         "note_created_date": "ڕێکەوتی درووستکردن",
         "note_created_user": "درووستکراوە لەلایەن",
@@ -142,6 +132,8 @@
     "inspector": {
       "view_on_osm": "لە openstreetmap.org ببینە",
       "view_on_osmose": "لە osmose.openstreetmap.fr ببینە",
+      "type": "جۆر",
+      "details": "وردەکارییەکان",
       "remove": "لابردن",
       "search": "گەڕان",
       "unknown": "نەناسراو",
@@ -152,7 +144,6 @@
       },
       "radio": {
         "structure": {
-          "type": "جۆر",
           "default": "بنەڕەتی"
         }
       },
@@ -187,7 +178,7 @@
         }
       }
     },
-    "feature": {
+    "filters": {
       "points": {
         "description": "خاڵەکان"
       },
@@ -208,11 +199,6 @@
       },
       "rail": {
         "tooltip": "ئاسنەڕێ"
-      }
-    },
-    "area_fill": {
-      "wireframe": {
-        "key": "ڕۆژاوا"
       }
     },
     "settings": {
@@ -256,32 +242,21 @@
     "splash": {
       "start": "دەست بکە بە دەستکاریکردن"
     },
-    "rapid_feature_toggle": {
-      "esri": {
-        "remove": "لابردن"
+    "rapid_menu": {
+      "remove": "لابردن",
+      "category": {
+        "roads": "ڕێگاکان"
       }
     },
     "tag_reference": {
       "description": "ناساندن"
     },
+    "bearing": {
+      "n": "باکوور"
+    },
     "QA": {
       "osmose": {
         "detail_title": "وردەکارییەکان"
-      },
-      "improveOSM": {
-        "geometry_types": {
-          "road": "ڕێگاکان"
-        },
-        "directions": {
-          "east": "ڕۆژهەڵات",
-          "north": "باکوور",
-          "northeast": "باکووری ڕۆژهەڵات",
-          "northwest": "باکووری ڕۆژاوا",
-          "south": "باشوور",
-          "southeast": "باشووری ڕۆژهەڵات",
-          "southwest": "باشووری ڕۆژاوا",
-          "west": "ڕۆژاوا"
-        }
       },
       "keepRight": {
         "detail_description": "پێناسە",
@@ -320,13 +295,8 @@
         }
       }
     },
-    "streetside": {
+    "photos": {
       "hires": "جۆریەتی بەرز"
-    },
-    "mapillary_map_features": {
-      "object": {
-        "street_light": "چرای سەرشەقام"
-      }
     },
     "note": {
       "note": "تێبینی",
@@ -380,9 +350,7 @@
       }
     },
     "issues": {
-      "warnings": {
-        "list_title": "ئاگادارکردنەوەکان"
-      },
+      "warnings": "ئاگادارکردنەوەکان",
       "invalid_format": {
         "email": {
           "reference": "پێویستە پۆستی ئەلیکترۆنییەکەت لەوە بچێت\n\"user@example.com\"."
@@ -439,35 +407,40 @@
     "shortcuts": {
       "title": "کورتبڕەکانی تەختەکلیل",
       "tooltip": "پیشاندانی کورتبڕەکانی تەختەکلیل",
-      "toggle": {
-        "key": "؟"
-      },
       "key": {
         "delete": "سڕینەوە"
       },
       "or": "-یان-",
-      "browsing": {
-        "help": {
-          "title": "یارمەتی",
-          "keyboard": "پیشاندانی کورتبڕەکانی تەختەکلیل"
+      "editing": "دەستکاریکردن",
+      "drawing": "کێشان",
+      "help": "یارمەتی",
+      "display_options": "پیشاندانی بژاردەکان",
+      "info": "زانیاری",
+      "command": {
+        "add_note": {
+          "key": "باکوور"
         },
-        "display_options": {
-          "title": "پیشاندانی بژاردەکان"
-        }
-      },
-      "editing": {
-        "title": "دەستکاریکردن",
-        "drawing": {
-          "title": "کێشان"
+        "save": {
+          "label": "پاشەکەوتکردنی دەستاکرییەکان"
         },
-        "commands": {
-          "save": "پاشەکەوتکردنی دەستاکرییەکان"
-        }
-      },
-      "tools": {
-        "title": "ئامرازەکان",
-        "info": {
-          "title": "زانیاری"
+        "extract": {
+          "key": "ڕۆژهەڵات"
+        },
+        "straighten": {
+          "key": "باشوور"
+        },
+        "wireframe": {
+          "key": "ڕۆژاوا"
+        },
+        "keyboard_shortcuts": {
+          "label": "پیشاندانی کورتبڕەکانی تەختەکلیل",
+          "key": "؟"
+        },
+        "toggle_osm_notes": {
+          "key": "باکوور"
+        },
+        "toggle_streetside": {
+          "key": "باشوور"
         }
       }
     },

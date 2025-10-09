@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { interpolateNumber as d3_interpolateNumber } from 'd3-interpolate';
+import { interpolateNumber } from 'd3-interpolate';
 import { AdjustmentFilter, ConvolutionFilter } from 'pixi-filters';
 import { Tiler, geoScaleToZoom, vecScale } from '@rapid-sdk/math';
 
@@ -32,10 +32,6 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
     this.enabled = true;   // background imagery should be enabled by default
     this.isMinimap = isMinimap;
 
-    // Items in this layer don't need to be interactive
-    const groupContainer = this.scene.groups.get('background');
-    groupContainer.eventMode = 'none';
-
     this.filters = {
       brightness: 1,
       contrast: 1,
@@ -51,10 +47,15 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
 
   /**
    * reset
-   * Every Layer should have a reset function to clear out any state when a reset occurs.
+   * Every Layer should have a reset function to replace any Pixi objects and internal state.
    */
   reset() {
     super.reset();
+
+    // Items in this layer don't need to be interactive
+    const groupContainer = this.scene.groups.get('background');
+    groupContainer.eventMode = 'none';
+
     this.destroyAll();
     this._tileMaps.clear();
     this._failed.clear();
@@ -108,7 +109,7 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
     // Doing this in 2 passes to avoid affecting `.children` while iterating over it.
     const toDestroy = new Set();
     for (const sourceContainer of groupContainer.children) {
-      const sourceID = sourceContainer.name;
+      const sourceID = sourceContainer.label;
       if (!showSources.has(sourceID)) {
         toDestroy.add(sourceID);
       }
@@ -130,7 +131,7 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
    */
   renderSource(timestamp, viewport, source, sourceContainer, tileMap) {
     const context = this.context;
-    const textureManager = this.renderer.textures;
+    const textureManager = this.gfx.textures;
     const osm = context.services.osm;
     const t = viewport.transform.props;
     const sourceID = source.key;   // note: use `key` here, for Wayback it will include the date
@@ -145,8 +146,7 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
     let debugContainer;
     if (!this.isMinimap) {
       showDebug = context.getDebug('tile');
-      const mapUIContainer = this.scene.layers.get('map-ui').container;
-      debugContainer = mapUIContainer.getChildByName('tile-debug');
+      debugContainer = this.scene.layers.get('map-ui').tileDebug;
       debugContainer.visible = showDebug;
     }
 
@@ -160,8 +160,12 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
     // Determine tiles needed to cover the view at the zoom we want,
     // including any zoomed out tiles if this field contains any holes
     const needTiles = new Map();                // Map(tileID -> tile)
-    const maxZoom = Math.ceil(z);               // the zoom we want (round up for sharper imagery)
-    const minZoom = Math.max(0, maxZoom - source.zoomRange);   // the mininimum zoom we'll accept
+
+    // Make sure the min zoom is at least 1.
+    // z=0 causes a bug for Mapbox layers to disappear, these use very large tile size.
+    // Also the locator overlay should always show its labels, which start at zoom 1.
+    const maxZoom = Math.max(1, Math.ceil(z));                 // the zoom we want (round up for sharper imagery)
+    const minZoom = Math.max(1, maxZoom - source.zoomRange);   // the mininimum zoom we'll accept
 
     let covered = false;
     for (let tryZoom = maxZoom; !covered && tryZoom >= minZoom; tryZoom--) {
@@ -169,6 +173,7 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
       if (source.isLocatorOverlay() && maxZoom > 17) continue;   // overlay is blurry if zoomed in this far
 
       const result = this._tiler
+        .tileSize(tileSize)
         .skipNullIsland(!!source.overlay)
         .zoomRange(tryZoom)
         .getTiles(this.isMinimap ? viewport : context.viewport);  // minimap passes in its own viewport
@@ -198,7 +203,7 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
 
       const tileName = `${sourceID}-${tileID}`;
       const sprite = new PIXI.Sprite();
-      sprite.name = tileName;
+      sprite.label = tileName;
       sprite.anchor.set(0, 1);    // left, bottom
       sprite.zIndex = tile.xyz[2];   // draw zoomed tiles above unzoomed tiles
       sprite.alpha = source.alpha;
@@ -220,17 +225,17 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
 
         const w = tile.image.naturalWidth;
         const h = tile.image.naturalHeight;
-        tile.sprite.texture = textureManager.allocate('tile', tile.sprite.name, w, h, tile.image);
+        tile.sprite.texture = textureManager.allocate('tile', tile.sprite.label, w, h, tile.image);
 
         tile.loaded = true;
-        tile.image = null;  // image is copied to the atlas, we can free it
-        context.systems.map.deferredRedraw();
+        tile.image = null;  // reference to `image` is held by the atlas, we can null it
+        this.gfx.deferredRedraw();
       };
 
       image.onerror = () => {
         tile.image = null;
         this._failed.add(tile.url);
-        context.systems.map.deferredRedraw();
+        this.gfx.deferredRedraw();
       };
     }
 
@@ -261,23 +266,32 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
           // Display debug tile info
           if (!tile.debug) {
             tile.debug = new PIXI.Graphics();
-            tile.debug.name = `debug-${tileID}`;
+            tile.debug.label = `debug-${tileID}`;
             tile.debug.eventMode = 'none';
-            tile.debug.sortableChildren = false;
             debugContainer.addChild(tile.debug);
-
-            const label = new PIXI.BitmapText(tileID, { fontName: 'debug' });
-            label.name = `label-${tileID}`;
-            label.tint = DEBUGCOLOR;
-            label.position.set(2, 2);
-            tile.debug.addChild(label);
           }
 
-          tile.debug.position.set(x, y - size);  // left, top
+          if (!tile.text) {
+            tile.text = new PIXI.BitmapText({
+              text: tileID,
+              style: {
+                fontFamily: 'rapid-debug',
+                fontSize: 14
+              }
+            });
+
+            tile.text.label = `label-${tileID}`;
+            tile.text.tint = DEBUGCOLOR;
+            tile.text.eventMode = 'none';
+            debugContainer.addChild(tile.text);
+          }
+
+          tile.debug.position.set(x, y - size);         // left, top
+          tile.text.position.set(x + 2, y - size + 2);  // left, top
           tile.debug
             .clear()
-            .lineStyle(2, DEBUGCOLOR)
-            .drawRect(0, 0, size, size);
+            .rect(0, 0, size, size)
+            .stroke({ width: 2, color: DEBUGCOLOR });
         }
 
       } else {   // tile not needed, can destroy it
@@ -299,7 +313,7 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
     // Doing this in 2 passes to avoid affecting `.children` while iterating over it.
     const toDestroy = new Set();
     for (const sourceContainer of groupContainer.children) {
-      const sourceID = sourceContainer.name;
+      const sourceID = sourceContainer.label;
       toDestroy.add(sourceID);
     }
 
@@ -323,7 +337,7 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
     this._tileMaps.delete(sourceID);
 
     const groupContainer = this.scene.groups.get('background');
-    let sourceContainer = groupContainer.getChildByName(sourceID);
+    let sourceContainer = groupContainer.getChildByLabel(sourceID);
     if (sourceContainer) {
       sourceContainer.destroy({ children: true });
     }
@@ -336,23 +350,26 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
    * @param  tile  Tile object
    */
   destroyTile(tile) {
-    const textureManager = this.renderer.textures;
+    const textureManager = this.gfx.textures;
 
     if (tile.sprite) {
-      tile.sprite.texture = null;
       if (tile.loaded) {
-        textureManager.free('tile', tile.sprite.name);
+        textureManager.free('tile', tile.sprite.label);
       }
-      tile.sprite.destroy({ children: true, texture: false, baseTexture: false });
+      tile.sprite.destroy({ texture: true, textureSource: false });
     }
 
     if (tile.debug) {
-      tile.debug.destroy({ children: true });
+      tile.debug.destroy();
+    }
+    if (tile.text) {
+      tile.text.destroy();
     }
 
     tile.image = null;
     tile.sprite = null;
     tile.debug = null;
+    tile.text = null;
   }
 
 
@@ -364,10 +381,10 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
    */
   getSourceContainer(sourceID) {
     const groupContainer = this.scene.groups.get('background');
-    let sourceContainer = groupContainer.getChildByName(sourceID);
+    let sourceContainer = groupContainer.getChildByLabel(sourceID);
     if (!sourceContainer) {
       sourceContainer = new PIXI.Container();
-      sourceContainer.name = sourceID;
+      sourceContainer.label = sourceID;
       sourceContainer.eventMode = 'none';
       sourceContainer.sortableChildren = true;
       groupContainer.addChild(sourceContainer);
@@ -396,7 +413,7 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
       // The central pixel (at index 4 of our 3x3 array) starts at 1 and increases
       const convolutionArray = sharpenMatrix.map((n, i) => {
         if (i === 4) {
-          const interp = d3_interpolateNumber(1, 2)(this.filters.sharpness);
+          const interp = interpolateNumber(1, 2)(this.filters.sharpness);
           const result = n * interp;
           return result;
         } else {
@@ -405,12 +422,15 @@ export class PixiLayerBackgroundTiles extends AbstractLayer {
       });
 
       this.convolutionFilter = new ConvolutionFilter(convolutionArray);
-      sourceContainer.filters.push(this.convolutionFilter);
+      sourceContainer.filters= [...sourceContainer.filters, this.convolutionFilter];
 
     } else if (this.filters.sharpness < 1) {
-      const blurFactor = d3_interpolateNumber(1, 8)(1 - this.filters.sharpness);
-      this.blurFilter = new PIXI.filters.BlurFilter(blurFactor, 4);
-      sourceContainer.filters.push(this.blurFilter);
+      const blurFactor = interpolateNumber(1, 8)(1 - this.filters.sharpness);
+      this.blurFilter = new PIXI.BlurFilter({
+        strength: blurFactor,
+        quality: 4
+      });
+      sourceContainer.filters = [...sourceContainer.filters, this.blurFilter];
     }
   }
 

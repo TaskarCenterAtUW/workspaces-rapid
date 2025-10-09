@@ -16,7 +16,7 @@ const FAR_TOLERANCE = 12;
  * Properties available:
  *   `enabled`      `true` if the event handlers are enabled, `false` if not.
  *   `lastDown`     `eventData` Object for the most recent down event
- *   `lastUp`     `eventData` Object for the most recent up event (to detect dbl clicks)
+ *   `lastUp`       `eventData` Object for the most recent up event (to detect dbl clicks)
  *   `lastMove`     `eventData` Object for the most recent move event
  *   `lastSpace`    `eventData` Object for the most recent move event used to trigger a spacebar click
  *   `lastClick`    `eventData` Object for the most recent click event
@@ -35,6 +35,7 @@ export class SelectBehavior extends AbstractBehavior {
     this._spaceClickDisabled = false;
     this._longPressTimeout = null;
     this._showsMenu = false;
+    this._showsMapRouletteMenu = false;
 
     this.lastDown = null;
     this.lastUp = null;
@@ -66,6 +67,7 @@ export class SelectBehavior extends AbstractBehavior {
     this._spaceClickDisabled = false;
     this._longPressTimeout = null;
     this._showsMenu = false;
+    this._showsMapRouletteMenu = false;
 
     this.lastDown = null;
     this.lastUp = null;
@@ -73,7 +75,7 @@ export class SelectBehavior extends AbstractBehavior {
     this.lastSpace = null;
     this.lastClick = null;
 
-    const eventManager = this.context.systems.map.renderer.events;
+    const eventManager = this.context.systems.gfx.events;
     eventManager.on('keydown', this._keydown);
     eventManager.on('keyup', this._keyup);
     eventManager.on('pointerdown', this._pointerdown);
@@ -95,6 +97,7 @@ export class SelectBehavior extends AbstractBehavior {
     this._spaceClickDisabled = false;
     this._longPressTimeout = null;
     this._showsMenu = false;
+    this._showsMapRouletteMenu = false;
 
     this.lastDown = null;
     this.lastUp = null;
@@ -104,7 +107,7 @@ export class SelectBehavior extends AbstractBehavior {
 
     this._cancelLongPress();
 
-    const eventManager = this.context.systems.map.renderer.events;
+    const eventManager = this.context.systems.gfx.events;
     eventManager.off('keydown', this._keydown);
     eventManager.off('keyup', this._keyup);
     eventManager.off('pointerdown', this._pointerdown);
@@ -175,6 +178,9 @@ export class SelectBehavior extends AbstractBehavior {
 
     this.context.systems.ui.closeEditMenu();
     this._showsMenu = false;
+
+    this.context.systems.ui.closeMapRouletteMenu();
+    this._showsMapRouletteMenu = false;
 
     const down = this._getEventData(e);
     this.lastDown = down;
@@ -248,7 +254,14 @@ export class SelectBehavior extends AbstractBehavior {
         if (!this.context.selectedIDs().includes(down.target.dataID)) {
           this._doSelect();    // Select it first, if needed
         }
-        this._doContextMenu(); // Then show the context menu.
+        const target = down.target;
+        if (target && target.data && target.data.service === 'maproulette') {
+          const ui = this.context.systems.ui;
+          const anchorPoint = up.coord.screen;
+          ui.showMapRouletteMenu(anchorPoint, 'rightclick');
+        } else {
+          this._doContextMenu(); // Then show the context menu.
+        }
 
       } else {
         this._doSelect();
@@ -300,7 +313,9 @@ export class SelectBehavior extends AbstractBehavior {
     this._cancelLongPress();
 
     const context = this.context;
-    const eventManager = context.systems.map.renderer.events;
+    const gfx = context.systems.gfx;
+    const photos = context.systems.photos;
+    const eventManager = gfx.events;
 
     const modifiers = eventManager.modifierKeys;
     const isMac = utilDetect().os === 'mac';
@@ -320,7 +335,7 @@ export class SelectBehavior extends AbstractBehavior {
 
     // If we're clicking on something real, we want to pause doubleclick zooms
     if (data) {
-      const behavior = this.context.behaviors.mapInteraction;
+      const behavior = context.behaviors.mapInteraction;
       behavior.doubleClickEnabled = false;
       window.setTimeout(() => behavior.doubleClickEnabled = true, 500);
     }
@@ -334,7 +349,6 @@ export class SelectBehavior extends AbstractBehavior {
 
     // Clicked on nothing
     if (!data) {
-      context.systems.photos.selectPhoto(null);
       if (context.mode?.id !== 'browse' && !this._multiSelection.size && !isMultiselect) {
         context.enter('browse');
       }
@@ -344,8 +358,10 @@ export class SelectBehavior extends AbstractBehavior {
     // Clicked a non-OSM feature..
     if (
       data.__fbid__ ||            // Clicked a Rapid feature..
-      data.__featurehash__ ||     // Clicked Custom Data (e.g. gpx track)
-      data instanceof QAItem      // Clicked a QA Item (OSM Note, KeepRight, Osmose, Maproulette)...
+      data.overture ||            // Clicked an Overture feature..
+      data.__featurehash__ ||     // Clicked Custom Data (e.g. gpx track)..
+      data instanceof QAItem ||   // Clicked a QA Item (OSM Note, KeepRight, Osmose, Maproulette)..
+      data.type === 'detection'   // Clicked on an object detection / traffic sign..
     ) {
       const selection = new Map().set(dataID, data);
       context.enter('select', { selection: selection });
@@ -363,7 +379,6 @@ export class SelectBehavior extends AbstractBehavior {
           // e.g. in the walkthrough
           context.enter('select-osm', { selection: { osm: [dataID] }} );
         }
-
       } else {
         if (selectedIDs.includes(dataID)) {   // already in the selectedIDs..
           if (!this._showsMenu) {
@@ -375,38 +390,15 @@ export class SelectBehavior extends AbstractBehavior {
           context.enter('select-osm', { selection: { osm: selectedIDs }} );
         }
       }
+      return;
     }
 
-    // Clicked on a photo, so open / refresh the viewer's pic
-    if (data.captured_at) {
-      // Determine the layer that was clicked on, obtain its service.
+    // Clicked on a photo..
+    // (this highlights the photo but does not actually alter the selection)
+    if (data.type === 'photo') {
       const layerID = target.layerID;
-      context.systems.map.centerEase(data.loc);
-      context.systems.photos.selectPhoto(layerID, dataID);
-//      // No mode change event here, just manually tell the renderer to select it, for now
-//      const scene = context.scene();
-//      scene.clearClass('selected');
-//      scene.classData(layerID, dataID, 'selected');
-    }
-
-    // Clicked on a Mapillary object detection or traffic sign..
-    // Open the Mapillary viewer with an image showing that object/sign
-    if (data.first_seen_at) {
-      const service = context.services.mapillary;
-      if (!service?.started) return;
-
-      context.systems.map.centerEase(event.loc);
-      const selectedImageID = service.getActiveImage() && service.getActiveImage().id;
-
-      service.getDetectionsAsync(dataID)
-        .then(detections => {
-          if (!detections.length) return;
-
-          const imageID = detections[0].image.id;
-          context.systems.photos.selectPhoto('mapillary', imageID);
-  //todo: check on the asyncness of this code
-  //          service.highlightDetection(detections[0]);
-        });
+      photos.selectPhoto(layerID, dataID);
+      return;
     }
   }
 
@@ -420,6 +412,7 @@ export class SelectBehavior extends AbstractBehavior {
     window.clearTimeout(this._longPressTimeout);
     this._longPressTimeout = null;
     this._showsMenu = false;
+    this._showsMapRouletteMenu = false;
   }
 
 
@@ -494,7 +487,7 @@ export class SelectBehavior extends AbstractBehavior {
     if (!this._enabled || !this.lastClick) return;  // nothing to do
 
     const context = this.context;
-    const eventManager = context.systems.map.renderer.events;
+    const eventManager = context.systems.gfx.events;
     const ui = context.systems.ui;
 
     const modifiers = eventManager.modifierKeys;
@@ -506,7 +499,20 @@ export class SelectBehavior extends AbstractBehavior {
     if (disableSnap) {
       eventData.target = null;
     }
-
+    const target = eventData.target;
+    const data = target?.data;
+    // Check if the clicked item is a MapRoulette task
+    if (data instanceof QAItem && data.service === 'maproulette') {
+      const anchorPoint = eventData.coord.screen;
+      if (this._showsMapRouletteMenu) {
+        ui.closeMapRouletteMenu();
+        this._showsMapRouletteMenu = false;
+      } else {
+        ui.showMapRouletteMenu(anchorPoint, 'rightclick');
+        this._showsMapRouletteMenu = true;
+      }
+      return;
+    }
     if (this._showsMenu) {   // menu is on, toggle it off
       ui.closeEditMenu();
       this._showsMenu = false;

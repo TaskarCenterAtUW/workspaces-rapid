@@ -111,6 +111,10 @@
         "description": "Images satellite haute résolution de Douranos (2018 + certains secteurs 2020)",
         "name": "Orthophotos de Dourados"
       },
+      "EOXAT2017CLOUDLESS": {
+        "description": "Imagerie satellite Sentinel retravaillée.",
+        "name": "eox.at 2017 sans nuages"
+      },
       "EOXAT2018CLOUDLESS": {
         "attribution": {
           "text": "Sentinel-2 sans nuages — https://s2maps.eu par EOX IT Services GmbH (contient des données Copernicus Sentinel modifiées de 2017 et de 2018)"
@@ -146,6 +150,14 @@
         "description": "Imagerie satellite Sentinel retravaillée.",
         "name": "eox.at 2022 sans nuages"
       },
+      "EOXAT2023CLOUDLESS": {
+        "description": "Imagerie satellite Sentinel retravaillée.",
+        "name": "eox.at 2023 sans nuages"
+      },
+      "EOXAT2024CLOUDLESS": {
+        "description": "Imagerie satellite Sentinel retravaillée.",
+        "name": "eox.at 2024 sans nuages"
+      },
       "EsriWorldImagery": {
         "attribution": {
           "text": "Termes & commentaires"
@@ -167,8 +179,28 @@
         "description": "Images satellite de Francfort-sur-le-Main prises le 16 avril 2019",
         "name": "Images satellite 2019 de Francfort-sur-le-Main"
       },
+      "Geodatastyrelsen_Cadastral_Parcels_INSPIRE_View": {
+        "attribution": {
+          "text": "L'Agence de Géodonnées et l'Agence pour l'Approvisionnement et l'Infrastructure des Données (SDFI en danois)\n \n "
+        },
+        "name": "SDFI Parcelles cadastrales, Vue INSPIRE"
+      },
+      "Geodatastyrelsen_DTK_Kort25": {
+        "attribution": {
+          "text": "Agence pour l'Approvisionnement et l'Infrastructure des Données (SDFI en danois)"
+        }
+      },
       "Geodatastyrelsen_Denmark": {
+        "attribution": {
+          "text": "Agence pour l'Approvisionnement et l'Infrastructure des Données (SDFI en danois)"
+        },
         "name": "Images aériennes SDFI"
+      },
+      "Geodatastyrelsen_Skaermkort": {
+        "attribution": {
+          "text": "Agence pour l'Approvisionnement et l'Infrastructure des Données (SDFI en danois)"
+        },
+        "name": "SDFI Cartographie"
       },
       "Geoportal2-PL-City-boundaries_WMS": {
         "name": "Geoportal 2: limites municipales WMS"
@@ -198,6 +230,9 @@
         "name": "Geoportal 2 - module des adresses WMS"
       },
       "Geoportal2-PL-aerial_archival_image_WMS": {
+        "attribution": {
+          "text": "Bureau Principal de Géodésie et de Cartographie de Pologne"
+        },
         "name": "Geoportal 2: Orthophotomap (photos d'archive) WMS"
       },
       "Geoportal2-PL-aerial_image_WMS": {
@@ -336,17 +371,15 @@
         },
         "name": "Gliwice - bâtiments"
       },
-      "LSA-ATKIS_BU": {
-        "description": "Forme des bâtiments de Saxe-Anhalt",
-        "name": "Bâtiments - Office National de la Topographie et de la Géoinformation de Saxe-Anhalt"
+      "LSA-ALKIS_BU": {
+        "description": "Forme des bâtiments de Saxe-Anhalt"
       },
       "LSA-DOP20": {
         "description": "Photos aériennes de l'Etat de Saxe-Anhalt, résolution de 20 cm",
         "name": "Orthophotos 20 cm - Office National de la Topographie et de la Géoinformation de Saxe-Anhalt"
       },
       "LSA-DVG": {
-        "description": "Enregistrement vectoriel des limites administratives. Les limites de l'État fédéral, des districts, des municipalités et des quartiers des municipalités sont indiquées.",
-        "name": "Limites administratives - Office National de la Topographie et de la Géoinformation de Saxe-Anhalt"
+        "description": "Enregistrement vectoriel des limites administratives. Les limites de l'État fédéral, des districts, des municipalités et des quartiers des municipalités sont indiquées."
       },
       "LocalAuthorities_RightsOfWay": {
         "attribution": {
@@ -412,20 +445,6 @@
         },
         "description": "Orthophotos les plus récentes du programme III d'imagerie de tous les comtés de l'Ohio capturées à une résolution de 30 cm à 8 cm de 2017 à 2020.",
         "name": "Programme d'imagerie de l'Ohio"
-      },
-      "OSIP_1ft": {
-        "attribution": {
-          "text": "Programme d'imagerie de l'Ohio"
-        },
-        "description": "Orthophotos du programme II d'imagerie de 88 comtés de l'Ohio capturées à une résolution de 30 cm de 2011 à 2014.",
-        "name": "Orthophotos du programme d'imagerie de l'Ohio, résolution 30 cm"
-      },
-      "OSIP_6in": {
-        "attribution": {
-          "text": "Programme d'imagerie de l'Ohio"
-        },
-        "description": "Orthophotos du programme III d'imagerie de 40 comtés de l'Ohio capturées à une résolution de 6 pouces en 2017 et 2018 et orthophotos des programmes I et II d'imagerie de 16 autres comtés capturées entre 2010 et 2014.",
-        "name": "Orthophotos 2010-2018 des programmes I, II et III d'imagerie de l'Ohio, résolution 6 pouces"
       },
       "OSMUK-Cadastral-Parcels": {
         "attribution": {
@@ -495,6 +514,18 @@
       "Riksantikvariambetet-ruins": {
         "description": "Ruines d'intérêt historique et culturel",
         "name": "Riksantikvarieämbetet - Ruines"
+      },
+      "SDFE_Overflade_Skyggekort_40cm": {
+        "attribution": {
+          "text": "Agence pour l'Approvisionnement et l'Infrastructure des Données (SDFI en danois)"
+        },
+        "name": "SDFI Carte surfacique ombrée (40 cm)"
+      },
+      "SDFE_Terraen_Skyggekort_40cm": {
+        "attribution": {
+          "text": "Agence pour l'Approvisionnement et l'Infrastructure des Données (SDFI en danois)"
+        },
+        "name": "SDFI Carte en relief ombrée (40 cm)"
       },
       "SPW_ORTHO_LAST": {
         "name": "Imagerie aérienne SPW(allonie) la plus récente"
@@ -657,6 +688,12 @@
         },
         "description": "Photographies géo-référencées de 1940 de Balaton Limnological Institute.",
         "name": "Orthophotos EUFAR Balaton"
+      },
+      "geoscribble-latest": {
+        "attribution": {
+          "text": "Contributeurs GeoScribble"
+        },
+        "name": "Dernières notes GeoScribble"
       },
       "gothenburg-citymap": {
         "attribution": {
@@ -862,6 +899,10 @@
       "osmse-ekonomiska": {
         "description": "Numérisation de « Economic maps » de 1950-1978",
         "name": "Carte économique (historique) de Lantmäteriet entre 1950 et 1978"
+      },
+      "osmse-generalstab": {
+        "description": "Scan de la \"Carte de l'état-major\" env. 1859-1979",
+        "name": "Carte de l'état-major d'arpentage 1859-1979"
       },
       "poznan-ortofotomapa2014": {
         "attribution": {

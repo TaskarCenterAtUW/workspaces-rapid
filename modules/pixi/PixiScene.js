@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { EventEmitter } from '@pixi/utils';
+import { EventEmitter } from 'pixi.js';
 
 import { PixiLayerBackgroundTiles } from './PixiLayerBackgroundTiles.js';
 import { PixiLayerCustomData } from './PixiLayerCustomData.js';
@@ -7,7 +7,7 @@ import { PixiLayerEditBlocks } from './PixiLayerEditBlocks.js';
 import { PixiLayerKartaPhotos } from './PixiLayerKartaPhotos.js';
 import { PixiLayerKeepRight } from './PixiLayerKeepRight.js';
 import { PixiLayerLabels } from './PixiLayerLabels.js';
-import { PixiLayerMapillaryFeatures } from './PixiLayerMapillaryFeatures.js';
+import { PixiLayerMapillaryDetections } from './PixiLayerMapillaryDetections.js';
 import { PixiLayerMapillaryPhotos } from './PixiLayerMapillaryPhotos.js';
 import { PixiLayerMapillarySigns } from './PixiLayerMapillarySigns.js';
 import { PixiLayerMapRoulette } from './PixiLayerMapRoulette.js';
@@ -41,12 +41,12 @@ function asSet(vals) {
  *  - `layerID` - A unique identifier for the layer, for example 'osm'
  *  - `featureID` - A unique identifier for the feature, for example 'osm-w-123-fill'
  *  - `dataID` - A feature may have data bound to it, for example OSM identifier like 'w-123'
- *  - `classID` - A class identifier like 'hovered' or 'selected'
+ *  - `classID` - A pseudoclass identifier like 'hover' or 'select'
  *
  * Properties you can access:
- *   `groups`     `Map (groupID -> PIXI.Container)` of all groups
- *   `layers`     `Map (layerID -> Layer)` of all layers in the scene
- *   `features`   `Map (featureID -> Feature)` of all features in the scene
+ *   `groups`     `Map<groupID, PIXI.Container>` of all groups
+ *   `layers`     `Map<layerID, Layer>` of all layers in the scene
+ *   `features`   `Map<featureID, Feature>` of all features in the scene
  *
  * Events available:
  *   `layerchange`   Fires when layers are toggled from enabled/disabled
@@ -55,37 +55,16 @@ export class PixiScene extends EventEmitter {
 
   /**
    * @constructor
-   * @param  renderer   The Renderer that owns this Scene
+   * @param  gfx   The GraphicsSystem that owns this Scene
    */
-  constructor(renderer) {
+  constructor(gfx) {
     super();
-    this.renderer = renderer;
-    this.context = renderer.context;
+    this.gfx = gfx;
+    this.context = gfx.context;
 
-    this.groups = new Map();     // Map (groupID -> PIXI.Container)
-    this.layers = new Map();     // Map (layerID -> Layer)
-    this.features = new Map();   // Map (featureID -> Feature)
-
-    // Create Groups, and add them to the origin..
-    // Groups are pre-established Containers that the Layers can add
-    // their Features to, so that the scene can be sorted reasonably.
-    [
-      'background',
-      'basemap',
-      'points',
-      'streetview',
-      'qa',
-      'labels',
-      'blocks',
-      'ui'
-    ].forEach((groupID, i) => {
-      const container = new PIXI.Container();
-      container.name = groupID;
-      container.sortableChildren = true;
-      container.zIndex = i;
-      this.renderer.origin.addChild(container);
-      this.groups.set(groupID, container);
-    });
+    this.groups = new Map();     // Map<groupID, PIXI.Container>
+    this.layers = new Map();     // Map<layerID, Layer>
+    this.features = new Map();   // Map<featureID, Feature>
 
     // Create Layers
     [
@@ -93,10 +72,9 @@ export class PixiScene extends EventEmitter {
       new PixiLayerGeoScribble(this, 'geoScribble'),
       new PixiLayerOsm(this, 'osm'),
       new PixiLayerRapid(this, 'rapid'),
-      new PixiLayerRapidOverlay(this, 'rapid-overlay'),
+      new PixiLayerRapidOverlay(this, 'rapidoverlay'),
 
-
-      new PixiLayerMapillaryFeatures(this, 'mapillary-map-features'),
+      new PixiLayerMapillaryDetections(this, 'mapillary-detections'),
       new PixiLayerMapillarySigns(this, 'mapillary-signs'),
 
       new PixiLayerCustomData(this, 'custom-data'),
@@ -114,18 +92,53 @@ export class PixiScene extends EventEmitter {
       new PixiLayerMapUI(this, 'map-ui')
     ].forEach(layer => this.layers.set(layer.id, layer));
 
+    this.reset();
   }
 
 
   /**
    * reset
-   * Calls each Layer's `reset' method.
-   * This is used to clear out any state when a reset occurs.
+   * Replace any Pixi objects and internal state.
+   * Also calls each Layer's `reset' method to do the same for that layer.
    */
   reset() {
+    const gfx = this.gfx;
+    const origin = gfx.origin;
+    if (!origin) return;   // need the `origin` container to exist first
+
+    // Remove any existing containers
+    for (const child of origin.children) {
+      origin.removeChild(child);
+      child.destroy({ children: true });  // recursive
+    }
+
+    // Create group containers, and add them to the origin..
+    // Groups are pre-established Containers that the Layers can add
+    // their Features to, so that the scene can be sorted reasonably.
+    [
+      'background',   // Background imagery
+      'basemap',      // Editable basemap (OSM/Rapid)
+      'points',       // Editable points (OSM/Rapid)
+      'streetview',   // Streetview imagery, sequences
+      'qa',           // Q/A items, issues, notes
+      'labels',       // Text labels
+      'blocks',       // Blocked out regions
+      'ui'            // Misc UI draw above everything (select lasso, geocoding circle, debug shapes)
+    ].forEach((groupID, i) => {
+      const container = new PIXI.Container();
+      container.label = groupID;
+      container.sortableChildren = true;
+      container.zIndex = i;
+      origin.addChild(container);
+      this.groups.set(groupID, container);
+    });
+
+    // Reset/setup each layer
     for (const layer of this.layers.values()) {
       layer.reset();
     }
+
+    this.emit('layerchange');
   }
 
 
@@ -237,33 +250,33 @@ export class PixiScene extends EventEmitter {
 
 
   /**
-   * classData
-   * Sets a dataID as being classed a certain way (e.g. 'hovered')
+   * setClass
+   * Sets a dataID as being classed a certain way (e.g. 'hover')
+   * @param  classID  `String` classID (e.g. 'hover')
    * @param  layerID  `String` layerID (e.g. 'osm')
    * @param  dataID   `String` dataID (e.g. 'r123')
-   * @param  classID  `String` classID (e.g. 'hovered')
    */
-  classData(layerID, dataID, classID) {
-    this.layers.get(layerID)?.classData(dataID, classID);
+  setClass(classID, layerID, dataID) {
+    this.layers.get(layerID)?.setClass(classID, dataID);
   }
 
 
   /**
-   * unclassData
-   * Unsets a dataID from being classed a certain way (e.g. 'hovered')
+   * unsetClass
+   * Unsets a dataID from being classed a certain way (e.g. 'hover')
+   * @param  classID  `String` classID (e.g. 'hover')
    * @param  layerID  `String` layerID (e.g. 'osm')
    * @param  dataID   `String` dataID (e.g. 'r123')
-   * @param  classID  `String` classID (e.g. 'hovered')
    */
-  unclassData(layerID, dataID, classID) {
-    this.layers.get(layerID)?.unclassData(dataID, classID);
+  unsetClass(classID, layerID, dataID) {
+    this.layers.get(layerID)?.unsetClass(classID, dataID);
   }
 
 
   /**
    * clearClass
    * Clear out all uses of the given classID across all layers.
-   * @param  classID   `String` classID (e.g. 'hovered')
+   * @param  classID   `String` classID (e.g. 'hover')
    */
   clearClass(classID) {
     for (const layer of this.layers.values()) {

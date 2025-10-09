@@ -37,9 +37,7 @@ export class UrlHashSystem extends AbstractSystem {
 * Initial only
 * __`comment`__ - Prefills the changeset comment. Pass a url encoded string.
 * __`hashtags`__ - Prefills the changeset hashtags.  Pass a url encoded list of event
-* __`locale`__ - A code specifying the localization to use, affecting the language, layout, and keyboard shortcuts. Multiple codes may be specified in order of preference. The first valid code will be the locale, while the rest will be used as fallbacks if certain text hasn't been translated. The default locale preferences are set by the browser.
 * __`presets`__ - A comma-separated list of preset IDs. These will be the only presets the user may select.
-* __`rtl=true`__ - Force Rapid into right-to-left mode (useful for testing).
 * __`source`__ - Prefills the changeset source. Pass a url encoded string.
 * __`validationDisable`__ - The issues identified by these types/subtypes will be disabled (i.e. Issues will not be shown at all). Each parameter value should contain a urlencoded, comma-separated list of type/subtype match rules.  An asterisk `*` may be used as a wildcard.
 * __`validationWarning`__ - The issues identified by these types/subtypes will be treated as warnings (i.e. Issues will be surfaced to the user but not block changeset upload). Each parameter value should contain a urlencoded, comma-separated list of type/subtype match rules.  An asterisk `*` may be used as a wildcard.
@@ -49,9 +47,14 @@ export class UrlHashSystem extends AbstractSystem {
 * Responsive (user can change)
 * __`background`__ - Imagery sourceID for the background imagery layer
 * __`data`__ - A custom data URL for loading a gpx track, vector data source, [WKT](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) POLYGON or MULTIPOLYGON text string to render as custom data.
+* __`download_osc=true`__ - True to enable the "download" button
 * __`gpx`__ - Same as `data`, it's just the legacy name for the same thing
 * __`datasets`__ - A comma-separated list of Rapid/Esri datasetIDs to enable
 * __`disable_features`__ - Disables features in the list.
+* __`locale`__ - A code specifying the localization to use, affecting the language, layout, and keyboard shortcuts. Multiple codes may be specified in order of preference. The first valid code will be the locale, while the rest will be used as fallbacks if certain text hasn't been translated. The default locale preferences are set by the browser.
+* __`rtl=true`__ - Force Rapid into right-to-left mode (useful for testing).
+* __`maproulette`__ - Enable the MapRoulette task layer, e.g.`maproulette=true` -or- `maproulette=<challengeIDs>`
+* __`note`__ - Enable the Notes layer, e.g.`note=true` -or- `note=<noteID>`
 * __`overlays`__ - A comma-separated list of imagery sourceIDs to display as overlays
 * __`photo`__ - The layerID and photoID of a photo to select, e.g `photo=mapillary/fztgSDtLpa08ohPZFZjeRQ`
 * __`photo_overlay`__ - The street-level photo overlay layers to enable.
@@ -61,19 +64,10 @@ export class UrlHashSystem extends AbstractSystem {
 * __`id`__ - An OSM ID to select.
 * __`map`__ - A slash-separated `zoom/lat/lon/rot`.
 * __`offset`__ - Background imagery alignment offset in meters, formatted as `east,north`.
-
 **/
 
     const q = utilStringQs(window.location.hash);
     this._initParams = new Map(Object.entries(q));
-
-    // Set some defaults (maybe come up with a less hacky way of doing this)
-    if (!this._initParams.has('datasets')) {
-      this._initParams.set('datasets', 'fbRoads,msBuildings');
-    }
-    if (!this._initParams.has('disable_features')) {
-      this._initParams.set('disable_features', 'boundaries');
-    }
 
     this._currParams = new Map(this._initParams);  // make copy
     this._currHash = null;   // cached window.location.hash
@@ -115,12 +109,22 @@ export class UrlHashSystem extends AbstractSystem {
     if (this._startPromise) return this._startPromise;
 
     const context = this.context;
+    const imagery = context.systems.imagery;
     const editor = context.systems.editor;
     const l10n = context.systems.l10n;
+    const photos = context.systems.photos;
+    const rapid = context.systems.rapid;
+    const map = context.systems.map;
+    const ui = context.systems.ui;
 
     const prerequisites = Promise.all([
+      imagery.startAsync(),
+      editor.startAsync(),
       l10n.startAsync(),
-      editor.startAsync()
+      map.startAsync(),
+      photos.startAsync(),
+      rapid.startAsync(),
+      ui.startAsync()
     ]);
 
     return this._startPromise = prerequisites
@@ -131,7 +135,7 @@ export class UrlHashSystem extends AbstractSystem {
         window.addEventListener('hashchange', this._hashchange);
 
         this._started = true;
-        this.resume();
+        this.resume();  // Emits 'hashchange'
       });
   }
 
@@ -169,8 +173,8 @@ export class UrlHashSystem extends AbstractSystem {
     this._paused = false;
     this._currHash = null;
 
-    this._updateHash();   // make sure hash matches the _currParams
     this._hashchange();   // emit 'hashchange' so other code knows what the hash contains
+    this._updateHash();   // make sure hash matches the _currParams
     this._updateTitle();
   }
 
@@ -227,7 +231,7 @@ export class UrlHashSystem extends AbstractSystem {
     if (!this._started || this._paused) return;
 
     // Remove some of the initial-only params that only clutter up the hash
-    const toOmit = ['comment', 'source', 'hashtags', 'walkthrough'];
+    const toOmit = ['comment', 'source', 'hashtags', 'walkthrough', 'data', 'gpx'];
     let params = utilObjectOmit(Object.fromEntries(this._currParams), toOmit);
 
     const newHash = '#' + utilQsString(params, true);

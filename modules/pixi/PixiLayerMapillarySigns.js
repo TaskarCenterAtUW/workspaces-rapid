@@ -45,17 +45,29 @@ export class PixiLayerMapillarySigns extends AbstractLayer {
     if (val === this._enabled) return;  // no change
     this._enabled = val;
 
-    if (val) {
-      this.dirtyLayer();
-      this.context.services.mapillary.startAsync();
+    const context = this.context;
+    const gfx = context.systems.gfx;
+    const mapillary = context.services.mapillary;
+    if (val && mapillary) {
+      mapillary.startAsync()
+        .then(() => gfx.immediateRedraw());
     }
   }
 
 
+  /**
+   * reset
+   * Every Layer should have a reset function to replace any Pixi objects and internal state.
+   */
+  reset() {
+    super.reset();
+  }
+
+
   filterDetections(detections) {
-    const photoSystem = this.context.systems.photos;
-    const fromDate = photoSystem.fromDate;
-    const toDate = photoSystem.toDate;
+    const photos = this.context.systems.photos;
+    const fromDate = photos.fromDate;
+    const toDate = photos.toDate;
 
     if (fromDate) {
       const fromTimestamp = new Date(fromDate).getTime();
@@ -79,12 +91,14 @@ export class PixiLayerMapillarySigns extends AbstractLayer {
    * @param  zoom       Effective zoom to use for rendering
    */
   renderMarkers(frame, viewport, zoom) {
-    const service = this.context.services.mapillary;
-    if (!service?.started) return;
+    const context = this.context;
+    const mapillary = context.services.mapillary;
+    if (!mapillary?.started) return;
 
-    const parentContainer = this.scene.groups.get('points');
+    const container = context.container();
+    const parentContainer = this.scene.groups.get('qa');
 
-    let items = service.getData('signs');
+    let items = mapillary.getData('signs');
     items = this.filterDetections(items);
 
     for (const d of items) {
@@ -92,7 +106,21 @@ export class PixiLayerMapillarySigns extends AbstractLayer {
       let feature = this.features.get(featureID);
 
       if (!feature) {
-        const style = { markerName: d.value };
+        // Some values we don't have icons for, check first - Rapid#1518
+        const hasIcon = container.selectAll(`#rapid-defs #${d.value}`).size();
+
+        let style;
+        if (hasIcon) {
+          style = {
+            markerName: d.value
+          };
+        } else {
+          style = {
+            markerName: 'xlargeSquare',
+            iconName: 'fas-question',
+            iconSize: 16
+          };
+        }
 
         feature = new PixiFeaturePoint(this, featureID);
         feature.geometry.setCoords(d.loc);
@@ -100,10 +128,10 @@ export class PixiLayerMapillarySigns extends AbstractLayer {
         feature.parentContainer = parentContainer;
         feature.setData(d.id, d);
 
-        // const marker = feature.marker;
-        // const ICONSIZE = 24;
-        // marker.width = ICONSIZE;
-        // marker.height = ICONSIZE;
+        const marker = feature.marker;
+        const ICONSIZE = 24;
+        marker.width = ICONSIZE;
+        marker.height = ICONSIZE;
       }
 
       this.syncFeatureClasses(feature);
@@ -115,22 +143,17 @@ export class PixiLayerMapillarySigns extends AbstractLayer {
 
   /**
    * render
-   * Draw any data we have, and schedule fetching more of it to cover the view
+   * Render any data we have, and schedule fetching more of it to cover the view
    * @param  frame      Integer frame being rendered
    * @param  viewport   Pixi viewport to use for rendering
    * @param  zoom       Effective zoom to use for rendering
    */
   render(frame, viewport, zoom) {
-    const service = this.context.services.mapillary;
+    const mapillary = this.context.services.mapillary;
+    if (!this.enabled || !mapillary?.started || zoom < MINZOOM) return;
 
-    if (this.enabled && service?.started && zoom >= MINZOOM) {
-      service.loadTiles('signs');
-      service.showSignDetections(true);
-      this.renderMarkers(frame, viewport, zoom);
-
-    } else {
-      service?.showSignDetections(false);
-    }
+    mapillary.loadTiles('signs');
+    this.renderMarkers(frame, viewport, zoom);
   }
 
 }

@@ -156,6 +156,7 @@ export function actionSyncCrossingTags(entityID) {
 
       const node = graph.hasEntity(nodeID);
       if (!node) continue;
+      if (node.isEndpoint(graph)) continue;
 
       if (isCrossingWay) {  // Parent is a crossing - we are adding/updating crossing tags on childNodes..
         let isCandidate = false;

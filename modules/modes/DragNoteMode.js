@@ -39,7 +39,6 @@ export class DragNoteMode extends AbstractMode {
    */
   enter(options = {}) {
     const context = this.context;
-    const l10n = context.systems.l10n;
     const osm = context.services.osm;
     if (!osm) return;
 
@@ -51,10 +50,6 @@ export class DragNoteMode extends AbstractMode {
     this.dragNote = note;
     this._startLoc = note.loc;
     this._selectedData.set(this.dragNote.id, this.dragNote);
-
-    // Set the 'drawing' class so that the dragNote won't emit events
-    const scene = context.scene();
-    scene.classData('notes', this.dragNote.id, 'drawing');
 
     // `_clickLoc` is used later to calculate a drag offset,
     // to correct for where "on the pin" the user grabbed the target.
@@ -89,9 +84,6 @@ export class DragNoteMode extends AbstractMode {
     this._selectedData.clear();
 
     const context = this.context;
-
-    context.scene().clearClass('drawing');
-
     context.behaviors.drag
       .off('move', this._move)
       .off('end', this._end)
@@ -112,7 +104,7 @@ export class DragNoteMode extends AbstractMode {
 
     const context = this.context;
     const locations = context.systems.locations;
-    const map = context.systems.map;
+    const gfx = context.systems.gfx;
     const osm = context.services.osm;
     const viewport = context.viewport;
     const point = eventData.coord.map;
@@ -138,7 +130,7 @@ export class DragNoteMode extends AbstractMode {
 
     // Force a redraw - there is no event for notes that would tell the map to redraw.
     // (unlike with dragging osm features around, where editsystem emits `stagingchanged` events)
-    map.immediateRedraw();
+    gfx.immediateRedraw();
   }
 
 

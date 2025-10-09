@@ -25,24 +25,14 @@ export class PixiLayerOsm extends AbstractLayer {
     super(scene, layerID);
     this.enabled = true;   // OSM layers should be enabled by default
 
-    const basemapContainer = this.scene.groups.get('basemap');
-    this._resolved = new Map();  // Map (entity.id -> GeoJSON feature)
+    this.areaContainer = null;
+    this.lineContainer = null;
+
+    this._resolved = new Map();  // Map <entityID, GeoJSON feature>
 
 // experiment for benchmarking
 //    this._alreadyDownloaded = false;
 //    this._saveCannedData = false;
-
-    const areas = new PIXI.Container();
-    areas.name = `${this.layerID}-areas`;
-    areas.sortableChildren = true;
-    this.areaContainer = areas;
-
-    const lines = new PIXI.Container();
-    lines.name = `${this.layerID}-lines`;
-    lines.sortableChildren = true;
-    this.lineContainer = lines;
-
-    basemapContainer.addChild(areas, lines);
   }
 
 
@@ -71,9 +61,12 @@ export class PixiLayerOsm extends AbstractLayer {
     if (val === this._enabled) return;  // no change
     this._enabled = val;
 
-    if (val) {
-      this.dirtyLayer();
-      this.context.services.osm.startAsync();
+    const context = this.context;
+    const gfx = context.systems.gfx;
+    const osm = context.services.osm;
+    if (val && osm) {
+      osm.startAsync()
+        .then(() => gfx.immediateRedraw());
     }
   }
 
@@ -107,11 +100,35 @@ export class PixiLayerOsm extends AbstractLayer {
 
   /**
    * reset
-   * Every Layer should have a reset function to clear out any state when a reset occurs.
+   * Every Layer should have a reset function to replace any Pixi objects and internal state.
    */
   reset() {
     super.reset();
-    this._resolved.clear();
+
+    this._resolved.clear();  // cached geojson features
+
+    const groupContainer = this.scene.groups.get('basemap');
+
+    // Remove any existing containers
+    for (const child of groupContainer.children) {
+      if (child.label.startsWith(this.layerID + '-')) {   // 'osm-*'
+        groupContainer.removeChild(child);
+        child.destroy({ children: true });  // recursive
+      }
+    }
+
+    // Add containers
+    const areas = new PIXI.Container();
+    areas.label = `${this.layerID}-areas`;   // e.g. osm-areas
+    areas.sortableChildren = true;
+    this.areaContainer = areas;
+
+    const lines = new PIXI.Container();
+    lines.label = `${this.layerID}-lines`;   // e.g. osm-lines
+    lines.sortableChildren = true;
+    this.lineContainer = lines;
+
+    groupContainer.addChild(areas, lines);
   }
 
 
@@ -123,10 +140,10 @@ export class PixiLayerOsm extends AbstractLayer {
    * @param  zoom       Effective zoom to use for rendering
    */
   render(frame, viewport, zoom) {
-    const service = this.context.services.osm;
-    if (!this.enabled || !service?.started || zoom < MINZOOM) return;
-
     const context = this.context;
+    const osm = context.services.osm;
+    if (!this.enabled || !osm?.started || zoom < MINZOOM) return;
+
     const editor = context.systems.editor;
     const filters = context.systems.filters;
     const graph = editor.staging.graph;
@@ -134,7 +151,7 @@ export class PixiLayerOsm extends AbstractLayer {
     context.loadTiles();  // Load tiles of OSM data to cover the view
 
     let entities = editor.intersects(context.viewport.visibleExtent());   // Gather data in view
-    entities = filters.filter(entities, graph);   // Apply feature filters
+    entities = filters.filterScene(entities, graph);   // Apply feature filters
 
     const data = {
       polygons: new Map(),
@@ -188,9 +205,9 @@ export class PixiLayerOsm extends AbstractLayer {
     // and parent-child data links have been established.
 
     // Gather ids related for the selected/hovered/drawing features.
-    const selectedIDs = this._classHasData.get('selected') ?? new Set();
-    const hoveredIDs = this._classHasData.get('hovered') ?? new Set();
-    const drawingIDs = this._classHasData.get('drawing') ?? new Set();
+    const selectedIDs = this.getDataWithClass('select');
+    const hoveredIDs = this.getDataWithClass('hover');
+    const drawingIDs = this.getDataWithClass('drawing');
     const dataIDs = new Set([...selectedIDs, ...hoveredIDs, ...drawingIDs]);
 
     // Experiment: avoid showing child vertices/midpoints for too small parents
@@ -253,12 +270,13 @@ export class PixiLayerOsm extends AbstractLayer {
     const entities = data.polygons;
     const context = this.context;
     const graph = context.systems.editor.staging.graph;
+    const filters = context.systems.filters;
     const l10n = context.systems.l10n;
     const presets = context.systems.presets;
     const styles = context.systems.styles;
 
     const pointsContainer = this.scene.groups.get('points');
-    const showPoints = context.systems.filters.isEnabled('points');
+    const showPoints = filters.isEnabled('points');
 
     // For deciding if an unlabeled polygon feature is interesting enough to show a virtual pin.
     // Note that labeled polygon features will always get a virtual pin.
@@ -297,7 +315,7 @@ export class PixiLayerOsm extends AbstractLayer {
 
       for (let i = 0; i < parts.length; ++i) {
         const coords = parts[i];
-        const featureID = `${this.layerID}-${entityID}-fill-${i}`;
+        const featureID = `${this.layerID}-${entityID}-${i}`;
         let feature = this.features.get(featureID);
 
         // If feature existed before as a different type, recreate it.
@@ -513,10 +531,10 @@ export class PixiLayerOsm extends AbstractLayer {
 
 
     function _getLevelContainer(level) {
-      let levelContainer = lineContainer.getChildByName(level);
+      let levelContainer = lineContainer.getChildByLabel(level);
       if (!levelContainer) {
         levelContainer = new PIXI.Container();
-        levelContainer.name = level.toString();
+        levelContainer.label= level.toString();
         levelContainer.sortableChildren = true;
         levelContainer.zIndex = level;
         lineContainer.addChild(levelContainer);
@@ -543,8 +561,7 @@ export class PixiLayerOsm extends AbstractLayer {
     const presets = context.systems.presets;
 
     // Vertices related to the selection/hover should be drawn above everything
-    const mapUIContainer = this.scene.layers.get('map-ui').container;
-    const selectedContainer = mapUIContainer.getChildByName('selected');
+    const selectedContainer = this.scene.layers.get('map-ui').selected;
     const pointsContainer = this.scene.groups.get('points');
 
     function isInterestingVertex(node) {
@@ -739,8 +756,7 @@ export class PixiLayerOsm extends AbstractLayer {
     const entities = new Map([...data.lines, ...data.polygons]);
 
     // Midpoints should be drawn above everything
-    const mapUIContainer = this.scene.layers.get('map-ui').container;
-    const selectedContainer = mapUIContainer.getChildByName('selected');
+    const selectedContainer = this.scene.layers.get('map-ui').selected;
 
     // Generate midpoints from all the highlighted ways
     let midpoints = new Map();

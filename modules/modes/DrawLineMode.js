@@ -111,7 +111,7 @@ export class DrawLineMode extends AbstractMode {
     this._lastPoint = null;
     this._selectedData.clear();
 
-    const eventManager = context.systems.map.renderer.events;
+    const eventManager = context.systems.gfx.events;
     eventManager.setCursor('crosshair');
 
     context.enableBehaviors(['hover', 'draw', 'mapInteraction', 'mapNudge']);
@@ -165,9 +165,10 @@ export class DrawLineMode extends AbstractMode {
 
     const context = this.context;
     const editor = context.systems.editor;
-    const scene = context.systems.map.scene;
+    const gfx = context.systems.gfx;
+    const layer = gfx.scene.layers.get('osm');
+    const eventManager = gfx.events;
 
-    const eventManager = context.systems.map.renderer.events;
     eventManager.setCursor('grab');
 
     context.behaviors.hover
@@ -214,7 +215,8 @@ export class DrawLineMode extends AbstractMode {
     this._lastPoint = null;
 
     this._selectedData.clear();
-    scene.clearClass('drawing');
+
+    layer.clearClass('drawing');
 
     window.setTimeout(() => {
       context.behaviors.mapInteraction.doubleClickEnabled = true;
@@ -233,9 +235,10 @@ export class DrawLineMode extends AbstractMode {
   _refreshEntities() {
     const context = this.context;
     const editor = context.systems.editor;
-    const scene = context.scene();
+    const gfx = context.systems.gfx;
+    const layer = gfx.scene.layers.get('osm');
 
-    scene.clearClass('drawing');
+    layer.clearClass('drawing');
     this._selectedData.clear();
 
     const graph = editor.staging.graph;
@@ -246,21 +249,20 @@ export class DrawLineMode extends AbstractMode {
 
     // Sanity check - Bail out if any of these are missing.
     if (!drawWay || !lastNode || !firstNode) {
-      // debugger;
       this._cancel();
       return;
     }
 
     // `drawNode` may or may not exist, it will be recreated after the user moves the pointer.
     if (drawNode) {
-      scene.classData('osm', drawNode.id, 'drawing');
+      layer.setClass('drawing', drawNode.id);
 
       // Nudging at the edge of the map is allowed after the drawNode exists.
       context.behaviors.mapNudge.allow();
     }
 
     // todo - we do want to allow connecting a line to itself in some situations
-    scene.classData('osm', drawWay.id, 'drawing');
+    layer.setClass('drawing', drawWay.id);
     this._selectedData.set(drawWay.id, drawWay);
   }
 
@@ -401,7 +403,7 @@ export class DrawLineMode extends AbstractMode {
 
     if (locations.blocksAt(loc).length) return;   // editing is blocked here
 
-    const eventManager = context.systems.map.renderer.events;
+    const eventManager = context.systems.gfx.events;
     eventManager.setCursor('crosshair');
 
     let graph = editor.staging.graph;
@@ -811,7 +813,7 @@ export class DrawLineMode extends AbstractMode {
     const context = this.context;
     const editor = context.systems.editor;
     const graph = editor.staging.graph;
-    const eventManager = context.systems.map.renderer.events;
+    const eventManager = context.systems.gfx.events;
 
     const target = eventData.target;
     const datum = target?.data;

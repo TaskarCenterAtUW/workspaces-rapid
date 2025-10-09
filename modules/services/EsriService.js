@@ -1,9 +1,9 @@
-import { select as d3_select } from 'd3-selection';
-import { Tiler } from '@rapid-sdk/math';
+import { select } from 'd3-selection';
+import { Extent, Tiler } from '@rapid-sdk/math';
 import { utilQsString } from '@rapid-sdk/util';
 
 import { AbstractSystem } from '../core/AbstractSystem.js';
-import { Graph, Tree } from '../core/lib/index.js';
+import { Graph, Tree, RapidDataset } from '../core/lib/index.js';
 import { osmNode, osmRelation, osmWay } from '../osm/index.js';
 import { utilFetchResponse } from '../util/index.js';
 
@@ -16,6 +16,10 @@ const TILEZOOM = 14;
 
 /**
  * `EsriService`
+ * This service connects to Esri's ArcGIS API to fetch data about Esri-hosted datasets.
+ *
+ * @see https://openstreetmap.maps.arcgis.com/home/index.html
+ * @see https://developers.arcgis.com/rest/
  *
  * Events available:
  *   `loadedData`
@@ -33,10 +37,9 @@ export class EsriService extends AbstractSystem {
 
     this._tiler = new Tiler().zoomRange(TILEZOOM);
     this._datasets = {};
-    this._gotDatasets = false;
 
-    // Ensure methods used as callbacks always have `this` bound correctly.
-    this._parseDataset = this._parseDataset.bind(this);
+    this._initPromise = null;
+    this._datasetsPromise = null;
   }
 
 
@@ -46,7 +49,10 @@ export class EsriService extends AbstractSystem {
    * @return {Promise} Promise resolved when this component has completed initialization
    */
   initAsync() {
-    return this.resetAsync();
+    if (this._initPromise) return this._initPromise;
+
+    return this._initPromise = this.resetAsync()
+      .then(() => this._loadDatasetsAsync());
   }
 
 
@@ -82,6 +88,50 @@ export class EsriService extends AbstractSystem {
 
 
   /**
+   * getAvailableDatasets
+   * Called by `RapidSystem` to get the datasets that this service provides.
+   * @return {Array<RapidDataset>}  The datasets this service provides
+   */
+  getAvailableDatasets() {
+    // Convert the internal datasets into "Rapid" datasets for the catalog.
+    // We expect them to be all loaded now because `_loadDatasetsAsync` is called by `initAsync`
+    //  and `getAvailableDatasets` is called by RapidSystem's `startAsync`.
+    return Object.values(this._datasets).map(d => {
+      // gather categories
+      const categories = new Set(['esri']);
+      for (const c of d.groupCategories) {
+        categories.add(c.toLowerCase().replace('/categories/', ''));
+      }
+
+      const dataset = new RapidDataset(this.context, {
+        id: d.id,
+        conflated: false,
+        service: 'esri',
+        categories: categories,
+        dataUsed: ['esri', this.getDataUsed(d.title)],
+        label: d.title,
+        description: d.snippet,
+        itemUrl: `${HOMEROOT}/item.html?id=${d.id}`,
+        licenseUrl: 'https://wiki.openstreetmap.org/wiki/Esri/ArcGIS_Datasets#License',
+        thumbnailUrl: `${APIROOT}/items/${d.id}/info/${d.thumbnail}?w=400`
+      });
+
+      if (d.extent) {
+        dataset.extent = new Extent(d.extent[0], d.extent[1]);
+      }
+
+      // Test running building layers through MapWithAI conflation service
+      if (categories.has('buildings')) {
+        dataset.conflated = true;
+        dataset.service = 'mapwithai';
+      }
+
+      return dataset;
+    });
+  }
+
+
+  /**
    * getData
    * Get already loaded data that appears in the current map view
    * @param   {string}  datasetID - datasetID to get data for
@@ -97,17 +147,55 @@ export class EsriService extends AbstractSystem {
 
 
   /**
+   * graph
+   * Returns the graph for the given datasetID
+   * @param   {string}  datasetID - datasetID to get data for
+   * @return  {Graph?}  The graph holding the data, or `undefined` if not found
+   */
+  graph(datasetID)  {
+    const ds = this._datasets[datasetID];
+    return ds?.graph;
+  }
+
+
+  /**
+   * getDataUsed
+   * This returns the string to use for the changeset `data_used` tag.
+   * For Rapid#1309 we need to change the "data used" string from
+   * 'Google Buildings for <Country>' to 'Google Open Buildings'.
+   * All other titles are returned unmodified.
+   * @param  {string}  title - the title to consider
+   * @return {string}  The same title in most cases, or the proper google buildings title if applicable.
+   */
+  getDataUsed(title) {
+    if (title.startsWith('Google Buildings for')) {
+      return 'Google Open Buildings';
+    } else {
+      return title;
+    }
+  }
+
+
+  /**
    * loadTiles
    * Schedule any data requests needed to cover the current map view
    * @param   {string}  datasetID - datasetID to load tiles for
+   * @throws  Will throw if the datasetID is not found
    */
   loadTiles(datasetID) {
     if (this._paused) return;
 
-    // `loadDatasetsAsync` and `loadLayerAsync` are asynchronous,
-    // so ensure both have completed before we start requesting tiles.
     const ds = this._datasets[datasetID];
-    if (!ds || !ds.layer) return;
+    if (!ds)  {
+      throw new Error(`Unknown datasetID: ${datasetID}`);
+    }
+
+    // If we haven't loaded this dataset's schema information, do that first, then retry.
+    if (!ds.layer) {
+      this._loadDatasetLayerAsync(ds)
+        .then(() => this.loadTiles(datasetID));
+      return;
+    }
 
     const cache = ds.cache;
     const locations = this.context.systems.locations;
@@ -144,52 +232,76 @@ export class EsriService extends AbstractSystem {
   }
 
 
-  graph(datasetID)  {
-    const ds = this._datasets[datasetID];
-    return ds?.graph;
+  /**
+   * _loadDatasetsAsync
+   * Loads all the available datasets from the Esri server
+   * @return {Promise} Promise resolved when all pages of data have been loaded
+   */
+  _loadDatasetsAsync() {
+    if (this._datasetsPromise) return this._datasetsPromise;
+
+    return this._datasetsPromise = new Promise((resolve, reject) => {
+      // recursively fetch all pages of data
+      const fetchMore = (page) => {
+        fetch(this._searchURL(page))
+          .then(utilFetchResponse)
+          .then(json => {
+            for (const ds of json.results ?? []) {
+              this._parseDataset(ds);
+            }
+
+            if (json.nextStart > 0) {
+              fetchMore(json.nextStart);  // fetch next page
+            } else {
+              resolve(this._datasets);
+            }
+          })
+          .catch(e => {
+            reject(e);
+          });
+      };
+
+      fetchMore(1);
+    });
   }
 
 
-  loadDatasetsAsync() {
-    if (this._gotDatasets) {
-      return Promise.resolve(this._datasets);
+  /**
+   * _parseDataset
+   * Add this dataset to the list of available datasets
+   * @param  {Object}  ds - the dataset metadata
+   */
+  _parseDataset(ds) {
+    if (this._datasets[ds.id]) return;  // unless we've seen it already
 
-    } else {
-      const thiz = this;
-      return new Promise((resolve, reject) => {
-        let start = 1;
-        fetchMore(start);
+    this._datasets[ds.id] = ds;
+    ds.graph = new Graph();
+    ds.tree = new Tree(ds.graph);
+    ds.cache = { inflight: {}, loaded: {}, seen: {} };
+    ds.lastv = null;
+    ds.layer = null;   // the schema info will live here
 
-        function fetchMore(start) {
-          fetch(thiz._searchURL(start))
-            .then(utilFetchResponse)
-            .then(json => {
-              for (const ds of json.results ?? []) {
-                thiz._parseDataset(ds);
-              }
-
-              if (json.nextStart > 0) {
-                fetchMore(json.nextStart);  // fetch next page
-              } else {
-                thiz._gotDatasets = true;   // no more pages
-                resolve(thiz._datasets);
-              }
-            })
-            .catch(e => {
-              thiz._gotDatasets = false;
-              reject(e);
-            });
-        }
-      });
-    }
+    // Cleanup the `licenseInfo` field by removing styles  (not used currently)
+    const license = select(document.createElement('div'));
+    license.html(ds.licenseInfo);       // set innerHtml
+    license.selectAll('*')
+      .attr('style', null)
+      .attr('size', null);
+    ds.license_html = license.html();   // get innerHtml
   }
 
 
-  loadLayerAsync(datasetID) {
-    let ds = this._datasets[datasetID];
+  /**
+   * _loadDatasetLayerAsync
+   * Each dataset has a schema (aka "tagmap") which is available behind the "layerUrl".
+   * Before we can use the dataset we need to load this information.
+   * @param  {Object}  ds - the dataset to load the schema informarion
+   * @return {Promise} Promise resolved with the layer data when the dataset schema has been loaded
+   */
+  _loadDatasetLayerAsync(ds) {
     if (!ds || !ds.url) {
-      return Promise.reject(`Unknown datasetID: ${datasetID}`);
-    } else if (ds.layer) {
+      return Promise.reject(`No dataset`);
+    } else if (ds.layer) {    // done already
       return Promise.resolve(ds.layer);
     }
 
@@ -197,7 +309,7 @@ export class EsriService extends AbstractSystem {
       .then(utilFetchResponse)
       .then(json => {
         if (!json.layers || !json.layers.length) {
-          throw new Error(`Missing layer info for datasetID: ${datasetID}`);
+          throw new Error(`Missing layer info for datasetID: ${ds.id}`);
         }
 
         ds.layer = json.layers[0];  // should return a single layer
@@ -212,7 +324,6 @@ export class EsriService extends AbstractSystem {
           tagmap[f.name] = f.alias;    // 2. field `name` -> OSM tag (stored in `alias`)
         }
         ds.layer.tagmap = tagmap;
-
         return ds.layer;
       })
       .catch(e => {
@@ -258,10 +369,6 @@ export class EsriService extends AbstractSystem {
     //   .geometryType   "esriGeometryPoint" or "esriGeometryPolygon" ?
   }
 
-  _itemURL(itemID) {
-    return `${HOMEROOT}/item.html?id=${itemID}`;
-  }
-
   _tileURL(ds, extent, page) {
     page = page || 0;
     const layerID = ds.layer.id;
@@ -279,28 +386,6 @@ export class EsriService extends AbstractSystem {
     return `${ds.url}/${layerID}/query?` + utilQsString(params);
   }
 
-
-  // Add each dataset to this._datasets, create internal state
-  _parseDataset(ds) {
-    if (this._datasets[ds.id]) return;  // unless we've seen it already
-
-    this._datasets[ds.id] = ds;
-    ds.graph = new Graph();
-    ds.tree = new Tree(ds.graph);
-    ds.cache = { inflight: {}, loaded: {}, seen: {} };
-    ds.lastv = null;
-
-    // cleanup the `licenseInfo` field by removing styles  (not used currently)
-    let license = d3_select(document.createElement('div'));
-    license.html(ds.licenseInfo);       // set innerHtml
-    license.selectAll('*')
-      .attr('style', null)
-      .attr('size', null);
-    ds.license_html = license.html();   // get innerHtml
-
-    // generate public link to this item
-    ds.itemURL = this._itemURL(ds.id);
-  }
 
 
   _loadTilePage(ds, tile, page) {
@@ -329,7 +414,8 @@ export class EsriService extends AbstractSystem {
           cache.loaded[tile.id] = true;
           delete cache.inflight[tile.id];
 
-          this.context.deferredRedraw();
+          const gfx = this.context.systems.gfx;
+          gfx.deferredRedraw();
           this.emit('loadedData');
         }
       })
@@ -445,7 +531,7 @@ export class EsriService extends AbstractSystem {
       }
 
       // Since ESRI had to split the massive google open buildings dataset into multiple countries,
-      // They asked us to aggregate them all under the same 'Google Open Buildings' dataset - #1300
+      // They asked us to aggregate them all under the same 'Google Open Buildings' dataset - Rapid#1300
       let name = `${dataset.name}`;
       if (name.startsWith('Google_Buildings_for')) {
         name = 'Google_Open_Buildings';

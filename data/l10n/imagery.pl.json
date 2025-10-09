@@ -54,7 +54,11 @@
         "name": "Najnowsze zdjęcia lotnicze Digitaal Vlaanderen"
       },
       "Dourados_Ortofotos": {
-        "description": "Dourados (2018) i kilka dystryktów (2020) zdjęcia lotnicze wysokiej rozdzielczości."
+        "description": "Dourados (2018) i kilka dystryktów (2020) zdjęcia lotnicze wysokiej rozdzielczości.",
+        "name": "Ortofotomapa Dourados"
+      },
+      "EOXAT2017CLOUDLESS": {
+        "description": "Przetworzone zdjęcia satelitarne Sentinel."
       },
       "EOXAT2018CLOUDLESS": {
         "attribution": {
@@ -64,15 +68,25 @@
         "name": "eox.at 2018 bezchmurne"
       },
       "EOXAT2019CLOUDLESS": {
-        "description": "Przetworzone zdjęcia satelitarne Sentinel"
+        "description": "Przetworzone zdjęcia satelitarne Sentinel",
+        "name": "eox.at 2019 - Bezchmurny"
       },
       "EOXAT2020CLOUDLESS": {
-        "description": "Przetworzone zdjęcia satelitarne Sentinel."
+        "description": "Przetworzone zdjęcia satelitarne Sentinel.",
+        "name": "eox.at 2020 - Bezchmurny"
       },
       "EOXAT2021CLOUDLESS": {
-        "description": "Przetworzone zdjęcia satelitarne Sentinel."
+        "description": "Przetworzone zdjęcia satelitarne Sentinel.",
+        "name": "eox.at 2021 - Bezchmurny"
       },
       "EOXAT2022CLOUDLESS": {
+        "description": "Przetworzone zdjęcia satelitarne Sentinel.",
+        "name": "eox.at 2022 - Bezchmurny"
+      },
+      "EOXAT2023CLOUDLESS": {
+        "description": "Przetworzone zdjęcia satelitarne Sentinel."
+      },
+      "EOXAT2024CLOUDLESS": {
         "description": "Przetworzone zdjęcia satelitarne Sentinel."
       },
       "EsriWorldImagery": {
@@ -90,7 +104,17 @@
         "name": "Esri Beta (satelitarne i lotnicze)"
       },
       "Frankfurt-am-Main-2019": {
-        "description": "Zdjęcia lotnicze Frankfurtu nad Menem, sfotografowane 16 kwietnia 2019"
+        "attribution": {
+          "text": "Miejskie Biuro Geodezyjne w Frankfurtcie nad Menem"
+        },
+        "description": "Zdjęcia lotnicze Frankfurtu nad Menem, sfotografowane 16 kwietnia 2019",
+        "name": "Frankfurt nad Menem - Zdjęcie lotnicze 2019"
+      },
+      "Geodatastyrelsen_Denmark": {
+        "name": "Zdjęcia lotnicze SDFI"
+      },
+      "Geodatastyrelsen_Skaermkort": {
+        "name": " Mapa ekranu SDFI"
       },
       "Geoportal2-PL-City-boundaries_WMS": {
         "name": "Geoportal 2: Granice miast WMS"
@@ -176,7 +200,7 @@
       "Gliwice-buildings": {
         "name": "Gliwice: Budynki"
       },
-      "LSA-ATKIS_BU": {
+      "LSA-ALKIS_BU": {
         "description": "Kształty budynków w Saksonii-Anhalt"
       },
       "LSA-DOP20": {
@@ -220,8 +244,23 @@
       "Naturvardsverket-trails": {
         "name": "Agencja Ochrony Środowiska - Szlaki"
       },
+      "ODOT_TIMS_Road_Inventory": {
+        "attribution": {
+          "text": " \nDepartament Transportu Stanu Ohio"
+        }
+      },
+      "OSIP": {
+        "attribution": {
+          "text": " \nProgram obrazowania całego stanu Ohio"
+        },
+        "name": " \nProgram obrazowania całego stanu Ohio"
+      },
       "OSMUK-Cadastral-Parcels": {
-        "description": "Idealnie wyrównane działki katastralne (ewidencja gruntów) w Wielkiej Brytanii"
+        "attribution": {
+          "text": "Zawiera informacje z sektora publicznego na licencji Open Government Licence v3.0."
+        },
+        "description": "Idealnie wyrównane działki katastralne (ewidencja gruntów) w Wielkiej Brytanii",
+        "name": "OSMUK Działki"
       },
       "OSM_Inspector-Addresses": {
         "attribution": {
@@ -303,13 +342,16 @@
         "description": "Kolor żółty = Dane mapowe w domenie publicznej pochodzące z US Census. Kolor czerwony = Tych danych nie ma w OpenStreetMap"
       },
       "US-TIGER-Roads-2021": {
-        "description": "Kolor żółty = Dane mapowe w domenie publicznej pochodzące z US Census. Kolor czerwony = Tych danych nie ma w OpenStreetMap"
+        "description": "Kolor żółty = Dane mapowe w domenie publicznej pochodzące z US Census. Kolor czerwony = Tych danych nie ma w OpenStreetMap",
+        "name": "Drogi TIGER 2021"
       },
       "US-TIGER-Roads-2022": {
-        "description": "Kolor żółty = Dane mapowe w domenie publicznej pochodzące z US Census. Kolor czerwony = Tych danych nie ma w OpenStreetMap"
+        "description": "Kolor żółty = Dane mapowe w domenie publicznej pochodzące z US Census. Kolor czerwony = Tych danych nie ma w OpenStreetMap",
+        "name": "Drogi TIGER 2022"
       },
       "US-TIGER-Roads-2023": {
-        "description": "Kolor żółty = Dane mapowe w domenie publicznej pochodzące z US Census. Kolor czerwony = Tych danych nie ma w OpenStreetMap"
+        "description": "Kolor żółty = Dane mapowe w domenie publicznej pochodzące z US Census. Kolor czerwony = Tych danych nie ma w OpenStreetMap",
+        "name": "Drogi TIGER 2023"
       },
       "USDA-NAIP": {
         "attribution": {
@@ -320,6 +362,11 @@
       "US_Forest_Service_roads_overlay": {
         "description": "Drogi:  Zielone obramowanie = czwartorzędna. Brązowe obramowanie = polna/leśna. Nawierzchnia: żwir = jasno-brązowe wypełnienie, asfalt = czarny, twarda = szary, grunt = biały, beton = niebieski, trawa = zielony. Dostępna sezonowo = białe paski",
         "name": "Nakładka z drogami z U.S. Forest"
+      },
+      "UrbISOrtho": {
+        "attribution": {
+          "text": "Zrealizowany za pomocą Brussels UrbIS®© – Dystrybucja i prawa autorskie: CIRB"
+        }
       },
       "UrbISOrtho2016": {
         "attribution": {
@@ -341,6 +388,11 @@
           "text": "Zrealizowany za pomocą Brussels UrbIS®© – Dystrybucja i prawa autorskie: CIRB"
         }
       },
+      "UrbISOrtho2020": {
+        "attribution": {
+          "text": "Zrealizowany za pomocą Brussels UrbIS®© – Dystrybucja i prawa autorskie: CIRB"
+        }
+      },
       "UrbisAdmFR": {
         "attribution": {
           "text": "Zrealizowano za pomocą Brussels UrbIS®© – Dystrybucja i prawa autorskie CIRB"
@@ -348,6 +400,9 @@
         "name": "UrbisAdm Francja"
       },
       "UrbisAdmFRNL": {
+        "attribution": {
+          "text": "Zrealizowany za pomocą Brussels UrbIS®© – Dystrybucja i prawa autorskie: CIRB"
+        },
         "name": "UrbisAdm Francja/Holandia"
       },
       "UrbisAdmNL": {
@@ -409,6 +464,12 @@
       "eufar-balaton": {
         "description": "Geotagowane zdjęcia z 1940 od Balaton Limnological Institute.",
         "name": "Ortofotomapy EUFAR Balaton"
+      },
+      "geoscribble-latest": {
+        "attribution": {
+          "text": "Użytkownicy GeoScribble"
+        },
+        "name": "Najnowsze notatki GeoScribble"
       },
       "gothenburg-citymap": {
         "attribution": {
@@ -505,10 +566,12 @@
         "attribution": {
           "text": "© Gmina Kalmar"
         },
-        "description": "Ortofotomapy dla obszarów miejskich gminy Kalmar 2020"
+        "description": "Ortofotomapy dla obszarów miejskich gminy Kalmar 2020",
+        "name": "Kalmar Ortofotomapa 2020"
       },
       "kartverket-bygninger": {
-        "description": "Budynki INSPIRE w Norwegii"
+        "description": "Budynki INSPIRE w Norwegii",
+        "name": "Kartverket budynki"
       },
       "kelkkareitit": {
         "description": "Szlaki skuterów śnieżnych Kelkkareitit.fi z OSM (kraje nordyckie)",
@@ -610,7 +673,8 @@
         "attribution": {
           "text": "Płytki © cquest@Openstreetmap France, dane © IGN, LO/OL"
         },
-        "description": "Trasy sieci sklasyfikowanej (autostrady, drogi krajowe, drogi departamentalne)"
+        "description": "Trasy sieci sklasyfikowanej (autostrady, drogi krajowe, drogi departamentalne)",
+        "name": "Trasa 500"
       },
       "rzeszowski-aerial": {
         "name": "Powiat rzeszowski: Ortofotomapa (zdjęcia lotnicze)"

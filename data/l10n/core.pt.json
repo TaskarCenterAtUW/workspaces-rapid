@@ -1,7 +1,7 @@
 {
   "pt": {
     "icons": {
-      "download": "transferir",
+      "download": "descarregar",
       "information": "informação",
       "remove": "remover",
       "undo": "desfazer",
@@ -16,10 +16,11 @@
     },
     "toolbar": {
       "inspect": "Examinar",
-      "undo_redo": "Desfazer / Refazer",
+      "undo_redo": "Desfazer / refazer",
       "recent": "Recente",
       "favorites": "Favoritos",
-      "add_feature": "Adicionar Elemento"
+      "add_feature": "Adicionar elemento",
+      "rapid_features": "Auxiliar"
     },
     "title": {
       "labeled_and_more": {
@@ -31,19 +32,18 @@
     "modes": {
       "add_area": {
         "title": "Área",
-        "filter_tooltip": "áreas"
+        "description": "Adicione edifícios, parques, lagos ou outras áreas ao mapa."
       },
       "add_line": {
         "title": "Linha",
-        "filter_tooltip": "linhas"
+        "description": "Adicione ruas, trilhas, riachos ou outras linhas ao mapa."
       },
       "add_point": {
         "title": "Ponto",
-        "filter_tooltip": "pontos"
+        "description": "Adicione restaurantes, lojas, lixeiras, caixas de correio ou outros pontos ao mapa."
       },
       "add_note": {
         "title": "Nota",
-        "label": "Adicionar Nota",
         "description": "Detetaste um problema? Informa os outros mapeadores."
       },
       "add_preset": {
@@ -130,8 +130,9 @@
       "circularize": {
         "title": "Circularizar",
         "description": {
-          "single": "Tornar este elemento circular.",
-          "multiple": "Tornar estes elementos circulares."
+          "one": "Tornar este elemento circular.",
+          "many": "Tornar estes elementos circulares.",
+          "other": "Tornar estes elementos circulares."
         },
         "annotation": {
           "feature": {
@@ -141,39 +142,48 @@
           }
         },
         "multiple_blockers": {
-          "multiple": "Estes elementos não podem ser circularizados por vários motivos."
+          "one": "Isto não pode ser tornado circular por várias razões.",
+          "many": "Estes não podem ser tornados circulares por várias razões.",
+          "other": "Estes não podem ser tornados circulares por várias razões."
         },
         "not_closed": {
-          "single": "Este elemento não pode ser circularizado, porque não tem forma circular.",
-          "multiple": "Estes elementos não podem ser circularizados, porque não têm forma circular."
+          "one": "Isto não pode ser feito de forma circular porque não é um ciclo.",
+          "many": "Estes não podem ser circulares porque não são anéis.",
+          "other": "Estes não podem ser circulares porque não são anéis."
         },
         "too_large": {
-          "single": "Este elemento não pode ser circularizado, porque não está suficientemente visível.",
-          "multiple": "Estes elementos não podem ser circularizados, porque não estão suficientemente visíveis."
+          "one": "Isto não pode ser tornado circular porque não está neste momento suficientemente visível.",
+          "many": "Estes não podem ser tornados circulares porque não estão neste momento suficientemente visíveis.",
+          "other": "Estes não podem ser tornados circulares porque não estão neste momento suficientemente visíveis."
         },
         "connected_to_hidden": {
-          "single": "Este elemento não pode ser circularizado, porque está ligado a um elemento oculto.",
-          "multiple": "Estes elementos não podem ser circularizados, porque alguns deles estão ligados a elementos ocultos."
+          "one": "Isto não pode ser feito circular porque está ligado a um elemento oculto.",
+          "many": "Estes não podem ser circulares porque alguns estão ligados a elementos ocultos.",
+          "other": "Estes não podem ser circulares porque alguns estão ligados a elementos ocultos."
         },
         "not_downloaded": {
-          "single": "Este elemento não pode ser circularizado, porque partes dele ainda não foram transferidas.",
-          "multiple": "Estes elementos não podem ser circularizados, porque partes deles ainda não foram transferidas."
+          "one": "Isto não pode ser circular porque algumas partes ainda não foram descarregadas.",
+          "many": "Estes não podem ser circulares porque algumas partes ainda não foram descarregadas.",
+          "other": "Estes não podem ser circulares porque algumas partes ainda não foram descarregadas."
         },
         "already_circular": {
-          "single": "Este elemento não pode ser mais circular do que já é.",
-          "multiple": "Estes elementos não podem ser mais circulares do que já são."
+          "one": "Isto não pode ser mais circular do que já é.",
+          "many": "Estes não podem ser mais circulares do que já são.",
+          "other": "Estes não podem ser mais circulares do que já são."
         }
       },
       "orthogonalize": {
         "title": "Esquadrar",
         "description": {
           "corner": {
-            "single": "Esquadrar este canto.",
-            "multiple": "Esquadrar estes cantos."
+            "one": "Colocar este canto em esquadria.",
+            "many": "Colocar estes cantos em esquadria.",
+            "other": "Colocar estes cantos em esquadria."
           },
           "feature": {
-            "single": "Esquadrar os cantos deste elemento.",
-            "multiple": "Esquadrar os cantos destes elementos."
+            "one": "Colocar os cantos deste elemento em esquadria.",
+            "many": "Colocar os cantos destes elementos em esquadria.",
+            "other": "Colocar os cantos destes elementos em esquadria."
           }
         },
         "annotation": {
@@ -187,33 +197,6 @@
             "many": "Os cantos de {n} elementos foram esquadrados.",
             "other": "Os cantos de {n} elementos foram esquadrados."
           }
-        },
-        "multiple_blockers": {
-          "multiple": "Estes elementos não podem ser esquadrados por várias razões."
-        },
-        "end_vertex": {
-          "single": "Isto não pode ser esquadrado, por se tratar de um ponto final.",
-          "multiple": "Estes elementos não podem ser esquadrados por serem pontos finais."
-        },
-        "square_enough": {
-          "single": "Isto não pode ser mais esquadrado do que já é.",
-          "multiple": "Estes elementos não podem ser mais esquadrados do que já são."
-        },
-        "not_squarish": {
-          "single": "Isto não pode ser esquadrado por não ser quadrangular.",
-          "multiple": "Estes elementos não podem ser esquadrados por não serem quadrangulares."
-        },
-        "too_large": {
-          "single": "Isto não pode ser esquadrado por não estar suficientemente visível.",
-          "multiple": "Estes elementos não podem ser esquadrados por não estarem suficientemente visíveis."
-        },
-        "connected_to_hidden": {
-          "single": "Isto não pode ser esquadrado, porque está ligado a um elemento oculto.",
-          "multiple": "Estes elementos não podem ser esquadrados, porque alguns deles estão ligados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Isto não pode ser esquadrado, porque algumas das suas partes ainda não foram transferidas.",
-          "multiple": "Estes elementos não podem ser esquadrados, porque algumas das suas partes ainda não foram transferidas."
         }
       },
       "straighten": {
@@ -234,33 +217,14 @@
             "many": "{n} linhas endireitadas.",
             "other": "{n} linhas endireitadas."
           }
-        },
-        "too_bendy": {
-          "single": "Isto não pode ser endireitado, porque é demasiado curvo.",
-          "multiple": "Estes elementos não podem ser endireitados, porque são demasiado curvos."
-        },
-        "connected_to_hidden": {
-          "single": "Isto não pode ser endireitado, porque está ligado a um elemento oculto.",
-          "multiple": "Estes elementos não podem ser endireitados, porque alguns deles estão ligados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Isto não pode ser endireitado, porque algumas das suas partes ainda não foram transferidas.",
-          "multiple": "Estes elementos não podem ser endireitados, porque algumas das suas partes ainda não foram transferidas."
-        },
-        "straight_enough": {
-          "single": "Isto não pode ser mais endireitado do que já é.",
-          "multiple": "Estes elementos não podem ser mais alinhados do que já são."
-        },
-        "too_large": {
-          "single": "Este elemento não pode ser endireitado, porque não está suficientemente visível.",
-          "multiple": "Estes elementos não podem ser alinhados, porque não estão suficientemente visíveis."
         }
       },
       "delete": {
         "title": "Eliminar",
         "description": {
-          "single": "Eliminar este elemento de forma permanente.",
-          "multiple": "Eliminar estes elementos de forma permanente."
+          "one": "Eliminar este elemento permanentemente.",
+          "many": "Eliminar estes elementos permanentemente.",
+          "other": "Eliminar estes elementos permanentemente."
         },
         "annotation": {
           "point": "Ponto eliminado.",
@@ -273,30 +237,6 @@
             "many": "{n} elementos eliminados.",
             "other": "{n} elementos eliminados."
           }
-        },
-        "too_large": {
-          "single": "Este elemento não pode ser eliminado, porque não está suficientemente visível.",
-          "multiple": "Estes elementos não podem ser eliminados, porque não estão suficientemente visíveis."
-        },
-        "incomplete_relation": {
-          "single": "Este elemento não pode ser eliminado, porque não foi totalmente transferido.",
-          "multiple": "Estes elementos não podem ser eliminados, porque não foram totalmente transferidos."
-        },
-        "part_of_relation": {
-          "single": "Este elemento não pode ser eliminado, porque faz parte de uma relação maior. Primeiro, tens de removê-lo da relação.",
-          "multiple": "Estes elementos não podem ser eliminados, porque fazem parte de relações maiores. Primeiro, tens de removê-los das relações."
-        },
-        "connected_to_hidden": {
-          "single": "Não é possível eliminar este elemento, porque está ligado a um elemento oculto.",
-          "multiple": "Não é possível eliminar estes elementos, porque alguns deles estão ligados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Este elemento não pode ser eliminado, porque algumas partes dele ainda não foram transferidas.",
-          "multiple": "Estes elementos não podem ser eliminados, porque algumas partes deles ainda não foram transferidas."
-        },
-        "has_wikidata_tag": {
-          "single": "Este elemento não pode ser eliminado, porque tem uma etiqueta Wikidata.",
-          "multiple": "Estes elementos não podem ser eliminados, porque alguns deles têm uma etiqueta Wikidata."
         }
       },
       "downgrade": {
@@ -323,10 +263,6 @@
             "many": "{n} elementos reduzidos.",
             "other": "{n} elementos reduzidos."
           }
-        },
-        "has_wikidata_tag": {
-          "single": "Este elemento não pode ser reduzido, porque tem uma etiqueta Wikidata.",
-          "multiple": "Estes elementos não podem ser reduzidos, porque alguns deles têm uma etiqueta Wikidata."
         }
       },
       "add_member": {
@@ -405,7 +341,7 @@
           "multiple": "Estes elementos não podem ser desligados, porque não estão suficientemente visíveis."
         },
         "not_connected": "Não existem aqui linhas ou áreas suficientes para serem desligadas.",
-        "not_downloaded": "Não é possível desligar este elemento, porque algumas das suas partes ainda não foram transferidas.",
+        "not_downloaded": "Não é possível desligar este elemento, porque algumas das suas partes ainda não foram descarregadas.",
         "connected_to_hidden": "Não é possível desligar este elemento, porque está ligado a um elemento oculto.",
         "relation": "Não é possível desligar este elemento, porque liga membros de uma relação."
       },
@@ -421,7 +357,7 @@
         "not_adjacent": "Estes elementos não podem ser combinados, porque as suas extremidades não estão ligadas.",
         "damage_relation": "Estes elementos não podem ser unidos, porque isso danificaria uma relação \"{relation}\".",
         "relation": "Estes elementos não podem ser combinados, porque têm funções de relação em conflito.",
-        "incomplete_relation": "Estes elementos não podem ser combinados, porque pelo menos um deles não foi totalmente transferido.",
+        "incomplete_relation": "Estes elementos não podem ser combinados, porque pelo menos um deles não foi totalmente descarregado.",
         "conflicting_tags": "Estes elementos não podem ser combinados, porque algumas das suas etiquetas têm valores conflituantes.",
         "conflicting_relations": "Estes elementos não podem ser unidos, porque pertencem a relações conflitantes.",
         "paths_intersect": "Estes elementos não podem ser combinados, porque a linha resultante se interceptaria a si mesma.",
@@ -429,10 +365,6 @@
       },
       "move": {
         "title": "Mover",
-        "description": {
-          "single": "Mover este elemento para outra localização.",
-          "multiple": "Mover estes elementos para outra localização."
-        },
         "annotation": {
           "point": "Ponto movido.",
           "vertex": "Nó de uma linha movido.",
@@ -444,38 +376,12 @@
             "many": "{n} elementos movidos.",
             "other": "{n} elementos movidos."
           }
-        },
-        "incomplete_relation": {
-          "single": "Este elemento não pode ser movido, porque não foi totalmente transferido.",
-          "multiple": "Estes elementos não podem ser movidos, porque não foram totalmente transferidos."
-        },
-        "too_large": {
-          "single": "Este elemento não pode ser movido, porque não está totalmente visível.",
-          "multiple": "Estes elementos não podem ser movidos, porque não estão totalmente visíveis."
-        },
-        "connected_to_hidden": {
-          "single": "Este elemento não pode ser movido, porque está ligado a um elemento oculto.",
-          "multiple": "Estes elementos não podem ser movidos, porque alguns deles estão ligados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Este elemento não pode ser movido, porque algumas das suas partes ainda não foram transferidas.",
-          "multiple": "Estes elementos não podem ser movidos, porque algumas das suas partes ainda não foram transferidas."
         }
       },
       "reflect": {
         "title": {
-          "long": "Refletir Longo",
-          "short": "Refletir Curto"
-        },
-        "description": {
-          "long": {
-            "single": "Refletir este elemento pelo seu eixo longo.",
-            "multiple": "Refletir estes elementos pelos seus eixos longos."
-          },
-          "short": {
-            "single": "Refletir este elemento pelo seu eixo curto.",
-            "multiple": "Refletir estes elementos pelos seus eixos curtos."
-          }
+          "long": "Refletir longo",
+          "short": "Refletir curto"
         },
         "annotation": {
           "long": {
@@ -492,30 +398,10 @@
               "other": "{n} elementos refletidos pelo seu eixo curto."
             }
           }
-        },
-        "incomplete_relation": {
-          "single": "Este elemento não pode ser refletido, porque não foi totalmente transferido.",
-          "multiple": "Estes elementos não podem ser refletidos, porque não foram totalmente transferidos."
-        },
-        "too_large": {
-          "single": "Este elemento não pode ser refletido, porque não está totalmente visível.",
-          "multiple": "Estes elementos não podem ser refletidos, porque não estão totalmente visíveis."
-        },
-        "connected_to_hidden": {
-          "single": "Este elemento não pode ser refletido, porque está ligado a um elemento oculto.",
-          "multiple": "Estes elementos não podem ser refletidos, porque alguns deles estão ligados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Este elemento não pode ser refletido, porque algumas das suas partes ainda não foram transferidas.",
-          "multiple": "Estes elementos não podem ser refletidos, porque algumas das suas partes ainda não foram transferidas."
         }
       },
       "rotate": {
         "title": "Rodar",
-        "description": {
-          "single": "Rodar este elemento em torno do seu ponto central.",
-          "multiple": "Rodar estes elementos em torno do seu ponto central."
-        },
         "annotation": {
           "line": "Linha rodada.",
           "area": "Área rodada.",
@@ -525,22 +411,6 @@
             "many": "{n} elementos rodados.",
             "other": "{n} elementos rodados."
           }
-        },
-        "incomplete_relation": {
-          "single": "Este elemento não pode ser rodado, porque não foi totalmente transferido.",
-          "multiple": "Estes elementos não podem ser rodados, porque não foram totalmente transferidos."
-        },
-        "too_large": {
-          "single": "Este elemento não pode ser rodado, porque não está totalmente visível.",
-          "multiple": "Estes elementos não podem ser rodados, porque não estão totalmente visíveis."
-        },
-        "connected_to_hidden": {
-          "single": "Este elemento não pode ser rodado, porque está ligado a um elemento oculto.",
-          "multiple": "Estes elementos não podem ser rodados, porque alguns deles estão ligados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Este elemento não pode ser rodado, porque algumas partes dele ainda não foram transferidas.",
-          "multiple": "Estes elementos não podem ser rodados, porque algumas partes deles ainda não foram transferidos."
         }
       },
       "reverse": {
@@ -586,22 +456,6 @@
               "other": "{n} elementos ampliados."
             }
           }
-        },
-        "too_small": {
-          "single": "Este elemento não pode ser reduzido, porque se tornaria demasiado pequeno.",
-          "multiple": "Estes elementos não podem ser reduzidos, porque se tornariam demasiado pequenos."
-        },
-        "too_large": {
-          "single": "Este elemento não pode ser ampliado por não estar suficientemente visível.",
-          "multiple": "Estes elementos não podem ser ampliados por não estarem suficientemente visíveis."
-        },
-        "connected_to_hidden": {
-          "single": "Este elemento não pode ser ampliado, porque está ligado a um elemento oculto.",
-          "multiple": "Estes elementos não podem ser ampliados, porque alguns deles estão ligados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Este elemento não pode ser ampliado por ter partes que ainda não foram transferidas.",
-          "multiple": "Estes elementos não podem ser ampliados por terem partes que ainda não foram transferidas."
         }
       },
       "split": {
@@ -611,6 +465,10 @@
             "single": {
               "single_node": "Dividir esta linha em duas neste ponto.",
               "multiple_node": "Dividir esta linha nestes pontos."
+            },
+            "multiple": {
+              "single_node": "Dividir estas linhas neste ponto.",
+              "multiple_node": "Dividir estas linhas nestes pontos."
             }
           },
           "area": {
@@ -659,41 +517,25 @@
       "extract": {
         "title": "Extrair",
         "description": {
-          "vertex": {
-            "single": "Extrair este ponto das linhas/áreas a que pertence.",
-            "multiple": "Extrair estes pontos dos seus elementos principais."
-          },
-          "line": {
-            "single": "Extrair um ponto desta linha.",
-            "multiple": "Extrair pontos destas linhas."
-          },
-          "area": {
-            "single": "Extrair um ponto desta área.",
-            "multiple": "Extrair pontos destas áreas."
-          },
           "feature": {
-            "multiple": "Extrair pontos destes elementos."
+            "other": "Extrair pontos destes elementos."
           }
         },
         "annotation": {
           "one": "Ponto extraído.",
           "many": "{n} pontos extraídos.",
           "other": "{n} pontos extraídos."
-        },
-        "too_large": {
-          "single": "Há um ponto que não pode ser extraído, porque este elemento não está suficientemente visível.",
-          "multiple": "Os pontos não podem ser extraídos, porque estes elementos não estão suficientemente visíveis."
-        },
-        "connected_to_hidden": {
-          "single": "Este ponto não pode ser extraído, porque está ligado a um elemento oculto.",
-          "multiple": "Os pontos não podem ser extraídos, porque alguns deles estão ligados a elementos ocultos."
         }
+      },
+      "cycle_highway_tag": {
+        "crosswalk_annotation": "Alteração da etiqueta crosswalk da linha selecionada."
       }
     },
     "restriction": {
       "controls": {
         "distance": "Distância",
         "distance_up_to": "Até {distance}",
+        "via": "Através de",
         "via_node_only": "Apenas nó",
         "via_up_to_one": "Até 1 linha",
         "via_up_to_two": "Até 2 linhas"
@@ -715,6 +557,7 @@
           "allowed_straight_on": "Permitido seguir em frente {indirect}"
         },
         "from": "DE",
+        "via": "ATRAVÉS DE",
         "to": "PARA",
         "select_from": "Clica para selecionar um segmento {from}",
         "select_from_name": "Clica para selecionar {from} {fromName}",
@@ -731,21 +574,21 @@
       "tooltip": "Refazer: {action}",
       "nothing": "Nada a refazer."
     },
+    "tooltip_keyhint": "Chave:",
     "translate": {
       "translate": "Adicionar nome multilingue",
-      "localized_translation_label": "Nome Multilingue",
+      "localized_translation_label": "Nome multilingue",
       "localized_translation_language": "Escolhe o idioma",
-      "localized_translation_name": "Nome"
+      "localized_translation_name": "Nome",
+      "language_and_code": "{língua} ({código})"
     },
     "zoom_in_edit": "Aproxima para editar",
-    "login": "Iniciar Sessão",
-    "logout": "Terminar Sessão",
+    "login": "Iniciar sessão",
+    "logout": "Terminar sessão",
     "loading_auth": "A ligar ao OpenStreetMap...",
     "report_a_bug": "Comunicar um erro",
     "help_translate": "Ajuda a traduzir",
-    "sidebar": {
-      "tooltip": "Mostrar/esconder o painel lateral"
-    },
+    "example": "Exemplo:",
     "feature_info": {
       "hidden_warning": {
         "one": "{count} elemento oculto",
@@ -753,11 +596,12 @@
         "other": "{count} elementos ocultos"
       }
     },
-    "osm_api_status": {
+    "status": {
       "message": {
         "error": "Não foi possível comunicar com a API do OpenStreeMap. As tuas edições estão guardadas localmente. Verifica a tua ligação à rede.",
         "offline": "A API do OpenStreetMap está inacessível. As tuas edições estão guardadas localmente. Por favor, volta mais tarde.",
         "readonly": "De momento, a API do OpenStreetMap está apenas em modo de leitura. Podes continuar a editar, mas terás de esperar para guardar as tuas alterações.",
+        "ratelimit": "Descarregaste demasiados dados do OpenStreetMap. Tenta novamente em {seconds} segundos ou muda de conta.",
         "local_storage_full": "Fizeste demasiadas edições para fazer cópia de segurança. Considera guardar as tuas alterações agora."
       },
       "retry": "Repetir"
@@ -771,7 +615,7 @@
       "save": "Enviar",
       "cancel": "Cancelar",
       "changes": "Alterações",
-      "download_changes": "Transferir ficheiro osmChange",
+      "download_changes": "Descarregar ficheiro osmChange",
       "errors": "Erros",
       "warnings": "Avisos",
       "modified": "Alterado",
@@ -780,7 +624,9 @@
       "outstanding_errors_message": "Por favor, resolve primeiro todos os erros. Restam {count}.",
       "comment_needed_message": "Por favor, adiciona um resumo das alterações efetuadas.",
       "about_changeset_comments": "Sobre os comentários das alterações",
-      "google_warning": "Mencionaste a Google no teu comentário: convém lembrar que copiar do Google Maps é expressamente proibido."
+      "about_changeset_comments_link": "//wiki.openstreetmap.org/wiki/Pt:Good_changeset_comments",
+      "google_warning": "Mencionaste a Google no teu comentário: convém lembrar que copiar do Google Maps é expressamente proibido.",
+      "google_warning_link": "https://www.openstreetmap.org/copyright/pt"
     },
     "contributors": {
       "list": "Edições feitas por {users}",
@@ -804,7 +650,6 @@
         "description": "Descrição",
         "resolution": "Resolução",
         "accuracy": "Precisão",
-        "unknown": "Desconhecido",
         "show_tiles": "Mostrar mosaicos",
         "hide_tiles": "Ocultar mosaicos"
       },
@@ -812,13 +657,13 @@
         "title": "Histórico",
         "no_history": "Sem histórico (elemento novo)",
         "version": "Versão",
-        "last_edit": "Última Edição",
-        "edited_by": "Editado Por",
+        "last_edit": "Última edição",
+        "edited_by": "Editado por",
         "changeset": "Conjunto de alterações",
-        "unknown": "Desconhecido",
+        "link_text": "Histórico no openstreetmap.org",
         "note_no_history": "Sem histórico (nova nota)",
         "note_comments": "Comentários",
-        "note_created_date": "Data de Criação",
+        "note_created_date": "Data de criação",
         "note_created_user": "Criada por",
         "note_link_text": "Nota em openstreetmap.org"
       },
@@ -860,14 +705,16 @@
       "location_unavailable": "A tua localização não se encontra disponível."
     },
     "inspector": {
+      "tooltip": "Alternar o inspetor de elementos.",
       "zoom_to": {
         "title": "Focar",
         "no_selection": "Não há nada para focar."
       },
-      "show_more": "Mostrar Mais",
+      "show_more": "Mostrar mais",
       "view_on_osm": "Ver em openstreetmap.org",
       "view_on_osmose": "Ver em osmose.openstreetmap.fr",
       "view_on_keepRight": "Ver em keepright.at",
+      "view_on_maproulette": "Ver em maproulette.org",
       "feature_type": "Tipo de elemento",
       "fields": "Campos",
       "tags": "Etiquetas",
@@ -886,22 +733,22 @@
         "other": "{n} resultados para {search}"
       },
       "no_documentation_key": "Não há documentação disponível.",
+      "edit_reference": "editar / traduzir",
       "wiki_reference": "Ver documentação mais detalhada",
       "wiki_en_reference": "Ver documentação em inglês",
+      "key_value": "chave=valor",
       "multiple_values": "Vários valores",
       "multiple_types": "Vários tipos",
       "unshared_value_tooltip": "não é partilhado por todos os elementos",
-      "hidden_preset": {
-        "manual": "Os {features} estão ocultos. Ativa-os no painel Dados do Mapa.",
-        "zoom": "Os {features} estão ocultos. Aproxima o mapa para os tornar visíveis."
-      },
       "back_tooltip": "Alterar tipo de elemento",
+      "type": "Tipo",
+      "details": "Detalhes",
       "remove": "Remover",
       "search": "Pesquisar",
       "unknown": "Desconhecido",
+      "incomplete": "<não descarregado>",
       "feature_list": "Pesquisar elementos",
-      "edit": "Editar elemento",
-      "edit_features": "Editar elementos",
+      "multiselect": "Seleção múltipla",
       "check": {
         "yes": "Sim",
         "no": "Não",
@@ -909,7 +756,6 @@
       },
       "radio": {
         "structure": {
-          "type": "Tipo",
           "default": "Padrão",
           "layer": "Nível"
         }
@@ -936,22 +782,36 @@
       }
     },
     "background": {
-      "title": "Imagem de Fundo",
+      "title": "Imagem de fundo",
       "description": "Configurações da imagem de fundo",
-      "backgrounds": "Camadas de Fundo",
+      "backgrounds": "Camadas de fundo",
       "none": "Nenhuma",
       "best_imagery": "Melhor fonte de imagem para esta região",
       "switch": "Mudar para esta camada",
       "custom": "Personalizada",
-      "overlays": "Camadas Superiores",
+      "overlays": "Camadas superiores",
+      "grid": {
+        "grids": "Grelhas",
+        "no_grid": "Sem grelhas",
+        "n_by_n": "Grelha {num} por {num}"
+      },
+      "imagery_source_faq": "Informações da imagem de fundo / reportar um problema",
       "imagery_problem_faq": "Comunicar problema na camada de fundo",
       "reset": "repor",
       "reset_all": "Repor tudo",
-      "display_options": "Opções de Visualização",
+      "display_options": "Opções de visualização",
+      "wayback": {
+        "description": "O Esri Wayback contém instantâneos arquivados do Esri World Imagery criados ao longo do tempo.",
+        "date": "Data"
+      },
       "brightness": "Brilho",
       "contrast": "Contraste",
       "saturation": "Saturação",
       "sharpness": "Nitidez",
+      "3dmap": {
+        "description": "Mostrar mapa 3D",
+        "tooltip": "Mostrar um mapa 3D inserido."
+      },
       "minimap": {
         "description": "Mostrar minimapa",
         "tooltip": "Mostra um pequeno mapa com uma área mais abrangente que ajuda a localizar a área que estás a editar."
@@ -964,37 +824,49 @@
         "description": "Mostrar painel de localização",
         "tooltip": "Mostra coordenadas e detalhes regionais."
       },
-      "fix_misalignment": "Ajustar Deslocamento da Imagem",
+      "fix_misalignment": "Ajustar deslocamento da imagem",
       "offset": "Arrasta o rato na área cinzenta em baixo para ajustar o deslocamento da imagem ou introduz os valores do deslocamento em metros. "
     },
     "map_data": {
-      "title": "Dados do Mapa",
+      "title": "Dados do mapa",
       "description": "Dados do mapa",
-      "data_layers": "Camadas de Dados",
+      "data_layers": "Camadas de dados",
       "layers": {
         "osm": {
           "tooltip": "Dados cartográficos do OpenStreetMap",
-          "title": "Dados OpenStreetMap"
+          "title": "Dados OpenStreetMap",
+          "feature": "Elemento OpenStreetMap"
         },
         "notes": {
           "tooltip": "Dados das notas do OpenStreetMap",
           "title": "Notas OpenstreetMap"
         },
+        "rapid": {
+          "tooltip": "Sugestões de elementos detetados a partir da aprendizagem automática e de dados abertos que podem ser utilizados para melhorar o OpenStreetMap",
+          "license": "Licença do Map With AI do Facebook"
+        },
         "maproulette": {
+          "title": {
+            "one": "Tarefa MapRoulette",
+            "many": "Tarefas MapRoulette",
+            "other": "Tarefas MapRoulette"
+          },
+          "loading_task_details": "A carregar detalhes da tarefa...",
           "detail_title": "Detalhes",
+          "instruction_title": "Instruções",
           "cancel": "Cancelar"
         },
         "keepRight": {
           "tooltip": "Problemas nos dados detetados por keepright.at",
           "title": "Problemas do KeepRight"
         },
-        "improveOSM": {
-          "tooltip": "Dados em falta detetados por improveosm.org",
-          "title": "Problemas do ImproveOSM"
-        },
         "osmose": {
           "tooltip": "Problemas nos dados detetados por osmose.openstreetmap.fr",
           "title": "Problemas do Osmose"
+        },
+        "geoScribble": {
+          "tooltip": "Anotações/rabiscos feitos pelos usuários do EveryDoor.",
+          "title": "Anotações do GeoScribble"
         },
         "custom": {
           "tooltip": "Arrasta e larga um ficheiro de dados na página ou clica no botão para configurar",
@@ -1010,8 +882,7 @@
         "title": "Mostrar painel de medidas",
         "tooltip": "Mostra valores de geometria da seleção"
       },
-      "style_options": "Opções de Estilo",
-      "map_features": "Elementos do Mapa",
+      "style_options": "Opções de estilo",
       "autohidden": "Estes elementos foram automaticamente ocultados para não haver demasiados elementos no ecrã. Podes aproximar para editá-los.",
       "osmhidden": "Estes elementos foram automaticamente ocultados porque a camada OpenStreetMap está oculta."
     },
@@ -1022,10 +893,7 @@
       }
     },
     "photo_overlays": {
-      "title": "Camadas de Fotos",
-      "traffic_signs": {
-        "title": "Sinais de trânsito"
-      },
+      "title": "Camadas de fotos",
       "photo_type": {
         "flat": {
           "title": "Fotos planas",
@@ -1051,10 +919,10 @@
         "tooltip": "Mostrar fotos apenas deste utilizador"
       }
     },
-    "feature": {
+    "filters": {
       "points": {
         "description": "Pontos",
-        "tooltip": "Pontos de Interesse"
+        "tooltip": "Pontos de interesse"
       },
       "traffic_roads": {
         "description": "Estradas de tráfego",
@@ -1074,7 +942,7 @@
       },
       "building_parts": {
         "description": "Partes de edifícios",
-        "tooltip": "Componentes de Telhados e Edifícios em 3D"
+        "tooltip": "Componentes de telhados e edifícios em 3D"
       },
       "indoor": {
         "description": "Elementos interiores",
@@ -1109,12 +977,12 @@
         "tooltip": "Linhas de alta tensão, centrais elétricas, subestações, etc."
       },
       "past_future": {
-        "description": "Elementos antigos/futuros",
+        "description": "Elementos antigos / futuros",
         "tooltip": "Elementos propostos, em construção, abandonados, demolidos, etc."
       },
       "others": {
         "description": "Outros elementos",
-        "tooltip": "Tudo o Resto"
+        "tooltip": "Tudo o resto"
       }
     },
     "area_fill": {
@@ -1134,7 +1002,7 @@
     "settings": {
       "custom_background": {
         "tooltip": "Editar fundo personalizado",
-        "header": "Definições do Fundo Personalizado",
+        "header": "Definições do fundo personalizado",
         "instructions": {
           "info": "Introduz um modelo de URL de mosaicos em baixo.",
           "wms": {
@@ -1163,13 +1031,14 @@
       },
       "custom_data": {
         "tooltip": "Editar camada de dados personalizada",
-        "header": "Definições dos Dados do Mapa Personalizado",
+        "header": "Definições dos dados do mapa personalizado",
         "file": {
           "label": "Procurar ficheiros"
         },
         "or": "Ou",
         "url": {
-          "placeholder": "Introduzir url"
+          "example_pmtiles": "https://exemplo.com.br/edificacoes.pmtiles",
+          "placeholder": "Introduzir URL"
         }
       }
     },
@@ -1181,6 +1050,24 @@
         "third_party_icons": {
           "description": "Mostrar ícones de terceiros",
           "tooltip": "Desmarca esta caixa para evitar o carregamento de ícones pré-definidos de websites de terceiros como a Wikimedia Commons, o Facebook ou o Twitter."
+        }
+      },
+      "map_interaction": {
+        "title": "Interação do mapa",
+        "mouse_wheel": {
+          "title": "Comportamento da roda do mouse",
+          "auto": {
+            "title": "Automático",
+            "tooltip": "Melhor para usuários de trackpad. Com 2 dedos, gestos de deslizar farão panorâmica do mapa, e gestos de pinça aumentarão ou diminuirão o zoom do mapa. Manter Shift pressionado aumentará ou diminuirá o zoom do mapa."
+          },
+          "zoom": {
+            "title": "Ampliar o mapa",
+            "tooltip": "Rolar com a roda sempre ampliará e reduzirá o zoom do mapa."
+          },
+          "pan": {
+            "title": "Mover o mapa",
+            "tooltip": "Rolar com a roda irá mover o mapa. Segurar Shift fará o mapa ampliar e reduzir."
+          }
         }
       },
       "color_selection": {
@@ -1211,11 +1098,16 @@
         "keep_local": "Manter a minha",
         "keep_remote": "Usar a deles",
         "restore": "Restaurar",
-        "delete": "Deixar Eliminado",
-        "download_changes": "Ou transferir ficheiro osmChange",
+        "delete": "Deixar eliminado",
+        "download_changes": "Ou descarregar o ficheiro osmChange",
         "done": "Todos os conflitos foram resolvidos!",
-        "help": "Outro utilizador alterou alguns dos elementos que alteraste. Clica em cada um dos elementos em baixo para mais detalhes sobre o conflito e decide se queres manter as tuas alterações ou as do outro utilizador.\n"
+        "help": "Outro utilizador alterou alguns dos elementos que alteraste. Clica em cada um dos elementos em baixo para mais detalhes sobre o conflito e decide se queres manter as tuas alterações ou as do outro utilizador."
       }
+    },
+    "download_osc": {
+      "title": "Descarregar",
+      "help": "Descarregar as alterações atuais do mapa num ficheiro osc.",
+      "no_changes": "Não há alterações a descarregar."
     },
     "merge_remote_changes": {
       "conflict": {
@@ -1244,18 +1136,75 @@
       "cancel": "Cancelar"
     },
     "splash": {
+      "walkthrough": "Iniciar o tutorial",
       "start": "Editar agora"
     },
     "source_switch": {
       "live": "ao vivo",
       "lose_changes": "Tens alterações por guardar. Se trocares de servidor de mapas, irás perdê-las. Tens a certeza de que queres trocar de servidores?"
     },
-    "rapid_feature_inspector": {
-      "tags": "Etiquetas"
+    "rapid_first_edit": {
+      "nice": "Você acabou de adicionar seu primeiro elemento assistido por IA do {rapidicon}, legal."
     },
-    "rapid_feature_toggle": {
-      "esri": {
-        "remove": "Remover"
+    "rapid_inspector": {
+      "prompt": "Como você gostaria de prosseguir com este elemento selecionado?",
+      "tags": "Etiquetas",
+      "option_accept": {
+        "label": "Adicionar este elemento",
+        "description": "Isso parece um elemento correto? Selecione isso para começar a editá-lo para que você possa conectar, marcar e salvá-lo no OpenStreetMap. 👍",
+        "annotation": "Adicionou um elemento do Rapid.",
+        "tooltip": "Adicione esse elemento ao mapa para começar a edição.",
+        "disabled": "Para ajudar a melhorar a qualidade dos dados do OSM, permitimos que apenas {n} recursos de IA sejam adicionados em cada sessão de mapeamento. Por favor, tente consertar os problemas em suas edições até agora. Você poderá adicionar mais recursos de IA após salvar.",
+        "disabled_flash": "Para ajudar a melhorar a qualidade dos dados do OSM, permitimos que apenas {n} recursos de IA sejam adicionados em cada sessão de mapeamento."
+      },
+      "option_ignore": {
+        "label": "Ignorar este elemento",
+        "description": "Ignorar esse elemento nos ajuda a melhorar nosso aprendizado de máquina. Se você não tiver certeza se esse é um recurso preciso, sinta-se à vontade para deixá-lo como está, nada será salvo ou perdido. 👍",
+        "annotation": "Ignorou um recurso do Rapid.",
+        "tooltip": "Ignorar este elemento."
+      }
+    },
+    "rapid_menu": {
+      "license": "Licença",
+      "toggle_all": "Ativar todos os dados do {rapidicon}",
+      "add_manage_datasets": "Adicionar/gerenciar conjuntos de dados",
+      "worldwide": "Mundo todo",
+      "no_datasets": "Nenhum conjunto de dados disponível.",
+      "remove": "Remover",
+      "add_dataset": "Adicionar conjunto de dados",
+      "dataset_added": "Conjunto de dados adicionado",
+      "about_the_catalog": "Esses conjuntos de dados foram fornecidos como dados abertos por várias organizações e pela comunidade de usuários da Esri com o objetivo de melhorar o OpenStreetMap.<br/>Você pode aprender mais clicando nos links abaixo ou visitando [o Guia do Rapid](https://github.com/facebookmicrosites/Open-Mapping-At-Facebook/wiki/Esri-ArcGIS-FAQ) ou [a página do conjunto de dados Esri/ArcGIS no OSM Wiki](https://wiki.openstreetmap.org/wiki/Esri/ArcGIS_Datasets).",
+      "clear_filters": "Limpar filtros",
+      "filter_datasets": "filtrar conjuntos de dados",
+      "any_type": "qualquer tipo",
+      "datasets_found": {
+        "one": "{n}  conjunto de dados encontrado",
+        "many": "{gt}{n}  conjuntos de dados encontrados",
+        "other": "{gt}{n} conjuntos de dados encontrados"
+      },
+      "category": {
+        "addresses": "endereços",
+        "buildings": "edificações",
+        "featured": "destacado",
+        "footways": "calçadas",
+        "places": "lugares",
+        "roads": "estradas",
+        "trees": "árvores"
+      },
+      "fbRoads": {
+        "label": "Facebook - Vias"
+      },
+      "msBuildings": {
+        "label": "Microsoft - Edificações"
+      },
+      "overture": {
+        "places": {
+          "label": "Overture - Lugares"
+        }
+      },
+      "omdFootways": {
+        "label": "Calçadas em dados abertos",
+        "description": "Dados abertos de calçadas coletados por várias entidades governamentais locais."
       }
     },
     "tag_reference": {
@@ -1271,8 +1220,11 @@
         "out": "Não é possível afastar mais."
       }
     },
-    "cannot_zoom": "Não é possível afastar mais no modo atual.",
-    "full_screen": "Ativar Ecrã Inteiro.",
+    "bearing": {
+      "reset_bearing": "Redefinir orientação",
+      "rotate_the_map": "Girar o mapa:"
+    },
+    "full_screen": "Ativar ecrã inteiro.",
     "self_intersection": {
       "error": {
         "lines": "As linhas não podem cruzar sobre si próprias.",
@@ -1287,48 +1239,14 @@
         "fix_title": "Corrigir diretrizes",
         "trap_title": "Erros comuns"
       },
-      "improveOSM": {
-        "title": "Deteção ImproveOSM",
-        "geometry_types": {
-          "path": "caminhos",
-          "parking": "parque de estacionamento",
-          "road": "estradas",
-          "both": "estradas e estacionamento"
-        },
-        "directions": {
-          "east": "este",
-          "north": "norte",
-          "northeast": "nordeste",
-          "northwest": "noroeste",
-          "south": "sul",
-          "southeast": "sudeste",
-          "southwest": "sudoeste",
-          "west": "oeste"
-        },
-        "error_types": {
-          "ow": {
-            "title": "Sentido Único em Falta",
-            "description": "Ao longo desta secção de {highway}, {percentage}% de {num_trips} viagens gravadas vão de {from_node} para {to_node}. Poderá estar a faltar a etiqueta \"oneway\" para indicar que é de sentido único."
-          },
-          "mr": {
-            "title": "Geometria em Falta",
-            "description": "{num_trips} viagens gravadas nesta área sugerem que poderá haver aqui {geometry_type} por mapear.",
-            "description_alt": "Dados de terceiros sugerem que poderá haver aqui {geometry_type} por cartografar."
-          },
-          "tr": {
-            "title": "Restrição de Viragem em Falta",
-            "description": "{num_passed} de {num_trips} viagens gravadas (que vêm de {travel_direction}) fazem uma viragem de {from_way} para {to_way} em {junction}. Poderá faltar aqui uma restrição do tipo \"{turn_restriction}\"."
-          }
-        }
-      },
       "keepRight": {
         "detail_description": "Descrição",
         "comment": "Comentário",
         "comment_placeholder": "Escreve um comentário para partilhar com outros utilizadores.",
         "close": "Fechar (problema resolvido)",
         "ignore": "Remover (falso positivo)",
-        "save_comment": "Guardar Comentário",
-        "close_comment": "Fechar e Comentar",
+        "save_comment": "Guardar comentário",
+        "close_comment": "Fechar e comentar",
         "ignore_comment": "Remover e comentar",
         "error_parts": {
           "this_node": "este nó",
@@ -1339,7 +1257,7 @@
           "this_railway": "esta ferrovia",
           "this_waterway": "esta via fluvial",
           "this_cycleway": "esta ciclovia",
-          "this_cycleway_footpath": "esta ciclovia/caminho pedonal",
+          "this_cycleway_footpath": "esta ciclovia / caminho pedonal",
           "this_riverbank": "esta margem de rio",
           "this_crossing": "esta passadeira",
           "this_railway_crossing": "esta passagem de peões ferroviária",
@@ -1349,13 +1267,13 @@
           "this_turn_restriction": "esta restrição de viragem",
           "this_roundabout": "esta rotunda",
           "this_mini_roundabout": "esta minirrotunda",
-          "this_track": "este caminho agrícola/florestal",
+          "this_track": "este caminho agrícola / florestal",
           "this_feature": "este elemento",
           "highway": "rodovia",
           "railway": "ferrovia",
           "waterway": "via fluvial",
           "cycleway": "cliclovia",
-          "cycleway_footpath": "ciclovia/caminho pedonal",
+          "cycleway_footpath": "ciclovia / caminho pedonal",
           "riverbank": "margem de rio",
           "place_of_worship": "local de culto",
           "pub": "tasca",
@@ -1606,7 +1524,7 @@
             "description": "{var1} não tem uma etiqueta \"tracktype\"."
           },
           "<400>": {
-            "title": "Problema de Geometria",
+            "title": "Problema de geometria",
             "description": "Existe aqui um problema de geometria não especificado."
           },
           "<401>": {
@@ -1633,102 +1551,25 @@
         }
       }
     },
-    "streetside": {
-      "tooltip": "Fotos ao nível de rua da Microsoft",
-      "title": "Fotos ao nível de rua do Bing",
-      "report": "Comunicar um problema de privacidade nesta imagem",
-      "view_on_bing": "Ver no Bing Maps",
+    "photos": {
       "hires": "Alta resolução"
     },
-    "mapillary_images": {
-      "tooltip": "Fotos ao nível de rua do Mapillary"
-    },
-    "mapillary_map_features": {
-      "title": "Elementos do mapa",
-      "tooltip": "Elementos do mapa do Mapillary",
-      "construction": {
-        "barrier": {
-          "temporary": "barreira temporária"
-        },
-        "flat": {
-          "crosswalk_plain": "Passadeira sem marcas",
-          "driveway": "estrada de serviço"
-        }
-      },
-      "marking": {
-        "discrete": {
-          "arrow": {
-            "left": "marcação de via - seta (esquerda)",
-            "right": "marcação de via - seta (direita)",
-            "split_left_or_straight": "marcação de via - seta (esquerda/frente)",
-            "split_right_or_straight": "marcação de via - seta (direita/frente)",
-            "straight": "marcação de via - seta (frente)"
-          },
-          "crosswalk_zebra": "marcação de via - passadeira",
-          "give_way_row": "marcação de via - cedência de passagem (fila)",
-          "give_way_single": "marcação de via - cedência de passagem (simples)",
-          "other_marking": "marcação de via - outro",
-          "stop_line": "marcação de via - linha de stop",
-          "symbol": {
-            "bicycle": "marcação de via - símbolo (bicicleta)"
-          },
-          "text": "marcação de via - texto"
-        }
-      },
-      "object": {
-        "banner": "Faixa publicitária",
-        "bench": "Banco de sentar",
-        "bike_rack": "Suporte para bicicleta",
-        "billboard": "Painel publicitário",
-        "catch_basin": "Sarjeta",
-        "cctv_camera": "Câmara de vigilância",
-        "fire_hydrant": "Boca de incêndio",
-        "junction_box": "caixa de intesecção",
-        "mailbox": "Caixa de correio",
-        "manhole": "Caixa de visita",
-        "parking_meter": "parquímetro",
-        "phone_booth": "Cabina telefónica",
-        "sign": {
-          "advertisement": "Publicidade",
-          "information": "Sinal de informação",
-          "other": "outro sinal",
-          "store": "Sinal de loja",
-          "traffic_sign": {
-            "back": "sinal de trânsito - traseira",
-            "direction_front": "sinal de trânsito - frente",
-            "front": "sinal de trânsito - frente"
-          }
-        },
-        "street_light": "Poste de iluminação",
-        "support": {
-          "pole": "poste",
-          "traffic_sign_frame": "estrutura de sinal de trânsito",
-          "utility_pole": "Poste utilitário"
-        },
-        "traffic_cone": "Cone de trânsito",
-        "traffic_light": {
-          "cyclists": "Semáforo para ciclistas",
-          "general_horizontal": "Semáforo horizontal",
-          "general_single": "Semáforo solitário",
-          "general_upright": "Semáforo vertical",
-          "other": "Semáforo",
-          "pedestrians": "Semáforo para peões"
-        },
-        "trash_can": "Caixote de lixo",
-        "water_valve": "válvula de água"
-      }
+    "streetside": {
+      "title": "Fotos ao nível de rua do Bing",
+      "tooltip": "Fotos ao nível de rua da Microsoft"
     },
     "mapillary": {
-      "signs": {
-        "tooltip": "Sinais de trânsito do Mapillary"
-      },
-      "view_on_mapillary": "Ver esta imagem no Mapillary"
+      "tooltip": "Fotos ao nível de rua do Mapillary"
     },
-    "kartaview_images": {
-      "tooltip": "Fotos ao nível de rua da KartaView"
+    "mapillary_signs": {
+      "title": "Sinais de trânsito"
+    },
+    "mapillary_detections": {
+      "title": "Objetos detectados",
+      "tooltip": "Objetos detectados nas fotos do Mapillary"
     },
     "kartaview": {
-      "view_on_kartaview": "Ver esta imagem no KartaView"
+      "tooltip": "Fotos ao nível de rua da KartaView"
     },
     "note": {
       "note": "Nota",
@@ -1761,20 +1602,26 @@
       "title": "Ajuda",
       "help": {
         "title": "Ajuda",
+        "welcome": "Bem-vindo(a) ao editor {rapidicon} para [OpenStreetMap](https://www.openstreetmap.org/). Com este editor você pode atualizar o OpenStreetMap diretamente do seu navegador.",
         "open_data_h": "Dados abertos",
         "open_data": "As edições que fizeres neste mapa ficarão visíveis a todos os que utilizam o OpenStreetMap. As tuas edições podem basear-se no teu conhecimento, em pesquisas no terreno, em imagens aéreas ou fotos ao nível de rua. A cópia de material de fontes comerciais, como o Google Maps, [é expressamente proibida](https://www.openstreetmap.org/copyright).",
         "before_start_h": "Antes de começares",
-        "open_source_h": "Código aberto"
+        "before_start": "Você deve estar familiarizado com o OpenStreetMap e este editor antes de começar a editar. O Rapid contém um passo a passo para lhe ensinar os conceitos básicos de edição do OpenStreetMap. Pressione o botão \"{start_the_walkthrough}\" nesta tela para iniciar o tutorial — leva apenas cerca de 15 minutos.",
+        "open_source_h": "Código aberto",
+        "open_source": "O editor Rapid é um projeto colaborativo de código aberto, e você está usando a versão {version} agora. O código-fonte está disponível [no GitHub](https://github.com/facebook/Rapid).",
+        "open_source_help": "Você pode ajudar o Rapid [relatando erros](https://github.com/facebook/Rapid/issues)."
       },
       "overview": {
-        "title": "Ideia Geral",
+        "title": "Ideia geral",
         "navigation_h": "Navegação",
+        "navigation_zoom": "Você pode aumentar ou diminuir o zoom rolando com uma roda do mouse {mouse_wheel_icon} ou trackpad, ou com {twofinger_zoom_icon} dando zoom com dois dedos em uma tela sensível ao toque. Você também pode pressionar os botões {plus} / {minus} ao longo da lateral do mapa ou as teclas `+`, `-` em um teclado.",
+        "navigation_rotate": "Você pode girar o mapa mantendo pressionado `{option}` e {mouse_left_icon} e arrastando o mapa, ou mantendo pressionado `{shift}` e usando as teclas de seta para a esquerda/direita {keyboard_arrows_left_right}.",
         "features_h": "Elementos do mapa",
         "features": "Utilizamos a palavra *elementos* para descrever as coisas que aparecem no mapa, como estradas, edifícios ou pontos de interesse. Qualquer coisa do mundo real pode ser mapeada como um elemento no OpenStreetMap. Os elementos do mapa são representados no mapa utilizando *pontos*, *linhas* ou *áreas*.",
         "nodes_ways": "Por vezes, os pontos são chamado *nós* e as linhas e as áreas são chamadas *vias*."
       },
       "editing": {
-        "title": "Editar e Guardar",
+        "title": "Editar e guardar",
         "select_h": "Selecionar",
         "select_space": "A tecla `{space}` também pode ser usada em vez do clique esquerdo quando se seleciona e desenha.",
         "multiselect_h": "Seleção múltipla",
@@ -1790,7 +1637,7 @@
         "keyboard": "Podes ver uma lista dos atalhos do teclado pressionando a tecla `{shortcuts_key}`."
       },
       "feature_editor": {
-        "title": "Editor de Elementos",
+        "title": "Editor de elementos",
         "intro": "O *editor de elementos* surge ao lado do mapa e permite-te ver e editar toda a informação do elemento selecionado.",
         "definitions": "A secção do topo, mostra o tipo do elemento. A secção intermédia contém *campos* que mostram os atributos do elemento, como o seu nome ou endereço. ",
         "type_h": "Tipo de elemento",
@@ -1808,7 +1655,6 @@
         "title": "Pontos",
         "intro": "Os *pontos* podem ser utilizados para representar elementos como lojas, restaurantes e monumentos. Marcam uma localização específica e descrevem o que nela existe.",
         "add_point_h": "Adicionar pontos",
-        "add_point": "Para adicionares um ponto, pressiona o botão {point_icon} **{point}* na barra de ferramentas, acima do mapa, ou pressiona a tecla de atalho `1`.",
         "move_point_h": "Mover pontos",
         "delete_point_h": "Eliminar pontos",
         "delete_point": "É possível eliminar elementos que não existem no mundo real. Eliminar um elemento do OpenStreetMap apaga-o do mapa que todos utilizam, por isso, deves ter a certeza de que o elemento já não existe antes de o apagares."
@@ -1817,7 +1663,6 @@
         "title": "Linhas",
         "intro": "As *linhas* são utilizadas para representar elementos como estradas, caminhos-de-ferro ou rios. As linhas devem ser desenhadas no eixo dos elementos que representam.",
         "add_line_h": "Adicionar linhas",
-        "add_line": "Para adicionar uma linha, pressiona o botão {line_icon} **{line}** na barra de ferramentas, acima do mapa, ou usa a tecla de atalho `2`.",
         "add_line_finish": "Para concluir uma linha, pressiona em `{return}` ou clica/toca novamente no último nó.",
         "modify_line_h": "Modificar linhas",
         "modify_line_dragnode": "Muitas vezes, verás linhas que não têm a forma correta, como por exemplo uma estrada que não está alinhada com a imagem de fundo. Para ajustar a forma de uma linha, começa por selecioná-la. Todos os nós da linha serão apresentados como pequenos círculos. A seguir, podes arrastar os nós para a localização correta.",
@@ -1836,7 +1681,6 @@
         "point_or_area_h": "Pontos ou áreas?",
         "point_or_area": "Muitos elementos podem ser representados por pontos ou áreas. Deves mapear edifícios e limites de propriedade como áreas, sempre que possível. Coloca pontos dentro de uma área de edifício para representar empresas, serviços e outros elementos que estejam localizados dentro do edifício. ",
         "add_area_h": "Adicionar áreas",
-        "add_area_command": "Para adicionares uma área, pressiona o botão de {area_icon} **{area}** na barra de ferramentas, acima do mapa, ou usa a tecla de atalho `3`.",
         "add_area_finish": "Para concluir uma área, clica/toca novamente no primeiro ou último nó da área ou pressiona em `{return}`.",
         "square_area_h": "Esquadrar cantos",
         "modify_area_h": "Modificar áreas",
@@ -1886,7 +1730,6 @@
       },
       "notes": {
         "title": "Notas",
-        "intro": "As *notas* são usadas para alertar outros utilizadores de que um elemento precisa de correção ou atenção. As notas marcam uma localização específica no mapa. Para visualizares notas existentes ou adicionares novas notas, clica no painel {data_icon} **{map_data}** para ativar a camada de notas do OpenStreetMap.",
         "add_note_h": "Adicionar notas",
         "add_note": "Para adicionares uma nova nota, clica no botão  {note_icon} **{note}** na barra de ferramentas, acima do mapa, ou pressiona na tecla de atalho `{add_note_key}`.",
         "update_note_h": "Concluir, reabrir e comentar",
@@ -1895,7 +1738,7 @@
         "save_note": "Deves guardar cada nota editada individualmente pressionando os botões existentes por baixo dos comentários da nota. As edições das notas **não** ficam incluídas nos conjuntos de alterações que envias para o OpenStreetMap."
       },
       "imagery": {
-        "title": "Imagens de Fundo",
+        "title": "Imagens de fundo",
         "intro": "As imagens de fundo que aparecem por baixo dos dados do mapa são um importante recurso para mapear. Estas imagens podem ser fotografias aéreas recolhidas por satélite, aviões ou drones. Também podem ser mapas históricos que foram digitalizados ou outras fontes de informação que se encontram disponíveis gratuitamente. ",
         "sources_h": "Fontes das imagens",
         "choosing": "Para veres quais as fontes de imagens que estão disponíveis para editar, abre o painel {layers_icon} **{background_settings}** ao lado do mapa.",
@@ -1904,7 +1747,7 @@
         "offset": "Por vezes, a imagem de fundo apresenta um ligeiro deslocamento relativamente aos dados do mapa. Se vires que há muitas estradas ou edifícios deslocados em relação à imagem de fundo, é possível que a imagem esteja desfasada. Assim sendo, não desloques os elementos para que fiquem alinhados com a camada de fundo. Em vez disso, podes ajustar a camada de fundo para que fique alinhada com os dados existentes, expandindo a secção \"{imagery_offset}\", no fundo do painel \"Configurar imagem de fundo\"."
       },
       "streetlevel": {
-        "title": "Imagens ao Nível de Rua",
+        "title": "Imagens ao nível de rua",
         "using_h": "Utilizar imagens ao nível de rua",
         "using": "Para utilizares imagens ao nível de rua para mapear, abre o painel lateral {data_icon} **{map_data}** para ativar ou desativar uma camada de imagens de rua que esteja disponível.",
         "photos": "Uma vez ativada, a camada de imagens de rua mostrará uma linha ao longo da sequência de imagens. Em níveis de aproximação elevados, surgirá um marcador com a forma dum círculo que mostrará a localização de cada fotografia. Em níveis de aproximação ainda maiores, surgirá um cone que mostra a direção que a câmara tinha quando a imagem foi captada. ",
@@ -1920,12 +1763,10 @@
         "upload": "Também podes [enviar os teus dados GPS para o OpenStreetMap](https://www.openstreetmap.org/trace/create) de modo a que outros possam utilizá-los para mapear."
       },
       "qa": {
-        "title": "Controlo de Qualidade",
+        "title": "Controlo de qualidade",
         "intro": "As ferramentas de *Controlo de Qualidade* podem detetar etiquetas erradas, estradas desligadas e outros problemas com o OpenStreetMap, os quais os mapeadores podem corrigir. Para veres os problemas existentes, clica no painel {data_icon} **{map_data}** para ativar uma camada específica de Controlo de Qualidade.",
         "tools_h": "Ferramentas",
-        "tools": "As ferramentas seguintes são suportadas: [KeepRight](https://www.keepright.at/), [ImproveOSM](https://improveosm.org/en/) e [Osmose](https://osmose.openstreetmap.fr/).",
-        "issues_h": "Gerir problemas",
-        "issues": "A gestão de problemas de Controlo de Qualidade é semelhante à gestão de notas. Seleciona um marcador para veres os detalhes do problema no painel lateral. Cada ferramenta tem as suas próprias funcionalidades, mas, geralmente, podes comentar e/ou fechar um problema."
+        "issues_h": "Gerir problemas"
       },
       "field": {
         "restrictions": {
@@ -1968,18 +1809,10 @@
     },
     "issues": {
       "title": "Problemas",
-      "list_title": "Problemas",
-      "errors": {
-        "list_title": "Erros"
-      },
-      "warnings": {
-        "list_title": "Avisos"
-      },
-      "rules": {
-        "title": "Regras"
-      },
-      "user_resolved_issues": "Problemas solucionados com as tuas edições",
-      "warnings_and_errors": "Avisos e erros",
+      "errors": "Erros",
+      "warnings": "Avisos",
+      "rules": "Regras",
+      "resolved_tooltip": "Problemas solucionados com as tuas edições",
       "no_issues": {
         "message": {
           "everything": "Parece estar tudo bem",
@@ -2138,8 +1971,6 @@
         "title": "Formatação inválida",
         "tip": "Procura etiquetas com formatos inesperados",
         "email": {
-          "message": "{feature} tem um endereço de email inválido",
-          "message_multi": "{feature} tem vários endereços de email inválidos",
           "reference": "Os endereços de email devem ter o formato \"utilizador@exemplo.com\"."
         }
       },
@@ -2412,6 +2243,7 @@
     },
     "intro": {
       "done": "feito",
+      "ok": "Ok",
       "graph": {
         "block_number": "<valor para addr:block_number>",
         "city": "Três Rios",
@@ -2546,6 +2378,11 @@
       "navigation": {
         "title": "Navegação",
         "map_info": "A área principal do mapa mostra os dados OpenStreetMap sobre uma camada de fundo.",
+        "zoom_mouse_scroll": "- Role com a roda do mouse {mouse_wheel_icon}.",
+        "user_settings": "Se o touchpad ou a roda do mouse não aplicarem zoom conforme o esperado, você pode ajustar esse comportamento no painel de Preferências do usuário.",
+        "rotate": "Existem várias maneiras de girar o mapa:",
+        "rotate_touch": "- Gire o mapa com dois dedos {twofinger_rotate_icon}.",
+        "reset_bearing": "Este botão de bússola mostra a rotação atual, ou *rumo*, do mapa. **Clique no botão de bússola para redefinir o mapa para o Norte para cima.**",
         "features": "Usamos a palavra *elementos* para descrever as coisas que aparecem no mapa. Qualquer coisa no mundo real pode ser mapeada como um elemento no OpenStreetMap.",
         "points_lines_areas": "Os elementos do mapa são representados usando *pontos, linhas* ou *áreas.*",
         "nodes_ways": "No OpenStreetMap, os pontos podem ser considerados *nós* e as linhas e as áreas consideradas *vias*.",
@@ -2662,10 +2499,11 @@
       }
     },
     "shortcuts": {
-      "title": "Atalhos de Teclado",
+      "title": "Atalhos de teclado",
       "tooltip": "Mostrar o ecrã com os atalhos de teclado.",
       "key": {
         "backspace": "Retroceder (←)",
+        "delete": "Eliminar",
         "return": "Parágrafo (↵)",
         "shift": "Shift (↑)",
         "space": "Espaço"
@@ -2674,97 +2512,168 @@
         "drag": "arrastar"
       },
       "or": "-ou-",
-      "browsing": {
-        "title": "Navegar",
-        "navigation": {
-          "title": "Navegação",
-          "pan": "Arrastar mapa"
+      "browsing": "Navegar",
+      "editing": "Editar",
+      "navigation": "Navegação",
+      "selecting_features": "Selecionar elementos",
+      "with_features_selected": "Com elementos selecionados",
+      "with_node_selected": "Com nó selecionado",
+      "with_way_selected": "Com via selecionada",
+      "drawing": "Desenhar",
+      "commands": "Comandos",
+      "help": "Ajuda",
+      "display_options": "Mostrar opções",
+      "info": "Informação",
+      "command": {
+        "pan": {
+          "label": "Arrastar mapa"
         },
-        "help": {
-          "title": "Ajuda",
-          "help": "Mostrar documentação de ajuda",
-          "keyboard": "Mostrar atalhos de teclado"
+        "select_one": {
+          "label": "Selecionar apenas um elemento"
         },
-        "display_options": {
-          "title": "Mostrar opções",
-          "background": "Ativar camada de imagem de satélite",
-          "map_data": "Ativar camada de dados do mapa",
-          "issues": "Ativar camada de validação de erros",
-          "preferences": "Mostrar/ocultar a aba de preferências",
-          "sidebar": "Ativar painel lateral",
-          "wireframe": "Ativar modo linhas",
-          "osm_data": "Ativar dados do OpenStreetMap",
-          "highlight_edits": "Destacar edições por guardar"
+        "select_multi": {
+          "label": "Selecionar vários elementos"
         },
-        "selecting": {
-          "title": "Selecionar elementos",
-          "select_one": "Selecionar apenas um elemento",
-          "select_multi": "Selecionar vários elementos",
-          "lasso": "Desenhar um laço de seleção à volta de elementos",
-          "search": "Procurar elementos que correspondam ao texto a pesquisar"
+        "lasso": {
+          "label": "Desenhar um laço de seleção à volta de elementos"
         },
-        "with_selected": {
-          "title": "Com elementos selecionados",
-          "edit_menu": "Ativar menu de edição"
+        "edit_menu": {
+          "label": "Ativar menu de edição"
         },
-        "vertex_selected": {
-          "title": "Com nó selecionado",
-          "first": "Ir para o primeiro nó ",
-          "last": "Ir para o último nó ",
-          "change_parent": "Mudar linha ligada",
-          "parent": "Selecionar linha principal"
+        "first_node": {
+          "label": "Ir para o primeiro nó "
         },
-        "way_selected": {
-          "title": "Com via selecionada",
-          "child": "Selecionar nós dependentes"
-        }
-      },
-      "editing": {
-        "title": "Editar",
-        "drawing": {
-          "title": "Desenhar",
-          "add_point": "Modo 'adicionar ponto'",
-          "add_line": "Modo 'adicionar linha'",
-          "add_area": "Modo 'adicionar área'",
-          "add_note": "Modo 'adicionar nota'",
-          "place_point": "Colocar ponto ou nota",
-          "disable_snap": "Manter para desativar atração a pontos",
-          "stop_line": "Terminar de desenhar uma linha ou área"
+        "last_node": {
+          "label": "Ir para o último nó "
         },
-        "commands": {
-          "title": "Comandos",
-          "copy": "Copiar elementos selecionados",
-          "paste": "Colar elementos copiados",
-          "undo": "Desfazer a última ação",
-          "redo": "Refazer a última ação",
-          "save": "Guardar alterações"
+        "change_parent": {
+          "label": "Mudar linha ligada"
         },
-        "operations": {
-          "continue_line": "Continua uma linha desde o ponto final selecionado",
-          "merge": "Combinar (fundir) elementos selecionados",
-          "disconnect": "Desligar elementos selecionados",
-          "extract": "Extrair um ponto de um elemento",
-          "split": "Separar elementos nos pontos selecionados",
-          "reverse": "Inverter elementos selecionados",
-          "move": "Mover elementos selecionados",
-          "rotate": "Rodar elementos selecionados",
-          "orthogonalize": "Esquadrar cantos de uma linha ou área",
-          "straighten": "Alinhar linha ou pontos",
-          "circularize": "Circularizar uma linha fechada ou área",
-          "reflect_long": "Refletir os elementos ao longo do eixo mais longo",
-          "reflect_short": "Refletir os elementos ao longo do eixo mais curto",
-          "delete": "Eliminar elementos selecionados"
-        }
-      },
-      "tools": {
-        "title": "Ferramentas",
-        "info": {
-          "title": "Informação",
-          "all": "Ativar todos os painéis de informação",
-          "background": "Ativar painel de fundo",
-          "history": "Ativar painel de histórico",
-          "location": "Ativar painel de localização",
-          "measurement": "Ativar painel de medição"
+        "select_parent": {
+          "label": "Selecionar linha principal"
+        },
+        "select_children": {
+          "label": "Selecionar nós dependentes"
+        },
+        "add_point": {
+          "label": "Modo 'adicionar ponto'"
+        },
+        "add_line": {
+          "label": "Modo 'adicionar linha'"
+        },
+        "add_area": {
+          "label": "Modo 'adicionar área'"
+        },
+        "add_note": {
+          "label": "Modo 'adicionar nota'"
+        },
+        "place_point": {
+          "label": "Colocar ponto ou nota"
+        },
+        "disable_snap": {
+          "label": "Manter para desativar atração a pontos"
+        },
+        "stop_line": {
+          "label": "Terminar de desenhar uma linha ou área"
+        },
+        "copy": {
+          "label": "Copiar elementos selecionados"
+        },
+        "paste": {
+          "label": "Colar elementos copiados"
+        },
+        "undo": {
+          "label": "Desfazer a última ação"
+        },
+        "redo": {
+          "label": "Refazer a última ação"
+        },
+        "save": {
+          "label": "Guardar alterações"
+        },
+        "find": {
+          "label": "Procurar elementos que correspondam ao texto a pesquisar"
+        },
+        "continue_line": {
+          "label": "Continua uma linha desde o ponto final selecionado"
+        },
+        "merge": {
+          "label": "Combinar (fundir) elementos selecionados"
+        },
+        "disconnect": {
+          "label": "Desligar elementos selecionados"
+        },
+        "extract": {
+          "label": "Extrair um ponto de um elemento"
+        },
+        "split": {
+          "label": "Separar elementos nos pontos selecionados"
+        },
+        "reverse": {
+          "label": "Inverter elementos selecionados"
+        },
+        "move": {
+          "label": "Mover elementos selecionados"
+        },
+        "rotate": {
+          "label": "Rodar elementos selecionados"
+        },
+        "orthogonalize": {
+          "label": "Esquadrar cantos de uma linha ou área"
+        },
+        "straighten": {
+          "label": "Alinhar linha ou pontos"
+        },
+        "circularize": {
+          "label": "Circularizar uma linha fechada ou área"
+        },
+        "reflect_long": {
+          "label": "Refletir os elementos ao longo do eixo mais longo"
+        },
+        "reflect_short": {
+          "label": "Refletir os elementos ao longo do eixo mais curto"
+        },
+        "delete": {
+          "label": "Eliminar elementos selecionados"
+        },
+        "toggle_background": {
+          "label": "Ativar camada de imagem de satélite"
+        },
+        "toggle_map_data": {
+          "label": "Ativar camada de dados do mapa"
+        },
+        "toggle_issues": {
+          "label": "Ativar camada de validação de erros"
+        },
+        "toggle_preferences": {
+          "label": "Mostrar/ocultar a aba de preferências"
+        },
+        "highlight_edits": {
+          "label": "Destacar edições por guardar"
+        },
+        "keyboard_shortcuts": {
+          "label": "Mostrar atalhos de teclado"
+        },
+        "toggle_osm_data": {
+          "label": "Ativar dados do OpenStreetMap"
+        },
+        "toggle_rapid_data": {
+          "label": "Ativar recursos do Rapid"
+        },
+        "toggle_all_cards": {
+          "label": "Ativar todos os painéis de informação"
+        },
+        "toggle_background_card": {
+          "label": "Ativar painel de fundo"
+        },
+        "toggle_history_card": {
+          "label": "Ativar painel de histórico"
+        },
+        "toggle_location_card": {
+          "label": "Ativar painel de localização"
+        },
+        "toggle_measurement_card": {
+          "label": "Ativar painel de medição"
         }
       }
     },
@@ -2840,6 +2749,7 @@
       "bin": "bini",
       "bkm": "kom",
       "bla": "siksika",
+      "blo": "anii",
       "bm": "bambara",
       "bn": "bengalês",
       "bo": "tibetano",
@@ -3064,6 +2974,7 @@
       "kv": "komi",
       "kw": "córnico",
       "kwk": "kwakʼwala",
+      "kxv": "kuvi",
       "ky": "quirguiz",
       "la": "latim",
       "lad": "ladino",
@@ -3074,6 +2985,7 @@
       "lez": "lezghiano",
       "lg": "ganda",
       "li": "limburguês",
+      "lij": "ligure",
       "lil": "lillooet",
       "lkt": "lacota",
       "lmo": "lombardo",
@@ -3089,7 +3001,6 @@
       "lua": "luba-lulua",
       "lui": "luiseno",
       "lun": "lunda",
-      "luo": "luo",
       "lus": "mizo",
       "luy": "luyia",
       "lv": "letão",
@@ -3108,7 +3019,7 @@
       "mfe": "crioulo mauriciano",
       "mg": "malgaxe",
       "mga": "irlandês médio",
-      "mgh": "macua",
+      "mgh": "macua-mêto",
       "mgo": "meta’",
       "mh": "marshalês",
       "mi": "maori",
@@ -3270,6 +3181,7 @@
       "swb": "comoriano",
       "syc": "siríaco clássico",
       "syr": "siríaco",
+      "szl": "silesiano",
       "ta": "tâmil",
       "tce": "tutchone do sul",
       "te": "telugu",
@@ -3315,9 +3227,10 @@
       "umb": "umbundu",
       "ur": "urdu",
       "uz": "usbeque",
-      "vai": "vai",
       "ve": "venda",
+      "vec": "véneto",
       "vi": "vietnamita",
+      "vmw": "macua",
       "vo": "volapuque",
       "vot": "vótico",
       "vun": "vunjo",
@@ -3331,6 +3244,7 @@
       "wuu": "wu",
       "xal": "kalmyk",
       "xh": "xosa",
+      "xnr": "kangri",
       "xog": "soga",
       "yao": "yao",
       "yap": "yapese",

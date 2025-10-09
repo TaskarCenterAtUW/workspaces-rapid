@@ -4,6 +4,7 @@ import { uiSection } from '../section.js';
 
 export function uiSectionMapStyleOptions(context) {
   const l10n = context.systems.l10n;
+  const map = context.systems.map;
 
   const section = uiSection(context, 'fill-area')
     .label(l10n.t('map_data.style_options'))
@@ -18,7 +19,7 @@ export function uiSectionMapStyleOptions(context) {
       .append('ul')
       .attr('class', 'layer-list layer-fill-list')
       .merge(container)
-      .call(drawListItems, context.systems.map.areaFillOptions, 'radio', 'area_fill', setFill, isActiveFill);
+      .call(drawListItems, map.areaFillOptions, 'radio', 'area_fill', setFill, isActiveFill);
 
     let container2 = selection.selectAll('.layer-visual-diff-list')
       .data([0]);
@@ -45,8 +46,8 @@ export function uiSectionMapStyleOptions(context) {
       .call(uiTooltip(context)
         .title(d => l10n.t(`${name}.${d}.tooltip`))
         .shortcut(d => {
-          if (d === 'wireframe') return l10n.t('area_fill.wireframe.key');
-          if (d === 'highlight_edits') return l10n.t('map_data.highlight_edits.key');
+          if (d === 'wireframe') return l10n.t('shortcuts.command.wireframe.key');
+          if (d === 'highlight_edits') return l10n.t('shortcuts.command.highlight_edits.key');
           return null;
         })
         .placement('top')
@@ -78,24 +79,25 @@ export function uiSectionMapStyleOptions(context) {
 
 
   function isActiveFill(d) {
-    return context.systems.map.areaFillMode === d;
+    return map.areaFillMode === d;
   }
 
   function setFill(d3_event, d) {
-    context.systems.map.areaFillMode = d;
+    map.areaFillMode = d;
   }
 
   function isHighlightChecked() {
-    return context.systems.map.highlightEdits;
+    return map.highlightEdits;
   }
 
   function setHighlighted(d3_event) {
     const input = d3_event.currentTarget;
-    context.systems.map.highlightEdits = input.checked;
+    map.highlightEdits = input.checked;
   }
 
 
-  context.systems.map.on('mapchange', section.reRender);
+  map.off('mapchange', section.reRender);
+  map.on('mapchange', section.reRender);
 
   return section;
 }

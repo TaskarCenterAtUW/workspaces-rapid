@@ -1,5 +1,5 @@
 import { geoSphericalDistance, vecNormalizedDot } from '@rapid-sdk/math';
-import { uiCmd } from '../cmd.js';
+import { utilCmd } from '../../util/cmd.js';
 
 /**
  * Insert an icon
@@ -26,11 +26,11 @@ export function eventCancel(d3_event) {
 }
 
 
-// Returns the localized HTML element for `id` with a standardized set of icon, key, and
+// Returns the localized HTML element for `stringID` with a standardized set of icon, key, and
 // label replacements suitable for tutorials and documentation. Optionally supplemented
 // with custom `replacements`
 let helpStringReplacements;
-export function helpHtml(context, id, replacements) {
+export function helpHtml(context, stringID, replacements) {
   const l10n = context.systems.l10n;
   const isRTL = l10n.isRTL();
 
@@ -91,15 +91,19 @@ export function helpHtml(context, id, replacements) {
       twofinger_rotate_icon: icon('#rapid-interaction-twofinger-rotate', 'operation'),
 
       // insert keys; may be localized and platform-dependent
-      shift: uiCmd.display(context, '⇧'),
-      option: uiCmd.display(context, '⌥'),
-      control: uiCmd.display(context, '⌃'),
-      return: uiCmd.display(context, '↵'),
-      esc: uiCmd.display(context, '⎋'),
+      shift: utilCmd.display(context, '⇧'),
+      option: utilCmd.display(context, '⌥'),
+      control: utilCmd.display(context, '⌃'),
+      return: utilCmd.display(context, '↵'),
+      esc: utilCmd.display(context, '⎋'),
       space: l10n.t('shortcuts.key.space'),
-      add_note_key: l10n.t('modes.add_note.key'),
-      help_key: l10n.t('help.key'),
-      shortcuts_key: l10n.t('shortcuts.toggle.key'),
+      add_point_key: l10n.t('shortcuts.command.add_point.key'),
+      add_line_key: l10n.t('shortcuts.command.add_line.key'),
+      add_area_key: l10n.t('shortcuts.command.add_area.key'),
+      add_note_key: l10n.t('shortcuts.command.add_note.key'),
+      help_key: l10n.t('shortcuts.command.toggle_help.key'),
+      shortcuts_key: l10n.t('shortcuts.command.keyboard_shortcuts.key'),
+      toggle_notes_key: l10n.t('shortcuts.command.toggle_osm_notes.key'),
 
       // reference localized UI labels directly so that they'll always match
       save: l10n.t('save.title'),
@@ -151,7 +155,7 @@ export function helpHtml(context, id, replacements) {
     reps = helpStringReplacements;
   }
 
-  return l10n.tHtml(id, reps).replace(/\`(.*?)\`/g, '<kbd>$1</kbd>');   // use keyboard key styling for shortcuts
+  return l10n.tHtml(stringID, reps).replace(/\`(.*?)\`/g, '<kbd>$1</kbd>');   // use keyboard key styling for shortcuts
 }
 
 
@@ -294,5 +298,5 @@ export function transitionTime(loc1, loc2) {
  * @return Promise that settles after the delay
  */
 export function delayAsync(ms = 300) {
-  return new Promise(resolve => window.setTimeout(resolve, ms));  // eslint-disable-line no-promise-executor-return
+  return new Promise(resolve => { window.setTimeout(resolve, ms); });
 }

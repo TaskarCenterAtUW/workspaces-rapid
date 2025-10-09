@@ -19,9 +19,6 @@ mocha.setup({
   ]
 });
 
-window.d3 = Rapid.d3;   // Remove this if we can avoid exporting all of d3.js
-window.sdk = Rapid.sdk;
-delete window.PointerEvent;  // force the brower to use mouse events
+delete window.PointerEvent;  // force the browser to use mouse events
 
-fetchMock.config.fallbackToNetwork = false;
-fetchMock.config.overwriteRoutes = false;
+window.fetchMock.mockGlobal();

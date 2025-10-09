@@ -20,12 +20,62 @@ export class AssetSystem extends AbstractSystem {
     this.id = 'assets';
     this.dependencies = new Set();
 
+    //
     // Rapid's asset map contains all of the data files that we may need to load.
     // The data files are identified by keys, and are organized by origin.
-    //  'local' - will only load assets from the local folder.
     //  'latest' - may load latest assets from a CDN which match the expected semantic version
+    //  'local' - will only load assets from the local folder.
+    //
+    // Important: To use 'local', you'll need to have installed a version of Rapid
+    //   that has all of these dependencies copied into `/dist/data/modules/`.
+    // See https://github.com/rapideditor/rapid-standalone if this is what you need.
     //
     this.sources = {
+      latest: {
+        'address_formats':           'data/address_formats.min.json',
+        'imagery':                   'data/imagery.min.json',
+        'intro_graph':               'data/intro_graph.min.json',
+        'intro_rapid_graph':         'data/intro_rapid_graph.min.json',
+        'languages':                 'data/languages.min.json',
+        'locales':                   'data/locales.min.json',
+        'phone_formats':             'data/phone_formats.min.json',
+        'qa_data':                   'data/qa_data.min.json',
+        'shortcuts':                 'data/shortcuts.min.json',
+        'tagging_preset_overrides':  'data/preset_overrides.min.json',
+        'territory_languages':       'data/territory_languages.min.json',
+        'wayback':                   'data/wayback.min.json',
+
+        'mapillary_js':   'https://cdn.jsdelivr.net/npm/mapillary-js@4/dist/mapillary.min.js',   // CDN supports .min
+        'mapillary_css':  'https://cdn.jsdelivr.net/npm/mapillary-js@4/dist/mapillary.min.css',  // CDN supports .min
+
+        'maplibre_js':   'https://cdn.jsdelivr.net/npm/maplibre-gl@3/dist/maplibre-gl.min.js',   // CDN supports .min
+        'maplibre_css':  'https://cdn.jsdelivr.net/npm/maplibre-gl@3/dist/maplibre-gl.min.css',  // CDN supports .min
+
+        'nsi_data':          'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/nsi.min.json',
+        'nsi_dissolved':     'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/dissolved.min.json',
+        'nsi_features':      'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/featureCollection.min.json',
+        'nsi_generics':      'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/genericWords.min.json',
+        'nsi_presets':       'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/presets/nsi-id-presets.min.json',
+        'nsi_replacements':  'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/replacements.min.json',
+        'nsi_trees':         'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/trees.min.json',
+
+        'oci_defaults':   'https://cdn.jsdelivr.net/npm/osm-community-index@5.9/dist/defaults.min.json',
+        'oci_features':   'https://cdn.jsdelivr.net/npm/osm-community-index@5.9/dist/featureCollection.min.json',
+        'oci_resources':  'https://cdn.jsdelivr.net/npm/osm-community-index@5.9/dist/resources.min.json',
+
+        'pannellum_js':   'https://cdn.jsdelivr.net/npm/pannellum@2/build/pannellum.min.js',   // CDN supports .min
+        'pannellum_css':  'https://cdn.jsdelivr.net/npm/pannellum@2/build/pannellum.min.css',  // CDN supports .min
+
+        'tagging_deprecated':         'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/deprecated.min.json',
+        'tagging_discarded':          'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/discarded.min.json',
+        'tagging_preset_categories':  'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/preset_categories.min.json',
+        'tagging_preset_defaults':    'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/preset_defaults.min.json',
+        'tagging_preset_fields':      'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/fields.min.json',
+        'tagging_preset_presets':     'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/presets.min.json',
+
+        'wmf_sitematrix':  'https://cdn.jsdelivr.net/npm/wmf-sitematrix@0.2/data/wikipedia.min.json'
+      },
+
       local: {
         'address_formats':           'data/address_formats.min.json',
         'imagery':                   'data/imagery.min.json',
@@ -69,51 +119,6 @@ export class AssetSystem extends AbstractSystem {
         'tagging_preset_presets':     'data/modules/id-tagging-schema/presets.min.json',
 
         'wmf_sitematrix':  'data/modules/wmf-sitematrix/wikipedia.min.json'
-      },
-
-      latest: {
-        'address_formats':           'data/address_formats.min.json',
-        'imagery':                   'data/imagery.min.json',
-        'intro_graph':               'data/intro_graph.min.json',
-        'intro_rapid_graph':         'data/intro_rapid_graph.min.json',
-        'languages':                 'data/languages.min.json',
-        'locales':                   'data/locales.min.json',
-        'phone_formats':             'data/phone_formats.min.json',
-        'qa_data':                   'data/qa_data.min.json',
-        'shortcuts':                 'data/shortcuts.min.json',
-        'tagging_preset_overrides':  'data/preset_overrides.min.json',
-        'territory_languages':       'data/territory_languages.min.json',
-        'wayback':                   'data/wayback.min.json',
-
-        'mapillary_js':   'https://cdn.jsdelivr.net/npm/mapillary-js@4/dist/mapillary.min.js',   // CDN supports .min
-        'mapillary_css':  'https://cdn.jsdelivr.net/npm/mapillary-js@4/dist/mapillary.min.css',  // CDN supports .min
-
-        'maplibre_js':   'https://cdn.jsdelivr.net/npm/maplibre-gl@3/dist/maplibre-gl.min.js',   // CDN supports .min
-        'maplibre_css':  'https://cdn.jsdelivr.net/npm/maplibre-gl@3/dist/maplibre-gl.min.css',  // CDN supports .min
-
-        'nsi_data':          'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/nsi.min.json',
-        'nsi_dissolved':     'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/dissolved.min.json',
-        'nsi_features':      'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/featureCollection.min.json',
-        'nsi_generics':      'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/genericWords.min.json',
-        'nsi_presets':       'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/presets/nsi-id-presets.min.json',
-        'nsi_replacements':  'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/replacements.min.json',
-        'nsi_trees':         'https://cdn.jsdelivr.net/npm/name-suggestion-index@6.0/dist/trees.min.json',
-
-        'oci_defaults':   'https://cdn.jsdelivr.net/npm/osm-community-index@5.8/dist/defaults.min.json',
-        'oci_features':   'https://cdn.jsdelivr.net/npm/osm-community-index@5.8/dist/featureCollection.min.json',
-        'oci_resources':  'https://cdn.jsdelivr.net/npm/osm-community-index@5.8/dist/resources.min.json',
-
-        'pannellum_js':   'https://cdn.jsdelivr.net/npm/pannellum@2/build/pannellum.min.js',   // CDN supports .min
-        'pannellum_css':  'https://cdn.jsdelivr.net/npm/pannellum@2/build/pannellum.min.css',  // CDN supports .min
-
-        'tagging_deprecated':         'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/deprecated.min.json',
-        'tagging_discarded':          'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/discarded.min.json',
-        'tagging_preset_categories':  'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/preset_categories.min.json',
-        'tagging_preset_defaults':    'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/preset_defaults.min.json',
-        'tagging_preset_fields':      'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/fields.min.json',
-        'tagging_preset_presets':     'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@6.6/dist/presets.min.json',
-
-        'wmf_sitematrix':  'https://cdn.jsdelivr.net/npm/wmf-sitematrix@0.1/wikipedia.min.json'
       }
     };
 

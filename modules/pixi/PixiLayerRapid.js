@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import geojsonRewind from '@mapbox/geojson-rewind';
+import { utilStringQs } from '@rapid-sdk/util';
 
 import { AbstractLayer } from './AbstractLayer.js';
 import { PixiFeatureLine } from './PixiFeatureLine.js';
@@ -24,7 +25,7 @@ export class PixiLayerRapid extends AbstractLayer {
     super(scene, layerID);
     this.enabled = true;     // Rapid features should be enabled by default
 
-    this._resolved = new Map();  // Map (entity.id -> GeoJSON feature)
+    this._resolved = new Map();  // Map<entityID, GeoJSON feature>
 
 //// shader experiment:
 //this._uniforms = {
@@ -32,7 +33,7 @@ export class PixiLayerRapid extends AbstractLayer {
 // u_time: 0.0,
 // tint: new Float32Array([1, 1, 1, 1]),
 // translationMatrix: new PIXI.Matrix(),
-// default: this.context.pixi.renderer.plugins.batch._shader.uniformGroup
+// default: this.gfx.renderer.plugins.batch._shader.uniformGroup
 //};
 //
 //const vert = `
@@ -109,8 +110,9 @@ export class PixiLayerRapid extends AbstractLayer {
    * Whether the Layer's service exists
    */
   get supported() {
-    const service = this.context.services;
-    return !!service.mapwithai || !!service.esri;
+    // return true if any of these are installed
+    const services = this.context.services;
+    return !!(services.mapwithai || services.esri || services.overture);
   }
 
 
@@ -130,21 +132,45 @@ export class PixiLayerRapid extends AbstractLayer {
     if (val === this._enabled) return;  // no change
     this._enabled = val;
 
-    if (val) {
-      this.dirtyLayer();
-      this.context.services.mapwithai.startAsync();
-      this.context.services.esri.startAsync();
+    const context = this.context;
+    const gfx = context.systems.gfx;
+    const esri = context.services.esri;
+    const mapwithai = context.services.mapwithai;
+    const overture = context.services.overture;
+
+    // This code is written in a way that we can work with whatever
+    // data-providing services are installed.
+    const services = [];
+    if (esri)      services.push(esri);
+    if (mapwithai) services.push(mapwithai);
+    if (overture)  services.push(overture);
+
+    if (val && services.length) {
+      Promise.all(services.map(service => service.startAsync()))
+        .then(() => gfx.immediateRedraw());
     }
   }
 
 
   /**
    * reset
-   * Every Layer should have a reset function to clear out any state when a reset occurs.
+   * Every Layer should have a reset function to replace any Pixi objects and internal state.
    */
   reset() {
     super.reset();
-    this._resolved.clear();
+    this._resolved.clear();  // cached geojson features
+
+    const groupContainer = this.scene.groups.get('basemap');
+
+    // Remove any existing containers
+    for (const child of groupContainer.children) {
+      if (child.label.startsWith(this.layerID + '-')) {   // 'rapid-*'
+        groupContainer.removeChild(child);
+        child.destroy({ children: true });  // recursive
+      }
+    }
+
+    // We don't add area or line containers here - `renderDataset()` does it as needed
   }
 
 
@@ -160,8 +186,8 @@ export class PixiLayerRapid extends AbstractLayer {
     if (!this.enabled || !rapid.datasets.size || zoom < MINZOOM) return;
 
 // shader experiment
-//const offset = this.context.pixi.stage.position;
-//const transform = this.context.pixi.stage.worldTransform;
+//const offset = this.gfx.pixi.stage.position;
+//const transform = this.gfx.pixi.stage.worldTransform;
 //this._uniforms.translationMatrix = transform.clone().translate(-offset.x, -offset.y);
 //this._uniforms.u_time = frame/10;
 
@@ -190,9 +216,22 @@ export class PixiLayerRapid extends AbstractLayer {
     const service = context.services[dataset.service];  // 'mapwithai' or 'esri'
     if (!service?.started) return;
 
-    // Adjust the dataset id for whether we want the data conflated or not.
-    const datasetID = dataset.id + (dataset.conflated ? '-conflated' : '');
-    const dsGraph = service.graph(datasetID);
+    const useConflationStr = utilStringQs(window.location.hash).conflation;
+
+    let useConflation = dataset.conflated;
+
+    if (useConflationStr === 'false' || useConflationStr === 'no') {
+      useConflation = false;
+    }
+
+    // Adjust the dataset id for whether we want the data conflated or not
+    const datasetID = dataset.id + (useConflation ? '-conflated' : '');
+
+    // Overture data isn't editable, nor conflatable... yet.
+    let dsGraph = null;
+    if (dataset.service !== 'overture') {
+       dsGraph = service.graph(datasetID);
+    }
 
     // Filter out features that have already been accepted or ignored by the user.
     function isAcceptedOrIgnored(entity) {
@@ -214,7 +253,10 @@ export class PixiLayerRapid extends AbstractLayer {
 
       // fb_ai service gives us roads and buildings together,
       // so filter further according to which dataset we're drawing
-      if (dataset.id === 'fbRoads' || dataset.id === 'metaFootways' || dataset.id === 'rapid_intro_graph') {
+      if (dataset.id === 'fbRoads'
+          || dataset.id === 'omdFootways'
+          || dataset.id === 'metaSyntheticFootways'
+          || dataset.id === 'rapid_intro_graph') {
         data.lines = entities.filter(d => d.geometry(dsGraph) === 'line' && !!d.tags.highway);
 
         // Gather endpoint vertices, we will render these also
@@ -236,7 +278,6 @@ export class PixiLayerRapid extends AbstractLayer {
       }
 
       const entities = service.getData(datasetID);
-
       for (const entity of entities) {
         if (isAcceptedOrIgnored(entity)) continue;   // skip features already accepted/ignored by the user
         const geom = entity.geometry(dsGraph);
@@ -248,6 +289,19 @@ export class PixiLayerRapid extends AbstractLayer {
           data.polygons.push(entity);
         }
       }
+
+    } else if (dataset.service === 'overture') {
+      if (zoom >= 16) {  // avoid firing off too many API requests
+        service.loadTiles(datasetID);  // fetch more
+      }
+      const entities = service.getData(datasetID);
+
+      // Just support points (for now)
+      for (const entity of entities) {
+        entity.overture = true;
+        entity.__datasetid__ = datasetID;
+        data.points.push(entity);
+      }
     }
 
     const pointsContainer = this.scene.groups.get('points');
@@ -255,18 +309,18 @@ export class PixiLayerRapid extends AbstractLayer {
     const areasID = `${this.layerID}-${dataset.id}-areas`;
     const linesID = `${this.layerID}-${dataset.id}-lines`;
 
-    let areasContainer = basemapContainer.getChildByName(areasID);
+    let areasContainer = basemapContainer.getChildByLabel(areasID);
     if (!areasContainer) {
       areasContainer = new PIXI.Container();
-      areasContainer.name = areasID;
+      areasContainer.label= areasID;
       areasContainer.sortableChildren = true;
       basemapContainer.addChild(areasContainer);
     }
 
-    let linesContainer = basemapContainer.getChildByName(linesID);
+    let linesContainer = basemapContainer.getChildByLabel(linesID);
     if (!linesContainer) {
       linesContainer = new PIXI.Container();
-      linesContainer.name = linesID;
+      linesContainer.label= linesID;
       linesContainer.sortableChildren = true;
       basemapContainer.addChild(linesContainer);
     }
@@ -408,7 +462,7 @@ export class PixiLayerRapid extends AbstractLayer {
 
       if (!feature) {
         feature = new PixiFeaturePoint(this, featureID);
-        feature.geometry.setCoords(entity.loc);
+        feature.geometry.setCoords(entity.loc || entity.geojson.geometry.coordinates);
         feature.parentContainer = parentContainer;
         feature.rapidFeature = true;
         feature.setData(entity.id, entity);
@@ -418,12 +472,19 @@ export class PixiLayerRapid extends AbstractLayer {
 
       if (feature.dirty) {
         feature.style = pointStyle;
-        feature.label = l10n.displayName(entity.tags);
-        // experiment: label addresses
-        const housenumber = entity.tags['addr:housenumber'];
-        if (!feature.label && housenumber) {
-          feature.label = housenumber;
+
+        if (entity.geojson){
+          feature.label = entity.geojson.properties['@name'];
+        } else {
+          feature.label = l10n.displayName(entity.tags);
+
+          // experiment: label addresses
+          const housenumber = entity.tags['addr:housenumber'];
+          if (!feature.label && housenumber) {
+            feature.label = housenumber;
+          }
         }
+
         feature.update(viewport, zoom);
       }
 

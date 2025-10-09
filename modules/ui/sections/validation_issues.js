@@ -12,10 +12,9 @@ const MAX_ISSUES = 1000;
 /**
  *  uiSectionValidateIssues
  *  @param  `context`    Global shared application context
- *  @param  `sectionID`  String 'issues-errors' or 'issues-warnings'
- *  @param  `severity`   String 'error' or 'warning'
+ *  @param  `severity`   String 'error', 'warning', or 'suggestion'
  */
-export function uiSectionValidationIssues(context, sectionID, severity) {
+export function uiSectionValidationIssues(context, severity) {
   const editor = context.systems.editor;
   const l10n = context.systems.l10n;
   const map = context.systems.map;
@@ -24,6 +23,7 @@ export function uiSectionValidationIssues(context, sectionID, severity) {
   const validator = context.systems.validator;
   const viewport = context.viewport;
 
+  const sectionID = `issues-${severity}`;
   const section = uiSection(context, sectionID)
     .label(sectionLabel)
     .shouldDisplay(sectionShouldDisplay)
@@ -34,7 +34,7 @@ export function uiSectionValidationIssues(context, sectionID, severity) {
 
   function sectionLabel() {
     const countText = _issues.length > MAX_ISSUES ? `${MAX_ISSUES}+` : String(_issues.length);
-    const titleText = l10n.t(`issues.${severity}s.list_title`);
+    const titleText = l10n.t(`issues.${severity}s`);
     return l10n.t('inspector.title_count', { title: titleText, count: countText });
   }
 
@@ -74,7 +74,7 @@ export function uiSectionValidationIssues(context, sectionID, severity) {
 
     list = list.enter()
       .append('ul')
-      .attr('class', `layer-list issues-list ${severity}s-list`)
+      .attr('class', `layer-list issues-list ${severity}-list`)
       .merge(list);
 
 
@@ -105,9 +105,8 @@ export function uiSectionValidationIssues(context, sectionID, severity) {
       .append('span')
       .attr('class', 'issue-icon')
       .each((d, i, nodes) => {
-        const which = (d.severity === 'warning') ? 'alert' : 'error';
         d3_select(nodes[i])
-          .call(uiIcon(`#rapid-icon-${which}`));
+          .call(uiIcon(validator.getSeverityIcon(d.severity)));
       });
 
     textEnter
@@ -130,7 +129,7 @@ export function uiSectionValidationIssues(context, sectionID, severity) {
       .order();
 
     items.selectAll('.issue-message')
-      .html(d => d.message(context));
+      .text(d => d.message(context));
 
     items.selectAll('.issue-autofix')
       .classed('hide', d => !(showAutoFix && d.autoArgs));

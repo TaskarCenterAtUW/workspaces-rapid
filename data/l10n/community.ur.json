@@ -16,7 +16,6 @@
       "openstreetmapberlin": "اوپن اسٹریٹ میپس برلن",
       "openstreetmapbrasil": "اوپن اسٹریٹ میپس برازیل",
       "openstreetmapbulgaria": "اوپن اسٹریٹ میپس بلغاریہ",
-      "openstreetmapburkinafaso": "اوپن اسٹریٹ میپس برکینا فاسو",
       "openstreetmapcambodia": "اوپن اسٹریٹ میپس کمبوڈیا",
       "openstreetmapcanada": "اوپن اسٹریٹ میپس کینیڈا",
       "openstreetmapcatalancountries": "اوپن اسٹریٹ میپس کاتالان ممالک",
@@ -24,7 +23,6 @@
       "openstreetmapchile": "اوپن اسٹریٹ میپس چِلی",
       "openstreetmapchina": "اوپن اسٹریٹ میپس چین",
       "openstreetmapcologne": "اوپن اسٹریٹ میپس کولون",
-      "openstreetmapcolombia": "اوپن اسٹریٹ میپس کولمبیا",
       "openstreetmapcostarica": "اوپن اسٹریٹ میپس کوستا ریکا",
       "openstreetmapcroatia": "اوپن اسٹریٹ میپس کرویشیا",
       "openstreetmapcuba": "اوپن اسٹریٹ میپس کوبا",
@@ -78,6 +76,7 @@
       "openstreetmapmichigan": "اوپن اسٹریٹ میپس مشگن",
       "openstreetmapmoldova": "اوپن اسٹریٹ میپس مالڈووا",
       "openstreetmapmongolia": "اوپن اسٹریٹ میپس منگولیا",
+      "openstreetmapmontenegro": "اوپن اسٹریٹ میپس مونٹینیگرو",
       "openstreetmapmorocco": "اوپن اسٹریٹ میپس مراکش",
       "openstreetmapmunchen": "اوپن اسٹریٹ میپس میونخ",
       "openstreetmapmyanmar": "اوپن اسٹریٹ میپس برما",
@@ -93,6 +92,7 @@
       "openstreetmapphilippines": "اوپن اسٹریٹ میپس فلپائن",
       "openstreetmappoland": "اوپن اسٹریٹ میپس پولینڈ",
       "openstreetmapportugal": "اوپن اسٹریٹ میپس پرتگال",
+      "openstreetmappunjab": "اوپن اسٹریٹ میپ پنجاب",
       "openstreetmapreunion": "اوپن اسٹریٹ میپس رے یونیئن",
       "openstreetmapriograndedosul": "اوپن اسٹریٹ میپس ریو گراندے دو سول",
       "openstreetmapromania": "اوپن اسٹریٹ میپس رومانیہ",
@@ -110,7 +110,6 @@
       "openstreetmapsudan": "اوپن اسٹریٹ میپس سوڈان",
       "openstreetmapsweden": "اوپن اسٹریٹ میپس سویڈن",
       "openstreetmapswitzerland": "اوپن اسٹریٹ میپس سوئتسر لینڈ",
-      "openstreetmapsyria": "اوپن اسٹریٹ میپس شام",
       "openstreetmaptaiwan": "اوپن اسٹریٹ میپس تائوان",
       "openstreetmaptanzania": "اوپن اسٹریٹ میپس تنزانیہ",
       "openstreetmapthailand": "اوپن اسٹریٹ میپس تھائی لینڈ",
@@ -140,7 +139,8 @@
         "name": "{community} فیسبک پر"
       },
       "forum": {
-        "name": "{community} فارم"
+        "name": "{community} فارم",
+        "description": "{community} کا باضابطہ فارم"
       }
     }
   }

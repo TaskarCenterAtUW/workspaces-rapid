@@ -15,8 +15,6 @@ import { uiIntroStartEditing } from './start_editing.js';
 import { uiIntroRapid } from './rapid.js';
 
 
-const INTRO_IMAGERY = 'EsriWorldImageryClarity';
-
 const chapterUi = {
   welcome: uiIntroWelcome,
   navigation: uiIntroNavigation,
@@ -114,8 +112,9 @@ export function uiIntro(context, skipToRapid) {
       brightness: imagery.brightness,
       baseLayer: imagery.baseLayerSource(),
       overlayLayers: imagery.overlayLayerSources(),
-      layersEnabled: new Set(),     // Set(layerID)
-      datasetsEnabled: new Set(),   // Set(datasetID)
+      layersEnabled: new Set(),                             // Set<layerID>
+      datasetsAdded: new Set(rapid._addedDatasetIDs),       // Set<datasetID>
+      datasetsEnabled: new Set(rapid._enabledDatasetIDs),   // Set<datasetID>
       edits: editor.toJSON()
     };
 
@@ -127,36 +126,17 @@ export function uiIntro(context, skipToRapid) {
     }
     context.scene().onlyLayers(['background', 'osm', 'labels']);
 
-    // Remember which Rapid datasets were enabled before - we will show only a fake walkthrough dataset
-    for (const [datasetID, dataset] of rapid.datasets) {
-      if (dataset.enabled) {
-        _original.datasetsEnabled.add(datasetID);
-        dataset.enabled = false;
-      }
-    }
-
-    rapid.datasets.set('rapid_intro_graph', {
-      id: 'rapid_intro_graph',
-      beta: false,
-      added: true,
-      enabled: false,   // start disabled, rapid chapter will enable it
-      conflated: false,
-      service: 'mapwithai',
-      color: '#da26d3',
-      dataUsed: [],
-      label: 'Rapid Walkthrough'
-    });
-
-    // Show sidebar and disable the sidebar resizing button
-    ui.sidebar.expand();
-    context.container().selectAll('button.sidebar-toggle').classed('disabled', true);
+    // Show only a fake walkthrough dataset
+    rapid.removeDatasets(rapid._addedDatasetIDs);
+    rapid.addDatasets('rapid_intro_graph');
 
     // Setup imagery
-    const introSource = imagery.getSourceByID(INTRO_IMAGERY) || imagery.getSourceByID('Bing');
+    const introSource = imagery.getSourceByID('Bing');
     imagery.baseLayerSource(introSource);
     _original.overlayLayers.forEach(d => imagery.toggleOverlayLayer(d));
     imagery.brightness = 1;
 
+    ui.Sidebar.expand(false);   // false = no animation
     _curtain = new UiCurtain(context);
     selection.call(_curtain.enable);
 
@@ -215,7 +195,7 @@ export function uiIntro(context, skipToRapid) {
 
     _buttons
       .append('span')
-      .html(d => l10n.tHtml(d.title));
+      .text(d => l10n.t(d.title));
 
     _buttons
       .append('span')
@@ -266,14 +246,12 @@ export function uiIntro(context, skipToRapid) {
     }
 
     // Restore Rapid datasets and service
-    for (const [datasetID, dataset] of rapid.datasets) {
-      dataset.enabled = _original.datasetsEnabled.has(datasetID);
-    }
-    rapid.datasets.delete('rapid_intro_graph');
+    rapid.removeDatasets('rapid_intro_graph');
+    rapid.addDatasets(_original.datasetsAdded);       // added to menu
+    rapid.enableDatasets(_original.datasetsEnabled);  // enabled/checked
 
     _curtain.disable();
     _navwrap.remove();
-    context.container().selectAll('button.sidebar-toggle').classed('disabled', false);
 
     // Restore Map State
     for (const [layerID, layer] of context.scene().layers) {

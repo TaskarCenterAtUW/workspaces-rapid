@@ -1,10 +1,9 @@
-import { Extent, Tiler, vecAdd } from '@rapid-sdk/math';
+import { Tiler, vecSubtract } from '@rapid-sdk/math';
 import RBush from 'rbush';
 
 import { AbstractSystem } from '../core/AbstractSystem';
 import { QAItem } from '../osm/qa_item.js';
 import { utilFetchResponse } from '../util';
-import { marked } from 'marked';
 
 const TILEZOOM = 14;
 const MAPROULETTE_API = 'https://maproulette.org/api/v2';
@@ -12,6 +11,10 @@ const MAPROULETTE_API = 'https://maproulette.org/api/v2';
 
 /**
  * `MapRouletteService`
+ * MapRoulette is a microtask platform for performing tasks to improve OpenStreetMap.
+ * This service connects to the MapRoulette API to fetch about challenges and tasks.
+ * @see https://wiki.openstreetmap.org/wiki/MapRoulette
+ * @see https://maproulette.org/docs/swagger-ui/index.html
  *
  * Events available:
  *   'loadedData'
@@ -27,10 +30,15 @@ export class MapRouletteService extends AbstractSystem {
     this.id = 'maproulette';
     this.autoStart = false;
 
-    this._challengeID = null;  // if we want to filter only a specific challengeID
+    this._initPromise = null;
+    this._challengeIDs = new Set();  // Set<string> - if we want to filter only a specific challengeID
 
     this._cache = null;   // cache gets replaced on init/reset
     this._tiler = new Tiler().zoomRange(TILEZOOM).skipNullIsland(true);
+
+    // Ensure methods used as callbacks always have `this` bound correctly.
+    this._hashchange = this._hashchange.bind(this);
+    this._mapRouletteChanged = this._mapRouletteChanged.bind(this);
   }
 
 
@@ -40,7 +48,24 @@ export class MapRouletteService extends AbstractSystem {
    * @return {Promise} Promise resolved when this component has completed initialization
    */
   initAsync() {
-    return this.resetAsync();
+    if (this._initPromise) return this._initPromise;
+
+    const context = this.context;
+    const gfx = context.systems.gfx;
+    const urlhash = context.systems.urlhash;
+
+    const prerequisites = Promise.all([
+      gfx.initAsync(),   // `gfx.scene` will exist after `initAsync`
+      urlhash.initAsync()
+    ]);
+
+    return this._initPromise = prerequisites
+      .then(() => this.resetAsync())
+      .then(() => {
+        // Setup event handlers..
+        gfx.scene.on('layerchange', this._mapRouletteChanged);
+        urlhash.on('hashchange', this._hashchange);
+      });
   }
 
 
@@ -51,6 +76,7 @@ export class MapRouletteService extends AbstractSystem {
    */
   startAsync() {
     this._started = true;
+    return Promise.resolve();
   }
 
 
@@ -83,14 +109,28 @@ export class MapRouletteService extends AbstractSystem {
 
   /**
    * challengeID
-   * set/get the challengeID
+   * set/get the challengeIDs (as a string of comma-separated values)
    */
-  get challengeID() {
-    return this._challengeID;
+  get challengeIDs() {
+    return [...this._challengeIDs].join(',');
   }
-  set challengeID(val) {
-    if (val === this._challengeID) return;  // no change
-    this._challengeID = val;
+
+  set challengeIDs(ids = '') {
+    const str = ids.toString();
+    const vals = str.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+
+    // Keep only values that are numeric, reject things like NaN, null, Infinity
+    this._challengeIDs.clear();
+    for (const val of vals) {
+      const num = +val;
+      const valIsNumber = (!isNaN(num) && isFinite(num));
+      if (valIsNumber) {
+        this._challengeIDs.add(val);  // keep the string
+      }
+    }
+    const gfx = this.context.systems.gfx;
+    gfx.immediateRedraw();
+    this._mapRouletteChanged();
   }
 
 
@@ -103,7 +143,13 @@ export class MapRouletteService extends AbstractSystem {
     const extent = this.context.viewport.visibleExtent();
     return this._cache.rbush.search(extent.bbox())
       .map(d => d.data)
-      .filter(task => (this._challengeID && task.parentId === this._challengeID) || (!this._challengeID && task.isVisible));
+      .filter(task => {
+        if (this._challengeIDs.size) {
+          return this._challengeIDs.has(task.parentId);  // ignore isVisible if it's in the list
+        } else {
+          return task.isVisible;
+        }
+      });
   }
 
 
@@ -188,12 +234,12 @@ export class MapRouletteService extends AbstractSystem {
 
           task.id = taskID;               // force to string
           task.parentId = challengeID;    // force to string
-          task.loc = this._preventCoincident([task.point.lng, task.point.lat]);
+          task.loc = this._preventCoincident(cache.rbush, [task.point.lng, task.point.lat]);
 
           // save the task
           const d = new QAItem(this, null, taskID, task);
           cache.tasks.set(taskID, d);
-          cache.rbush.insert(this._encodeIssueRbush(d));
+          cache.rbush.insert(this._encodeIssueRBush(d));
         }
 
         this.loadChallenges();   // call this sometimes
@@ -202,7 +248,7 @@ export class MapRouletteService extends AbstractSystem {
         if (err.name === 'AbortError') {
           cache.tileRequest.delete(tile.id);  // allow retry
         } else {  // real error
-          console.error(err);  // eslint-disable-line
+          console.error(err);    // eslint-disable-line no-console
           cache.tileRequest.set(tile.id, { status: 'error' });  // don't retry
         }
       })
@@ -210,7 +256,6 @@ export class MapRouletteService extends AbstractSystem {
         cache.inflight.delete(url);
       });
   }
-
 
 
   /**
@@ -248,14 +293,15 @@ export class MapRouletteService extends AbstractSystem {
           // save the challenge
           cache.challenges.set(challengeID, challenge);
 
-          this.context.deferredRedraw();
+          const gfx = this.context.systems.gfx;
+          gfx.deferredRedraw();
           this.emit('loadedData');
         })
         .catch(err => {
           if (err.name === 'AbortError') {
             cache.challengeRequest.delete(challengeID);  // allow retry
           } else {  // real error
-            console.error(err);  // eslint-disable-line
+            console.error(err);    // eslint-disable-line no-console
             cache.challengeRequest.set(challengeID, { status: 'error' });  // don't retry
           }
         })
@@ -266,9 +312,10 @@ export class MapRouletteService extends AbstractSystem {
   }
 
 
-
   /**
    * loadTaskDetailAsync
+   * This loads the challenge data (not the task) and add the task GeoJSON features to it
+   * https://maproulette.org/docs/swagger-ui/index.html#/Challenge/read
    * @param   task
    * @return  Promise
    */
@@ -277,8 +324,32 @@ export class MapRouletteService extends AbstractSystem {
 
     const url = `${MAPROULETTE_API}/challenge/${task.parentId}`;
     const handleResponse = (data) => {
-      task.instruction = marked.parse(data.instruction) || '';
-      task.description = marked.parse(data.description) || '';
+      task.instruction = data.instruction || '';
+      task.description = data.description || '';
+      return task;
+    };
+
+    return fetch(url)
+      .then(utilFetchResponse)
+      .then(handleResponse)
+      .then(this.loadTaskTaskDetailAsync);
+  }
+
+
+  /**
+   * loadTaskDetailAsync
+   * This loads the task data and adds the geojson properties that are embedded into the task as `taskFeatures`.
+   * Those properties are used to replace the Mustache tags in the challenge.instruction/.description.
+   * https://maproulette.org/docs/swagger-ui/index.html#/Task/read
+   * @param   task
+   * @return  Promise
+   */
+  loadTaskTaskDetailAsync(task) {
+    if (task.taskInstructions !== undefined) return Promise.resolve(task);  // already done
+
+    const url = `${MAPROULETTE_API}/task/${task.id}`;
+    const handleResponse = (data) => {
+      task.taskFeatures = data.geometries.features;
       return task;
     };
 
@@ -294,7 +365,6 @@ export class MapRouletteService extends AbstractSystem {
    * @param   callback
    */
   postUpdate(task, callback) {
-    const context = this.context;
     const cache = this._cache;
 
     // A comment is optional, but if we have one, POST it..
@@ -317,7 +387,7 @@ export class MapRouletteService extends AbstractSystem {
         if (err.name === 'AbortError') {
           return;  // ok
         } else {  // real error
-          console.error(err);  // eslint-disable-line
+          console.error(err);    // eslint-disable-line no-console
         }
       })
       .finally(() => {
@@ -358,16 +428,6 @@ export class MapRouletteService extends AbstractSystem {
         if (task.taskStatus === 1) {  // only counts if the use chose "I Fixed It".
           this._cache.closed.push({ taskID: task.id, challengeID: task.parentId });
         }
-
-// commit.js will take care of the changeset comment
-//        if (!(task.id in this._cache.closed)) {
-//          this._cache.closed[task.id] = 0;
-//          if (task.comment) {
-//            task.comment += ` #maproulette mpr.lt/c/${task.parentId}/t/${task.id}`;
-//            this._cache.comment[task.id] = { id: task.id, comment: task.comment };
-//          }
-//        }
-//        this._cache.closed[task.id] += 1;
         this.removeTask(task);
         this.context.enter('browse');
         if (callback) callback(null, task);
@@ -376,7 +436,7 @@ export class MapRouletteService extends AbstractSystem {
         if (err.name === 'AbortError') {
           return;  // ok
         } else {  // real error
-          console.error(err);  // eslint-disable-line
+          console.error(err);    // eslint-disable-line no-console
           if (callback) callback(err.message);
         }
       })
@@ -409,7 +469,7 @@ export class MapRouletteService extends AbstractSystem {
     if (!(task instanceof QAItem) || !task.id) return;
 
     this._cache.tasks.set(task.id, task);
-    this._updateRbush(this._encodeIssueRbush(task), true); // true = replace
+    this._updateRBush(this._encodeIssueRBush(task), true); // true = replace
     return task;
   }
 
@@ -422,7 +482,7 @@ export class MapRouletteService extends AbstractSystem {
   removeTask(task) {
     if (!(task instanceof QAItem) || !task.id) return;
     this._cache.tasks.delete(task.id);
-    this._updateRbush(this._encodeIssueRbush(task), false);
+    this._updateRBush(this._encodeIssueRBush(task), false);
   }
 
 
@@ -433,6 +493,96 @@ export class MapRouletteService extends AbstractSystem {
    */
   getClosed() {
     return this._cache.closed;
+  }
+
+
+  /**
+   * flyToNearbyTask
+   * Initiates the process to find and fly to a nearby task based on the current task's challenge ID and task ID.
+   * @param {Object} task - The current task object containing task details.
+   */
+  flyToNearbyTask(task) {
+    if (!this.nearbyTaskEnabled) return;
+    const challengeID = task.parentId;
+    const taskID = task.id;
+    if (!challengeID || !taskID) return;
+    this.filterNearbyTasks(challengeID, taskID);
+  }
+
+
+  /**
+   * getChallengeDetails
+   * Retrieves challenge details from cache or API.
+   * @param {string} challengeID - The ID of the challenge.
+   * @returns {Promise} Promise resolving with challenge data.
+   */
+  getChallengeDetails(challengeID) {
+    const cachedChallenge = this._cache.challenges.get(challengeID);
+    if (cachedChallenge) {
+      return Promise.resolve(cachedChallenge);
+    } else {
+      const challengeUrl = `${MAPROULETTE_API}/challenge/${challengeID}`;
+      return fetch(challengeUrl)
+        .then(utilFetchResponse);
+    }
+  }
+
+
+  /**
+   * filterNearbyTasks
+   * Fetches nearby tasks for a given challenge and task ID, and flies to the nearest task.
+   * @param {string} challengeID - The ID of the challenge.
+   * @param {string} taskID - The ID of the current task.
+   * @param {number} [zoom] - Optional zoom level for the map.
+   */
+  filterNearbyTasks(challengeID, taskID, zoom) {
+    const nearbyTasksUrl = `${MAPROULETTE_API}/challenge/${challengeID}/tasksNearby/${taskID}?excludeSelfLocked=true&limit=1`;
+    if (!taskID) return;
+    fetch(nearbyTasksUrl)
+      .then(utilFetchResponse)
+      .then(nearbyTasks => {
+        if (nearbyTasks.length > 0) {
+          const nearestTaskData = nearbyTasks[0];
+          nearestTaskData.parentId = nearestTaskData.parent.toString();
+          return this.getChallengeDetails(challengeID)
+            .then(challengeData => {
+              // Set the title and parentName using the challenge name
+              nearestTaskData.title = challengeData.name;
+              nearestTaskData.parentName = challengeData.name;
+
+              // Create a new QAItem with the updated title and parentName
+              const nearestTask = new QAItem(this, null, nearestTaskData.id.toString(), nearestTaskData);
+              const [lng, lat] = nearestTask.location.coordinates;
+
+              const map = this.context.systems.map;
+              if (map) {
+                map.centerZoomEase([lng, lat], zoom);
+                this.selectAndDisplayTask(nearestTask);
+              }
+            });
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching nearby tasks for challenge:', challengeID, err);  // eslint-disable-line no-console
+    });
+  }
+
+
+  /**
+   * selectAndDisplayTask
+   * Selects a task and updates the sidebar reflect the selection
+   * @param {QAItem} task - The task to be selected
+   */
+  selectAndDisplayTask(task) {
+    const maproulette = this.context.services.maproulette;
+    if (maproulette) {
+      if (!(task instanceof QAItem)) return;
+
+      maproulette.currentTask = task;
+      const selection = new Map();
+      selection.set(task.id, task);
+      this.context.enter('select', { selection });
+    }
   }
 
 
@@ -460,13 +610,13 @@ export class MapRouletteService extends AbstractSystem {
   }
 
 
-  _encodeIssueRbush(d) {
+  _encodeIssueRBush(d) {
     return { minX: d.loc[0], minY: d.loc[1], maxX: d.loc[0], maxY: d.loc[1], data: d };
   }
 
 
   // Replace or remove Task from rbush
-  _updateRbush(task, replace) {
+  _updateRBush(task, replace) {
     this._cache.rbush.remove(task, (a, b) => a.data.id === b.data.id);
     if (replace) {
       this._cache.rbush.insert(task);
@@ -474,17 +624,87 @@ export class MapRouletteService extends AbstractSystem {
   }
 
 
-  // Markers shouldn't obscure each other
-  _preventCoincident(loc) {
-    let coincident = false;
-    do {
-      // first time, move marker up. after that, move marker right.
-      let delta = coincident ? [0.00001, 0] : [0, 0.00001];
-      loc = vecAdd(loc, delta);
-      const bbox = new Extent(loc).bbox();
-      coincident = this._cache.rbush.search(bbox).length;
-    } while (coincident);
+  /**
+   * _preventCoincident
+   * This checks if the cache already has something at that location, and if so, moves down slightly.
+   * @param   {RBush}          rbush - the spatial cache to check
+   * @param   {Array<number>}  loc   - original [longitude,latitude] coordinate
+   * @return  {Array<number>}  Adjusted [longitude,latitude] coordinate
+   */
+  _preventCoincident(rbush, loc) {
+    for (let dy = 0; ; dy++) {
+      loc = vecSubtract(loc, [0, dy * 0.00001]);
+      const box = { minX: loc[0], minY: loc[1], maxX: loc[0], maxY: loc[1] };
+      if (!rbush.collides(box)) {
+        return loc;
+      }
+    }
+  }
 
-    return loc;
+
+  /**
+   * _hashchange
+   * Respond to any changes appearing in the url hash
+   * @param  currParams   Map(key -> value) of the current hash parameters
+   * @param  prevParams   Map(key -> value) of the previous hash parameters
+   */
+  _hashchange(currParams, prevParams) {
+    const scene = this.context.systems.gfx.scene;
+
+    // maproulette
+    // Support opening maproulette layer with a URL parameter:
+    //  e.g. `maproulette=true`  -or-
+    //  e.g. `maproulette=<challengeIDs>`
+    const newVal = currParams.get('maproulette') || '';
+    const oldVal = prevParams.get('maproulette') || '';
+    if (newVal !== oldVal) {
+      let isEnabled = false;
+
+      this._challengeIDs.clear();
+      const vals = newVal.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+      for (const val of vals) {
+        if (val === 'true') {
+          isEnabled = true;
+          continue;
+        }
+        // Try the value as a number, but reject things like NaN, null, Infinity
+        const num = +val;
+        const valIsNumber = (!isNaN(num) && isFinite(num));
+        if (valIsNumber) {
+          isEnabled = true;
+          this._challengeIDs.add(val);  // keep the string
+        }
+      }
+
+      if (isEnabled) {  // either of these will trigger 'layerchange'
+        scene.enableLayers('maproulette');
+      } else {
+        scene.disableLayers('maproulette');
+      }
+    }
+  }
+
+
+  /**
+   * _mapRouletteChanged
+   * Push changes in MapRoulette state to the urlhash
+   */
+  _mapRouletteChanged() {
+    const context = this.context;
+    const urlhash = context.systems.urlhash;
+    const scene = context.systems.gfx.scene;
+    const layer = scene.layers.get('maproulette');
+
+    // `maproulette=true` -or- `maproulette=<challengeIDs>`
+    if (layer?.enabled) {
+      const ids = this.challengeIDs;
+      if (ids) {
+        urlhash.setParam('maproulette', ids);
+      } else {
+        urlhash.setParam('maproulette', 'true');
+      }
+    } else {
+      urlhash.setParam('maproulette', null);
+    }
   }
 }

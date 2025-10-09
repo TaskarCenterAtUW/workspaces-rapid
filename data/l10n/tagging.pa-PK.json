@@ -77,8 +77,10 @@
           "label": "قِسم"
         },
         "access_simple": {
+          "label": "اِجازت",
           "options": {
             "no": "کوئی نہیں",
+            "permissive": "اِجازت دیݨی",
             "private": "نِجی",
             "unknown": "نامعلوم",
             "yes": "عاوم"
@@ -110,8 +112,12 @@
             "housename": "گھر دا ناں",
             "housenumber": "مثلاً 123، ۱۲۳",
             "place": "تھاں دا ناں",
-            "street": "سڑک"
+            "street": "سڑک",
+            "town": "نگر"
           }
+        },
+        "advertising": {
+          "label": "قسم"
         },
         "aerialway": {
           "label": "قِسم"
@@ -129,14 +135,28 @@
         "aeroway": {
           "label": "قِسم"
         },
+        "aircraft/type": {
+          "label": "قسم"
+        },
         "amenity": {
           "label": "قِسم"
+        },
+        "archaeological_site": {
+          "label": "قسم"
         },
         "area/highway": {
           "label": "قِسم"
         },
+        "armrest": {
+          "options": {
+            "undefined": "نامعلوم"
+          }
+        },
         "artwork_type": {
-          "label": "قِسم"
+          "label": "قِسم",
+          "options": {
+            "graffiti": "گرفیٹی"
+          }
         },
         "atm": {
           "label": "نقدی آلہ (اے ٹی ایم)"
@@ -149,8 +169,14 @@
             "no": "کوئی نہیں"
           }
         },
+        "bar": {
+          "label": "پب (بار، شراب والی)\nبار\nشراب والی"
+        },
         "barrier": {
-          "label": "قِسم"
+          "label": "قِسم",
+          "options": {
+            "kerb": "کرب"
+          }
         },
         "barrier_planter": {
           "options": {
@@ -175,6 +201,12 @@
             "building": "عمارت وچ"
           }
         },
+        "bicycle_road": {
+          "options": {
+            "undefined": "نہیں",
+            "yes": "ہاں"
+          }
+        },
         "blind": {
           "options": {
             "limited": "محدود",
@@ -183,7 +215,10 @@
           }
         },
         "board_type": {
-          "label": "قِسم"
+          "label": "قِسم",
+          "options": {
+            "history": "اتیت"
+          }
         },
         "bollard": {
           "label": "قِسم"
@@ -208,10 +243,23 @@
           "label": "قِسم"
         },
         "building": {
-          "label": "عمارت"
+          "label": "مکان",
+          "options": {
+            "civic": "سرکاری عمارت",
+            "college": "کالج",
+            "garage": "گارج",
+            "garages": "گارج دا سموہ",
+            "house": "گھر"
+          }
+        },
+        "building/part": {
+          "label": "عمارت دا بھاگ"
         },
         "bunker_type": {
           "label": "قِسم"
+        },
+        "camp_site": {
+          "label": "قسم"
         },
         "castle_type": {
           "label": "قِسم"
@@ -231,6 +279,9 @@
         "colour": {
           "label": "رنگ"
         },
+        "community_centre": {
+          "label": "قسم"
+        },
         "construction": {
           "label": "قِسم"
         },
@@ -239,6 +290,11 @@
         },
         "contact/webcam": {
           "label": "ویب‌کیم دی کڑی"
+        },
+        "conveying": {
+          "options": {
+            "forward": "اگلا"
+          }
         },
         "country": {
           "label": "دیش"
@@ -288,12 +344,27 @@
             "indian": "بھارتی (دیسی)",
             "italian": "اِطالی",
             "japanese": "جاپانی",
+            "regional": "علاقائی\nکھیتری",
+            "tea": "چاہ",
             "vietnamese": "ویتنامی"
           }
         },
         "cutting": {
           "label": "قسم",
           "placeholder": "مول"
+        },
+        "cycle_barrier": {
+          "label": "قسم"
+        },
+        "cycle_network": {
+          "label": "نیٹورک"
+        },
+        "cycleway": {
+          "options": {
+            "no": {
+              "title": "کوئی نہیں"
+            }
+          }
         },
         "date": {
           "label": "تریخ"
@@ -303,6 +374,9 @@
             "no": "کوئی نہیں",
             "yes": "ہاں"
           }
+        },
+        "depot": {
+          "label": "قسم"
         },
         "description": {
           "label": "تفصیل"
@@ -324,6 +398,11 @@
         "diplomatic": {
           "label": "قسم"
         },
+        "direction_vertex": {
+          "options": {
+            "forward": "اگلا"
+          }
+        },
         "disused/amenity": {
           "label": "قسم"
         },
@@ -335,6 +414,11 @@
         },
         "dock": {
           "label": "قسم"
+        },
+        "dog": {
+          "options": {
+            "yes": "پرویش کرن دا"
+          }
         },
         "door": {
           "label": "دروازہ"
@@ -394,6 +478,19 @@
         "fire_hydrant/type": {
           "label": "روپ"
         },
+        "fire_mains": {
+          "options": {
+            "no": "نہیں"
+          }
+        },
+        "fire_service_inlet": {
+          "label": "روپ"
+        },
+        "fire_sprinkler": {
+          "options": {
+            "no": "نہیں"
+          }
+        },
         "flashing_lights": {
           "options": {
             "no": "نہیں",
@@ -434,11 +531,19 @@
         "highway": {
           "label": "قِسم"
         },
+        "highway_cartpath": {
+          "options": {
+            "service": "سیوا سڑک\nسروس سڑک\nسروس وے\nسروسوے"
+          }
+        },
         "historic": {
           "label": "قِسم"
         },
         "holding_position/type": {
-          "label": "قِسم"
+          "label": "قِسم",
+          "options": {
+            "runway": "ہوائی اڈے دی رن‌وے\nرنوے\nرن وے\nہوائی رنوے\nہوائی رن وے"
+          }
         },
         "horse_riding": {
           "options": {
@@ -468,8 +573,25 @@
         "internet_access/ssid": {
           "label": "وائی‌فائی نیٹورک دا ناں"
         },
+        "irrigation_pivot": {
+          "options": {
+            "pivot": "ہاں",
+            "undefined": "نہیں"
+          }
+        },
         "kerb": {
-          "label": "کرب"
+          "label": "کرب",
+          "options": {
+            "no": {
+              "title": "نہیں"
+            },
+            "yes": {
+              "title": "ہاں"
+            }
+          }
+        },
+        "kerb/kerb_barrier": {
+          "label": "قسم"
         },
         "label": {
           "label": "چیپی"
@@ -495,11 +617,20 @@
             "needleleaved": "سوائیاں"
           }
         },
+        "leaf_type_singular": {
+          "label": "پتّر دی قسم"
+        },
         "leisure": {
           "label": "قِسم"
         },
         "liaison": {
           "label": "قِسم"
+        },
+        "lifeguard": {
+          "label": "قسم"
+        },
+        "lift_gate/type": {
+          "label": "قسم"
         },
         "location": {
           "label": "ستھتی"
@@ -519,11 +650,24 @@
         "marker": {
           "label": "قِسم"
         },
+        "material": {
+          "options": {
+            "sand": "ریت",
+            "wood": "لکڑ"
+          }
+        },
         "maxspeed": {
           "label": "حد رفتار"
         },
         "memorial": {
           "label": "قِسم"
+        },
+        "mooring": {
+          "options": {
+            "no": "نہیں",
+            "private": "نِجی",
+            "yes": "ہاں"
+          }
         },
         "museum": {
           "label": "قِسم"
@@ -556,10 +700,27 @@
           "placeholder": "مقامی، علاقائی، قومی، قومانتری"
         },
         "network_horse": {
-          "label": "نیٹورک دی قسم"
+          "label": "نیٹورک دی قسم",
+          "options": {
+            "ihn": "قومانتری\nاَنتر راشٹری",
+            "lhn": "مقامی\nستھانک\nستھانی",
+            "nhn": "قومی\nدیشی",
+            "rhn": "علاقائی\nکھیتری"
+          },
+          "placeholder": "مقامی، علاقائی، قومی، قومانتری"
+        },
+        "network_road": {
+          "label": "نیٹورک"
         },
         "note": {
           "label": "نوٹ"
+        },
+        "nudism": {
+          "options": {
+            "no": "منع",
+            "permissive": "اِجازت دیݨی",
+            "yes": "پرویش کرن دا"
+          }
         },
         "office": {
           "label": "قِسم"
@@ -597,7 +758,15 @@
         "parking": {
           "label": "قِسم",
           "options": {
-            "surface": "بھومی"
+            "surface": {
+              "title": "بھومی"
+            }
+          }
+        },
+        "parking/side/parking": {
+          "options": {
+            "no": "نہیں",
+            "yes": "ہاں (قسم نمعلم)"
           }
         },
         "parking_entrance": {
@@ -622,6 +791,9 @@
         "phone": {
           "label": "فون"
         },
+        "pipeline": {
+          "label": "قسم"
+        },
         "piste/type": {
           "label": "قِسم"
         },
@@ -630,6 +802,9 @@
         },
         "playground": {
           "label": "قِسم"
+        },
+        "post_box/type": {
+          "label": "قسم"
         },
         "power": {
           "label": "قِسم"
@@ -645,6 +820,17 @@
         },
         "railway": {
           "label": "قِسم"
+        },
+        "railway/signal/direction": {
+          "options": {
+            "forward": "اگلا"
+          }
+        },
+        "ramp": {
+          "options": {
+            "no": "نہیں",
+            "yes": "ہاں"
+          }
         },
         "recycling_accepts": {
           "options": {
@@ -686,8 +872,16 @@
         "resort": {
           "label": "قِسم"
         },
+        "resource": {
+          "options": {
+            "sand": "ریت"
+          }
+        },
         "restriction": {
           "label": "قِسم"
+        },
+        "roller_coaster/track": {
+          "label": "قسم"
         },
         "room": {
           "label": "قِسم"
@@ -697,6 +891,11 @@
         },
         "route_master": {
           "label": "قِسم"
+        },
+        "royal_cypher-GB": {
+          "options": {
+            "no": "نہیں"
+          }
         },
         "ruins": {
           "label": "قِسم"
@@ -718,6 +917,7 @@
           "label": "روپ"
         },
         "seamark/beacon_lateral/system": {
+          "label": "سِسٹم",
           "options": {
             "other": "ہور"
           }
@@ -739,6 +939,12 @@
           "label": "سِسٹم",
           "options": {
             "other": "ہور"
+          }
+        },
+        "seamark/harbour/category_marina": {
+          "options": {
+            "marina": "ہاں",
+            "marina_no_facilities": "نہیں"
           }
         },
         "seamark/mooring/category": {
@@ -763,6 +969,7 @@
           "label": "قِسم",
           "options": {
             "alley": "گلی",
+            "driveway": "درائیو وے",
             "parking_aisle": "پارکنگ‌وے"
           }
         },
@@ -788,7 +995,10 @@
           "label": "قِسم"
         },
         "social_facility": {
-          "label": "قِسم"
+          "label": "قِسم",
+          "options": {
+            "shelter": "پناہ گاہ\nآسرا\n آڑ"
+          }
         },
         "source": {
           "label": "سروت",
@@ -800,6 +1010,21 @@
           }
         },
         "sport": {
+          "label": "کھیداں",
+          "options": {
+            "cycling": "سائکل کرن"
+          }
+        },
+        "sport/sport_ice": {
+          "label": "کھیداں"
+        },
+        "sport/sport_pub": {
+          "label": "کھیداں"
+        },
+        "sport/sport_racing_motor": {
+          "label": "کھیداں"
+        },
+        "sport/sport_racing_nonmotor": {
           "label": "کھیداں"
         },
         "start_date": {
@@ -829,6 +1054,9 @@
           },
           "placeholder": "نامعلوم"
         },
+        "structure_canal": {
+          "placeholder": "نامعلوم"
+        },
         "structure_waterway": {
           "placeholder": "نامعلوم"
         },
@@ -837,6 +1065,12 @@
         },
         "substation": {
           "label": "قِسم"
+        },
+        "substation_pipeline": {
+          "label": "قسم",
+          "options": {
+            "measurement": "ماپدے"
+          }
         },
         "surface": {
           "label": "بھومی",
@@ -867,13 +1101,24 @@
           "label": "ٹیکسون"
         },
         "telecom": {
-          "label": "قِسم"
+          "label": "قِسم",
+          "options": {
+            "data_center": "ڈیٹے دا کیندر\nڈیٹا کیندر\nڈیٹا دا کیندر"
+          }
+        },
+        "telescope/type": {
+          "label": "قسم"
         },
         "to": {
           "label": "ایہہ نوں"
         },
         "toilets": {
           "label": "ٹوئیلٹ"
+        },
+        "toilets/menstrual_products": {
+          "options": {
+            "no": "نہیں"
+          }
         },
         "toilets/wheelchair": {
           "options": {
@@ -902,6 +1147,11 @@
         },
         "traffic_sign": {
           "label": "ٹریفک سائن"
+        },
+        "traffic_sign/direction": {
+          "options": {
+            "forward": "اگلا"
+          }
         },
         "traffic_signals": {
           "label": "قِسم"
@@ -965,6 +1215,11 @@
             "train": "ٹرین",
             "tram": "ٹریم",
             "trolleybus": "ٹرولی‌بس"
+          }
+        },
+        "vending": {
+          "options": {
+            "coffee": "کافی"
           }
         },
         "via": {
@@ -1046,6 +1301,9 @@
         "amenity/fast_food/donut": {
           "name": "ڈونٹ والا"
         },
+        "amenity/ferry_terminal": {
+          "name": "فیری روٹ"
+        },
         "amenity/language_school": {
           "name": "بولی دا سکول"
         },
@@ -1075,6 +1333,9 @@
         },
         "area": {
           "name": "کھیتر"
+        },
+        "barrier/kerb": {
+          "name": "کرب"
         },
         "barrier/yes": {
           "name": "ہاں"

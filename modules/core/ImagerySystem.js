@@ -31,11 +31,10 @@ export class ImagerySystem extends AbstractSystem {
   constructor(context) {
     super(context);
     this.id = 'imagery';
-    this.dependencies = new Set(['assets', 'editor', 'l10n', 'map', 'urlhash']);
+    this.dependencies = new Set(['assets', 'editor', 'gfx', 'l10n', 'map', 'storage', 'urlhash']);
 
     this._initPromise = null;
     this._imageryIndex = null;
-//    this._waybackImageryIndex = null;
     this._baseLayer = null;
     this._overlayLayers = new Map();   // Map (sourceID -> source)
     this._checkedBlocklists = [];
@@ -69,19 +68,25 @@ export class ImagerySystem extends AbstractSystem {
 
     const context = this.context;
     const assets = context.systems.assets;
+    const gfx = context.systems.gfx;
     const map = context.systems.map;
     const storage = context.systems.storage;
     const urlhash = context.systems.urlhash;
 
     const prerequisites = Promise.all([
-      map.initAsync(),   // ImagerySystem should listen for hashchange after MapSystem
       assets.initAsync(),
+      gfx.initAsync(),   // `gfx.scene` will exist after `initAsync`
+      map.initAsync(),   // `ImagerySystem` should listen for 'hashchange' after `MapSystem`
       storage.initAsync(),
       urlhash.initAsync()
     ]);
 
     return this._initPromise = prerequisites
-      .then(() => urlhash.on('hashchange', this._hashchange))
+      .then(() => {
+        // Setup event handlers..
+        urlhash.on('hashchange', this._hashchange);
+        gfx.scene.on('layerchange', this._imageryChanged);
+      })
       .then(() => assets.loadAssetAsync('imagery'))
       .then(data => this._initImageryIndex(data))
       .then(() => this._initWaybackAsync());
@@ -197,16 +202,8 @@ export class ImagerySystem extends AbstractSystem {
    * @return {Promise} Promise resolved when this component has completed startup
    */
   startAsync() {
-    if (this._startPromise) return this._startPromise;
-
-    const map = this.context.systems.map;
-    const prerequisites = map.startAsync();  // ImagerySystem should listen for layerchange after scene exists
-
-    return this._startPromise = prerequisites
-      .then(() => {
-        map.scene.on('layerchange', this._imageryChanged);
-        this._started = true;
-      });
+    this._started = true;
+    return Promise.resolve();
   }
 
 
@@ -305,8 +302,10 @@ export class ImagerySystem extends AbstractSystem {
 
 
   /**
-   *  imageryUsed
-   *  @return  {Array}  Array of imagery layers currently enabled
+   * imageryUsed
+   * Called by the EditSystem to gather the sources being used to make an edit.
+   * We return the English name of any active imagery layers, it will be included in the user's changeset.
+   * @return  {Array<string>}  Array of the names of imagery layers currently visible
    */
   imageryUsed() {
     const result = new Set();
@@ -576,7 +575,10 @@ export class ImagerySystem extends AbstractSystem {
   set brightness(val = 1) {
     if (val === this._brightness) return;  // no change
     this._brightness = val;
-    this.context.scene().layers.get('background')?.setBrightness(val);
+
+    const context = this.context;
+    const scene = context.systems.gfx.scene;
+    scene.layers.get('background')?.setBrightness(val);
     this.emit('imagerychange');
   }
 
@@ -590,7 +592,10 @@ export class ImagerySystem extends AbstractSystem {
   set contrast(val = 1) {
     if (val === this._contrast) return;  // no change
     this._contrast = val;
-    this.context.scene().layers.get('background')?.setContrast(val);
+
+    const context = this.context;
+    const scene = context.systems.gfx.scene;
+    scene.layers.get('background')?.setContrast(val);
     this.emit('imagerychange');
   }
 
@@ -604,7 +609,10 @@ export class ImagerySystem extends AbstractSystem {
   set saturation(val = 1) {
     if (val === this._saturation) return;  // no change
     this._saturation = val;
-    this.context.scene().layers.get('background')?.setSaturation(val);
+
+    const context = this.context;
+    const scene = context.systems.gfx.scene;
+    scene.layers.get('background')?.setSaturation(val);
     this.emit('imagerychange');
   }
 
@@ -618,7 +626,10 @@ export class ImagerySystem extends AbstractSystem {
   set sharpness(val = 1) {
     if (val === this._sharpness) return;  // no change
     this._sharpness = val;
-    this.context.scene().layers.get('background')?.setSharpness(val);
+
+    const context = this.context;
+    const scene = context.systems.gfx.scene;
+    scene.layers.get('background')?.setSharpness(val);
     this.emit('imagerychange');
   }
 

@@ -1,21 +1,33 @@
+import { scaleLinear } from 'd3-scale';
+
 import { AbstractLayer } from './AbstractLayer.js';
 import { PixiFeatureLine } from './PixiFeatureLine.js';
 import { PixiFeaturePoint } from './PixiFeaturePoint.js';
 
 const MINZOOM = 12;
-const STREETSIDE_TEAL = 0xfffc4;
+const STREETSIDE_TEAL = 0x0fffc4;
+const SELECTED = 0xffee00;
 
 const LINESTYLE = {
   casing: { alpha: 0 },  // disable
-  stroke: { alpha: 0.9, width: 4, color: STREETSIDE_TEAL }
+  stroke: { alpha: 0.7, width: 4, color: STREETSIDE_TEAL }
 };
 
 const MARKERSTYLE = {
-  markerName: 'mediumCircle',
-  markerTint: STREETSIDE_TEAL,
-  viewfieldName: 'viewfield',
-  viewfieldTint: STREETSIDE_TEAL
+  markerAlpha:     0.8,
+  markerName:      'mediumCircle',
+  markerTint:      STREETSIDE_TEAL,
+  viewfieldAlpha:  0.7,
+  viewfieldName:   'viewfield',
+  viewfieldTint:   STREETSIDE_TEAL,
+  scale:           1.0,
+  fovWidth:        1,
+  fovLength:       1
 };
+
+const fovWidthInterp = scaleLinear([90, 10], [1.3, 0.7]);
+const fovLengthInterp = scaleLinear([90, 10], [0.7, 1.5]);
+
 
 
 /**
@@ -32,25 +44,47 @@ export class PixiLayerStreetsidePhotos extends AbstractLayer {
   constructor(scene, layerID) {
     super(scene, layerID);
 
-    this._handleBearingChange = this._handleBearingChange.bind(this);
-    this._viewerYawAngle = 0;
+    // Make sure the event handlers have `this` bound correctly
+    this._dirtyCurrentPhoto = this._dirtyCurrentPhoto.bind(this);
 
     if (this.supported) {
-      const service = this.context.services.streetside;
-      service.on('viewerChanged', this._handleBearingChange);
+      const streetside = this.context.services.streetside;
+      streetside.on('bearingChanged', this._dirtyCurrentPhoto);
+      streetside.on('fovChanged', this._dirtyCurrentPhoto);
     }
   }
 
 
+  /**
+   * reset
+   * Every Layer should have a reset function to replace any Pixi objects and internal state.
+   */
+  reset() {
+    super.reset();
+  }
+
 
   /**
-   * _handleBearingCHange
-   * Handle the user dragging inside of a panoramic photo.
+   * _dirtyCurrentPhoto
+   * If we are interacting with the viewer (zooming / panning),
+   * dirty the current photo so its view cone gets redrawn
    */
-  _handleBearingChange() {
-    const service = this.context.services.streetside;
+  _dirtyCurrentPhoto() {
+    const context = this.context;
+    const gfx = context.systems.gfx;
+    const photos = context.systems.photos;
 
-    this._viewerYawAngle = service._pannellumViewer.getYaw();
+    const currPhotoID = photos.currPhotoID;
+    if (!currPhotoID) return;  // shouldn't happen, the user is zooming/panning an image
+
+    // Dirty the feature(s) for this image so they will be redrawn.
+    const featureIDs = this._dataHasFeature.get(currPhotoID) ?? new Set();
+    for (const featureID of featureIDs) {
+      const feature = this.features.get(featureID);
+      if (!feature) continue;
+      feature._styleDirty = true;
+    }
+    gfx.immediateRedraw();
   }
 
 
@@ -79,52 +113,75 @@ export class PixiLayerStreetsidePhotos extends AbstractLayer {
     if (val === this._enabled) return;  // no change
     this._enabled = val;
 
-    if (val) {
-      this.dirtyLayer();
-      this.context.services.streetside.startAsync();
+    const context = this.context;
+    const gfx = context.systems.gfx;
+    const streetside = context.services.streetside;
+    if (val && streetside) {
+      streetside.startAsync()
+        .then(() => gfx.immediateRedraw());
     }
   }
 
 
+  /**
+   * filterImages
+   * @param  {Array<image>}  images - all images
+   * @return {Array<image>}  images with filtering applied
+   */
   filterImages(images) {
-    const photoSystem = this.context.systems.photos;
-    const fromDate = photoSystem.fromDate;
-    const toDate = photoSystem.toDate;
-    const usernames = photoSystem.usernames;
+    const photos = this.context.systems.photos;
+    const fromDate = photos.fromDate;
+    const fromTimestamp = fromDate && new Date(fromDate).getTime();
+    const toDate = photos.toDate;
+    const toTimestamp = toDate && new Date(toDate).getTime();
+    const usernames = photos.usernames;
+    const showFlatPhotos = photos.showsPhotoType('flat');
+    const showPanoramicPhotos = photos.showsPhotoType('panoramic');
 
-    if (fromDate) {
-      const fromTimestamp = new Date(fromDate).getTime();
-      images = images.filter(i => new Date(i.captured_at).getTime() >= fromTimestamp);
-    }
-    if (toDate) {
-      const toTimestamp = new Date(toDate).getTime();
-      images = images.filter(i => new Date(i.captured_at).getTime() <= toTimestamp);
-    }
-    if (usernames) {
-      images = images.filter(i => usernames.includes(i.captured_by));
-    }
-    return images;
+    return images.filter(image => {
+      if (image.id === photos.currPhotoID) return true;  // always show current image - Rapid#1512
+
+      if (!showFlatPhotos && !image.isPano) return false;
+      if (!showPanoramicPhotos && image.isPano) return false;
+
+      const imageTimestamp = new Date(image.captured_at).getTime();
+      if (fromTimestamp && fromTimestamp > imageTimestamp) return false;
+      if (toTimestamp && toTimestamp < imageTimestamp) return false;
+
+      if (usernames && !usernames.includes(image.captured_by)) return false;
+
+      return true;
+    });
   }
 
 
+  /**
+   * filterSequences
+   * @param  {Array<sequence>}  sequences - all sequences
+   * @return {Array<sequence>}  sequences with filtering applied
+   */
   filterSequences(sequences) {
-    const photoSystem = this.context.systems.photos;
-    const fromDate = photoSystem.fromDate;
-    const toDate = photoSystem.toDate;
-    const usernames = photoSystem.usernames;
+    const photos = this.context.systems.photos;
+    const fromDate = photos.fromDate;
+    const fromTimestamp = fromDate && new Date(fromDate).getTime();
+    const toDate = photos.toDate;
+    const toTimestamp = toDate && new Date(toDate).getTime();
+    const usernames = photos.usernames;
+    const showFlatPhotos = photos.showsPhotoType('flat');
+    const showPanoramicPhotos = photos.showsPhotoType('panoramic');
 
-    if (fromDate) {
-      const fromTimestamp = new Date(fromDate).getTime();
-      sequences = sequences.filter(s => new Date(s.captured_at).getTime() >= fromTimestamp);
-    }
-    if (toDate) {
-      const toTimestamp = new Date(toDate).getTime();
-      sequences = sequences.filter(s => new Date(s.captured_at).getTime() <= toTimestamp);
-    }
-    if (usernames) {
-      sequences = sequences.filter(s => usernames.includes(s.captured_by));
-    }
-    return sequences;
+    return sequences.filter(seq => {
+      if (!showFlatPhotos && !seq.isPano) return false;
+      if (!showPanoramicPhotos && seq.isPano) return false;
+
+      const sequenceTimestamp = new Date(seq.captured_at).getTime();
+      if (fromTimestamp && fromTimestamp > sequenceTimestamp) return false;
+      if (toTimestamp && toTimestamp < sequenceTimestamp) return false;
+
+      if (usernames && !usernames.includes(seq.captured_by)) return false;
+
+      return true;
+    });
   }
 
 
@@ -135,21 +192,18 @@ export class PixiLayerStreetsidePhotos extends AbstractLayer {
    * @param  zoom       Effective zoom to use for rendering
    */
   renderMarkers(frame, viewport, zoom) {
-    const service = this.context.services.streetside;
-
-    //We want the active image, which may or may not be the selected image.
-    const activeIDs = this._classHasData.get('active') ?? new Set();
-
-    if (!service?.started) return;
+    const streetside = this.context.services.streetside;
+    if (!streetside?.started) return;
 
     const parentContainer = this.scene.groups.get('streetview');
-    const images = service.getImages();
-    const sequences = service.getSequences();
+    let images = streetside.getImages();
+    let sequences = streetside.getSequences();
 
-    const sequenceData = this.filterSequences(sequences);
-    const photoData = this.filterImages(images);
+    sequences = this.filterSequences(sequences);
+    images = this.filterImages(images);
 
-    for (const sequence of sequenceData) {
+    // render sequences
+    for (const sequence of sequences) {
       const dataID =  sequence.id;
       const featureID = `${this.layerID}-sequence-${dataID}`;
       const sequenceVersion = sequence.v || 0;
@@ -176,36 +230,53 @@ export class PixiLayerStreetsidePhotos extends AbstractLayer {
       this.retainFeature(feature, frame);
     }
 
-
-    for (const photo of photoData) {
-      const dataID = photo.id;
+    // render markers
+    for (const d of images) {
+      const dataID = d.id;
       const featureID = `${this.layerID}-photo-${dataID}`;
       let feature = this.features.get(featureID);
 
       if (!feature) {
+        feature = new PixiFeaturePoint(this, featureID);
+        feature.geometry.setCoords(d.loc);
+        feature.parentContainer = parentContainer;
+        feature.setData(dataID, d);
+      }
+
+      this.syncFeatureClasses(feature);
+
+      if (feature.dirty) {
+        // Start with default style, and apply adjustments
         const style = Object.assign({}, MARKERSTYLE);
-        if (Number.isFinite(photo.ca)) {
-          style.viewfieldAngles = [photo.ca];   // ca = camera angle
-        }
-        if (photo.isPano) {
-          style.viewfieldName = 'pano';
+
+        if (feature.hasClass('selectphoto')) {  // selected photo style
+          const viewer = streetside._viewer;
+          const yaw = viewer?.getYaw() ?? 0;
+          const fov = viewer?.getHfov() ?? 45;
+
+          style.viewfieldAngles = [d.ca + yaw];
+          style.viewfieldName = 'viewfield';
+          style.viewfieldAlpha = 1;
+          style.viewfieldTint = SELECTED;
+          style.markerTint = SELECTED;
+          style.scale = 2.0;
+          style.fovWidth = fovWidthInterp(fov);
+          style.fovLength = fovLengthInterp(fov);
+
+        } else {
+          style.viewfieldAngles = Number.isFinite(d.ca) ? [d.ca] : [];  // ca = camera angle
+          style.viewfieldName = d.isPano ? 'pano' : 'viewfield';
+
+          if (feature.hasClass('highlightphoto')) {  // highlighted photo style
+            style.viewfieldAlpha = 1;
+            style.viewfieldTint = SELECTED;
+            style.markerTint = SELECTED;
+          }
         }
 
-        feature = new PixiFeaturePoint(this, featureID);
-        feature.geometry.setCoords(photo.loc);
         feature.style = style;
-        feature.parentContainer = parentContainer;
-        feature.setData(dataID, photo);
       }
-      if (activeIDs.has(photo.id)) {
-        feature.drawing = true;
-        feature.style.viewfieldAngles = [photo.ca + this._viewerYawAngle];
-        feature.style.viewfieldName = 'viewfield';
-      } else  {
-        feature.drawing = false;
-        feature.style.viewfieldName = photo.isPano ? 'pano' : 'viewfield';
-      }
-      this.syncFeatureClasses(feature);
+
       feature.update(viewport, zoom);
       this.retainFeature(feature, frame);
     }
@@ -220,10 +291,10 @@ export class PixiLayerStreetsidePhotos extends AbstractLayer {
    * @param  zoom       Effective zoom to use for rendering
    */
   render(frame, viewport, zoom) {
-    const service = this.context.services.streetside;
-    if (!this.enabled || !service?.started || zoom < MINZOOM) return;
+    const streetside = this.context.services.streetside;
+    if (!this.enabled || !streetside?.started || zoom < MINZOOM) return;
 
-    service.loadTiles();
+    streetside.loadTiles();
     this.renderMarkers(frame, viewport, zoom);
   }
 

@@ -7,8 +7,7 @@ import { AbstractMode } from './AbstractMode.js';
 import { actionDeleteRelation } from '../actions/delete_relation.js';
 import { actionMove, actionRotate } from '../actions/index.js';
 import * as Operations from '../operations/index.js';
-import { uiCmd } from '../ui/cmd.js';
-import { utilKeybinding, utilTotalExtent } from '../util/index.js';
+import { utilCmd, utilKeybinding, utilTotalExtent } from '../util/index.js';
 
 
 /**
@@ -45,13 +44,11 @@ export class SelectOsmMode extends AbstractMode {
     this._keydown = this._keydown.bind(this);
     this._hover = this._hover.bind(this);
     this._merge = this._merge.bind(this);
-
     this._firstVertex = this._firstVertex.bind(this);
     this._focusNextParent = this._focusNextParent.bind(this);
     this._lastVertex = this._lastVertex.bind(this);
     this._nextVertex = this._nextVertex.bind(this);
     this._previousVertex = this._previousVertex.bind(this);
-    this._hover = this._hover.bind(this);
   }
 
 
@@ -71,10 +68,11 @@ export class SelectOsmMode extends AbstractMode {
     const filters = context.systems.filters;
     const hover = context.behaviors.hover;
     const locations = context.systems.locations;
-    const map = context.systems.map;
+    const gfx = context.systems.gfx;
+    const scene = gfx.scene;
     const ui = context.systems.ui;
     const urlhash = context.systems.urlhash;
-    const eventManager = map.renderer.events;
+    const eventManager = gfx.events;
 
     const selection = options.selection ?? {};
     let entityIDs = selection.osm ?? [];
@@ -107,7 +105,15 @@ export class SelectOsmMode extends AbstractMode {
     context.enableBehaviors(['hover', 'select', 'drag', 'mapInteraction', 'lasso', 'paste']);
     ui.closeEditMenu();
 
-    this.extent = utilTotalExtent(entityIDs, graph);  // Compute the total extent of selected items
+    // Compute the total extent of selected items
+    this.extent = utilTotalExtent(entityIDs, graph);
+
+    // Handle select style class
+    scene.clearClass('select');
+    for (const entityID of entityIDs) {
+      scene.setClass('select', 'osm', entityID);
+    }
+
     urlhash.setParam('id', entityIDs.join(','));      // Put entityIDs into the url hash
     filters.forceVisible(entityIDs);                  // Exclude entityIDs from being filtered
     this._setupOperations(entityIDs);                 // Determine available operations on the edit menu
@@ -116,8 +122,8 @@ export class SelectOsmMode extends AbstractMode {
     this.keybinding
       .on(['[', 'pgup'], this._previousVertex)
       .on([']', 'pgdown'], this._nextVertex)
-      .on(['{', uiCmd('⌘['), 'home'], this._firstVertex)
-      .on(['}', uiCmd('⌘]'), 'end'], this._lastVertex)
+      .on(['{', utilCmd('⌘['), 'home'], this._firstVertex)
+      .on(['}', utilCmd('⌘]'), 'end'], this._lastVertex)
       .on(['\\', 'pause'], this._focusNextParent);
 
     d3_select(document)
@@ -127,8 +133,7 @@ export class SelectOsmMode extends AbstractMode {
     editor.on('merge', this._merge);
     hover.on('hoverchange', this._hover);
 
-    ui.sidebar
-      .select(entityIDs, this._newFeature);
+    ui.Sidebar.showInspector(entityIDs, this._newFeature);
 
     return true;
   }
@@ -146,10 +151,11 @@ export class SelectOsmMode extends AbstractMode {
     const filters = context.systems.filters;
     const hover = context.behaviors.hover;
     const l10n = context.systems.l10n;
-    const map = context.systems.map;
+    const gfx = context.systems.gfx;
+    const scene = gfx.scene;
     const ui = context.systems.ui;
     const urlhash = context.systems.urlhash;
-    const eventManager = map.renderer.events;
+    const eventManager = gfx.events;
 
     // If the user added an empty relation, we should clean it up.
     const graph = editor.staging.graph;
@@ -183,8 +189,9 @@ export class SelectOsmMode extends AbstractMode {
     }
     this.operations = [];
 
+    scene.clearClass('select');
     ui.closeEditMenu();
-    ui.sidebar.hide();
+    ui.Sidebar.hide();
     urlhash.setParam('id', null);
     filters.forceVisible([]);
 
@@ -307,7 +314,7 @@ export class SelectOsmMode extends AbstractMode {
       if (!operation.available()) return;
 
       if (operation.disabled()) {
-        ui.flash
+        ui.Flash
           .duration(4000)
           .iconName(`#rapid-operation-${operation.id}`)
           .iconClass('operation disabled')
@@ -652,7 +659,7 @@ export class SelectOsmMode extends AbstractMode {
     const context = this.context;
     const editor = context.systems.editor;
     const graph = editor.staging.graph;
-    const eventManager = context.systems.map.renderer.events;
+    const eventManager = context.systems.gfx.events;
 
     const target = eventData.target;
     const datum = target?.data;

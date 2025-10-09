@@ -4,7 +4,7 @@ import { Color } from 'pixi.js';
 import throttle from 'lodash-es/throttle.js';
 
 import { AbstractSystem } from './AbstractSystem.js';
-import { uiCmd } from '../ui/cmd.js';
+import { utilCmd } from '../util/cmd.js';
 
 const SELECTION_COLOR = '#01d4fa';
 
@@ -23,13 +23,14 @@ export class Map3dSystem extends AbstractSystem {
     super(context);
     this.id = 'map3d';
     this.autoStart = false;
-    this.dependencies = new Set(['editor', 'l10n', 'map', 'styles', 'ui', 'urlhash']);
+    this.dependencies = new Set(['editor', 'gfx', 'l10n', 'map', 'styles', 'ui', 'urlhash']);
     this.maplibre = null;
     this.containerID = 'map3d_container';
 
     this._loadPromise = null;
     this._initPromise = null;
     this._startPromise = null;
+    this._keys = null;
 
     // The 3d Map will stay close to the main map, but with an offset zoom and rotation
     this._zDiff = 3;     // by default, 3dmap will be at main zoom - 3
@@ -39,6 +40,7 @@ export class Map3dSystem extends AbstractSystem {
     // Ensure methods used as callbacks always have `this` bound correctly.
     this._hashchange = this._hashchange.bind(this);
     this._map3dmoved = this._map3dmoved.bind(this);
+    this._setupKeybinding = this._setupKeybinding.bind(this);
     this.redraw = this.redraw.bind(this);
     this.deferredRedraw = throttle(this.redraw, 50, { leading: true, trailing: true });
     this.toggle = this.toggle.bind(this);
@@ -74,11 +76,10 @@ export class Map3dSystem extends AbstractSystem {
 
     return this._initPromise = prerequisites
       .then(() => {
+        // Setup event handlers..
         urlhash.on('hashchange', this._hashchange);
-
-        const toggleKey = uiCmd('⌘' + l10n.t('background.3dmap.key'));
-        context.keybinding().off(toggleKey);
-        context.keybinding().on(toggleKey, this.toggle);
+        l10n.on('localechange', this._setupKeybinding);
+        this._setupKeybinding();
       });
   }
 
@@ -92,11 +93,8 @@ export class Map3dSystem extends AbstractSystem {
     if (this._startPromise) return this._startPromise;
 
     const context = this.context;
-    const map = context.systems.map;
+    const gfx = context.systems.gfx;
     const ui = context.systems.ui;
-
-    map.on('draw', this.deferredRedraw);  // respond to changes in the main map
-    map.on('move', this.deferredRedraw);
 
     const prerequisites = Promise.all([
       ui.startAsync(),    // wait for UI to be started, so the container will exist
@@ -125,6 +123,9 @@ export class Map3dSystem extends AbstractSystem {
           }
           });
 
+        // Setup event handlers..
+        gfx.on('draw', this.deferredRedraw);  // respond to changes in the main map
+        gfx.on('move', this.deferredRedraw);
         maplibre.on('move', this._map3dmoved);   // respond to changes in the 3d map
         maplibre.on('moveend', this._map3dmoved);
 
@@ -191,7 +192,6 @@ export class Map3dSystem extends AbstractSystem {
   set visible(val) {
     const context = this.context;
     const urlhash = context.systems.urlhash;
-    const isVisible = this.visible;
 
     if (val) {   // show it
       urlhash.setParam('map3d', 'true');
@@ -209,14 +209,14 @@ export class Map3dSystem extends AbstractSystem {
     } else {   // hide it
       urlhash.setParam('map3d', null);
 
-      // Expect the MapLibre container to exist already, it's created by `map3d_viewer.js`
+      // Expect the MapLibre container to exist already, it's created by `UiMap3dViewer.js`
       // If it doesn't exist, this will return a null selection, and that's ok too.
-      const mlcontainer = context.container().select(`#${this.containerID}`);
-      mlcontainer
+      const $mlcontainer = context.container().select(`#${this.containerID}`);
+      $mlcontainer
         .transition()
         .duration(200)
         .style('opacity', '0')
-        .on('end', () => mlcontainer.style('display', 'none'));
+        .on('end', () => $mlcontainer.style('display', 'none'));
     }
   }
 
@@ -224,9 +224,29 @@ export class Map3dSystem extends AbstractSystem {
   /**
    * toggle
    * If visible, make invisible.  If invisible, make visible.
+   * @param  {Event} e? - triggering event (if any)
    */
-  toggle() {
+  toggle(e) {
+    if (e) e.preventDefault();
     this.visible = !this.visible;
+  }
+
+
+  /**
+   * _setupKeybinding
+   * This sets up the keybinding, replacing existing if needed
+   */
+  _setupKeybinding() {
+    const context = this.context;
+    const keybinding = context.keybinding();
+    const l10n = context.systems.l10n;
+
+    if (Array.isArray(this._keys)) {
+      keybinding.off(this._keys);
+    }
+
+    this._keys = [utilCmd('⌘' + l10n.t('shortcuts.command.toggle_3dmap.key'))];
+    context.keybinding().on(this._keys, this.toggle);
   }
 
 
@@ -246,9 +266,9 @@ export class Map3dSystem extends AbstractSystem {
         if (++count === 2) resolve();
       };
 
-      const head = d3_select('head');
+      const $head = d3_select('head');
 
-      head.selectAll('#rapideditor-maplibre-css')
+      $head.selectAll('#rapideditor-maplibre-css')
         .data([0])
         .enter()
         .append('link')
@@ -259,7 +279,7 @@ export class Map3dSystem extends AbstractSystem {
         .on('load', loaded)
         .on('error', reject);
 
-      head.selectAll('#rapideditor-maplibre-js')
+      $head.selectAll('#rapideditor-maplibre-js')
         .data([0])
         .enter()
         .append('script')

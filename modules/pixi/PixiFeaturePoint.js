@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js';
-import { DashLine } from '@rapideditor/pixi-dashed-line';
 import { GlowFilter } from 'pixi-filters';
 
 import { AbstractFeature } from './AbstractFeature.js';
+import { DashLine } from './lib/DashLine.js';
 
 
 /**
@@ -22,8 +22,8 @@ export class PixiFeaturePoint extends AbstractFeature {
 
   /**
    * @constructor
-   * @param  layer       The Layer that owns this Feature
-   * @param  featureID   Unique string to use for the name of this Feature
+   * @param  {Layer}   layer     - The Layer that owns this Feature
+   * @param  {string}  featureID - Unique string to use for the name of this Feature
    */
   constructor(layer, featureID) {
     super(layer, featureID);
@@ -35,14 +35,14 @@ export class PixiFeaturePoint extends AbstractFeature {
     this._isCircular = false;   // set true to use a circular halo and hit area
 
     const marker = new PIXI.Sprite();
-    marker.name = 'marker';
+    marker.label = 'marker';
     marker.eventMode = 'none';
     marker.sortableChildren = false;
     marker.visible = true;
     this.marker = marker;
 
     const icon = new PIXI.Sprite();
-    icon.name = 'icon';
+    icon.label = 'icon';
     icon.eventMode = 'none';
     icon.sortableChildren = false;
     icon.visible = false;
@@ -60,17 +60,27 @@ export class PixiFeaturePoint extends AbstractFeature {
    * Do not use the Feature after calling `destroy()`.
    */
   destroy() {
+    if (this.marker) {
+      this.marker.destroy();
+      this.marker = null;
+    }
+    if (this.icon) {
+      this.icon.destroy();
+      this.icon = null;
+    }
+    if (this.viewfields) {
+      this.viewfields.destroy({ children: true });
+      this.viewfields = null;
+    }
+
     super.destroy();
-    this.marker = null;
-    this.icon = null;
-    this.viewfields = null;
   }
 
 
   /**
    * update
-   * @param  viewport  Pixi viewport to use for rendering
-   * @param  zoom      Effective zoom to use for rendering
+   * @param  {Viewport}  viewport - Pixi viewport to use for rendering
+   * @param  {number}    zoom     - Effective zoom to use for rendering
    */
   update(viewport, zoom) {
     if (!this.dirty) return;  // nothing to do
@@ -93,8 +103,8 @@ export class PixiFeaturePoint extends AbstractFeature {
 
   /**
    * updateGeometry
-   * @param  viewport   Pixi viewport to use for rendering
-   * @param  zoom       Effective zoom to use for rendering
+   * @param  {Viewport}  viewport - Pixi viewport to use for rendering
+   * @param  {number}    zoom     - Effective zoom to use for rendering
    */
   updateGeometry(viewport, zoom) {
     if (!this.geometry.dirty) return;
@@ -114,14 +124,15 @@ export class PixiFeaturePoint extends AbstractFeature {
 
   /**
    * updateStyle
-   * @param  zoom  Effective zoom to use for rendering
+   * @param  {Viewport}  viewport - Pixi viewport to use for rendering
+   * @param  {number}    zoom     - Effective zoom to use for rendering
    */
   updateStyle(viewport, zoom) {
     if (!this._styleDirty) return;
 
     const context = this.context;
     const wireframeMode = context.systems.map.wireframeMode;
-    const textureManager = this.renderer.textures;
+    const textureManager = this.gfx.textures;
     const style = this._style;
     const isPin = ['pin', 'boldPin', 'osmose'].includes(style.markerName);
 
@@ -148,9 +159,9 @@ export class PixiFeaturePoint extends AbstractFeature {
     if (style.iconTexture || style.iconName) {
       icon.texture = style.iconTexture || textureManager.get(style.iconName);
       icon.anchor.set(style.anchor?.x || 0.5, style.anchor?.y || 0.5);   // middle, middle by default, can be overridden in layer code
-      const ICONSIZE = 11;
-      icon.width = ICONSIZE;
-      icon.height = ICONSIZE;
+      const iconSize = style.iconSize || 11;
+      icon.width = iconSize;
+      icon.height = iconSize;
       icon.alpha = style.iconAlpha ?? 1;
       icon.tint = style.iconTint;
       icon.visible = true;
@@ -160,8 +171,9 @@ export class PixiFeaturePoint extends AbstractFeature {
 
     // Update viewfields, if any..
     const vfAngles = style.viewfieldAngles || [];
+    let vfTexture = PIXI.Texture.EMPTY;
     if (vfAngles.length > 0) {  // Should have viewfields
-      const vfTexture = style.viewfieldTexture || textureManager.get(style.viewfieldName) || PIXI.Texture.WHITE;
+      vfTexture = style.viewfieldTexture || textureManager.get(style.viewfieldName) || PIXI.Texture.WHITE;
 
       // Sort markers with viewfields above markers without viewfields
       this.container.zIndex = -latitude + 1000;
@@ -169,7 +181,7 @@ export class PixiFeaturePoint extends AbstractFeature {
       // Ensure viewfield container exists
       if (!this.viewfields) {
         this.viewfields = new PIXI.Container();
-        this.viewfields.name = 'viewfields';
+        this.viewfields.label = 'viewfields';
         this.viewfields.eventMode = 'none';
         this.viewfields.sortableChildren = false;
         this.viewfields.visible = true;
@@ -185,7 +197,7 @@ export class PixiFeaturePoint extends AbstractFeature {
           vfSprite.anchor.set(0.5, 0.5);  // middle, middle
 
           // Make the active photo image pop out at the user
-          if (this.active) {
+          if (this._classes.has('selectphoto') || this._classes.has('highlightphoto')) {
             this.container.zIndex = 99000;
           }
 
@@ -198,10 +210,14 @@ export class PixiFeaturePoint extends AbstractFeature {
       this.viewfields.rotation = bearing;
 
       // Update viewfield angles and style
+      const scale = style.scale || 1;
+      const xScale = scale * (style.fovWidth || 1);
+      const yScale = scale * (style.fovLength || 1);
       for (let i = 0; i < vfAngles.length; i++) {
         const vfSprite = this.viewfields.getChildAt(i);
+        vfSprite.alpha = style.viewfieldAlpha ?? 1;
         vfSprite.tint = style.viewfieldTint || 0x333333;
-        vfSprite.scale.set((style.scale || 1) * style.fovWidth || 1, (style.scale || 1) * style.fovLength || 1);
+        vfSprite.scale.set(xScale, yScale);
         vfSprite.angle = vfAngles[i];
       }
 
@@ -258,7 +274,10 @@ export class PixiFeaturePoint extends AbstractFeature {
     }
 
     // If we are waiting on a texure to load, stay dirty.
-    this._styleDirty = (marker.texture === PIXI.Texture.EMPTY || icon.texture === PIXI.Texture.EMPTY);
+    const missingMarker = marker.visible && marker.texture === PIXI.Texture.EMPTY;
+    const missingIcon = icon.visible && icon.texture === PIXI.Texture.EMPTY;
+    const missingViewfields = this.viewfields && vfTexture === PIXI.Texture.EMPTY;
+    this._styleDirty = (missingMarker || missingIcon || missingViewfields);
   }
 
 
@@ -266,15 +285,16 @@ export class PixiFeaturePoint extends AbstractFeature {
   updateHitArea() {
     if (!this.visible) return;
 
-    //Fix for bug #648: If we're drawing, we don't need to hit ourselves.
-    if (this._drawing) {
+    if (this._classes.has('drawing')) {  // Rapid#648 - If drawing, `hitArea = null`
       this.container.hitArea = null;
       return;
     }
 
     // Recalculate hitArea, grow it if too small
     const MINSIZE = 20;
-    const rect = this.marker.getLocalBounds().clone();
+    // In v8, getLocalBounds now returns a Bounds, not a Rectangle.
+    // The Rectangle is wrapped within the bounds object.
+    const rect = this.marker.getLocalBounds().rectangle.clone();
 
     if (this._isCircular) {
       let radius = rect.width / 2;
@@ -305,9 +325,9 @@ export class PixiFeaturePoint extends AbstractFeature {
    * Show/Hide halo (requires `this.container.hitArea` to be already set up by `updateHitArea` as a supported shape)
    */
   updateHalo() {
-    const showHover = (this.visible && this.hovered);
-    const showSelect = (this.visible && this.selected && !this.virtual);
-    const showHighlight = (this.visible && this.highlighted);
+    const showHover = (this.visible && this._classes.has('hover'));
+    const showSelect = (this.visible && this._classes.has('select') && !this.virtual);
+    const showHighlight = (this.visible && this._classes.has('highlight'));
 
     // Hover
     if (showHover) {
@@ -332,9 +352,9 @@ export class PixiFeaturePoint extends AbstractFeature {
     if (showSelect) {
       if (!this.halo) {
         this.halo = new PIXI.Graphics();
-        this.halo.name = `${this.id}-halo`;
-        const mapUIContainer = this.scene.layers.get('map-ui').container;
-        mapUIContainer.addChild(this.halo);
+        this.halo.label = `${this.id}-halo`;
+        const haloContainer = this.scene.layers.get('map-ui').halo;
+        haloContainer.addChild(this.halo);
       }
 
       const HALO_STYLE = {
@@ -347,10 +367,11 @@ export class PixiFeaturePoint extends AbstractFeature {
       this.halo.clear();
 
       const shape = this.container.hitArea;
+      const dl = new DashLine(this.gfx, this.halo, HALO_STYLE);
       if (shape instanceof PIXI.Circle) {
-        new DashLine(this.halo, HALO_STYLE).drawCircle(shape.x, shape.y, shape.radius, 20);
+        dl.circle(shape.x, shape.y, shape.radius, 20);
       } else if (shape instanceof PIXI.Rectangle) {
-        new DashLine(this.halo, HALO_STYLE).drawRect(shape.x, shape.y, shape.width, shape.height);
+        dl.rect(shape.x, shape.y, shape.width, shape.height);
       }
 
       this.halo.position = this.container.position;
@@ -358,7 +379,7 @@ export class PixiFeaturePoint extends AbstractFeature {
 
     } else {
       if (this.halo) {
-        this.halo.destroy({ children: true });
+        this.halo.destroy();
         this.halo = null;
       }
     }
@@ -367,10 +388,10 @@ export class PixiFeaturePoint extends AbstractFeature {
 
   /**
    * style
-   * @param  obj  Style `Object` (contents depends on the Feature type)
+   * @param {Object} obj - Style `Object` (contents depends on the Feature type)
    *
-   * 'point' - see `PixiFeaturePoint.js`
-   * 'line'/'polygon' - see `StyleSystem.js`
+   * 'point' - @see `PixiFeaturePoint.js`
+   * 'line'/'polygon' - @see `StyleSystem.js`
    */
   get style() {
     return this._style;
@@ -387,10 +408,12 @@ const STYLE_DEFAULTS = {
   iconAlpha: 1,
   iconName: '',
   iconTint: 0x111111,
+  iconSize: 11,
   labelTint: 0xeeeeee,
   markerAlpha: 1,
   markerName: 'smallCircle',
   markerTint: 0xffffff,
+  viewfieldAlpha: 0.75,
   viewfieldAngles: [],
   viewfieldName: 'viewfield',
   viewfieldTint: 0xffffff

@@ -12,6 +12,9 @@ import { utilFetchResponse } from '../util/index.js';
 
 /**
  * `OsmService`
+ * This service connects to the OpenStreetMap editing API to perform queries,
+ *  fetch data, upload changesets, and more.
+ * @see https://wiki.openstreetmap.org/wiki/API
  *
  * Events available:
  *   'apistatuschange'
@@ -181,7 +184,7 @@ export class OsmService extends AbstractSystem {
       loaded: new Set(),
       inflight: {},
       seen: new Set(),
-      rtree: new RBush()
+      rbush: new RBush()
     };
 
     this._noteCache = {
@@ -192,7 +195,7 @@ export class OsmService extends AbstractSystem {
       inflightPost: {},
       note: {},
       closed: {},
-      rtree: new RBush()
+      rbush: new RBush()
     };
 
     this._userCache = {
@@ -950,7 +953,7 @@ export class OsmService extends AbstractSystem {
         cache.loaded.add(tile.id);
         const bbox = tile.wgs84Extent.bbox();
         bbox.id = tile.id;
-        cache.rtree.insert(bbox);
+        cache.rbush.insert(bbox);
       }
       if (callback) {
         callback(err, Object.assign({}, results, { tile: tile }));
@@ -973,7 +976,7 @@ export class OsmService extends AbstractSystem {
 
   isDataLoaded(loc) {
     const bbox = { minX: loc[0], minY: loc[1], maxX: loc[0], maxY: loc[1] };
-    return this._tileCache.rtree.collides(bbox);
+    return this._tileCache.rbush.collides(bbox);
   }
 
 
@@ -1049,7 +1052,8 @@ export class OsmService extends AbstractSystem {
             that._noteCache.loaded.add(tile.id);
           }
           // deferLoadUsers();
-          that.context.deferredRedraw();
+          const gfx = that.context.systems.gfx;
+          gfx.deferredRedraw();
           that.emit('loadedNotes');
         },
         options
@@ -1064,7 +1068,8 @@ export class OsmService extends AbstractSystem {
     const gotNote = (err, results) => {
       if (callback) {
         callback(err, { data: results });
-        this.context.deferredRedraw();
+        const gfx = this.context.systems.gfx;
+        gfx.deferredRedraw();
         this.emit('loadedNotes');
       }
     };
@@ -1100,7 +1105,8 @@ export class OsmService extends AbstractSystem {
         if (err) {
           return callback(err);
         } else {
-          this.context.deferredRedraw();
+          const gfx = this.context.systems.gfx;
+          gfx.deferredRedraw();
           this.emit('loadedNotes');
           return callback(null, results.data[0]);
         }
@@ -1170,7 +1176,8 @@ export class OsmService extends AbstractSystem {
         if (err) {
           return callback(err);
         } else {
-          this.context.deferredRedraw();
+          const gfx = this.context.systems.gfx;
+          gfx.deferredRedraw();
           this.emit('loadedNotes');
           return callback(null, results.data[0]);
         }
@@ -1208,8 +1215,8 @@ export class OsmService extends AbstractSystem {
     function cloneCache(source) {
       let target = {};
       for (const [k, v] of Object.entries(source)) {
-        if (k === 'rtree') {
-          target.rtree = new RBush().fromJSON(v.toJSON());  // clone rbush
+        if (k === 'rbush') {
+          target.rbush = new RBush().fromJSON(v.toJSON());  // clone rbush
         } else if (k === 'toLoad' || k === 'loaded' || k === 'seen') {
           target[k] = new Set(v);    // clone Set
         } else if (k === 'note') {
@@ -1232,7 +1239,7 @@ export class OsmService extends AbstractSystem {
       };
     }
 
-    // access caches directly for testing (e.g., loading notes rtree)
+    // access caches directly for testing (e.g., loading notes rbush)
     if (obj === 'get') {
       return {
         tile: this._tileCache,
@@ -1308,7 +1315,7 @@ export class OsmService extends AbstractSystem {
   // get all cached notes covering the viewport
   getNotes() {
     const extent = this.context.viewport.visibleExtent();
-    return this._noteCache.rtree.search(extent.bbox()).map(d => d.data);
+    return this._noteCache.rbush.search(extent.bbox()).map(d => d.data);
   }
 
 
@@ -1323,7 +1330,7 @@ export class OsmService extends AbstractSystem {
     if (!(note instanceof QAItem) || !note.id) return;
 
     delete this._noteCache.note[note.id];
-    this._updateRtree(this._encodeNoteRtree(note), false);  // false = remove
+    this._updateRBush(this._encodeNoteRBush(note), false);  // false = remove
   }
 
 
@@ -1332,7 +1339,7 @@ export class OsmService extends AbstractSystem {
     if (!(note instanceof QAItem) || !note.id) return;
 
     this._noteCache.note[note.id] = note;
-    this._updateRtree(this._encodeNoteRtree(note), true);  // true = replace
+    this._updateRBush(this._encodeNoteRBush(note), true);  // true = replace
     return note;
   }
 
@@ -1462,7 +1469,7 @@ export class OsmService extends AbstractSystem {
   }
 
 
-  _encodeNoteRtree(note) {
+  _encodeNoteRBush(note) {
     return {
       minX: note.loc[0],
       minY: note.loc[1],
@@ -1753,7 +1760,7 @@ export class OsmService extends AbstractSystem {
         props.loc = vecAdd(props.loc, [epsilon, epsilon]);
       }
       const bbox = new Extent(props.loc).bbox();
-      coincident = this._noteCache.rtree.search(bbox).length;
+      coincident = this._noteCache.rbush.search(bbox).length;
     } while (coincident);
 
     // parse note contents
@@ -1770,9 +1777,9 @@ export class OsmService extends AbstractSystem {
     }
 
     const note = new QAItem(this, null, props.id, props);
-    const item = this._encodeNoteRtree(note);
+    const item = this._encodeNoteRBush(note);
     this._noteCache.note[note.id] = note;
-    this._noteCache.rtree.insert(item);
+    this._noteCache.rbush.insert(item);
 
     return note;
   }
@@ -1870,12 +1877,12 @@ export class OsmService extends AbstractSystem {
   }
 
 
-  // replace or remove note from rtree
-  _updateRtree(item, replace) {
-    this._noteCache.rtree.remove(item, (a, b) => a.data.id === b.data.id);
+  // replace or remove note from rbush
+  _updateRBush(item, replace) {
+    this._noteCache.rbush.remove(item, (a, b) => a.data.id === b.data.id);
 
     if (replace) {
-      this._noteCache.rtree.insert(item);
+      this._noteCache.rbush.insert(item);
     }
   }
 

@@ -1,5 +1,5 @@
 import { Extent, geomGetSmallestSurroundingRectangle, vecInterp } from '@rapid-sdk/math';
-import { polygonHull as d3_polygonHull, polygonCentroid as d3_polygonCentroid } from 'd3-polygon';
+import { polygonHull, polygonCentroid } from 'd3-polygon';
 import polylabel from '@mapbox/polylabel';
 
 
@@ -19,6 +19,7 @@ import polylabel from '@mapbox/polylabel';
  *   `origPoi`       Original pole of inaccessability, [ lon, lat ]
  *   `origSsr`       Original smallest surrounding rectangle
  *   `coords`        Projected coordinate data
+ *   `flatCoords`    Projected coordinate data, flat Array how Pixi wants it [ x,y, x,y, … ]
  *   `extent`        Projected extent
  *   `outer`         Projected outer ring, Array of coordinate pairs [ [x,y], [x,y], … ]
  *   `flatOuter`     Projected outer ring, flat Array how Pixi wants it [ x,y, x,y, … ]
@@ -71,6 +72,7 @@ export class PixiGeometry {
     // The rest of the data is projected data in screen coordinates
     // ([0,0] is the origin of the Pixi scene)
     this.coords = null;
+    this.flatCoords = null;
     this.extent = null;
     this.hull = null;
     this.centroid = null;
@@ -90,8 +92,7 @@ export class PixiGeometry {
 
   /**
    * update
-   * @param  viewport  Pixi viewport to use for rendering
-   * @param  zoom      Effective zoom to use for rendering
+   * @param  {Viewport}  viewport - Pixi viewport to use for rendering
    */
   update(viewport) {
     if (!this.dirty || !this.origCoords || !this.origExtent) return;  // nothing to do
@@ -99,6 +100,7 @@ export class PixiGeometry {
 
     // reset all projected properties
     this.coords = null;
+    this.flatCoords = null;
     this.extent = null;
     this.outer = null;
     this.flatOuter = null;
@@ -164,12 +166,14 @@ export class PixiGeometry {
     // Assign outer and holes
     if (this.type === 'line') {
       this.coords = projRings[0];
+      this.flatCoords = projFlatRings[0];
       this.outer = projRings[0];
       this.flatOuter = projFlatRings[0];
       this.holes = null;
       this.flatHoles = null;
     } else {
       this.coords = projRings;
+      this.flatCoords = projFlatRings;
       this.outer = projRings[0];
       this.flatOuter = projFlatRings[0];
       this.holes = projRings.slice(1);
@@ -201,7 +205,7 @@ export class PixiGeometry {
           this.hull[i] = viewport.project(this.origHull[i]);
         }
       } else {               // recalculate and store as WGS84
-        this.hull = d3_polygonHull(this.outer);
+        this.hull = polygonHull(this.outer);
         if (this.hull) {
           this.origHull = new Array(this.hull.length);
           for (let i = 0; i < this.origHull.length; ++i) {
@@ -217,7 +221,7 @@ export class PixiGeometry {
         if (this.hull.length === 2) {
           this.centroid = vecInterp(this.hull[0], this.hull[1], 0.5);  // average the 2 points
         } else {
-          this.centroid = d3_polygonCentroid(this.hull);
+          this.centroid = polygonCentroid(this.hull);
         }
         this.origCentroid = viewport.unproject(this.centroid);
       }
@@ -253,7 +257,7 @@ export class PixiGeometry {
 
   /**
    * setCoords
-   * @param  data  Geometry `Array` (contents depends on the Feature type)
+   * @param {Array<*>} data - Geometry `Array` (contents depends on the Feature type)
    *
    * 'point' - Single wgs84 coordinate
    *    [lon, lat]
@@ -296,8 +300,8 @@ export class PixiGeometry {
   /**
    * _inferType
    * Determines what kind of geometry we were passed.
-   * @param  arr  Geometry `Array` (contents depends on the Feature type)
-   * @return  'point', 'line', 'polygon' or null
+   * @param   {Array<*>}  arr - Geometry `Array` (contents depends on the Feature type)
+   * @return  {string?}   'point', 'line', 'polygon' or null
    */
   _inferType(data) {
     const a = Array.isArray(data) && data[0];
@@ -311,6 +315,5 @@ export class PixiGeometry {
 
     return null;
   }
-
 
 }

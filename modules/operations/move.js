@@ -11,7 +11,6 @@ export function operationMove(context, selectedIDs) {
   const storage = context.systems.storage;
   const viewport = context.viewport;
 
-  const multi = selectedIDs.length === 1 ? 'single' : 'multiple';
   const entities = selectedIDs.map(entityID => graph.hasEntity(entityID)).filter(Boolean);
   const isNew = entities.every(entity => entity.isNew());
   const nodes = utilGetAllNodes(selectedIDs, graph);
@@ -72,8 +71,8 @@ export function operationMove(context, selectedIDs) {
   operation.tooltip = function() {
     const disabledReason = operation.disabled();
     return disabledReason ?
-      l10n.t(`operations.move.${disabledReason}.${multi}`) :
-      l10n.t(`operations.move.description.${multi}`);
+      l10n.t(`operations.move.${disabledReason}`, { n: selectedIDs.length }) :
+      l10n.t(`operations.move.description`, { n: selectedIDs.length });
   };
 
 
@@ -86,7 +85,7 @@ export function operationMove(context, selectedIDs) {
 
 
   operation.id = 'move';
-  operation.keys = [ l10n.t('operations.move.key') ];
+  operation.keys = [ l10n.t('shortcuts.command.move.key') ];
   operation.title = l10n.t('operations.move.title');
   operation.behavior = new KeyOperationBehavior(context, operation);
 

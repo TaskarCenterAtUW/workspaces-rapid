@@ -1,8 +1,10 @@
 {
   "fr": {
     "_communities": {
+      "freelibreopensourcesoftwarekosovaflossk": "Logiciel libre et open source du Kosovo (FLOSSK)",
       "kiribatiwomeninmapping": "Les femmes cartographes de Kiribati",
       "mappingbotswana": "Cartographier le Botswana",
+      "openstreetmapaachen": "OpenStreetMap Aix-la-Chapelle",
       "openstreetmapafrica": "OpenStreetMap Afrique",
       "openstreetmapalba": "OpenStreetMap Écosse",
       "openstreetmapalbania": "OpenStreetMap Albanie",
@@ -13,14 +15,17 @@
       "openstreetmapaustria": "OpenStreetMap Autriche",
       "openstreetmapbelarus": "OpenStreetMap Biélorussie",
       "openstreetmapbelgium": "OpenStreetMap Belgique",
+      "openstreetmapbelize": "OpenStreetMap Bélize",
       "openstreetmapbengaluru": "OpenStreetMap Bangalore",
       "openstreetmapbenin": "OpenStreetMap Bénin",
+      "openstreetmapbivccvl": "OpenStreetMap Biella-Verceil-Canavais",
       "openstreetmapbolivia": "OpenStreetMap Bolivie",
       "openstreetmapbosniaandherzegovina": "OpenStreetMap Bosnie-Herzégovine",
       "openstreetmapbrasil": "OpenStreetMap Brésil",
       "openstreetmapbrasilia": "OpenStreetMap Brasilia",
       "openstreetmapbremen": "OpenStreetMap Brême",
       "openstreetmapbulgaria": "OpenStreetMap Bulgarie",
+      "openstreetmapbzh": "OpenStreetMap Bretagne",
       "openstreetmapcambodia": "OpenStreetMap Cambodge",
       "openstreetmapcameroon": "OpenStreetMap Cameroun",
       "openstreetmapcastillayleon": "OpenStreetMap Castille et León",
@@ -28,12 +33,14 @@
       "openstreetmapchad": "OpenStreetMap Tchad",
       "openstreetmapchile": "OpenStreetMap Chili",
       "openstreetmapchina": "OpenStreetMap Chine",
-      "openstreetmapcolombia": "OpenStreetMap Colombie",
       "openstreetmapcomunitatvalenciana": "OpenStreetMap Communauté Valencienne",
       "openstreetmapcotedivoire": "OpenStreetMap Côte d'Ivoire",
       "openstreetmapcroatia": "OpenStreetMap Croatie",
       "openstreetmapcuneo": "OpenStreetMap Coni",
+      "openstreetmapcyprus": "OpenStreetMap Chypre",
       "openstreetmapcz": "OpenStreetMap Tchéquie",
+      "openstreetmapde": "OpenStreetMap Allemagne",
+      "openstreetmapdeepsouth": "OpenStreetMap Sud profond",
       "openstreetmapdenmark": "OpenStreetMap Danemark",
       "openstreetmapdominicanrepublic": "OpenStreetMap République dominicaine",
       "openstreetmapdresden": "OpenStreetMap Dresde",
@@ -74,6 +81,7 @@
       "openstreetmaplatinamerica": "OpenStreetMap Amérique latine",
       "openstreetmaplatvia": "OpenStreetMap Lettonie",
       "openstreetmaplebanon": "OpenStreetMap Liban",
+      "openstreetmapliberia": "OpenStreetMap Libéria",
       "openstreetmaplibya": "OpenStreetMap Lybie",
       "openstreetmaplithuania": "OpenStreetMap Lituanie",
       "openstreetmaplombardia": "OpenStreetMap Lombardie",
@@ -112,7 +120,6 @@
       "openstreetmapsudan": "OpenStreetMap Soudan",
       "openstreetmapsweden": "OpenStreetMap Suède",
       "openstreetmapswitzerland": "OpenStreetMap Suisse",
-      "openstreetmapsyria": "OpenStreetMap Syrie",
       "openstreetmaptaiwan": "OpenStreetMap Taïwan",
       "openstreetmaptanzania": "OpenStreetMap Tanzanie",
       "openstreetmapthailand": "OpenStreetMap Thaïlande",
@@ -126,15 +133,24 @@
       "openstreetmapwarszawa": "OpenStreetMap Varsovie",
       "openstreetmapwestbengal": "OpenStreetMap Bengal Ouest",
       "openstreetmapwesternsahara": "OpenStreetMap Sahara occidental",
-      "openstreetmapzambia": "OpenStreetMap Zambie"
+      "openstreetmapzambia": "OpenStreetMap Zambie",
+      "openstreetmapzimbabwe": "OpenStreetMap Zimbabwé",
+      "osmcolombia": "OSM Colombie",
+      "osmmainz": "OSM Mayence",
+      "swissopenstreetmap": "OpenStreetMap Suisse",
+      "youthmappersasu": "YouthMappers Université de l’État d'Arizona"
     },
     "_defaults": {
       "aparat": {
         "name": "{community} sur Aparat",
         "description": "Abonnez-vous à notre chaîne Aparat"
       },
+      "bluesky": {
+        "name": "{community} sur Bluesky",
+        "description": "Suivez-nous sur Bluesky"
+      },
       "discord": {
-        "name": "Discord de {community}",
+        "name": "{community} sur Discord",
         "description": "Discutez avec d’autres cartographes sur Discord"
       },
       "discourse": {
@@ -154,6 +170,10 @@
       },
       "gitlab": {
         "name": "GitLab de {community}"
+      },
+      "instagram": {
+        "name": "{community} sur Instagram",
+        "description": "Suivez-nous sur Instagram"
       },
       "irc": {
         "name": "{community} sur IRC",
@@ -199,6 +219,10 @@
         "name": "{community} sur Threads",
         "description": "Suivez-nous sur Threads"
       },
+      "tiktok": {
+        "name": "{community} sur TikTok",
+        "description": "Suivez-nous sur TikTok"
+      },
       "twitter": {
         "name": "{community} sur 𝕏",
         "description": "Suivez-nous sur 𝕏"
@@ -211,7 +235,8 @@
         "description": "Suivez-nous sur 𝕏"
       },
       "xmpp": {
-        "name": "X.M.P.P. de {community}"
+        "name": "X.M.P.P. de {community}",
+        "description": "Rejoignez notre chat communautaire XMPP : {url}"
       },
       "youtube": {
         "name": "{community} sur YouTube",
@@ -221,6 +246,9 @@
         "name": "Zulip de {community}",
         "description": "Rejoignez notre chat en ligne sur Zulip"
       }
+    },
+    "aberdeen-discord": {
+      "name": "OSM ABZ sur Discord"
     },
     "af-matrix": {
       "description": "Groupe Matrix de la communauté afghane"
@@ -242,6 +270,7 @@
       "extendedDescription": "Rejoignez la communauté pour en apprendre plus sur OpenStreetMap, pour poser des questions ou participer à nos rencontres. Tout le monde est le bienvenu!"
     },
     "Bay-Area-OpenStreetMappers": {
+      "name": "Cartographes OSM de la région de la baie de San Francisco\n ",
       "description": "Améliorez OpenStreetMap dans la Bay Area",
       "extendedDescription": "Ce groupe a pour objectif de développer la communauté OpenStreetMap dans le secteur de la Région de la baie de San Francisco. Nos événements sont ouverts à tout le monde, passionné.e.s de l'Open Source, cyclistes, professionnel.le.s de la géomatique, geocachers, ou d'autres encore. Quiconque est intéressé.e par les cartes, la cartographie et les données cartographiques libres est invité.e à rejoindre le groupe et à participer aux événements."
     },
@@ -285,6 +314,9 @@
     "br-telegram": {
       "extendedDescription": "Rejoignez la communauté pour en apprendre plus sur OpenStreetMap, posez des questions ou participez à nos rencontres. Tout le monde est le bienvenu !"
     },
+    "br-wiki": {
+      "description": "Projet Wiki avec des guides en lignes d'infos et de coordination pour la cartographie au Brésil"
+    },
     "cape-coast-youthmappers": {
       "name": "YouthMappers de l'université de Cape Coast",
       "description": "Suivez-nous sur Twitter : {url}",
@@ -300,7 +332,8 @@
       "description": "Groupe Matrix pour la communauté OpenStreetMap des Pays Catalans"
     },
     "cat-twitch": {
-      "name": "Chaîne Twitch de {community}"
+      "name": "Chaîne Twitch de {community}",
+      "description": "Édition en direct OSM, HOTosm, OpenData et GIS"
     },
     "cat-wiki": {
       "description": "Espace de coordination pour la communauté OSM autour du pays catalan : {url}"
@@ -323,8 +356,59 @@
     "cl-telegram": {
       "extendedDescription": "Rejoignez la communauté pour en apprendre plus sur OpenStreetMap, posez des questions ou participez à nos rencontres. Tout le monde est le bienvenu !"
     },
+    "co-discourse": {
+      "name": "Discussions des communautés OSM sur la Colombie",
+      "description": "Voici les sujets liés aux changements cartographiques en Colombie"
+    },
     "co-facebook": {
-      "extendedDescription": "Rejoindre la communauté pour en savoir plus sur OpenStreetMap. Tout le monde est le bienvenu !"
+      "name": "Groupe de {community} sur Facebook",
+      "description": "Groupe de discussion sur les questions OSM en Colombie"
+    },
+    "co-github": {
+      "name": "Projets de {community} sur GitHub",
+      "description": "Projets de code élaborés par la communauté"
+    },
+    "co-instagram": {
+      "name": "Posts de {community} sur Instagram",
+      "description": "Publications sur les activités communautaires ou l’information"
+    },
+    "co-linkedin": {
+      "name": "Posts de {community} sur LinkedIn",
+      "description": "Publications sur les activités communautaires ou l’information"
+    },
+    "co-mastodon": {
+      "name": "Posts de {community} sur Mastodon",
+      "description": "Publications sur les activités communautaires ou l’information"
+    },
+    "co-talk": {
+      "name": "Mailing liste de {community}",
+      "description": "Courriels qui nécessitent de communiquer des renseignements à la collectivité"
+    },
+    "co-telegram": {
+      "name": "Groupe de conversation de {community} sur Telegram",
+      "description": "Ouvrir les discussions sur des sujets d’intérêt pour toute la communauté. C’est le canal le plus actif"
+    },
+    "co-thread": {
+      "name": "Posts de {community} sur Threads",
+      "description": "Publications sur les activités communautaires ou l’information"
+    },
+    "co-tiktok": {
+      "name": "Vidéos courtes de {community} sur Tiktok",
+      "description": "Publications sur les activités communautaires"
+    },
+    "co-twitter": {
+      "name": "Communauté {community} sur X-Twitter",
+      "description": "Publications sur les activités communautaires ou l’information"
+    },
+    "co-whatsapp": {
+      "name": "Nouvelles de la communauté {community} sur WhatsApp",
+      "description": "Publications sur les activités communautaires ou l’information"
+    },
+    "co-wiki": {
+      "name": "Page wiki avec documentation sur le projet de cartographie de la Colombie."
+    },
+    "co-youtube": {
+      "name": "Vidéos de {community} sur YouTube"
     },
     "comunitat-valenciana-wiki": {
       "description": "Tout ce que vous devez savoir sur la cartographie dans la Communauté Valencienne : {url}"
@@ -336,16 +420,16 @@
       "description": "Salon OpenStreetMap en tchèque, relié avec IRC, Jabber, Matrix et Telegram"
     },
     "czech-irc": {
-      "description": "Salon OpenStreetMap en tchèque, relié avec Jabber, Matrix et Telegram"
+      "description": "Salon OpenStreetMap en tchèque, relié avec Discord, Jabber, Matrix et Telegram"
     },
     "czech-matrix": {
-      "description": "Salon OpenStreetMap en tchèque, relié avec IRC, Jabber et Telegram"
+      "description": "Salon OpenStreetMap en tchèque, relié avec Discord, IRC, Jabber et Telegram"
     },
     "czech-telegram": {
-      "description": "Salon OpenStreetMap en tchèque, relié avec IRC, Jabber et Matrix"
+      "description": "Salon OpenStreetMap en tchèque, relié avec Discord, IRC, Jabber et Matrix"
     },
     "czech-xmpp": {
-      "description": "Salon OpenStreetMap en tchèque, relié avec IRC, Matrix et Telegram"
+      "description": "Salon OpenStreetMap en tchèque, relié avec Discord, IRC, Matrix et Telegram"
     },
     "de-aachen-wiki": {
       "description": "Page Wiki de {community}"
@@ -357,8 +441,7 @@
       "description": "Page wiki de {community}"
     },
     "de-berlin-xmpp": {
-      "name": "XMPP d'OpenStreetMap Berlin-Brandebourg",
-      "description": "Rejoignez notre chat multi-utilisateurs XMPP : {url}"
+      "name": "XMPP d'OpenStreetMap Berlin-Brandebourg"
     },
     "de-bochum-wiki": {
       "description": "Page wiki de {community}"
@@ -382,8 +465,7 @@
       "description": "Page wiki de {community}"
     },
     "de-hamburg-xmpp": {
-      "name": "XMPP d'OpenStreetMap Hambourg",
-      "description": "Rejoignez notre salle de discussion multi-utilisateurs XMPP : {url}"
+      "name": "XMPP d'OpenStreetMap Hambourg"
     },
     "de-karlsruhe-mailinglist": {
       "name": "Liste de diffusion de Karlsruhe"
@@ -393,6 +475,12 @@
     },
     "de-luneburg-wiki": {
       "description": "Page wiki de {community}"
+    },
+    "de-mainz-mailinglist": {
+      "description": "OpenStreetMap à Mayence et ses environs"
+    },
+    "de-mainz-wiki": {
+      "description": "OpenStreetMap à Mayence et ses environs"
     },
     "de-munchen-wiki": {
       "description": "Page wiki de {community}"
@@ -428,8 +516,7 @@
       "description": "Rencontre de la communauté et des utilisateurs d'OSM Viersen et Mönchengladbach"
     },
     "de-xmpp": {
-      "name": "XMPP d'OpenStreetMap DE",
-      "description": "Rejoignez notre salle de discussion multi-utilisateurs XMPP : {url}"
+      "name": "XMPP d'OpenStreetMap DE"
     },
     "DF-telegram": {
       "extendedDescription": "Rejoignez la communauté pour en apprendre plus sur OpenStreetMap, pour poser des questions ou participer à nos rencontres. Vous êtes tous les bienvenus !"
@@ -451,6 +538,9 @@
     },
     "fr-chapter": {
       "description": "Nous aidons OpenStreetMap à croître et à s'améliorer en France."
+    },
+    "fr-discord": {
+      "name": "Communauté OpenStreetMap de France sur Discord"
     },
     "fr-matrix": {
       "description": "Un groupe Matrix pour la communauté d'OSM France : {url} (pont avec Telegram)"
@@ -487,8 +577,12 @@
       "description": "Réunion pour les passionnés de cartographie dans la région de Philadelphie",
       "extendedDescription": "GeoPhilly unit les développeurs, les géographes, les passionnés de données et d'open source, les hackers civiques et les drogués de la carte dans l'amour partagé pour les cartes et les histoires qu'elles racontent. Que vous utilisiez des cartes dans votre travail ou que vous souhaitiez en savoir plus, c'est la bonne réunion ! Nos événements essayent d'être ouverts, amicaux, éducatifs et sociaux et vont des happy hours aux présentations rapides voire aux ateliers. Venez créer une communauté géospatiale diversifiée et inspirante à Philadelphie avec nous !"
     },
-    "hr-irc": {
-      "description": "Rejoignez #{account} sur irc.freenode.org (port 6667)"
+    "hr-github": {
+      "description": "GitHub de {community}"
+    },
+    "hr-tm": {
+      "name": "{community} Gestionnaire de tâches",
+      "description": "Explorer les activités de cartographie en cours en Croatie"
     },
     "hr-wiki": {
       "description": "Page du wikiprojet pour la Croatie"
@@ -499,9 +593,6 @@
     "hu-matrix": {
       "extendedDescription": "Le forum de discussion d'OpenStreetMap concernant la cartographie. Un des forums support de la communauté OSM."
     },
-    "hu-meetup": {
-      "description": "La plate-forme pour l'organisation des réunions en Hongrie"
-    },
     "hu-mobilizon": {
       "name": "{community} sur Mobilizon",
       "description": "Evènements à venir pour la communauté hongroise d'OSM"
@@ -511,7 +602,7 @@
       "description": "Explorer les activités de cartographie en cours en Hongrie"
     },
     "hu-website": {
-      "description": "Nous aidons OpenStreetMap à croître et à s'améliorer en Hongrie."
+      "description": "Le site de la communauté Hongroise d'OpenStreetMap"
     },
     "hu-wiki": {
       "description": "Page wiki de {community}"
@@ -537,9 +628,6 @@
     "ireland-matrix": {
       "description": "Un portail Matrix pour la chaîne IRC d'OSM Irlande : {url}"
     },
-    "ireland-meetup": {
-      "description": "Rencontres pour celles et ceux qui sont intéressé·es par OpenStreetMap"
-    },
     "is-chapter": {
       "description": "Nous aidons OpenStreetMap à croître et à s'améliorer en Islande."
     },
@@ -560,6 +648,7 @@
       "extendedDescription": "Si vous contribuez ou désirez contribuer à OpenStreetMap, n'hésitez pas à nous rejoindre. Nous acceptons les nouveaux contributeurs avec plaisir !"
     },
     "kosovo-flossk": {
+      "name": "Logiciel libre et open source du Kosovo (FLOSSK)",
       "description": "Nous promouvons FLOSS depuis 2009",
       "extendedDescription": "Free Libre Open Source Software Kosova (FLOSSK) est une organisation non gouvernementale basée à Prishtina créée en 2009 afin de soutenir, promouvoir et développer des logiciels libres et open source. En outre, nous contribuons également à la connaissance libre bet participative, à l'éducation aux technologies de l'information par le biais de didacticiels libres, de normes libres et un accès à la culture dans une société ouverte se basant sur une communication libre."
     },
@@ -620,39 +709,44 @@
       "description": "\"Map Kibera\" est une organisation reconnue travaillant au Kenya",
       "extendedDescription": "La mission de Map Kibera est d'accroître l'influence et la représentation des communautés marginalisées à travers l'utilisation créative d'outils numériques"
     },
-    "MapABQ": {
-      "description": "Réunion mensuelle des utilisateurs d'OpenStreetMap à Albuquerque et dans le nord du Nouveau-Mexique",
-      "extendedDescription": "Tout le monde est le bienvenu et nous sommes heureux de vous aider à démarrer la cartographie. Les réunions sont libres d'accès pour permettre aux contributeurs de venir contribuer à OpenStreetMap sur Albuquerque et ses environs."
-    },
-    "MapColabora-mailinglist": {
-      "name": "Mapeado Colaborativo / Geoinquietos Saragosse",
-      "description": "Liste de diffusion de Mapeado Colaborativo / Geoinquietos Saragosse"
-    },
     "MapColabora-twitter": {
       "name": "Mapeado Colaborativo / Geoinquietos Saragosse",
       "description": "Compte Twitter de Mapeado Colaborativo / Geoinquietos Saragosse"
+    },
+    "MapLYH": {
+      "description": "Groupe MapLYH"
     },
     "mappa-mercia-group": {
       "name": "Groupe local Mappa Mercia",
       "description": "Un endroit pour les amateurs d'OpenStreetMap dans les Midlands",
       "extendedDescription": "Mappa Mercia est un projet pour faire grandir OpenStreetMap dans les West Midlands au Royaume-Uni. Nous organisons des événements communautaires, fournissons de l'aide et du support aux organisations locales qui veulent libérer leurs données."
     },
-    "MappingDC-meetup": {
-      "description": "Améliorez OpenStreetMap dans la région de DC",
-      "extendedDescription": "Nous sommes un groupe de cartographes volontaires qui cherchons à améliorer OpenStreetMap dans la région de DC. Nous essayons aussi de montrer aux autres ce qu'est l'écosystème OSM, l'analyse de données, la cartographie et les SIG. Nous nous réunissons tous les mois à des réunions pour nous concentrer sur une partie de notre ville."
-    },
     "MappingWR": {
       "description": "Rendre les chemins à faible émission de carbone faciles à trouver dans la région de Waterloo."
     },
-    "MapRVA": {
-      "description": "Rencontre MapRVA"
+    "maptime-bogota-facebook": {
+      "description": "Nous sommes un groupe de personnes intéressées à cartographier Bogotá et ses environs dans OpenStreetMap.",
+      "extendedDescription": "Apprenez à collecter des données sur le terrain et à les envoyer sur OpenStreetMap. Il n’est pas nécessaire d’avoir des connaissances préalables ! Vous avez juste besoin d'avoir envie de participer, d’apprendre et de vous amuser."
+    },
+    "maptime-bogota-github": {
+      "description": "Nous sommes un groupe de personnes intéressées à cartographier Bogotá et ses environs dans OpenStreetMap.",
+      "extendedDescription": "Apprenez à collecter des données sur le terrain et à les envoyer sur OpenStreetMap. Il n’est pas nécessaire d’avoir des connaissances préalables ! Vous avez juste besoin d'avoir envie de participer, d’apprendre et de vous amuser."
     },
     "maptime-bogota-linkedin": {
-      "description": "Nous sommes un groupe de personnes intéressées à cartographier Bogota et ses environs dans OpenStreetMap."
+      "description": "Nous sommes un groupe de personnes intéressées à cartographier Bogota et ses environs dans OpenStreetMap.",
+      "extendedDescription": "Apprenez à collecter des données sur le terrain et à les envoyer sur OpenStreetMap. Il n’est pas nécessaire d’avoir des connaissances préalables ! Vous avez juste besoin d'avoir envie de participer, d’apprendre et de vous amuser."
+    },
+    "maptime-bogota-mastodon": {
+      "description": "Nous sommes un groupe de personnes intéressées pour cartographier Bogotá et ses environs dans OpenStreetMap.",
+      "extendedDescription": "Apprenez à collecter des données sur le terrain et à les envoyer sur OpenStreetMap. Il n’est pas nécessaire d’avoir des connaissances préalables ! Vous avez juste besoin d'avoir envie de participer, d’apprendre et de vous amuser."
     },
     "maptime-bogota-meetup": {
       "description": "Nous sommes un groupe de personnes intéressées à cartographier Bogota et ses environs dans OpenStreetMap.",
       "extendedDescription": "Apprenez à collecter des données sur le terrain et à les numériser sur OpenStreetMap. Il n’est pas nécessaire d’avoir des connaissances préalables. Vous avez juste besoin d'avoir envie de participer, d’apprendre et de vous amuser !"
+    },
+    "maptime-bogota-telegram": {
+      "description": "Nous sommes un groupe de personnes intéressées pour cartographier Bogotá et ses environs dans OpenStreetMap.",
+      "extendedDescription": "Apprenez à collecter des données sur le terrain et à les envoyer sur OpenStreetMap. Il n’est pas nécessaire d’avoir des connaissances préalables ! Vous avez juste besoin d'avoir envie de participer, d’apprendre et de vous amuser."
     },
     "maptime-bogota-twitter": {
       "description": "Nous sommes un groupe de personnes intéressées à cartographier Bogota et ses environs dans OpenStreetMap.",
@@ -661,6 +755,10 @@
     "maptime-bogota-website": {
       "description": "Nous sommes un groupe de personnes intéressées à cartographier Bogota et ses environs dans OpenStreetMap.",
       "extendedDescription": "Apprenez à collecter des données sur le terrain et les numériser sur OpenStreetMap. Aucune connaissance préalable n'est requise ! Vous avez seulement besoin de vouloir participer, apprendre et vous amuser."
+    },
+    "maptime-bogota-youtube": {
+      "description": "Nous sommes un groupe de personnes intéressées pour cartographier Bogotá et ses environs dans OpenStreetMap.",
+      "extendedDescription": "Apprenez à collecter des données sur le terrain et à les envoyer sur OpenStreetMap. Il n’est pas nécessaire d’avoir des connaissances préalables ! Vous avez juste besoin d'avoir envie de participer, d’apprendre et de vous amuser."
     },
     "Maptime-ME-meetup": {
       "description": "Cartographes et utilisateurs d'OpenStreetMap autour de Portland, ME",
@@ -686,6 +784,9 @@
     "mt-irc": {
       "extendedDescription": "Rejoingnez #{account} sur irc.oftc.net (port 6667), patientez quelques minutes si vous posez une question"
     },
+    "nl-discourse": {
+      "description": "Un forum pour discuter d'OpenStreetMap aux Pays-Bas"
+    },
     "nl-matrix": {
       "description": "Tous les cartographes sont les bienvenus !"
     },
@@ -701,8 +802,11 @@
       "extendedDescription": "Vous cartographiez au Népal ? Vous avez des questions, vous souhaitez rencontrer la communauté ? Rejoignez-nous sur {url}. Vous êtes tous les bienvenus !"
     },
     "Open-Source-San-Jose-Discord": {
-      "name": "Discord d'Open Source San José",
+      "name": "Open Source San José sur Discord",
       "description": "Entrez en contact avec d'autres mappeurs sur Discord ! Après votre inscription, rejoignez le canal #🗺openstreetmap."
+    },
+    "Open-Source-San-Jose-Mastodon": {
+      "description": "Suivez Open Source San José sur Mastodon."
     },
     "Open-Source-San-Jose-Slack": {
       "name": "Slack d'Open Source San José",
@@ -742,6 +846,10 @@
     "OSM-AR-wiki": {
       "description": "Tout ce que vous devez savoir sur la cartographie en Argentine."
     },
+    "osm-asia-facebook": {
+      "description": "Groupe Facebook OpenStreetMap Asia",
+      "extendedDescription": "Un groupe pour le support cartographique intégré pour l'Asie. Nous souhaitons particulièrement être un lieu permettant aux cartographes sans communauté locale de partager des informations et de collaborer pour résoudre des problèmes dans leurs régions qu'ils ne seraient pas en mesure de résoudre autrement en raison du manque de communauté locale."
+    },
     "osm-at": {
       "description": "La plateforme pour obtenir des informations sur OpenStreetMap en Autriche"
     },
@@ -780,10 +888,11 @@
       "extendedDescription": "OpenStreetMap Deep South est une communauté locale de cartographes du sud-est des États-Unis."
     },
     "osm-delhi-xmpp": {
-      "description": "Rejoignez notre salle XMPP : {url}"
+      "extendedDescription": "Salle XMPP pour OSM Delhi ; non relié à des réseaux propriétaires."
     },
     "OSM-Discord": {
-      "name": "Discord d'OpenStreetMap Monde"
+      "name": "OpenStreetMap Monde sur Discord",
+      "description": "Serveur Discord non officiel géré par la communauté pour la communauté mondiale OpenStreetMap. Des chaines régionales sont disponibles."
     },
     "OSM-Discourse": {
       "name": "Forum de la communauté OpenStreetMap",
@@ -791,9 +900,6 @@
     },
     "OSM-Facebook": {
       "description": "Mettez-nous un « j'aime » sur Facebook pour recevoir des nouvelles d'OpenStreetMap."
-    },
-    "osm-fj": {
-      "description": "Fournit des services et des informations OSM à la communauté locale de Fidji"
     },
     "osm-gh-facebook": {
       "extendedDescription": "Cartographes de la communauté du Ghana qui promeuvent les projets OpenStreetMap et les projets Humanitarian OpenStreetMap Team (HOT) au Ghana. Rejoignez-nous."
@@ -838,7 +944,7 @@
     },
     "osm-india-xmpp": {
       "name": "XMPP OpenStreetMap Inde",
-      "description": "Rejoignez notre salle XMPP : {url}"
+      "extendedDescription": "Salle XMPP pour la communauté OSM indienne ; non relié à des réseaux propriétaires. Également disponible sur Matrix via #osm-in:poddery.com"
     },
     "osm-iran-aparat": {
       "extendedDescription": "Une bonne ressource de vidéos sur tout ce qui a trait à OpenStreetMap. Surtout en persan."
@@ -849,11 +955,11 @@
     "osm-iran-telegram": {
       "extendedDescription": "Vous êtes invités à rejoindre notre chaîne Telegram à {url}. Nous avons également un supergroupe de nombreux utilisateurs OSM intéressés par l'Iran. Retrouvez son lien dans la bio de la chaîne."
     },
+    "OSM-japan-discord": {
+      "description": "Un espace de travail Discord pour la communauté OSM Japon : {url}"
+    },
     "OSM-japan-facebook": {
       "description": "Cartographes et utilisateurs d'OpenStreetMap au Japon"
-    },
-    "OSM-japan-slack": {
-      "description": "Messagerie Slake pour la communauté OSM du Japon {signupUrl}"
     },
     "OSM-japan-website": {
       "description": "Cartographes et utilisateurs d'OpenStreetMap au Japon"
@@ -892,6 +998,9 @@
     "osm-michigan-wiki": {
       "description": "Page wiki de {community}"
     },
+    "osm-nelson": {
+      "description": "Un groupe OpenStreetMap à Nelson, Nouvelle-Zélande"
+    },
     "osm-ni": {
       "description": "Fournit des services OSM et des informations pour la communauté locale au Nicaragua"
     },
@@ -921,15 +1030,18 @@
       "description": "Liste de diffusion de FSHM Pondichéry pour discuter de cartographie à Pondichéry et d'autres choses.",
       "extendedDescription": "FSHM organise des événements liés au logiciel et au matériel libre, les technologies, l'activisme et OpenStreetMap."
     },
+    "osm-punjab-matrix": {
+      "description": "Nous cartographions le Pendjab ensemble. Rejoignez notre groupe Matrix"
+    },
+    "osm-punjab-telegram": {
+      "description": "Nous cartographions le Pendjab ensemble. Rejoignez notre groupe Telegram. {url}"
+    },
     "OSM-Rome-meetup": {
       "description": "Améliorez OpenStreetMap dans la région de Rome",
       "extendedDescription": "Nous souhaitons être une ressource pour les gens où discuter et partager notre connaissance sur l'utilisation des données géographiques libres, en particulier OpenStreetMap, et des logiciels géospatiaux qui gèrent, modifient et affichent des données géographiques et militons pour leur utilisation à Lazio."
     },
     "OSM-Seattle": {
       "description": "Cartographes et utilisateurs d'OpenStreetMap dans la région de Seattle"
-    },
-    "osm-sierra-leone": {
-      "description": "Nous nous concentrons sur la création et l'utilisation de données libres pour résoudre des défis sociaux, économiques et communautaires."
     },
     "OSM-SoCal": {
       "name": "OpenStreetMap Californie du sud",
@@ -973,12 +1085,8 @@
       "description": "Vous êtes tous les bienvenus ! Enregistrez-vous sur {signupUrl}"
     },
     "OSM-Utah": {
-      "description": "Cartographes et utilisateurs d'OpenStreetMap dans la région de Salt Lake City",
-      "extendedDescription": "Les activités peuvent être des ateliers pour apprendre à cartographier, des cartoparties et des collectes de données en extérieur. Les événement se déroulent dans la zone de SLC au moins au départ. Nous cherchons des cartographes chevronnés ainsi que des nouveaux sur OSM. Rejoignez-nous et cartographions !"
-    },
-    "osm-west-bengal-xmpp": {
-      "name": "XMPP OpenStreetMap Bengale-Occidental",
-      "description": "Rejoignez notre salle XMPP : {url}"
+      "description": "Votre communauté de cartographie OSM pour la région de Salt Lake City.",
+      "extendedDescription": "Nous nous réunissons chaque mois à Salt Lake City, généralement le deuxième mercredi du mois. Tous sont les bienvenus !"
     },
     "OSM-Wyoming": {
       "description": "Cartographes et utilisateurs d'OpenStreetMap dans la région de Wyoming",
@@ -1038,7 +1146,8 @@
       "description": "Site web de la carte OpenStreetMap avec des outils pour la Slovaquie et les régions proches"
     },
     "sosm": {
-      "name": "Association suisse OpenStreetMap"
+      "name": "Association suisse OpenStreetMap",
+      "description": "SOSM a été créé pour promouvoir les objectifs du mouvement OpenStreetMap, renforcer les contacts avec les autorités et l'industrie, faciliter les activités des membres de la communauté OSM en Suisse et représenter la communauté OSM suisse dans d'autres organisations."
     },
     "talk-au": {
       "description": "Lieu de discussion pour les cartographes australiens"
@@ -1048,9 +1157,6 @@
     },
     "talk-mg": {
       "description": "Le lieu de rencontre des contributeurs OpenStreetMap, des communautés et des utilisateurs à Madagascar où partager et discuter."
-    },
-    "talk-nz": {
-      "description": "Discussion de la communauté OSM en Nouvelle-Zélande"
     },
     "talk-pacific": {
       "description": "La liste de diffusion OSM régionale pour et par les peuples de la région Moana/Océanie/Pacifique",
@@ -1092,9 +1198,6 @@
     "uk-london-wiki": {
       "description": "Page wiki de {community}"
     },
-    "uk-loomio": {
-      "name": "OpenStreetMap Grande-Bretagne sur Loomio"
-    },
     "us-discourse": {
       "description": "Un forum de discussion sur OpenStreetMap aux États-Unis"
     },
@@ -1110,8 +1213,8 @@
       "description": "Rejoignez #{account} sur irc.freenode.org (port 6667)",
       "extendedDescription": "Rejoignez #{account} sur irc.freenode.org"
     },
-    "vn-mailinglist": {
-      "description": "Liste de diffusion d'OpenStreetMap au Vietnam ou en vietnamien"
+    "vn-wiki": {
+      "description": "Page Wiki de {community}"
     },
     "YerCizenler-TR": {
       "description": "Association Yer Çizenler Mapping for Everyone",
@@ -1217,18 +1320,10 @@
     "ym-Federal-School-of-Surveys": {
       "description": "YouthMappers, section de l'École Fédérale de Surveys"
     },
-    "ym-Federal-University-of-Technology-Akure": {
-      "description": "YouthMappers, section de l'Université Fédérale de Tecjnologie de Akure",
-      "extendedDescription": "Notre mission est de former la prochaine génération des Space Leaders. Nos activités incluent la recherche et l'amélioration des compétences en télédétection, en SIG, dans le changement climatique, l'astronomie, la cosmologie, l'ingénierie spatiale, la navigation par satellite, la robotique et l'éducation à l'espace."
-    },
     "ym-Fourah-Bay-College": {
+      "name": "Association géographique des étudiants",
       "description": "YouthMappers, section du Collège Fourah Bay",
       "extendedDescription": "L'association étudiante de géographie-YouthMappers est une association des étudiants du Fourah Bay College qui a pour but de cartographier les endroits vulnérables du Sierra Leone et du monde dans le but de secours et d'autres buts bénéfiques, effectuer de la recherche et d'autres activités éducatives. Le chapitre consiste en de jeunes gens avec de grandes idées, orienté vers le développement ensemble, la compréhension et la mise en œuvre de projets de développement durables en équipe."
-    },
-    "ym-General-Lansana-Conte-University": {
-      "name": "YouthMappers de l'Université Générale du Conté de Lansana",
-      "description": "YouthMappers, section de l'Université Générale du Conté de Lansana",
-      "extendedDescription": "Le chapitre YouthMappers de l'Université Générale du Conté de Lansana est une communauté à but non lucratif qui veut contribuer à cartographier la Guinée et d'autres parties du monde. Nous promouvons l'utilisation des SIG et des données libres pour construire des outils de support aux prises de décision. Nous travaillons aussi pour améliorer les compétences des étudiants et des communautés locales."
     },
     "ym-George-Mason-University": {
       "description": "YouthMappers, section de l'Université George Mason",
@@ -1303,6 +1398,7 @@
       "description": "YouthMappers, section de l'Université Jahangirnagar"
     },
     "ym-Jomo-Kenyatta-University-of-Agriculture-and-Technology": {
+      "name": "Association des étudiants en génie géomatique",
       "description": "YouthMappers, section de l'Université Jomo Kenyatta d'Agriculture et de Technologies",
       "extendedDescription": "L'association des étudiants ingénieurs géomaticiens (AGES) cherche à promouvoir les produits GIS et les services ainsi qu'à entraîner les étudiants à les utiliser. Non seulement elle promeut la socialisation entre les étudiants et les professionnels pratiquants, mais elle fournit aussi une plateforme pour échanger de nouvelles idées pour tenir de nouveaux événements SIG et de terrain et de formations à l'université."
     },
@@ -1380,12 +1476,17 @@
       "extendedDescription": "Environment and Wildlife Club se penche sur les problèmes environnementaux sur le campus, dans le Delaware et même à l'échelle nationale ! Nous créons des projets centrés sur le campus ou communautaires, explorons et profitons du grand air, faisons du bénévolat et essayons de promouvoir l'environnement dans tous les aspects de notre vie."
     },
     "ym-Oklahoma-State-University": {
+      "name": "Club de géographie",
       "description": "YouthMappers, section de l'Université d’État de l'Oklahoma"
     },
     "ym-Open-University-of-Tanzania": {
       "name": "Jeunes cartographes de l'Open University of Tanzania",
       "description": "YouthMappers, section de l'Université Ouverte de Tanzanie",
       "extendedDescription": "Chapitre YouthMappers à l'Université Ouverte de Tanzanie\n\nCe groupe a été fondé par des étudiants du Département de Géographie de l'Université Ouverte de Tanzanie afin de développer leurs compétences et d'aider la communauté des jeunes, à travers des projets et des partenariats avec des groupes locaux tels que Mikoko Scout Group (www.msg.or.tz), et de mener des coopérations avec des universités internationales par des programmes d'échanges en relation avec les études en Géographie, comme ceux préparés par Mikoko Scout Group qui lient des universités locales ou lointaines par leur intérêt pour l' International Nature & Environmental Youth Camp 2019 (www.campsite.msg.or.tz/nature.html )\n\nNotre chapitre sera bientôt reconnu comme membre du réseau  pour la jeunesse, ce qui offrira aux étudiants des opportunités d'étudier et de mener des recherches dans ce cadre."
+    },
+    "ym-Oregon-State-University": {
+      "name": "YouthMappers à l'Université d'État de l'Oregon",
+      "description": "Section YouthMappers à l'Université d'État de l'Oregon"
     },
     "ym-Politecnico-di-Milano": {
       "description": "YouthMappers, section de l’École Polytechnique de Milan",
@@ -1521,7 +1622,8 @@
       "extendedDescription": "Nous sommes un groupe d'étudiants qui veulent rejoindre la société mozambicaine pour créer une communauté résiliente de cartographes humanitaires. La communauté veut cartographier les occupations physiques de notre pays et créer des données géographiques ouvertes, accessibles au public et utilisables dans divers secteurs sans coût associé."
     },
     "ym-Universit-de-NZrkor": {
-      "description": "YouthMappers, section de l'Université de N'Zérékoré"
+      "description": "YouthMappers, section de l'Université de N'Zérékoré",
+      "extendedDescription": "YouthMappers engage les étudiants à cartographier en cas de catastrophe ou d'épidémie. Il permet également la production et l’exploitation de données cartographiques en accès libre."
     },
     "ym-Universit-des-Sciences-Sociale-et-de-Gestion-de-Bamako": {
       "description": "YouthMappers, section de l'Université des Sciences Sociales et de Gestion de Bamako"
@@ -1621,11 +1723,6 @@
       "description": "YouthMappers, section de l'Université du Northern Colorado",
       "extendedDescription": "Section officielle du club de géographie et des SIG affiliée à l'Université du Nord du Colorado.  Notre objectif est d'apprendre, de partager et de communiquer avec ceux qui nous entourent. #MakingSenseOfTheWorld"
     },
-    "ym-University-of-Oregon": {
-      "name": "Carte faite par \"Nothwest\"",
-      "description": "YouthMappers, section de l'Université de l'Oregon",
-      "extendedDescription": "Map By Northwest vise à engager les étudiants de premier cycle de l'Université de l'Oregon dans des projets de cartographie pour aider à des causes humanitaires et pour mener des recherches géographiques. Nous invitons des étudiants de toutes disciplines à nous rejoindre dans nos aventures cartographiques."
-    },
     "ym-University-of-Port-Harcourt": {
       "description": "YouthMappers, section de l'Université de Port Harcourt",
       "extendedDescription": "UniqueMappersTeam (UMT) Port Harcourt est un groupe d'action et une équipe de volontaires pour une cartographie en ligne collaborative pour la formation et l'autonomisation de ses membres en ce qui concerne les compétences cartographiques récentes pour créer des données et des analyses géospatiales libres qui répondent aux défis définis localement pour l'information géographique et pour fournir des services de cartographie humanitaire pour créer des communautés résilientes dans le delta du Niger, au Nigéria et ailleurs. Nous promouvons la cartographie collective et les informations géographiques volontaires avec la plateforme OpenStreetMap et d'autres plateformes accessible pour la cartographie rapide de réponse, la cartographie de catastrophe, de géo-intelligence, de mise à jour et pour la formation. C'est un chapitre Campus affilié à HOT. C'est une équipe-projet de YouthMappers qui fournit l'opportunité à ses membres d'apprendre et d'améliorer leurs compétences en information géographique pour explorer les opportunités mondiales dans la cartographie et l'information géographique."
@@ -1665,6 +1762,7 @@
       "extendedDescription": "L'Université de l'Ouest Indien (UWI), section de la bibliothèque du Campus Mona, située en Jamaïque, s'engage dans des projets publics, de sensibilisation et spéciaux. Cela permet à notre bibliothèque d'avoir les moyens d'être un catalyseur pour la vulgarisation spatiale et de plaider pour le partage de données spatiales et l'accès aux intérêts jamaïcains et caribéens. Nous avons des besoins en matière de secours et de communication en cas de catastrophe et de vastes besoins en sciences de la terre et des risques géologiques pour mieux servir notre campus et notre communauté. Plus précisément, nous sommes situés dans une bibliothèque accessibles à tous les professeurs et étudiants."
     },
     "ym-University-of-Victoria": {
+      "name": "Société des étudiants en géographie",
       "description": "YouthMappers, section de l'Université de Victoria",
       "extendedDescription": "SOGS cherche à promouvoir et à représenter les intérêts sociaux et universitaires au sein du Département de géographie. Cela se traduit par quatre objectifs clés : fournir un forum de discussion concernant la qualité et l'accessibilité de l'éducation en géographie ; fournir un moyen de concertation entre étudiants et professeurs du département par le biais d'une représentation aux réunions du département et aux comités du département ; entreprendre au profit des étudiants des activités relevant du domaine de la géographie ; mettre en liaison via l'UVSS et le Conseil de l'Union des Cours les étudiants géographes avec d'autres groupes d'étudiants du campus"
     },

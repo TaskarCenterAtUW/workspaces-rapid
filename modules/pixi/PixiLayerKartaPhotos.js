@@ -3,18 +3,24 @@ import { PixiFeatureLine } from './PixiFeatureLine.js';
 import { PixiFeaturePoint } from './PixiFeaturePoint.js';
 
 const MINZOOM = 12;
-const KARTA_BLUE = 0x20c4ff;
+const KARTAVIEW_BLUE = 0x20c4ff;
+const SELECTED = 0xffee00;
 
 const LINESTYLE = {
   casing: { alpha: 0 },  // disable
-  stroke: { alpha: 0.9, width: 4, color: KARTA_BLUE }
+  stroke: { alpha: 0.7, width: 4, color: KARTAVIEW_BLUE }
 };
 
 const MARKERSTYLE = {
-  markerName: 'mediumCircle',
-  markerTint: KARTA_BLUE,
-  viewfieldName: 'viewfield',
-  viewfieldTint: KARTA_BLUE
+  markerAlpha:     0.8,
+  markerName:      'mediumCircle',
+  markerTint:      KARTAVIEW_BLUE,
+  viewfieldAlpha:  0.7,
+  viewfieldName:   'viewfield',
+  viewfieldTint:   KARTAVIEW_BLUE,
+  scale:           1.0,
+  fovWidth:        1,
+  fovLength:       1
 };
 
 
@@ -59,44 +65,85 @@ export class PixiLayerKartaPhotos extends AbstractLayer {
     if (val === this._enabled) return;  // no change
     this._enabled = val;
 
-    if (val) {
-      this.dirtyLayer();
-      this.context.services.kartaview.startAsync();
+    const context = this.context;
+    const gfx = context.systems.gfx;
+    const kartaview = context.services.kartaview;
+    if (val && kartaview) {
+      kartaview.startAsync()
+        .then(() => gfx.immediateRedraw());
     }
   }
 
 
+  /**
+   * reset
+   * Every Layer should have a reset function to replace any Pixi objects and internal state.
+   */
+  reset() {
+    super.reset();
+  }
+
+
+  /**
+   * filterImages
+   * @param  {Array<image>}  images - all images
+   * @return {Array<image>}  images with filtering applied
+   */
   filterImages(images) {
-    const photoSystem = this.context.systems.photos;
-    const fromDate = photoSystem.fromDate;
-    const toDate = photoSystem.toDate;
+    const photos = this.context.systems.photos;
+    const fromDate = photos.fromDate;
+    const fromTimestamp = fromDate && new Date(fromDate).getTime();
+    const toDate = photos.toDate;
+    const toTimestamp = toDate && new Date(toDate).getTime();
+    const usernames = photos.usernames;
+    const showFlatPhotos = photos.showsPhotoType('flat');
+    const showPanoramicPhotos = photos.showsPhotoType('panoramic');
 
-    if (fromDate) {
-      const fromTimestamp = new Date(fromDate).getTime();
-      images = images.filter(i => new Date(i.captured_at).getTime() >= fromTimestamp);
-    }
-    if (toDate) {
-      const toTimestamp = new Date(toDate).getTime();
-      images = images.filter(i => new Date(i.captured_at).getTime() <= toTimestamp);
-    }
-    return images;
+    return images.filter(image => {
+      if (image.id === photos.currPhotoID) return true;  // always show current image - Rapid#1512
+
+      if (!showFlatPhotos && !image.isPano) return false;
+      if (!showPanoramicPhotos && image.isPano) return false;
+
+      const imageTimestamp = new Date(image.captured_at).getTime();
+      if (fromTimestamp && fromTimestamp > imageTimestamp) return false;
+      if (toTimestamp && toTimestamp < imageTimestamp) return false;
+
+      if (usernames && !usernames.includes(image.captured_by)) return false;
+
+      return true;
+    });
   }
 
 
+  /**
+   * filterSequences
+   * Each sequence is represented as a GeoJSON LineString.
+   * @param  {Array<sequence>}  sequences - all sequences
+   * @return {Array<sequence>}  sequences with filtering applied
+   */
   filterSequences(sequences) {
-    const photoSystem = this.context.systems.photos;
-    const fromDate = photoSystem.fromDate;
-    const toDate = photoSystem.toDate;
+    const photos = this.context.systems.photos;
+    const fromDate = photos.fromDate;
+    const fromTimestamp = fromDate && new Date(fromDate).getTime();
+    const toDate = photos.toDate;
+    const toTimestamp = toDate && new Date(toDate).getTime();
+    const usernames = photos.usernames;
+    const showFlatPhotos = photos.showsPhotoType('flat');
+    const showPanoramicPhotos = photos.showsPhotoType('panoramic');
 
-    if (fromDate) {
-      const fromTimestamp = new Date(fromDate).getTime();
-      sequences = sequences.filter(s => new Date(s.properties.captured_at).getTime() >= fromTimestamp);
-    }
-    if (toDate) {
-      const toTimestamp = new Date(toDate).getTime();
-      sequences = sequences.filter(s => new Date(s.properties.captured_at).getTime() <= toTimestamp);
-    }
-    return sequences;
+    return sequences.filter(seq => {
+      if (!showFlatPhotos && !seq.properties.is_pano) return false;
+      if (!showPanoramicPhotos && seq.properties.is_pano) return false;
+
+      const sequenceTimestamp = new Date(seq.properties.captured_at).getTime();
+      if (fromTimestamp && fromTimestamp > sequenceTimestamp) return false;
+      if (toTimestamp && toTimestamp < sequenceTimestamp) return false;
+
+      if (usernames && !usernames.includes(seq.properties.captured_by)) return false;
+
+      return true;
+    });
   }
 
 
@@ -107,17 +154,18 @@ export class PixiLayerKartaPhotos extends AbstractLayer {
    * @param  zoom       Effective zoom to use for rendering
    */
   renderMarkers(frame, viewport, zoom) {
-    const service = this.context.services.kartaview;
-    if (!service?.started) return;
+    const kartaview = this.context.services.kartaview;
+    if (!kartaview?.started) return;
 
     const parentContainer = this.scene.groups.get('streetview');
-    const images = service.getImages();
-    const sequences = service.getSequences();
+    let images = kartaview.getImages();
+    let sequences = kartaview.getSequences();
 
-    const sequenceData = this.filterSequences(sequences);
-    const photoData = this.filterImages(images);
+    sequences = this.filterSequences(sequences);
+    images = this.filterImages(images);
 
-    for (const d of sequenceData) {
+    // render sequences
+    for (const d of sequences) {
       const featureID = `${this.layerID}-sequence-${d.properties.id}`;
       const sequenceVersion = d.properties.v || 0;
       let feature = this.features.get(featureID);
@@ -129,7 +177,7 @@ export class PixiLayerKartaPhotos extends AbstractLayer {
         feature.container.zIndex = -100;  // beneath the markers (which should be [-90..90])
       }
 
-      // If linestring data has changed, replace it.
+      // If sequence data has changed, replace it.
       if (feature.v !== sequenceVersion) {
         feature.v = sequenceVersion;
         feature.geometry.setCoords(d.coordinates);
@@ -141,22 +189,14 @@ export class PixiLayerKartaPhotos extends AbstractLayer {
       this.retainFeature(feature, frame);
     }
 
-    for (const d of photoData) {
+    // render markers
+    for (const d of images) {
       const featureID = `${this.layerID}-photo-${d.id}`;
       let feature = this.features.get(featureID);
 
       if (!feature) {
-        const style = Object.assign({}, MARKERSTYLE);
-        if (Number.isFinite(d.ca)) {
-          style.viewfieldAngles = [d.ca];   // ca = camera angle
-        }
-        if (d.isPano) {
-          style.viewfieldName = 'pano';
-        }
-
         feature = new PixiFeaturePoint(this, featureID);
         feature.geometry.setCoords(d.loc);
-        feature.style = style;
         feature.parentContainer = parentContainer;
         feature.setData(d.id, d);
 
@@ -166,6 +206,37 @@ export class PixiLayerKartaPhotos extends AbstractLayer {
       }
 
       this.syncFeatureClasses(feature);
+
+      if (feature.dirty) {
+        // Start with default style, and apply adjustments
+        const style = Object.assign({}, MARKERSTYLE);
+
+// todo handle pano
+        if (feature.hasClass('selectphoto')) {  // selected photo style
+          // style.viewfieldAngles = [this._viewerCompassAngle ?? d.ca];
+          style.viewfieldAngles = Number.isFinite(d.ca) ? [d.ca] : [];
+          style.viewfieldName = 'viewfield';
+          style.viewfieldAlpha = 1;
+          style.viewfieldTint = SELECTED;
+          style.markerTint = SELECTED;
+          style.scale = 2.0;
+          //style.fovWidth = fovWidthInterp(this._viewerZoom);
+          //style.fovLength = fovLengthInterp(this._viewerZoom);
+
+        } else {
+          style.viewfieldAngles = Number.isFinite(d.ca) ? [d.ca] : [];  // ca = camera angle
+          style.viewfieldName = d.isPano ? 'pano' : 'viewfield';
+
+          if (feature.hasClass('highlightphoto')) {  // highlighted photo style
+            style.viewfieldAlpha = 1;
+            style.viewfieldTint = SELECTED;
+            style.markerTint = SELECTED;
+          }
+        }
+
+        feature.style = style;
+      }
+
       feature.update(viewport, zoom);
       this.retainFeature(feature, frame);
     }
@@ -180,10 +251,10 @@ export class PixiLayerKartaPhotos extends AbstractLayer {
    * @param  zoom       Effective zoom to use for rendering
    */
   render(frame, viewport, zoom) {
-    const service = this.context.services.kartaview;
-    if (!this.enabled || !service?.started || zoom < MINZOOM) return;
+    const kartaview = this.context.services.kartaview;
+    if (!this.enabled || !kartaview?.started || zoom < MINZOOM) return;
 
-    service.loadTiles();
+    kartaview.loadTiles();
     this.renderMarkers(frame, viewport, zoom);
   }
 

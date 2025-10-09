@@ -1,17 +1,20 @@
-import { interpolateNumber as d3_interpolateNumber } from 'd3-interpolate';
+import { selection } from 'd3-selection';
+import { interpolateNumber } from 'd3-interpolate';
 import { Extent, vecLength } from '@rapid-sdk/math';
-import { utilArrayIdentical } from '@rapid-sdk/util';
 import _throttle from 'lodash-es/throttle.js';
 
 import { osmEntity, QAItem } from '../osm/index.js';
 import { uiDataEditor } from './data_editor.js';
-import { uiFeatureList } from './feature_list.js';
+import { UiFeatureList } from './UiFeatureList.js';
 import { UiInspector } from './UiInspector.js';
+import { uiDetectionInspector } from './detection_inspector.js';
 import { uiKeepRightEditor } from './keepRight_editor.js';
 import { uiMapRouletteEditor } from './maproulette_editor.js';
+import { uiMapRouletteMenu } from './maproulette_menu.js';
 import { uiOsmoseEditor } from './osmose_editor.js';
 import { uiNoteEditor } from './note_editor.js';
-import { uiRapidFeatureInspector } from './rapid_feature_inspector.js';
+import { UiRapidInspector } from './UiRapidInspector.js';
+import { UiOvertureInspector } from './UiOvertureInspector.js';
 import { uiTooltip } from './tooltip.js';
 
 
@@ -24,34 +27,40 @@ const DEFAULT_WIDTH = 400;  // needs to match the flex-basis in our css file
  * UiSidebar
  * The Sidebar is positioned to the side of the map and can show various information.
  * It can appear either on the left or right side of the map (depending on `l10n.isRTL`)
- * While editing and interacting with the map, some sidebar components may be classed as hidden,
- * and custom components can be allowed to cover up the feature picker or OSM Inspector.
+ * While editing and interacting with the map, the sidebar will control which child
+ * component is visible.
  *
  * @example
  *  <div class='sidebar'>
- *    <div class='resizer'/>             // The resizer
- *    <div class='feature-list-pane'/>   // Feature list / search component
+ *    <div class='feature-list-wrap'/>   // Feature list / search component
  *    <div class='inspector-wrap'/>      // Inspector - the components for working with OSM
  *    <div class='sidebar-component'/>   // Custom UI - everything else (Notes, Rapid, QA Icons, Save, etc)
  *  </div>
+ *  <div class='resizer'/>
  */
 export class UiSidebar {
 
   /**
    * @constructor
-   * @param  `context`  Global shared application context
+   * @param  `conttext`  Global shared application context
    */
   constructor(context) {
     this.context = context;
 
+    this._keys = null;
+
     // Create child components
-    this.Inspector = new UiInspector(context);
-    this.RapidInspector = uiRapidFeatureInspector(context);
     this.DataEditor = uiDataEditor(context);
-    this.NoteEditor = uiNoteEditor(context);
+    this.DetectionInspector = uiDetectionInspector(context);
+    this.FeatureList = new UiFeatureList(context);
+    this.Inspector = new UiInspector(context);
     this.KeepRightEditor = uiKeepRightEditor(context);
-    this.OsmoseEditor = uiOsmoseEditor(context);
     this.MapRouletteEditor = uiMapRouletteEditor(context);
+    this.MapRouletteMenu= uiMapRouletteMenu(context);
+    this.NoteEditor = uiNoteEditor(context);
+    this.OsmoseEditor = uiOsmoseEditor(context);
+    this.RapidInspector = new UiRapidInspector(context);
+    this.OvertureInspector = new UiOvertureInspector(context);
     this.Tooltip = uiTooltip(context);
 
     // D3 selections
@@ -74,18 +83,27 @@ export class UiSidebar {
     this.render = this.render.bind(this);
     this.toggle = this.toggle.bind(this);
     this._hover = this._hover.bind(this);
+    this._hoverchange = this._hoverchange.bind(this);
     this._pointerup = this._pointerup.bind(this);
     this._pointermove = this._pointermove.bind(this);
     this._pointerdown = this._pointerdown.bind(this);
     this._eventCancel = this._eventCancel.bind(this);
+    this._setupKeybinding = this._setupKeybinding.bind(this);
 
     /**
      * hover
      * Hovers over the given targets
      * This just wraps the internal `_hover` in a throttle to keep it from being called too frequently.
-     * @param  {Array}  targets - Array of data to target, but only the first one is used currently
+     * @param  {Object}  target - data element to target
      */
     this.hover = _throttle(this._hover, 200);
+
+    // Setup event handlers
+    context.behaviors.hover.on('hoverchange', this._hoverchange);
+
+    const l10n = context.systems.l10n;
+    l10n.on('localechange', this._setupKeybinding);
+    this._setupKeybinding();
   }
 
 
@@ -93,10 +111,10 @@ export class UiSidebar {
    * render
    * Accepts a parent selection, and renders the content under it.
    * (The parent selection is required the first time, but can be inferred on subsequent renders)
-   * @param {d3-selection} $parent - A d3-selection to a HTMLEement that this component should render itself into
+   * @param {d3-selection} $parent - A d3-selection to a HTMLElement that this component should render itself into
    */
   render($parent = this.$parent) {
-    if ($parent) {
+    if ($parent instanceof selection) {
       this.$parent = $parent;
     } else {
       return;   // no parent - called too early?
@@ -146,57 +164,92 @@ export class UiSidebar {
       .call(this.Tooltip
         .placement(dir === 'rtl' ? 'right' : 'left')  // place on the sidebar side (i.e. don't cover the map)
         .title(l10n.t('inspector.tooltip'))
-        .shortcut(l10n.t('inspector.key'))
+        .shortcut(l10n.t('shortcuts.command.toggle_inspector.key'))
       );
 
-
-    // add sidebar contents: feature list pane and inspector
     $sidebar
-      .append('div')
-      .attr('class', 'feature-list-pane')
-      .call(uiFeatureList(context));
+      .call(this.FeatureList.render);
 
     $sidebar
       .call(this.Inspector.render);
 
-    this.$featureList = $sidebar.select('.feature-list-pane');
+    this.$featureList = $sidebar.select('.feature-list-wrap');
     this.$inspector = $sidebar.select('.inspector-wrap');
+  }
 
-// figure out a better way to rebind this if locale changes
-    const keys = [l10n.t('inspector.key'), '`', '²', '@'];  // iD#5663, iD#6864 - common QWERTY, AZERTY
-    context.keybinding().off(keys);
-    context.keybinding().on(keys, this.toggle);
+
+  /**
+   * _hoverchange
+   * Respond to any change in hover
+   * @param {Object}  eventData - data about what is being hovered
+   */
+  _hoverchange(eventData) {
+    const context = this.context;
+    const gfx = context.systems.gfx;
+    const scene = gfx.scene;
+
+    const target = eventData.target;
+    const layer = target?.layer;
+    const dataID = target?.dataID;
+    const data = target?.data;
+
+    const modeID = context.mode?.id;
+    if (modeID !== 'select' && modeID !== 'select-osm') {
+      this.hover(data);
+    }
+
+    scene.clearClass('hover');
+    if (layer && dataID) {
+      // Only set hover class if this target isn't currently drawing
+      const drawingIDs = layer.getDataWithClass('drawing');
+      if (!drawingIDs.has(dataID)) {
+        layer.setClass('hover', dataID);
+      }
+    }
+
+    gfx.immediateRedraw();
   }
 
 
   /**
    * _hover
-   * Hovers over the given map data
-   * @param  {Array}  targets - Array of data to target, but only the first one is used currently
+   * Hovers the given target data
+   * @param  {Object}  target - data element to target
    */
-  _hover(targets) {
+  _hover(target) {
     const $sidebar = this.$sidebar;
     const $inspector = this.$inspector;
     const $featureList = this.$featureList;
     if (!$sidebar || !$inspector || !$featureList) return;  // called too early?
 
+    // Exception: don't replace the "save-success" screen on hover.
+    // Wait for the user to dismiss it or select something else. Rapid#700
+    if (this.$custom && this.$custom.selectAll('.save-success').size()) return;
+
     const context = this.context;
     const editor = context.systems.editor;
     const graph = editor.staging.graph;
-    let datum = targets && targets.length && targets[0];
+    let datum = target;
 
-    const Inspector = this.Inspector;
+    // Start by clearing out any custom state.
+    this.reset();
 
-    if (datum?.__featurehash__) {   // hovering on data
+    // Hovering on Geo Data (vector tile, geojson, etc..)
+    if (datum?.__featurehash__) {
       this.show(this.DataEditor.datum(datum));
-      $sidebar.selectAll('.sidebar-component')
-        .classed('inspector-hover', true);
+    // Hovering on Rapid data..
+    } else if (datum?.__fbid__) {
+      this.RapidInspector.datum = datum;
+      this.show(this.RapidInspector.render);
+    // Hovering on Overture data..
+    } else if (datum?.overture) {
+      this.OvertureInspector.datum = datum;
+      this.show(this.OvertureInspector.render);
+    // Hovering on Mapillary detection..
+    } else if (datum?.type === 'detection') {
+      this.show(this.DetectionInspector.datum(datum));
 
-    } else if (datum?.__fbid__) {   // hovering on Rapid data
-      this.show(this.RapidInspector.datum(datum));
-      $sidebar.selectAll('.sidebar-component')
-        .classed('inspector-hover', true);
-
+    // Hovering on OSM Note..
     } else if (datum instanceof QAItem && datum.service === 'osm') {
       if (context.mode?.id === 'drag-note') return;
 
@@ -206,9 +259,8 @@ export class UiSidebar {
       }
 
       this.show(this.NoteEditor.note(datum));
-      $sidebar.selectAll('.sidebar-component')
-        .classed('inspector-hover', true);
 
+    // Hovering on other QA Item..
     } else if (datum instanceof QAItem && datum.service !== 'osm') {
       const service = context.services[datum.service];
       let Component;
@@ -222,38 +274,36 @@ export class UiSidebar {
           Component = this.OsmoseEditor;
         } else if (service.id === 'maproulette') {
           Component = this.MapRouletteEditor;
+          this.MapRouletteMenu.error(datum);
         }
       }
 
       if (Component) {
         this.show(Component.error(datum));
       }
+    }
 
-      $sidebar.selectAll('.sidebar-component')
-        .classed('inspector-hover', true);
+    // ^ That covers all the custom content we can hover over.
+    // If any of the above matched, `this.show()` would have taken care
+    // of the sidebar, we just need to add the hover class..
+    if (this.$custom) {
+      this.$custom.classed('inspector-hover', true);
 
-    } else if (!this.$custom && (datum instanceof osmEntity) && graph.hasEntity(datum)) {
-      $featureList
-        .classed('inspector-hidden', true);
+    // Hovering on an OSM item
+    } else if ((datum instanceof osmEntity) && graph.hasEntity(datum.id)) {
+      $featureList.classed('inspector-hidden', true);
 
       $inspector
         .classed('inspector-hidden', false)
         .classed('inspector-hover', true);
 
-      if (!Inspector.entityIDs() || !utilArrayIdentical(Inspector.entityIDs(), [datum.id]) || Inspector.state() !== 'hover') {
-        Inspector
-          .state('hover')
-          .entityIDs([datum.id])
-          .newFeature(false);
+      this.Inspector
+        .state('hover')
+        .entityIDs([datum.id])
+        .newFeature(false);
 
-        $sidebar
-          .call(Inspector.render);
-      }
-
-    } else if (!this.$custom) {
-      $featureList.classed('inspector-hidden', false);
-      $inspector.classed('inspector-hidden', true);
-      Inspector.state('hide');
+      $sidebar
+        .call(this.Inspector.render);
 
     } else {
       this.hide();
@@ -265,7 +315,7 @@ export class UiSidebar {
    * intersects
    * Test if the sidebar is covering up the given extent
    * @param  {Extent}   wgs84Extent - an Extent in lon/lat coordinates
-   * @return `true` if the sidebar is intersecting the Extent, `false` if not
+   * @return {boolean}  `true` if the sidebar is intersecting the `Extent`, `false` if not
    */
   intersects(wgs84Extent) {
     const $sidebar = this.$sidebar;
@@ -282,59 +332,93 @@ export class UiSidebar {
 
 
   /**
-   * select
+   * showInspector
    * Selects the given ids - they are expected to be OSM IDs already loaded (in the Graph)
    * @param  {Array}    ids - ids to select (expected to be OSM IDs)
    * @param  {boolean}  newFeature - true if it's a new feature, passed to the inspector
    */
-  select(ids, newFeature = false) {
-    this.hide();
-
+  showInspector(ids, newFeature = false) {
     const $sidebar = this.$sidebar;
-    if (!$sidebar) return;  // called too early?
-
-    const Inspector = this.Inspector;
     const $inspector = this.$inspector;
     const $featureList = this.$featureList;
+    if (!$sidebar || !$inspector || !$featureList) return;  // called too early?
 
-    if (ids && ids.length) {
-      const context = this.context;
-      const editor = context.systems.editor;
-      const graph = editor.staging.graph;
-      const entity = ids.length === 1 && graph.entity(ids[0]);
+    if (Array.isArray(ids) && ids.length) {
+      $featureList.classed('inspector-hidden', true);
 
-      if (entity && newFeature && $sidebar.classed('collapsed')) {
-        // uncollapse the sidebar
-        const extent = entity.extent(graph);
-        this.expand(this.intersects(extent));
-      }
-
-      $featureList
-        .classed('inspector-hidden', true);
+      this.reset();
 
       $inspector
         .classed('inspector-hidden', false)
         .classed('inspector-hover', false);
 
-      // Refresh the UI even if the ids are the same since the entities
-      // themselves may have changed
-      Inspector
+      // Don't expand automatically, let the user control this - Rapid#1562
+      // this.expand(true);
+
+      // Always redraw the Inspector even if the ids are the same,
+      // as the entities themselves may have changed.
+      this.Inspector
         .state('select')
         .entityIDs(ids)
         .newFeature(newFeature);
 
       $sidebar
-        .call(Inspector.render);
+        .call(this.Inspector.render);
 
     } else {
-      $inspector
-        .classed('inspector-hidden', true)
-        .classed('inspector-hover', false);
-
-      Inspector
-        .entityIDs([])
-        .state('hide');
+      this.hide();
     }
+  }
+
+
+  /**
+   * show
+   * Shows some "custom" content in the sidebar
+   * This is how almost all content renders to the sidebar
+   * (except for the OSM editing "inspector", which is special)
+   * @param  {function}  renderFn - A function suitable for use in `d3-selection.call`
+   */
+  show(renderFn) {
+    const $sidebar = this.$sidebar;
+    const $inspector = this.$inspector;
+    const $featureList = this.$featureList;
+    if (!$sidebar || !$inspector || !$featureList) return;  // called too early?
+
+    if (renderFn) {
+      if (this.$custom) {
+        this.$custom.remove();
+        this.$custom = null;
+      }
+
+      $featureList.classed('inspector-hidden', true);
+      $inspector.classed('inspector-hidden', true);
+      this.Inspector.entityIDs([]).state('hide');
+
+      this.$custom = $sidebar
+        .append('div')
+        .attr('class', 'sidebar-component')
+        .call(renderFn);
+
+    } else {
+      this.hide();
+    }
+  }
+
+
+  /**
+   * hide
+   * Removes all content from the sidebar..
+   * This resets the sidebar back to where it shows the featureList / search component.
+   */
+  hide() {
+    const $inspector = this.$inspector;
+    const $featureList = this.$featureList;
+    if (!$inspector || !$featureList) return;  // called too early?
+
+    this.reset();
+    $featureList.classed('inspector-hidden', false);
+    $inspector.classed('inspector-hidden', true);
+    this.Inspector.entityIDs([]).state('hide');
   }
 
 
@@ -357,54 +441,16 @@ export class UiSidebar {
 
 
   /**
-   * show
-   * Shows some "custom" content in the sidebar
-   * This is how almost all content renders to the sidebar
-   * (except for the OSM editing "inspector", which is special)
-   */
-  show(renderFn) {
-    this.$featureList.classed('inspector-hidden', true);
-    this.$inspector.classed('inspector-hidden', true);
-
-    const $sidebar = this.$sidebar;
-    if (!$sidebar) return;  // called too early?
-
-    if (this.$custom) {
-      this.$custom.remove();
-    }
-
-    this.$custom = $sidebar
-      .append('div')
-      .attr('class', 'sidebar-component')
-      .call(renderFn);
-  }
-
-
-  /**
-   * hide
-   * Removes all "custom" content in the sidebar
-   */
-  hide() {
-    this.$featureList.classed('inspector-hidden', false);
-    this.$inspector.classed('inspector-hidden', true);
-
-    if (this.$custom) {
-      this.$custom.remove();
-      this.$custom = null;
-    }
-  }
-
-
-  /**
    * expand
    * Expands the sidebar
+   * @param  {boolean}  animate? - whether to animate the pane
    */
-  expand(moveMap) {
+  expand(animate) {
     const $sidebar = this.$sidebar;
     if (!$sidebar) return;  // called too early?
 
     if ($sidebar.classed('collapsed')) {
-      this.toggle(moveMap);
+      this.toggle(animate);
     }
   }
 
@@ -412,13 +458,14 @@ export class UiSidebar {
   /**
    * collapse
    * Collapses the sidebar
+   * @param  {boolean}  animate? - whether to animate the pane
    */
-  collapse(moveMap) {
+  collapse(animate) {
     const $sidebar = this.$sidebar;
     if (!$sidebar) return;  // called too early?
 
     if (!$sidebar.classed('collapsed')) {
-      this.toggle(moveMap);
+      this.toggle(animate);
     }
   }
 
@@ -426,15 +473,13 @@ export class UiSidebar {
   /**
    * toggle
    * Toggles the sidebar between expanded/collapsed states
+   * @param  {boolean}  animate? - whether to animate the pane
    */
-  toggle(moveMap) {
+  toggle(animate = true) {
     const $sidebar = this.$sidebar;
     if (!$sidebar) return;  // called too early?
 
-    // Don't allow sidebar to toggle when the user is in the walkthrough.
     const context = this.context;
-    if (context.inIntro) return;
-
     const ui = context.systems.ui;
     const $container = context.container();
 
@@ -446,44 +491,79 @@ export class UiSidebar {
     const startWidth = startCollapsed ? 0 : expandWidth;
     const endCollapsed = !startCollapsed;
     const endWidth = endCollapsed ? 0 : expandWidth;
-    const lerp = d3_interpolateNumber(startWidth, endWidth);
+    const lerp = interpolateNumber(startWidth, endWidth);
 
     this._startWidth = startWidth;
     this._lastWidth = startWidth;
 
-    $sidebar
-      .transition()
-      .tween('inspector.toggler', () => {
-        return t => {
-          const setWidth = lerp(t);
+    if (animate) {
+      $sidebar
+        .transition()
+        .tween('inspector.toggler', () => {
+          return t => {
+            const setWidth = lerp(t);
+
+            $sidebar
+              .classed('collapsing', setWidth < MIN_WIDTH)
+              .style('flex-basis', `${setWidth}px`);
+
+            ui.resize();
+            this._lastWidth = setWidth;
+          };
+        })
+        .on('start', () => {
+          $container.classed('resizing', true);
 
           $sidebar
-            .classed('collapsing', setWidth < MIN_WIDTH)
-            .style('flex-basis', `${setWidth}px`);
+            .classed('collapsing', startWidth < MIN_WIDTH)
+            .classed('collapsed', false)
+            .style('flex-basis', `${startWidth}px`);
+        })
+        .on('end interrupt', () => {
+          $container.classed('resizing', false);
+
+          $sidebar
+            .classed('collapsing', false)
+            .classed('collapsed', endCollapsed)
+            .style('flex-basis', `${expandWidth}px`);  // done resize, put expanded width back here
 
           ui.resize();
-          this._lastWidth = setWidth;
-        };
-      })
-      .on('start', () => {
-        $container.classed('resizing', true);
+          this._storePreferences();
+        });
 
-        $sidebar
-          .classed('collapsing', startWidth < MIN_WIDTH)
-          .classed('collapsed', false)
-          .style('flex-basis', `${startWidth}px`);
-      })
-      .on('end interrupt', () => {
-        $container.classed('resizing', false);
+    } else {  // no animation
+      $container.classed('resizing', false);
 
-        $sidebar
-          .classed('collapsing', false)
-          .classed('collapsed', endCollapsed)
-          .style('flex-basis', `${expandWidth}px`);  // done resize, put expanded width back here
+      $sidebar
+        .classed('collapsing', false)
+        .classed('collapsed', endCollapsed)
+        .style('flex-basis', `${expandWidth}px`);  // done resize, put expanded width back here
 
-        ui.resize();
-        this._storePreferences();
-      });
+      ui.resize();
+      this._storePreferences();
+    }
+  }
+
+
+  /**
+   * reset
+   * Clears out any custom data that might be stored in the sidebar or child components.
+   */
+  reset() {
+    if (this.$custom) {
+      this.$custom.remove();
+      this.$custom = null;
+    }
+
+    this.DataEditor.datum(null);
+    this.DetectionInspector.datum(null);
+    this.Inspector.entityIDs([]);
+    this.KeepRightEditor.error(null);
+    this.MapRouletteEditor.error(null);
+    this.MapRouletteMenu.error(null);
+    this.NoteEditor.note(null);
+    this.OsmoseEditor.error(null);
+    this.RapidInspector.datum = null;
   }
 
 
@@ -539,8 +619,8 @@ export class UiSidebar {
     const context = this.context;
     const l10n = context.systems.l10n;
     const ui = context.systems.ui;
-    const scaleX = l10n.isRTL() ? -1 : 1;
 
+    const scaleX = l10n.isRTL() ? -1 : 1;
     const dx = (e.clientX - this._lastCoord[0]) * scaleX;
     const setWidth = this._lastWidth + dx;
 
@@ -608,10 +688,10 @@ export class UiSidebar {
   /**
    * _eventCancel
    * Just cancels an event
-   * @param {Event}  e - the event to cancel
+   * @param  {Event} e? - triggering event (if any)
    */
   _eventCancel(e) {
-    e.preventDefault();
+    if (e)  e.preventDefault();
   }
 
 
@@ -629,5 +709,24 @@ export class UiSidebar {
     const storage = this.context.systems.storage;
     storage.setItem('inspector.collapsed', preferCollapsed);
     storage.setItem('inspector.width', preferWidth);
+  }
+
+
+  /**
+   * _setupKeybinding
+   * This sets up the keybinding, replacing existing if needed
+   */
+  _setupKeybinding() {
+    const context = this.context;
+    const keybinding = context.keybinding();
+    const l10n = context.systems.l10n;
+
+    if (Array.isArray(this._keys)) {
+      keybinding.off(this._keys);
+    }
+
+    // see iD#5663, iD#6864 - common QWERTY, AZERTY
+    this._keys = [l10n.t('shortcuts.command.toggle_inspector.key'), '`', '²', '@'];
+    context.keybinding().on(this._keys, this.toggle);
   }
 }

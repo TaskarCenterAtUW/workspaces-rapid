@@ -117,6 +117,13 @@
         "description": "Imágenes aéreas de alta resolución de Dourados (2018) y varios distritos (2020).",
         "name": "Ortofotos Dourados"
       },
+      "EOXAT2017CLOUDLESS": {
+        "attribution": {
+          "text": "Sentinel-2 sin nubes - https://s2maps.eu por EOX IT Services GmbH (Contiene datos modificados de Copernicus Sentinel 2017)"
+        },
+        "description": "Imágenes post-procesadas del satélite Sentinel.",
+        "name": "eox.at 2017 sin nubes"
+      },
       "EOXAT2018CLOUDLESS": {
         "attribution": {
           "text": "Sentinel-2 sin nubes - https://s2maps.eu por EOX IT Services GmbH (Contiene los datos de Copernicus Sentinel modificados 2017 y 2018)"
@@ -152,6 +159,20 @@
         "description": "Imágenes post-procesadas del satélite Sentinel.",
         "name": "eox.at 2022 sin nubes"
       },
+      "EOXAT2023CLOUDLESS": {
+        "attribution": {
+          "text": "Sentinel-2 sin nubes - https://s2maps.eu por EOX IT Services GmbH (Contiene datos modificados de Copernicus Sentinel 2023)"
+        },
+        "description": "Imágenes post-procesadas del satélite Sentinel.",
+        "name": "eox.at 2023 sin nubes"
+      },
+      "EOXAT2024CLOUDLESS": {
+        "attribution": {
+          "text": "Sentinel-2 sin nubes - https://s2maps.eu por EOX IT Services GmbH (Contiene datos modificados de Copernicus Sentinel 2024)"
+        },
+        "description": "Imágenes post-procesadas del satélite Sentinel.",
+        "name": "eox.at 2024 sin nubes"
+      },
       "EsriWorldImagery": {
         "attribution": {
           "text": "Condiciones y sugerencias"
@@ -163,8 +184,20 @@
         "attribution": {
           "text": "Condiciones y sugerencias"
         },
-        "description": "Las imágenes de archivo de Esri pueden ser más claras y precisas que la capa predeterminada.",
+        "description": "Imágenes de archivo de Esri que pueden ser más claras y precisas que la capa predeterminada.",
         "name": "Imágenes mundiales de Esri (Claridad) Beta"
+      },
+      "FOMI_2011_2014": {
+        "description": "Ortofotos gubernamentales con cobertura de hojas y resolución de 40 cm/píxel para todo el país. Esta capa debe utilizarse como base de alineación en ausencia de una referencia más precisa. Imágenes en formato WEBP, JOSM necesita un plugin webp para ellas.",
+        "name": "FÖMI ortofoto 2011–2014 (WEBP)"
+      },
+      "FOMI_2015": {
+        "description": "Ortofotos gubernamentales con cobertura de hojas y resolución de 40 cm/píxel para todo el país. Esta capa debe utilizarse como base de alineación en ausencia de una referencia más precisa. Imágenes en formato WEBP, JOSM necesita un plugin webp para ellas.",
+        "name": "Ortofoto FÖMI 2015 (WEBP)"
+      },
+      "FOMI_2015_leafoff_20cm": {
+        "description": "Ortofotos gubernamentales sin follaje con una resolución de 20 cm/píxel para 6 distritos. Esta capa debe utilizarse como base de alineación en ausencia de una referencia más precisa. Imágenes en formato WEBP, JOSM requiere un complemento webp para visualizarlas.",
+        "name": "Ortofoto FÖMI 2015 sin follaje 20 cm (WEBP)"
       },
       "Frankfurt-am-Main-2019": {
         "attribution": {
@@ -390,14 +423,24 @@
         },
         "name": "Gliwice: Edificios"
       },
-      "LSA-ATKIS_BU": {
-        "description": "Forma de edificios en sajonia-anhalt"
+      "LSA-ALKIS-CP": {
+        "description": "Registro vectorial de parcelas del catastro inmobiliario oficial.",
+        "name": "© GeoBasis-DE/LVermGeo LSA, parcelas del Catastro ALKIS."
+      },
+      "LSA-ALKIS_BU": {
+        "description": "Forma de edificios en sajonia-anhalt",
+        "name": "© GeoBasis-DE/LVermGeo LSA, contornos de edificios del Catastro ALKIS."
+      },
+      "LSA-ATKIS-HYN": {
+        "description": "Registro de redes hídricas (puede variar en precisión respecto a la realidad; siempre considerar en conjunto con la ortofoto).",
+        "name": "© GeoBasis-DE/LVermGeo LSA, red hídrica de ATKIS."
       },
       "LSA-DOP20": {
         "description": "imagen aérea del estado Sajonia-Anhalt, resolución 20 cm"
       },
       "LSA-DVG": {
-        "description": "Registro vectorial de límites administrativos. Se dan los límites del estado federal, distrito, municipio y partes del municipio."
+        "description": "Registro vectorial de límites administrativos. Se dan los límites del estado federal, distrito, municipio y partes del municipio.",
+        "name": "© GeoBasis-DE/LVermGeo LSA, límites administrativos digitales."
       },
       "LocalAuthorities_RightsOfWay": {
         "attribution": {
@@ -454,26 +497,43 @@
         "description": "Senderos actualizados diariamente en las reservas naturales o sus alrededores, según los registros de la Agencia Sueca de Protección del Medio Ambiente",
         "name": "Agencia de Protección del Medio Ambiente - Senderos"
       },
+      "ODOT_TIMS_Road_Inventory": {
+        "attribution": {
+          "text": "Departamento de Transporte de Ohio"
+        },
+        "description": "Departamento de Transporte de Ohio (ODOT): Inventario de carreteras del Sistema de mapeo de información de transporte (TIMS) publicado en junio de 2024.",
+        "name": "Inventario de carreteras ODOT"
+      },
+      "ORTOS_DGRF_2004_06": {
+        "attribution": {
+          "text": "Información geográfica proporcionada por la Dirección General del Territorio"
+        },
+        "name": "Ortofotografías de Portugal continental - 50 cm - 2004-2006 (DGT)"
+      },
+      "ORTOS_DGT_2014_15": {
+        "attribution": {
+          "text": "Información geográfica proporcionada por la Dirección General del Territorio"
+        },
+        "name": "Ortofotografías de las zonas costeras de Portugal continental - 10 cm - 2014-2015 (DGT)"
+      },
+      "ORTOS_DGT_2018_WMS": {
+        "attribution": {
+          "text": "Información geográfica proporcionada por la Dirección General del Territorio"
+        },
+        "name": "Ortofotografías de Portugal continental - 25 cm - 2018 (DGT)"
+      },
+      "ORTOS_DGT_2021_RGB": {
+        "attribution": {
+          "text": "Información geográfica proporcionada por la Dirección General del Territorio"
+        },
+        "name": "Ortofotografías de la porción norte de Portugal continental - 25 cm - 2021 (DGT)"
+      },
       "OSIP": {
         "attribution": {
           "text": "Programa estatal de imágenes de Ohio"
         },
         "description": "Programa de Imágenes Estatales de Ohio III ortoimágenes más actuales de cada condado con resoluciones desde 1 pie hasta 3 pulgadas desde 2017 hasta 2020.",
         "name": "Programa estatal de imágenes de Ohio"
-      },
-      "OSIP_1ft": {
-        "attribution": {
-          "text": "Programa de imágenes de todo el estado de Ohio"
-        },
-        "description": "Ortofotos del Programa II de imágenes de todo el estado de Ohio de los 88 condados con una resolución de 1 pie desde 2011 hasta 2014.",
-        "name": "Programa de Imágenes Estatales de Ohio 1-Pie"
-      },
-      "OSIP_6in": {
-        "attribution": {
-          "text": "Programa de imágenes de todo el estado de Ohio"
-        },
-        "description": "Ortofotos del Programa de imágenes III del estado de Ohio de 40 condados capturadas con una resolución de 6 pulgadas en 2017 y 2018, además de imágenes OSIP I y OSIP II en 16 condados más desde 2010 hasta 2014.",
-        "name": "Programa de imágenes de todo el estado de Ohio de 6 pulgadas"
       },
       "OSMUK-Cadastral-Parcels": {
         "attribution": {
@@ -714,6 +774,13 @@
         },
         "description": "Fotografía geo-etiquetada de 1940 del Instituto Limnológico Balaton.",
         "name": "Ortofotos de EUFAR Balaton"
+      },
+      "geoscribble-latest": {
+        "attribution": {
+          "text": "Colaboradores de GeoScribble"
+        },
+        "description": "Notas de levantamiento geométrico del editor Every Door, con un máximo de tres semanas de antigüedad",
+        "name": "Últimas notas de GeoScribble"
       },
       "gothenburg-citymap": {
         "attribution": {

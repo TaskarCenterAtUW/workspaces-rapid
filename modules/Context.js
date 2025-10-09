@@ -1,4 +1,4 @@
-import { EventEmitter } from '@pixi/utils';
+import { EventEmitter } from 'pixi.js';
 import { select as d3_select } from 'd3-selection';
 import { Viewport } from '@rapid-sdk/math';
 import { utilUnicodeCharsTruncated } from '@rapid-sdk/util';
@@ -28,12 +28,13 @@ export class Context extends EventEmitter {
   constructor() {
     super();
 
-    this.version = '2.3.2';     // see https://semver.org/ for examples
+    this.version = '2.5.4';             // see https://semver.org/ for examples
+    // this.version = '2.5.3-pre.0';    // see https://semver.org/ for examples
 
     // If user has not seen this version of our software, we will show them a modal at startup.
     // Just bump these dates to a higher number to get the screen to come back.
-    this.privacyVersion = 20201202;   // whether to show the "welcome" screen
-    this.whatsNewVersion = 20240507;  // whether show the "what's new" screen
+    this.privacyVersion = 20201202;    // whether to show the "welcome" screen
+    this.whatsNewVersion = 20241222;   // whether show the "what's new" screen
 
     // These may be set by our continuous deployment scripts, or left empty
     this.buildID = '';
@@ -98,8 +99,8 @@ export class Context extends EventEmitter {
       downloaded: false   // downloaded data from osm
     };
 
-    // Container
-    this._container = d3_select(null);
+    // Container (a d3 selection)
+    this.$container = d3_select(null);
     this._embed = null;
 
     // true/false whether we are in the intro walkthrough
@@ -143,13 +144,14 @@ export class Context extends EventEmitter {
       return filters.hasHiddenConnections(entity, graph);
     };
 
+    // GraphicsSystem
+    const gfx = this.systems.gfx;
+    this.deferredRedraw = gfx.deferredRedraw;
+    this.immediateRedraw = gfx.immediateRedraw;
+    this.scene = () => gfx.scene;
+
     // MapSystem
-    const map = this.systems.map;
-    this.deferredRedraw = map.deferredRedraw;
-    this.immediateRedraw = map.immediateRedraw;
-    this.scene = () => map.scene;
-    this.surface = () => map.surface;
-    this.surfaceRect = () => map.surface.node().getBoundingClientRect();
+    //const map = this.systems.map;
     this.editable = () => {
       const mode = this._currMode;
       if (!mode || mode.id === 'save') return false;      // don't allow editing during save
@@ -360,7 +362,7 @@ export class Context extends EventEmitter {
     // Exit current mode, if any
     if (currMode) {
       currMode.exit();
-      this._container.classed(`mode-${currMode.id}`, false);
+      this.$container.classed(`mode-${currMode.id}`, false);
     }
 
     // Try to enter the new mode, fallback to 'browse' mode
@@ -370,7 +372,7 @@ export class Context extends EventEmitter {
       this._currMode = this.modes.browse;
       this._currMode.enter();
     }
-    this._container.classed(`mode-${this._currMode.id}`, true);
+    this.$container.classed(`mode-${this._currMode.id}`, true);
     this.emit('modechange', this._currMode);
     return this._currMode;
   }
@@ -454,20 +456,20 @@ export class Context extends EventEmitter {
   }
   setDebug(flag, val = true) {
     this._debugFlags[flag] = val;
-    this.systems.map?.immediateRedraw();
+    this.systems.gfx?.immediateRedraw();
   }
 
 
   // Container
   container(val) {
-    if (val === undefined) return this._container;
-    this._container = val;
-    this._container.classed('ideditor', true);
+    if (val === undefined) return this.$container;
+    this.$container = val;
+    this.$container.classed('ideditor', true);
     return this;
   }
 
   get containerNode() {
-    return this._container.node();
+    return this.$container.node();
   }
   set containerNode(val) {
     this.container(d3_select(val));

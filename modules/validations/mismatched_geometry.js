@@ -36,6 +36,12 @@ export function validationMismatchedGeometry(context) {
             // If the presets match something like '*', (e.g. attraction), ignore
             const key = Object.keys(tagSuggestingArea)[0];
             if (linePreset.tags[key] === '*' || areaPreset.tags[key === '*']) return null;
+
+            // If the entity matches the fallback preset, regardless of the
+            // geometry, then changing the geometry will not help.  iD#10523
+            if (linePreset.isFallback() && areaPreset.isFallback() && !deepEqual(tagSuggestingArea, { area: 'yes' })) {
+              return null;
+            }
         }
 
         return tagSuggestingArea;
@@ -230,6 +236,7 @@ export function validationMismatchedGeometry(context) {
         if (entity.type === 'node' && entity.isOnAddressLine(graph)) return null;
 
         var sourceGeom = entity.geometry(graph);
+        var loc = entity.extent(graph).center();
 
         var targetGeoms = entity.type === 'way' ? ['point', 'vertex'] : ['line', 'area'];
 
@@ -238,7 +245,7 @@ export function validationMismatchedGeometry(context) {
         var asSource = presets.match(entity, graph);
 
         var targetGeom = targetGeoms.find(nodeGeom => {
-            var asTarget = presets.matchTags(entity.tags, nodeGeom);
+            var asTarget = presets.matchTags(entity.tags, nodeGeom, loc);
             // sometimes there are two presets with the same tags for different geometries
             if (!asSource || !asTarget || asSource === asTarget || deepEqual(asSource.tags, asTarget.tags)) return false;
 

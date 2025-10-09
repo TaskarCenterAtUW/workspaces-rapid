@@ -13,10 +13,10 @@ const GEOSCRIBBLE_API = 'https://geoscribble.osmz.ru/geojson';
 /**
  * `GeoScribbleService`
  * GeoScribble is a service that allows users to collaboratively draw on the map.
- * see also:
- *  https://wiki.openstreetmap.org/wiki/GeoScribble
- *  https://geoscribble.osmz.ru/docs
- *  https://github.com/Zverik/geoscribble
+ * This service connects to the GeoScribble API to fetch public 'scribbles'.
+ * @see https://wiki.openstreetmap.org/wiki/GeoScribble
+ * @see https://geoscribble.osmz.ru/docs
+ * @see https://github.com/Zverik/geoscribble
  *
  * Events available:
  *   'loadedData'
@@ -55,6 +55,7 @@ export class GeoScribbleService extends AbstractSystem {
    */
   startAsync() {
     this._started = true;
+    return Promise.resolve();
   }
 
 
@@ -74,7 +75,7 @@ export class GeoScribbleService extends AbstractSystem {
       shapes: {},
       loadedTile: {},
       inflightTile: {},
-      rtree: new RBush()
+      rbush: new RBush()
     };
 
     return Promise.resolve();
@@ -88,7 +89,7 @@ export class GeoScribbleService extends AbstractSystem {
    */
   getData() {
     const extent = this.context.viewport.visibleExtent();
-    return this._cache.rtree.search(extent.bbox()).map(d => d.data);
+    return this._cache.rbush.search(extent.bbox()).map(d => d.data);
   }
 
 
@@ -143,10 +144,11 @@ export class GeoScribbleService extends AbstractSystem {
 
             const box = geojsonExtent(shape).bbox();
             box.data = shape;
-            cache.rtree.insert(box);
+            cache.rbush.insert(box);
           }
 
-          this.context.deferredRedraw();
+          const gfx = this.context.systems.gfx;
+          gfx.deferredRedraw();
           this.emit('loadedData');
         })
         .catch(err => {

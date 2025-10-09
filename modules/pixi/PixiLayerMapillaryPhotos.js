@@ -1,31 +1,33 @@
-import { scaleLinear as d3_scaleLinear } from 'd3-scale';
+import { scaleLinear } from 'd3-scale';
 
 import { AbstractLayer } from './AbstractLayer.js';
 import { PixiFeatureLine } from './PixiFeatureLine.js';
 import { PixiFeaturePoint } from './PixiFeaturePoint.js';
 
 const MINZOOM = 12;
-const MAPILLARY_GREEN = 0x05CB63;
-const MAPILLARY_SELECTED = 0xffee00;
-
-//3: most zoomed- 0: no zoom
-const MAPILLARY_ZOOM = { min: 0, max: 3 };
-
-//Fully zoomed in = FOV width of 0.5 and length of 2
-const fovWidthInterp = d3_scaleLinear([MAPILLARY_ZOOM.min, MAPILLARY_ZOOM.max], [1, 0.5], );
-const fovLengthInterp = d3_scaleLinear([MAPILLARY_ZOOM.min, MAPILLARY_ZOOM.max],[1, 2]);
+const MAPILLARY_GREEN = 0x05cb63;
+const SELECTED = 0xffee00;
 
 const LINESTYLE = {
   casing: { alpha: 0 },  // disable
-  stroke: { alpha: 0.9, width: 4, color: MAPILLARY_GREEN }
+  stroke: { alpha: 0.7, width: 4, color: MAPILLARY_GREEN }
 };
 
 const MARKERSTYLE = {
-  markerName: 'mediumCircle',
-  markerTint: MAPILLARY_GREEN,
-  viewfieldName: 'viewfield',
-  viewfieldTint: MAPILLARY_GREEN
+  markerAlpha:     0.8,
+  markerName:      'mediumCircle',
+  markerTint:      MAPILLARY_GREEN,
+  viewfieldAlpha:  0.7,
+  viewfieldName:   'viewfield',
+  viewfieldTint:   MAPILLARY_GREEN,
+  scale:           1.0,
+  fovWidth:        1,
+  fovLength:       1
 };
+
+const fovWidthInterp = scaleLinear([90, 10], [1.3, 0.7]);
+const fovLengthInterp = scaleLinear([90, 10], [0.7, 1.5]);
+
 
 
 /**
@@ -42,42 +44,78 @@ export class PixiLayerMapillaryPhotos extends AbstractLayer {
   constructor(scene, layerID) {
     super(scene, layerID);
 
-    this._handleBearingChange = this._handleBearingChange.bind(this);
-    this._handleFovChange = this._handleFovChange.bind(this);
-    this._handleZoomRetrieval = this._handleZoomRetrieval.bind(this);
-    this._viewerCompassAngle = null;
-    this._viewerZoom = MAPILLARY_ZOOM.min; //no zoom
+    this._viewerBearing = null;
+    this._viewerFov = 55;
+
+    // Make sure the event handlers have `this` bound correctly
+    this._bearingchanged = this._bearingchanged.bind(this);
+    this._fovchanged = this._fovchanged.bind(this);
 
     if (this.supported) {
-      const service = this.context.services.mapillary;
-      service.on('bearingChanged', this._handleBearingChange);
-      service.on('fovChanged', this._handleFovChange);
+      const mapillary = this.context.services.mapillary;
+      mapillary.on('bearingChanged', this._bearingchanged);
+      mapillary.on('fovChanged', this._fovchanged);
+      mapillary.on('imageChanged', () => {
+        this._viewerFov = 55;
+      });
     }
   }
 
 
   /**
-   * _handleBearingCHange
-   * Handle the user dragging inside of a panoramic photo.
+   * reset
+   * Every Layer should have a reset function to replace any Pixi objects and internal state.
    */
-  _handleBearingChange(event) {
-    this._viewerCompassAngle = event.bearing;
+  reset() {
+    super.reset();
   }
 
 
   /**
-   * _handleBearingCHange
-   * Handle the user dragging inside of a panoramic photo.
+   * _bearingchanged
+   * Called whenever the viewer's compass bearing has changed (user pans around)
+   * @param {number}  bearing - the new bearing value in degrees
    */
-  _handleFovChange() {
-    this.context.services.mapillary._mlyViewer.getZoom().then(this._handleZoomRetrieval);
+  _bearingchanged(bearing) {
+    this._viewerBearing = bearing;
+    this._dirtyCurrentPhoto();
   }
 
 
-  // MLY 4.0 viewer will vary zoom from 0 (no zoom) to 3 (most zoomed)
-  _handleZoomRetrieval(zoom) {
-      this._viewerZoom = zoom;
+  /**
+   * _fovchanged
+   * Called whenever the viewer's field of view has changed (user zooms/unzooms)
+   * @param {number}  fov - the new field of view value in degrees
+   */
+  _fovchanged(fov) {
+    this._viewerFov = fov;
+    this._dirtyCurrentPhoto();
   }
+
+
+  /**
+   * _dirtyCurrentPhoto
+   * If we are interacting with the viewer (zooming / panning),
+   * dirty the current photo so its view cone gets redrawn
+   */
+  _dirtyCurrentPhoto() {
+    const context = this.context;
+    const gfx = context.systems.gfx;
+    const photos = context.systems.photos;
+
+    const currPhotoID = photos.currPhotoID;
+    if (!currPhotoID) return;  // shouldn't happen, the user is zooming/panning an image
+
+    // Dirty the feature(s) for this image so they will be redrawn.
+    const featureIDs = this._dataHasFeature.get(currPhotoID) ?? new Set();
+    for (const featureID of featureIDs) {
+      const feature = this.features.get(featureID);
+      if (!feature) continue;
+      feature._styleDirty = true;
+    }
+    gfx.immediateRedraw();
+  }
+
 
   /**
    * supported
@@ -104,77 +142,80 @@ export class PixiLayerMapillaryPhotos extends AbstractLayer {
     if (val === this._enabled) return;  // no change
     this._enabled = val;
 
-    if (val) {
-      this.dirtyLayer();
-      this.context.services.mapillary.startAsync();
+    const context = this.context;
+    const gfx = context.systems.gfx;
+    const mapillary = context.services.mapillary;
+    if (val && mapillary) {
+      mapillary.startAsync()
+        .then(() => gfx.immediateRedraw());
     }
   }
 
 
+  /**
+   * filterImages
+   * @param  {Array<image>}  images - all images
+   * @return {Array<image>}  images with filtering applied
+   */
   filterImages(images) {
-    const photoSystem = this.context.systems.photos;
-    const fromDate = photoSystem.fromDate;
-    const toDate = photoSystem.toDate;
-    const usernames = photoSystem.usernames;
-    const showFlatPhotos = photoSystem.showsPhotoType('flat');
-    const showPanoramicPhotos = photoSystem.showsPhotoType('panoramic');
+    const photos = this.context.systems.photos;
+    const fromDate = photos.fromDate;
+    const fromTimestamp = fromDate && new Date(fromDate).getTime();
+    const toDate = photos.toDate;
+    const toTimestamp = toDate && new Date(toDate).getTime();
+    const usernames = photos.usernames;
+    const showFlatPhotos = photos.showsPhotoType('flat');
+    const showPanoramicPhotos = photos.showsPhotoType('panoramic');
 
-    if (!showFlatPhotos && !showPanoramicPhotos) {
-      return [];
-    } else if (showPanoramicPhotos && !showFlatPhotos) {
-      images = images.filter(i => i.isPano);
-    } else if (!showPanoramicPhotos && showFlatPhotos){
-      images = images.filter(i => !i.isPano);
-    }
+    return images.filter(image => {
+      if (image.id === photos.currPhotoID) return true;  // always show current image - Rapid#1512
 
-    if (fromDate) {
-      const fromTimestamp = new Date(fromDate).getTime();
-      images = images.filter(i => new Date(i.captured_at).getTime() >= fromTimestamp);
-    }
-    if (toDate) {
-      const toTimestamp = new Date(toDate).getTime();
-      images = images.filter(i => new Date(i.captured_at).getTime() <= toTimestamp);
-    }
-    if (usernames) {
-      images = images.filter(i => usernames.indexOf(i.captured_by) !== -1);
-    }
-    return images;
+      if (!showFlatPhotos && !image.isPano) return false;
+      if (!showPanoramicPhotos && image.isPano) return false;
+
+      const imageTimestamp = new Date(image.captured_at).getTime();
+      if (fromTimestamp && fromTimestamp > imageTimestamp) return false;
+      if (toTimestamp && toTimestamp < imageTimestamp) return false;
+
+      if (usernames && !usernames.includes(image.captured_by)) return false;
+
+      return true;
+    });
   }
 
 
+  /**
+   * filterSequences
+   * Note - a 'sequence' is now a FeatureCollection containing a LineString or MultiLineString, post Rapid#776
+   * This is because we can get multiple linestrings for sequences that cross a vector tile boundary.
+   * We just look at the first item in the features Array to determine whether to keep/filter the sequence.
+   * @param  {Array<FeatureCollection>}  sequences - all sequences
+   * @return {Array<FeatureCollection>}  sequences with filtering applied
+   */
   filterSequences(sequences) {
-    const photoSystem = this.context.systems.photos;
-    const fromDate = photoSystem.fromDate;
-    const toDate = photoSystem.toDate;
-    const usernames = photoSystem.usernames;
+    const photos = this.context.systems.photos;
+    const fromDate = photos.fromDate;
+    const fromTimestamp = fromDate && new Date(fromDate).getTime();
+    const toDate = photos.toDate;
+    const toTimestamp = toDate && new Date(toDate).getTime();
+    const usernames = photos.usernames;
+    const showFlatPhotos = photos.showsPhotoType('flat');
+    const showPanoramicPhotos = photos.showsPhotoType('panoramic');
 
+    return sequences.filter(sequence => {
+      const seq = sequence.features[0];  // Can contain multiple GeoJSON features, use the first one
+      if (!seq) return false;
+      if (!showFlatPhotos && !seq.properties.is_pano) return false;
+      if (!showPanoramicPhotos && seq.properties.is_pano) return false;
 
-    const showFlatPhotos = photoSystem.showsPhotoType('flat');
-    const showPanoramicPhotos = photoSystem.showsPhotoType('panoramic');
+      const sequenceTimestamp = new Date(seq.properties.captured_at).getTime();
+      if (fromTimestamp && fromTimestamp > sequenceTimestamp) return false;
+      if (toTimestamp && toTimestamp < sequenceTimestamp) return false;
 
-    if (!showFlatPhotos && !showPanoramicPhotos) {
-      return [];
-    } else if (showPanoramicPhotos && !showFlatPhotos) {
-      sequences = sequences.filter(seq => seq[0].properties.is_pano);
-    } else if (!showPanoramicPhotos && showFlatPhotos){
-      sequences =  sequences.filter(seq => !seq[0].properties.is_pano);
-    }
+      if (usernames && !usernames.includes(seq.properties.captured_by)) return false;
 
-    // note - Sequences now contains an Array of Linestrings, post #776
-    // This is because we can get multiple linestrings for sequences that cross a tile boundary.
-    // We just look at the first item in the array to determine whether to keep/filter the sequence.
-    if (fromDate) {
-      const fromTimestamp = new Date(fromDate).getTime();
-      sequences = sequences.filter(s => new Date(s[0].properties.captured_at).getTime() >= fromTimestamp);
-    }
-    if (toDate) {
-      const toTimestamp = new Date(toDate).getTime();
-      sequences = sequences.filter(s => new Date(s[0].properties.captured_at).getTime() <= toTimestamp);
-    }
-    if (usernames) {
-      sequences = sequences.filter(s => usernames.indexOf(s[0].properties.captured_by) !== -1);
-    }
-    return sequences;
+      return true;
+    });
   }
 
 
@@ -185,63 +226,63 @@ export class PixiLayerMapillaryPhotos extends AbstractLayer {
    * @param  zoom       Effective zoom to use for rendering
    */
   renderMarkers(frame, viewport, zoom) {
-    const service = this.context.services.mapillary;
-
-    //We want the active image, which may or may not be the selected image.
-    const activeIDs = this._classHasData.get('active') ?? new Set();
-
-    if (!service?.started) return;
+    const mapillary = this.context.services.mapillary;
+    if (!mapillary?.started) return;
 
     // const showMarkers = (zoom >= MINMARKERZOOM);
     // const showViewfields = (zoom >= MINVIEWFIELDZOOM);
 
     const parentContainer = this.scene.groups.get('streetview');
-    const sequences = service.getSequences();
-    const images = service.getData('images');
+    let sequences = mapillary.getSequences();
+    let images = mapillary.getData('images');
 
-    const sequenceData = this.filterSequences(sequences);
-    const photoData = this.filterImages(images);
+    sequences = this.filterSequences(sequences);
+    images = this.filterImages(images);
 
-    // For each sequence, expect an Array of LineStrings
-    for (const lineStrings of sequenceData) {
-      for (let i = 0; i < lineStrings.length; ++i) {
-        const d = lineStrings[i];
-        const sequenceID = d.properties.id;
-        const featureID = `${this.layerID}-sequence-${sequenceID}-${i}`;
-        let feature = this.features.get(featureID);
+    // render sequences, they are actually FeatureCollections
+    for (const fc of sequences) {
+      const sequenceID = fc.id;
+      const version = fc.v || 0;
 
-        if (!feature) {
-          feature = new PixiFeatureLine(this, featureID);
-          feature.geometry.setCoords(d.geometry.coordinates);
-          feature.style = LINESTYLE;
-          feature.parentContainer = parentContainer;
-          feature.container.zIndex = -100;  // beneath the markers (which should be [-90..90])
-          feature.setData(sequenceID, d);
+      for (let i = 0; i < fc.features.length; ++i) {
+        const d = fc.features[i];
+        const parts = (d.geometry.type === 'LineString') ? [d.geometry.coordinates]
+          : (d.geometry.type === 'MultiLineString') ? d.geometry.coordinates : [];
+
+        for (let j = 0; j < parts.length; ++j) {
+          const coords = parts[j];
+          const featureID = `${this.layerID}-sequence-${sequenceID}-${i}-${j}`;
+          let feature = this.features.get(featureID);
+
+          if (!feature) {
+            feature = new PixiFeatureLine(this, featureID);
+            feature.style = LINESTYLE;
+            feature.parentContainer = parentContainer;
+            feature.container.zIndex = -100;  // beneath the markers (which should be [-90..90])
+          }
+
+          // If data has changed.. Replace it.
+          if (feature.v !== version) {
+            feature.v = version;
+            feature.geometry.setCoords(coords);
+            feature.setData(sequenceID, d);
+          }
+
+          this.syncFeatureClasses(feature);
+          feature.update(viewport, zoom);
+          this.retainFeature(feature, frame);
         }
-
-        this.syncFeatureClasses(feature);
-        feature.update(viewport, zoom);
-        this.retainFeature(feature, frame);
       }
     }
 
-
-    for (const d of photoData) {
+    // render markers
+    for (const d of images) {
       const featureID = `${this.layerID}-photo-${d.id}`;
       let feature = this.features.get(featureID);
 
       if (!feature) {
-        const style = Object.assign({}, MARKERSTYLE);
-        if (Number.isFinite(d.ca)) {
-          style.viewfieldAngles = [d.ca];   // ca = camera angle
-        }
-        if (d.isPano) {
-          style.viewfieldName = 'pano';
-        }
-
         feature = new PixiFeaturePoint(this, featureID);
         feature.geometry.setCoords(d.loc);
-        feature.style = style;
         feature.parentContainer = parentContainer;
         feature.setData(d.id, d);
 
@@ -252,29 +293,33 @@ export class PixiLayerMapillaryPhotos extends AbstractLayer {
 
       this.syncFeatureClasses(feature);
 
-      if (activeIDs.has(d.id)) {
-        feature.active = true;
-        feature.style.viewfieldAngles = [this._viewerCompassAngle];
-        feature.style.viewfieldName = 'viewfield';
-        //Change highlight color and make the point/viewfield larger so the mapper can see it.
-        feature.style.viewfieldTint = MAPILLARY_SELECTED;
-        feature.style.markerTint = MAPILLARY_SELECTED;
-        feature.style.scale = 2.0;
+      if (feature.dirty) {
+        // Start with default style, and apply adjustments
+        const style = Object.assign({}, MARKERSTYLE);
 
-        //Vary the length and width of the viewfield as we zoom in.
-        feature.style.fovWidth = fovWidthInterp(this._viewerZoom);
-        feature.style.fovLength = fovLengthInterp(this._viewerZoom);
-      } else  {
-        feature.active = false;
-        feature.style.viewfieldName = d.isPano ? 'pano' : 'viewfield';
-        feature.style.viewfieldTint = MAPILLARY_GREEN;
-        feature.style.markerTint = MAPILLARY_GREEN;
-        feature.style.scale = 1.0;
-        feature.style.fovWidth = 1;
-        feature.style.fovLength = 1;
+        if (feature.hasClass('selectphoto')) {  // selected photo style
+          style.viewfieldAngles = [this._viewerBearing ?? d.ca];
+          style.viewfieldName = 'viewfield';
+          style.viewfieldAlpha = 1;
+          style.viewfieldTint = SELECTED;
+          style.markerTint = SELECTED;
+          style.scale = 2.0;
+          style.fovWidth = fovWidthInterp(this._viewerFov ?? 55);
+          style.fovLength = fovLengthInterp(this._viewerFov ?? 55);
+
+        } else {
+          style.viewfieldAngles = Number.isFinite(d.ca) ? [d.ca] : [];  // ca = camera angle
+          style.viewfieldName = d.isPano ? 'pano' : 'viewfield';
+
+          if (feature.hasClass('highlightphoto')) {  // highlighted photo style
+            style.viewfieldAlpha = 1;
+            style.viewfieldTint = SELECTED;
+            style.markerTint = SELECTED;
+          }
+        }
+
+        feature.style = style;
       }
-
-
 
       feature.update(viewport, zoom);
       this.retainFeature(feature, frame);
@@ -291,10 +336,10 @@ export class PixiLayerMapillaryPhotos extends AbstractLayer {
    * @param  zoom       Effective zoom to use for rendering
    */
   render(frame, viewport, zoom) {
-    const service = this.context.services.mapillary;
-    if (!this.enabled || !service?.started || zoom < MINZOOM) return;
+    const mapillary = this.context.services.mapillary;
+    if (!this.enabled || !mapillary?.started || zoom < MINZOOM) return;
 
-    service.loadTiles('images');
+    mapillary.loadTiles('images');
     this.renderMarkers(frame, viewport, zoom);
   }
 

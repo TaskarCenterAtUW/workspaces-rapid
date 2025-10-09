@@ -2,57 +2,62 @@ describe('MapSystem', () => {
   let _container, _mapSystem;
 
   class MockSystem {
-    constructor() { }
-    initAsync()   { return Promise.resolve(); }
-    on()          { return this; }
-    off()         { return this; }
+    constructor(context) { this.context = context; }
+    initAsync()          { return Promise.resolve(); }
+    on()                 { return this; }
+    off()                { return this; }
   }
 
-  class MockStorageSystem {
-    constructor() { }
-    initAsync()   { return Promise.resolve(); }
-    getItem()     { return ''; }
-  }
-
-  class MockLocalizationSystem {
-    constructor() { }
-    initAsync()   { return Promise.resolve(); }
-    t(id)         { return id; }
-    tHtml(id)     { return id; }
-  }
-
-  class MockRenderer {
+  class MockGfxSystem extends MockSystem {
     constructor(context) {
-      this.context = context;
+      super(context);
+      this.supersurface = document.createElement('div');
+      this.surface = document.createElement('canvas');
+      this.overlay = document.createElement('div');
       this.scene = new MockSystem();
     }
-    resize() {}
-    render() {}
-    on() { return this; }
-    deferredRender() {}
+    deferredRedraw() {}
+    immediateRedraw() {}
     setTransformAsync(t) {
       this.context.viewport.transform = t;
       return Promise.resolve(t);
     }
   }
 
+  class MockStorageSystem extends MockSystem {
+    constructor(context) { super(context); }
+    initAsync()          { return Promise.resolve(); }
+    getItem()            { return ''; }
+  }
+
+  class MockLocalizationSystem extends MockSystem {
+    constructor(context) { super(context); }
+    initAsync()          { return Promise.resolve(); }
+    t(id)                { return id; }
+    tHtml(id)            { return id; }
+  }
+
   class MockContext {
     constructor()   {
       this.services = {};
       this.systems = {
-        editor:  new MockSystem(),
-        filters: new MockSystem(),
-        imagery: new MockSystem(),
-        photos:  new MockSystem(),
-        l10n:    new MockLocalizationSystem(),
-        storage: new MockStorageSystem(),
-        urlhash: new MockSystem(),
-        styles:  new MockSystem()
+        editor:  new MockSystem(this),
+        filters: new MockSystem(this),
+        gfx:     new MockGfxSystem(this),
+        imagery: new MockSystem(this),
+        photos:  new MockSystem(this),
+        rapid:   new MockSystem(this),
+        l10n:    new MockLocalizationSystem(this),
+        storage: new MockStorageSystem(this),
+        urlhash: new MockSystem(this),
+        styles:  new MockSystem(this)
       };
-      this.viewport = new sdk.Viewport(undefined, [100, 100]);
+      this.viewport = new Rapid.sdk.Viewport(undefined, [100, 100]);
+      this._keybinding = new MockSystem(this);
     }
     container()   { return _container; }
-    keybinding()  { return new MockSystem(); }
+    keybinding()  { return this._keybinding; }
+    on()          { return this; }
   }
 
 
@@ -60,7 +65,6 @@ describe('MapSystem', () => {
     _container = d3.select('body').append('div');
     const context = new MockContext();  // get a fresh viewport each time
     _mapSystem = new Rapid.MapSystem(context);
-    _mapSystem._renderer = new MockRenderer(context);
 
     return _mapSystem.initAsync()
       .then(() => _mapSystem.render(_container));
@@ -144,27 +148,27 @@ describe('MapSystem', () => {
       let extent;
 
       // get
-      extent = new sdk.Extent(_mapSystem.extent());
+      extent = new Rapid.sdk.Extent(_mapSystem.extent());
       expect(extent.min[0]).to.be.closeTo(-17.5, 0.1);
       expect(extent.min[1]).to.be.closeTo(-17.3, 0.1);
       expect(extent.max[0]).to.be.closeTo(17.5, 0.1);
       expect(extent.max[1]).to.be.closeTo(17.3, 0.1);
 
       // set
-      _mapSystem.extent( new sdk.Extent([10, 1], [30, 1]) );
+      _mapSystem.extent( new Rapid.sdk.Extent([10, 1], [30, 1]) );
 
       // get
-      extent = new sdk.Extent(_mapSystem.extent());
+      extent = new Rapid.sdk.Extent(_mapSystem.extent());
       expect(extent.min[0]).to.be.closeTo(10, 0.1);
       expect(extent.min[1]).to.be.closeTo(-9, 0.1);
       expect(extent.max[0]).to.be.closeTo(30, 0.1);
       expect(extent.max[1]).to.be.closeTo(11, 0.1);
 
       // set
-      _mapSystem.extent( new sdk.Extent([-1, -40], [1, -20]) );
+      _mapSystem.extent( new Rapid.sdk.Extent([-1, -40], [1, -20]) );
 
       // get
-      extent = new sdk.Extent(_mapSystem.extent());
+      extent = new Rapid.sdk.Extent(_mapSystem.extent());
       expect(extent.min[0]).to.be.closeTo(-11.6, 0.1);
       expect(extent.min[1]).to.be.closeTo(-39.5, 0.1);
       expect(extent.max[0]).to.be.closeTo(11.6, 0.1);

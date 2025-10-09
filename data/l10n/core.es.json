@@ -19,7 +19,8 @@
       "undo_redo": "Deshacer/rehacer",
       "recent": "Reciente",
       "favorites": "Favoritos",
-      "add_feature": "Agregar elemento"
+      "add_feature": "Agregar elemento",
+      "rapid_features": "Ayude"
     },
     "title": {
       "labeled_and_more": {
@@ -30,20 +31,16 @@
     },
     "modes": {
       "add_area": {
-        "title": "Área",
-        "filter_tooltip": "áreas"
+        "title": "Área"
       },
       "add_line": {
-        "title": "Línea",
-        "filter_tooltip": "líneas"
+        "title": "Línea"
       },
       "add_point": {
-        "title": "Punto",
-        "filter_tooltip": "puntos"
+        "title": "Punto"
       },
       "add_note": {
         "title": "Nota",
-        "label": "Agregar nota",
         "description": "¿Algún problema? Comuníqueselo a otros cartógrafos."
       },
       "add_preset": {
@@ -129,53 +126,16 @@
       },
       "circularize": {
         "title": "Redondear",
-        "description": {
-          "single": "Redondear este elemento.",
-          "multiple": "Redondear estos elementos."
-        },
         "annotation": {
           "feature": {
             "one": "Hizo circular un elemento.",
             "many": "Redondeó {n} elementos.",
             "other": "Redondeó {n} elementos."
           }
-        },
-        "multiple_blockers": {
-          "multiple": "Estos no se pueden redondear por múltiples razones."
-        },
-        "not_closed": {
-          "single": "Esto no se puede redondear porque no es un bucle.",
-          "multiple": "Estos no se pueden redondear porque no son bucles."
-        },
-        "too_large": {
-          "single": "No se puede redondear porque no está completamente visible.",
-          "multiple": "No se pueden redondear porque no están completamente visibles."
-        },
-        "connected_to_hidden": {
-          "single": "No se puede redondear porque está conectado a un elemento oculto.",
-          "multiple": "No se pueden redondear porque algunos están conectados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "No se puede redondear porque algunas partes aún no se han descargado.",
-          "multiple": "No se pueden redondear porque algunas partes aún no se han descargado."
-        },
-        "already_circular": {
-          "single": "Esto no se puede hacer más redondo de lo que ya es.",
-          "multiple": "Estos no se pueden hacer más redondos de lo que ya son."
         }
       },
       "orthogonalize": {
         "title": "Escuadrar",
-        "description": {
-          "corner": {
-            "single": "Escuadrar esta esquina.",
-            "multiple": "Escuadrar estas esquinas."
-          },
-          "feature": {
-            "single": "Escuadrar las esquinas de este elemento.",
-            "multiple": "Escuadrar las esquinas de estos elementos."
-          }
-        },
         "annotation": {
           "corner": {
             "one": "Escuadró una esquina.",
@@ -187,33 +147,6 @@
             "many": "Escuadró las esquinas de {n} elementos.",
             "other": "Escuadró las esquinas de {n} elementos."
           }
-        },
-        "multiple_blockers": {
-          "multiple": "Estos no se pueden escuadrar por varias razones."
-        },
-        "end_vertex": {
-          "single": "Esto no se puede escuadrar porque es un punto final.",
-          "multiple": "Estos no se pueden escuadrar porque son puntos finales."
-        },
-        "square_enough": {
-          "single": "Esto no puede hacerse más escuadrado de lo que ya es.",
-          "multiple": "Estos no pueden hacerse más escuadrado de lo que ya son."
-        },
-        "not_squarish": {
-          "single": "Esto no se puede escuadrar porque no es cuadrangular.",
-          "multiple": "Estos no se pueden escuadrar porque no son cuadrangulares."
-        },
-        "too_large": {
-          "single": "No se puede escuadrar porque no está completamente visible.",
-          "multiple": "No se pueden escuadrar por no estar completamente visibles."
-        },
-        "connected_to_hidden": {
-          "single": "Esto no se puede escuadrar porque está conectado a un elemento oculto.",
-          "multiple": "Estos no se pueden escuadrar porque algunos están conectados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Esto no se puede escuadrar porque algunas partes aún no se han descargado.",
-          "multiple": "Estos no se pueden escuadrar porque algunas partes aún no se han descargado."
         }
       },
       "straighten": {
@@ -234,34 +167,10 @@
             "many": "Enderezó {n} líneas.",
             "other": "Enderezó {n} líneas."
           }
-        },
-        "too_bendy": {
-          "single": "Esto no se puede enderezar porque se dobla demasiado.",
-          "multiple": "Estos no se pueden enderezar porque se curvan demasiado."
-        },
-        "connected_to_hidden": {
-          "single": "Esto no se puede enderezar porque está conectado a un elemento oculto.",
-          "multiple": "Estos no se pueden escuadrar porque algunos están conectados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Esto no se puede enderezar porque algunas partes aún no se han descargado.",
-          "multiple": "Estos no se pueden enderezar porque algunas partes aún no se han descargado."
-        },
-        "straight_enough": {
-          "single": "Esto no puede hacerse más recto de lo que ya es.",
-          "multiple": "Estos no se pueden enderezar más de lo que ya están."
-        },
-        "too_large": {
-          "single": "Esto no se puede enderezar porque no está completamente visible.",
-          "multiple": "No se pueden enderezar porque no están completamente visibles."
         }
       },
       "delete": {
         "title": "Eliminar",
-        "description": {
-          "single": "Eliminar este elemento permanentemente.",
-          "multiple": "Eliminar estos elementos permanentemente."
-        },
         "annotation": {
           "point": "Eliminó un punto.",
           "vertex": "Eliminó un nodo de una vía.",
@@ -273,30 +182,6 @@
             "many": "Eliminó {n} elementos.",
             "other": "Eliminó {n} elementos."
           }
-        },
-        "too_large": {
-          "single": "No se puede eliminar el elemento porque no está completamente visible.",
-          "multiple": "No se pueden eliminar los elementos al no estar completamente visibles."
-        },
-        "incomplete_relation": {
-          "single": "No se puede eliminar el elemento porque no se ha descargado del todo.",
-          "multiple": "No se pueden eliminar los elementos porque no se han descargado del todo."
-        },
-        "part_of_relation": {
-          "single": "Este elemento no se puede eliminar porque es parte de una relación más grande. Primero debe quitarlo de la relación.",
-          "multiple": "Estos elementos no se pueden eliminar porque forman parte de relaciones más grandes. Primero debe quitarlos de las relaciones."
-        },
-        "connected_to_hidden": {
-          "single": "Este elemento no se puede eliminar porque está conectado a un elemento oculto.",
-          "multiple": "Estos elementos no se pueden eliminar porque algunos están conectados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Este elemento no se puede eliminar porque algunas partes aún no se han descargado.",
-          "multiple": "Estos elementos no se pueden eliminar porque algunas partes aún no se han descargado."
-        },
-        "has_wikidata_tag": {
-          "single": "Este elemento no se puede eliminar porque tiene una etiqueta de Wikidata.",
-          "multiple": "Estos elementos no se pueden eliminar porque algunos tienen etiquetas de Wikidata."
         }
       },
       "downgrade": {
@@ -323,10 +208,6 @@
             "many": "Degradó {n} elementos.",
             "other": "Degradó {n} elementos."
           }
-        },
-        "has_wikidata_tag": {
-          "single": "Este elemento no se puede degradar porque tiene una etiqueta de Wikidata.",
-          "multiple": "Estos elementos no se pueden degradar porque algunos tienen etiquetas de Wikidata."
         }
       },
       "add_member": {
@@ -429,10 +310,6 @@
       },
       "move": {
         "title": "Mover",
-        "description": {
-          "single": "Mover este elemento a una ubicación diferente.",
-          "multiple": "Mover estos elementos a una ubicación diferente."
-        },
         "annotation": {
           "point": "Movió un punto.",
           "vertex": "Movió un nodo en una vía.",
@@ -444,38 +321,12 @@
             "many": "Movió {n} elementos.",
             "other": "Movió {n} elementos."
           }
-        },
-        "incomplete_relation": {
-          "single": "Este elemento no se puede mover porque no se ha descargado por completo.",
-          "multiple": "Estos elementos no se pueden mover porque no se han descargado por completo."
-        },
-        "too_large": {
-          "single": "No se puede mover porque no está completamente visible.",
-          "multiple": "No se pueden mover porque no están completamente visibles."
-        },
-        "connected_to_hidden": {
-          "single": "Este elemento no se puede mover porque está conectado a un elemento oculto.",
-          "multiple": "Estos elementos no se pueden mover porque algunos están conectados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Este elemento no se puede mover porque algunas partes aún no se han descargado.",
-          "multiple": "Estos elementos no se pueden mover porque algunas partes aún no se han descargado."
         }
       },
       "reflect": {
         "title": {
           "long": "Voltear largo",
           "short": "Voltear corto"
-        },
-        "description": {
-          "long": {
-            "single": "Voltear este elemento a través de su eje largo.",
-            "multiple": "Voltear estos elementos a través de su eje largo."
-          },
-          "short": {
-            "single": "Voltear este elemento a través de su eje corto.",
-            "multiple": "Voltear estos elementos a través de su eje corto."
-          }
         },
         "annotation": {
           "long": {
@@ -492,30 +343,10 @@
               "other": "Volteó {n} elementos desde su eje corto."
             }
           }
-        },
-        "incomplete_relation": {
-          "single": "Este elemento no se puede voltear porque no se descargó por completo.",
-          "multiple": "Estos elementos no se pueden voltear porque no se han descargado por completo."
-        },
-        "too_large": {
-          "single": "Este elemento no se puede voltear porque no está lo suficientemente visible.",
-          "multiple": "Estos elementos no se pueden voltear porque no están lo suficientemente visible."
-        },
-        "connected_to_hidden": {
-          "single": "Este elemento no se puede voltear porque está conectado a un elemento oculto.",
-          "multiple": "Estos elementos no se pueden voltear porque están conectados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Este elemento no se puede voltear porque algunas partes aún no se han descargado.",
-          "multiple": "Estos elementos no se puede voltear porque algunas partes aún no se han descargado."
         }
       },
       "rotate": {
         "title": "Rotar",
-        "description": {
-          "single": "Rotar este elemento alrededor de su punto central.",
-          "multiple": "Rotar estos elementos alrededor de su punto central."
-        },
         "annotation": {
           "line": "Rotó una línea.",
           "area": "Rotó un área.",
@@ -525,22 +356,6 @@
             "many": "Rotó {n} elementos.",
             "other": "Rotó {n} elementos."
           }
-        },
-        "incomplete_relation": {
-          "single": "Este elemento no se puede rotar porque no se ha descargado completamente.",
-          "multiple": "Estos elementos no se pueden rotar porque no se han descargado completamente."
-        },
-        "too_large": {
-          "single": "No se puede rotar porque no está completamente visible.",
-          "multiple": "No se pueden girar porque no están completamente visibles."
-        },
-        "connected_to_hidden": {
-          "single": "Este elemento no se puede rotar porque está conectado a un elemento oculto.",
-          "multiple": "Estos elementos no se pueden rotar porque algunos están conectados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Este elemento no se puede rotar porque algunas partes aún no se han descargado.",
-          "multiple": "Estos elementos no se pueden rotar porque algunas partes aún no se han descargado."
         }
       },
       "reverse": {
@@ -586,22 +401,6 @@
               "other": "Agrandó {n} elementos."
             }
           }
-        },
-        "too_small": {
-          "single": "Este elemento no se puede reducir porque sería demasiado pequeño.",
-          "multiple": "Estos elementos no se puede reducir porque serían demasiado pequeños."
-        },
-        "too_large": {
-          "single": "Este elemento no se puede escalar porque no está completamente visible.",
-          "multiple": "Estos elementos no se pueden escalar porque no están completamente visibles."
-        },
-        "connected_to_hidden": {
-          "single": "Este elemento no se puede escalar porque está conectado a un elemento oculto.",
-          "multiple": "Estos elementos no se pueden escalar porque algunos están conectados a elementos ocultos."
-        },
-        "not_downloaded": {
-          "single": "Este elemento no se puede escalar porque algunas partes aún no se han descargado.",
-          "multiple": "Estos elementos no se pueden escalar porque algunas partes aún no se han descargado."
         }
       },
       "split": {
@@ -659,34 +458,14 @@
       "extract": {
         "title": "Extraer",
         "description": {
-          "vertex": {
-            "single": "Extraer este punto de sus líneas / áreas padres.",
-            "multiple": "Extraer estos puntos de sus elementos principales."
-          },
-          "line": {
-            "single": "Extraer un punto de esta línea.",
-            "multiple": "Extraer puntos de estas líneas."
-          },
-          "area": {
-            "single": "Extraer un punto de esta área.",
-            "multiple": "Extraer puntos de estas áreas."
-          },
           "feature": {
-            "multiple": "Extraer puntos de estos elementos."
+            "other": "Extraer puntos de estos elementos."
           }
         },
         "annotation": {
           "one": "Extrajo un punto.",
           "many": "Extrajo {n} puntos.",
           "other": "Extrajo {n} puntos."
-        },
-        "too_large": {
-          "single": "No se puede extraer un punto de este elemento porque no está completamente visible.",
-          "multiple": "No se pueden extraer puntos de estos elementos porque no están completamente visibles."
-        },
-        "connected_to_hidden": {
-          "single": "Este punto no se puede extraer porque está conectado a un elemento oculto.",
-          "multiple": "Estos puntos no se pueden extraer porque algunos están conectados a elementos ocultos."
         }
       }
     },
@@ -733,6 +512,7 @@
       "tooltip": "Rehacer: {action}",
       "nothing": "Nada que rehacer"
     },
+    "tooltip_keyhint": "Clave:",
     "translate": {
       "translate": "Agregar nombre multilingüe",
       "localized_translation_label": "Nombre multilingüe",
@@ -745,10 +525,7 @@
     "loading_auth": "Conectando a OpenStreetMap...",
     "report_a_bug": "Reportar un error",
     "help_translate": "Ayudar a traducir",
-    "sidebar": {
-      "key": "|",
-      "tooltip": "Alterna la barra lateral."
-    },
+    "example": "Ejemplo:",
     "feature_info": {
       "hidden_warning": {
         "one": "{count} elemento oculto",
@@ -756,7 +533,7 @@
         "other": "{count} elementos ocultos"
       }
     },
-    "osm_api_status": {
+    "status": {
       "message": {
         "error": "No se puede acceder a la API de OpenStreetMap. Sus ediciones están a salvo localmente. Verifique su conexión de red.",
         "offline": "La API de OpenStreetMap está fuera de línea. Sus ediciones están a salvo localmente. Regrese más tarde.",
@@ -808,7 +585,6 @@
         "description": "Descripción",
         "resolution": "Resolución",
         "accuracy": "Precisión",
-        "unknown": "Desconocida",
         "show_tiles": "Mostrar teselas",
         "hide_tiles": "Ocultar teselas"
       },
@@ -819,7 +595,6 @@
         "last_edit": "Última edición",
         "edited_by": "Editado por",
         "changeset": "Conjunto de cambios",
-        "unknown": "Desconocido",
         "note_no_history": "Sin historial (Nota nueva)",
         "note_comments": "Comentarios",
         "note_created_date": "Fecha de creación",
@@ -890,31 +665,27 @@
         "other": "{n} resultados para {search}"
       },
       "no_documentation_key": "No hay documentación disponible.",
+      "edit_reference": "editar/traducir",
       "wiki_reference": "Ver documentación",
       "wiki_en_reference": "Ver documentación en inglés",
       "key_value": "clave=valor",
       "multiple_values": "Valores múltiples",
       "multiple_types": "Tipos múltiples",
       "unshared_value_tooltip": "no compartido por todos los elementos",
-      "hidden_preset": {
-        "manual": "{features} están ocultos. Actívelos en el panel Datos de mapa.",
-        "zoom": "{features} están ocultos. Acercar para activarlos."
-      },
       "back_tooltip": "Cambiar tipo de elemento",
+      "type": "Tipo",
+      "details": "Detalles",
       "remove": "Quitar",
       "search": "Buscar",
       "unknown": "Desconocido",
       "incomplete": "<no descargado>",
       "feature_list": "Buscar elementos",
-      "edit": "Editar elemento",
-      "edit_features": "Editar elementos",
       "check": {
         "yes": "Sí",
         "reverser": "Cambiar dirección"
       },
       "radio": {
         "structure": {
-          "type": "Tipo",
           "default": "Predeterminado",
           "layer": "Capa"
         }
@@ -949,10 +720,16 @@
       "switch": "Volver a este fondo",
       "custom": "Personalizado",
       "overlays": "Capas",
+      "grid": {
+        "grids": "Cuadros"
+      },
       "imagery_problem_faq": "Informar un problema con las imágenes",
       "reset": "restablecer",
       "reset_all": "Restablecer todo",
       "display_options": "Opciones de visualización",
+      "wayback": {
+        "date": "Fecha"
+      },
       "brightness": "Brillo",
       "contrast": "Contraste",
       "saturation": "Saturación",
@@ -985,17 +762,23 @@
           "tooltip": "Datos de notas de OpenStreetMap",
           "title": "Notas de OpenStreetMap"
         },
+        "rapid": {
+          "title": "Elementos de Rapid"
+        },
         "maproulette": {
           "detail_title": "Detalles",
-          "cancel": "Cancelar"
+          "instruction_title": "Instrucciones",
+          "fixed": "¡Lo corregí!",
+          "cantComplete": "No se puede completar",
+          "alreadyFixed": "Ya corregido",
+          "notAnIssue": "No es un problema",
+          "comment": "Confirma",
+          "cancel": "Cancelar",
+          "submit": "Entregar"
         },
         "keepRight": {
           "tooltip": "Problemas de datos detectados por keepright.at",
           "title": "Problemas de KeepRight"
-        },
-        "improveOSM": {
-          "tooltip": "Datos faltantes detectados por improveosm.org",
-          "title": "Problemas de ImproveOSM"
         },
         "osmose": {
           "tooltip": "Problemas de datos detectados por osmose.openstreetmap.fr",
@@ -1016,7 +799,6 @@
         "tooltip": "Muestra valores de geometría para la selección."
       },
       "style_options": "Opciones de estilo",
-      "map_features": "Elementos del mapa",
       "autohidden": "Estos elementos se han ocultado automáticamente porque se mostrarían demasiados en pantalla. Puede acercarse para editarlos.",
       "osmhidden": "Estos elementos se han ocultado automáticamente porque la capa OpenStreetMap está oculta."
     },
@@ -1028,9 +810,6 @@
     },
     "photo_overlays": {
       "title": "Capas de fotos",
-      "traffic_signs": {
-        "title": "Señales de tránsito"
-      },
       "photo_type": {
         "flat": {
           "title": "Fotos planas",
@@ -1056,7 +835,8 @@
         "tooltip": "Mostrar sólo fotos de este usuario"
       }
     },
-    "feature": {
+    "filters": {
+      "title": "Filtros",
       "points": {
         "description": "Puntos",
         "tooltip": "Puntos de interés"
@@ -1188,8 +968,18 @@
           "tooltip": "Desmarcar esta casilla para evitar cargar íconos de sitios de terceros como Wikimedia Commons, Facebook o Twitter."
         }
       },
+      "map_interaction": {
+        "mouse_wheel": {
+          "auto": {
+            "title": "Automático"
+          }
+        }
+      },
       "color_selection": {
         "default": "Predeterminado"
+      },
+      "colorblind_options": {
+        "default": "Configuración por defecto (ninguno)"
       }
     },
     "restore": {
@@ -1222,6 +1012,9 @@
         "help": "Otro usuario cambió algunos de los mismos elementos del mapa que usted cambió. Haga clic en cada elemento a continuación para obtener más detalles sobre el conflicto y elija si desea conservar sus cambios o los cambios del otro usuario."
       }
     },
+    "download_osc": {
+      "title": "Descargar"
+    },
     "merge_remote_changes": {
       "conflict": {
         "deleted": "Este elemento ha sido eliminado por {user}.",
@@ -1252,17 +1045,25 @@
       "start": "Editar ahora"
     },
     "source_switch": {
+      "dev": "desarrollo",
       "live": "producción",
-      "lose_changes": "Tiene cambios sin guardar. Al cambiar de servidor de mapas, serán descartados. ¿Está seguro que quiere cambiar de servidor?",
-      "dev": "desarrollo"
+      "lose_changes": "Tiene cambios sin guardar. Al cambiar de servidor de mapas, serán descartados. ¿Está seguro que quiere cambiar de servidor?"
     },
-    "rapid_feature_inspector": {
+    "rapid_inspector": {
       "tags": "Etiquetas"
     },
-    "rapid_feature_toggle": {
-      "esri": {
-        "remove": "Quitar"
+    "rapid_menu": {
+      "worldwide": "Mundial",
+      "remove": "Quitar",
+      "more_info": "Más información",
+      "clear_filters": "Borrar filtros",
+      "category": {
+        "featured": "destacado",
+        "roads": "vías"
       }
+    },
+    "rapid_poweruser": {
+      "beta": "Función beta"
     },
     "tag_reference": {
       "description": "Descripción",
@@ -1277,7 +1078,6 @@
         "out": "No se puede alejar más."
       }
     },
-    "cannot_zoom": "No se puede alejar más la imagen en el modo actual.",
     "full_screen": "Alterna pantalla completa",
     "self_intersection": {
       "error": {
@@ -1292,40 +1092,6 @@
         "elems_title": "Elementos",
         "fix_title": "Pautas para el arreglo",
         "trap_title": "Errores comunes"
-      },
-      "improveOSM": {
-        "title": "Detección de ImproveOSM",
-        "geometry_types": {
-          "path": "senderos",
-          "parking": "estacionamiento",
-          "road": "vías",
-          "both": "vías y estacionamiento"
-        },
-        "directions": {
-          "east": "este",
-          "north": "norte",
-          "northeast": "noreste",
-          "northwest": "noroeste",
-          "south": "sur",
-          "southeast": "sureste",
-          "southwest": "suroeste",
-          "west": "oeste"
-        },
-        "error_types": {
-          "ow": {
-            "title": "Falta sentido único",
-            "description": "A lo largo de esta sección de {highway}, {percentage}% de {num_trips} viajes registrados van de {from_node} a {to_node}. Puede que falte una etiqueta de \"oneway\" (sentido único)."
-          },
-          "mr": {
-            "title": "Falta geometría",
-            "description": "{num_trips} viajes registrados en esta área sugieren que puede haber un {geometry_type} sin mapear aquí.",
-            "description_alt": "Los datos de un tercero sugieren que puede haber un {geometry_type} sin mapear aquí."
-          },
-          "tr": {
-            "title": "Falta la restricción de giro",
-            "description": "{num_passed} de {num_trips} viajes registrados (viajando hacia el {travel_direction}) hacen un giro desde {from_way} a {to_way} en {junction}. Puede que falte una restricción \"turn_restriction}\"."
-          }
-        }
       },
       "keepRight": {
         "detail_description": "Descripción",
@@ -1639,101 +1405,20 @@
         }
       }
     },
-    "streetside": {
-      "tooltip": "Fotografías Streetside de Microsoft",
-      "report": "Informar un problema de privacidad con esta imagen",
-      "view_on_bing": "Ver en Bing Maps",
+    "photos": {
       "hires": "Alta resolución"
     },
-    "mapillary_images": {
-      "tooltip": "Fotos a nivel calle de Mapillary"
-    },
-    "mapillary_map_features": {
-      "title": "Elementos del mapa",
-      "tooltip": "Elementos del mapa de Mapillary",
-      "construction": {
-        "barrier": {
-          "temporary": "barrera temporal"
-        },
-        "flat": {
-          "crosswalk_plain": "paso de peatones sencillo",
-          "driveway": "entrada de vehículos"
-        }
-      },
-      "marking": {
-        "discrete": {
-          "arrow": {
-            "left": "marca de carril - flecha (izquierda)",
-            "right": "marca de carril - flecha (derecha)",
-            "split_left_or_straight": "marca de carril - flecha (izquierda o recto)",
-            "split_right_or_straight": "marca de carril - flecha (derecha o recto)",
-            "straight": "marca de carril - flecha (recto)"
-          },
-          "crosswalk_zebra": "marca de carril - paso de peatones",
-          "give_way_row": "señalización de carril - ceder el paso (derecho de paso)",
-          "give_way_single": "señalización de carril - ceder el paso (un sentido)",
-          "other_marking": "señalización de carril - otro",
-          "stop_line": "señalización de carril - línea de parada",
-          "symbol": {
-            "bicycle": "señalización de carril - símbolo (bicicleta)"
-          },
-          "text": "señalización de carril - texto"
-        }
-      },
-      "object": {
-        "banner": "cartel",
-        "bench": "banco",
-        "bike_rack": "portabicicletas",
-        "billboard": "panel publicitario",
-        "catch_basin": "cuenca",
-        "cctv_camera": "cámara de CCTV",
-        "fire_hydrant": "boca de incendio",
-        "junction_box": "caja de cruces",
-        "mailbox": "buzón",
-        "manhole": "pozo de inspección",
-        "parking_meter": "parquímetro",
-        "phone_booth": "cabina telefónica",
-        "sign": {
-          "advertisement": "publicidad",
-          "information": "cartel informativo",
-          "other": "otra señal",
-          "store": "cartel de tienda",
-          "traffic_sign": {
-            "back": "señal de tránsito - atrás",
-            "direction_front": "señal de tránsito - frente",
-            "front": "señal de tránsito - frente"
-          }
-        },
-        "street_light": "alumbrado público",
-        "support": {
-          "pole": "poste",
-          "traffic_sign_frame": "cartel de señal de tránsito",
-          "utility_pole": "poste de servicio público"
-        },
-        "traffic_cone": "cono de tránsito",
-        "traffic_light": {
-          "cyclists": "semáforo ciclista",
-          "general_horizontal": "semáforo horizontal",
-          "general_single": "semáforo individual",
-          "general_upright": "semáforo vertical",
-          "other": "semáforo",
-          "pedestrians": "semáforo peatonal"
-        },
-        "trash_can": "contenedor de basura",
-        "water_valve": "válvula de agua"
-      }
+    "streetside": {
+      "tooltip": "Fotografías Streetside de Microsoft"
     },
     "mapillary": {
-      "signs": {
-        "tooltip": "Señales de tránsito de Mapillary"
-      },
-      "view_on_mapillary": "Ver esta imagen en Mapillary"
+      "tooltip": "Fotos a nivel calle de Mapillary"
     },
-    "kartaview_images": {
-      "tooltip": "Fotos a nivel calle de KartaView"
+    "mapillary_signs": {
+      "title": "Señales de tránsito"
     },
     "kartaview": {
-      "view_on_kartaview": "Ver esta imagen en KartaView"
+      "tooltip": "Fotos a nivel calle de KartaView"
     },
     "note": {
       "note": "Nota",
@@ -1813,7 +1498,6 @@
         "title": "Puntos",
         "intro": "Los *puntos* se pueden usar para representar elementos como tiendas, restaurantes y monumentos. Marcan una ubicación específica y describen lo que hay allí.",
         "add_point_h": "Agregar puntos",
-        "add_point": "Para agregar un punto, presione el botón {point_icon} **{point}** en la barra de herramientas sobre el mapa, o presione la tecla de acceso directo `1`.",
         "move_point_h": "Mover puntos",
         "delete_point_h": "Eliminar puntos",
         "delete_point": "Está bien eliminar los elementos que no existen en el mundo real. Al eliminar un elemento de OpenStreetMap, se quita del mapa que todos utilizan, por lo que debe asegurarse de que el elemento realmente no exista antes de eliminarlo."
@@ -1822,7 +1506,6 @@
         "title": "Líneas",
         "intro": "*Las líneas* se utilizan para representar elementos tales como carreteras, ferrocarriles y ríos. Las líneas deben dibujarse en el centro del elemento que representan.",
         "add_line_h": "Agregar líneas",
-        "add_line": "Para agregar una línea, presione el botón  {line_icon} **{line}**  en la barra de herramientas sobre el mapa, o presione la tecla de acceso directo `2`.",
         "add_line_finish": "Para finalizar una línea, haga clic o toque el último nodo nuevamente o presione `{return}`.",
         "modify_line_h": "Modificar líneas",
         "modify_line_dragnode": "A menudo verá líneas que no tienen la forma correcta, por ejemplo, una carretera que no coincide con las imágenes de fondo. Para ajustar la forma de una línea, primero selecciónela. Todos los nodos de la línea se dibujarán como pequeños círculos. Luego puede arrastrar los nodos a mejores ubicaciones.",
@@ -1836,11 +1519,11 @@
         "delete_line": "Si una línea esta completamente incorrecta, por ejemplo, una ruta que no existe en el mundo real, está bien borrarla. Tenga cuidado al eliminar elementos: las imágenes de fondo que está utilizando podrían estar desactualizadas, y una carretera que parece estar mal podría simplemente estar recién construida."
       },
       "areas": {
+        "title": "Áreas",
         "intro": "Las **Areas** se utilizan para mostrar los límites de elementos como lagos, edificios y áreas residenciales. Las áreas deben dibujarse alrededor del borde del elemento que representan, por ejemplo, alrededor de la base de un edificio.",
         "point_or_area_h": "¿Puntos o áreas?",
         "point_or_area": "Muchos elementos se pueden representar como puntos o áreas. Debe mapear los edificios y los contornos de la propiedad como áreas siempre que sea posible. Coloque puntos dentro del área del edificio para representar negocios, comodidades y otros elementos ubicados dentro del edificio.",
         "add_area_h": "Agregar áreas",
-        "add_area_command": "Para agregar un área, presione el botón  {area_icon} **{area}** en la barra de herramientas sobre el mapa, o presione la tecla de acceso directo `3`.",
         "add_area_finish": "Para finalizar un área, haga clic o toque el primer o el último nodo nuevamente o presione `{return}`.",
         "square_area_h": "Escuadrar esquinas",
         "modify_area_h": "Modificar áreas",
@@ -1890,7 +1573,6 @@
       },
       "notes": {
         "title": "Notas",
-        "intro": "Las *Notas* se utilizan para alertar a otros usuarios de que un elemento requiere un arreglo o atención. Las notas marcan una ubicación específica en el mapa. Para ver las notas existentes o agregar nuevas, abra el panel {data_icon} **{map_data}** y active la capa {osm_notes}.",
         "add_note_h": "Agregar notas",
         "add_note": "Para agregar una nueva nota, presione el botón {note_icon} **{note}** en la barra de herramientas sobre el mapa, o presione la tecla de acceso directo `{add_note_key}`.",
         "update_note_h": "Cierre, reapertura y comentarios",
@@ -1927,9 +1609,7 @@
         "title": "Control de calidad",
         "intro": "Las herramientas de *Control de calidad* (Q/A) pueden encontrar etiquetas inadecuadas, carreteras desconectadas y otros problemas con OpenStreetMap que los mapeadores pueden solucionar. Para ver los problemas de Q/A existentes, abra el panel {data_icon} **{map_data}** y active una capa específica de Q/A.",
         "tools_h": "Herramientas",
-        "tools": "Actualmente se admiten las siguientes herramientas: [KeepRight](https://www.keepright.at/), [ImproveOSM](https://improveosm.org/en/) y [Osmose](https://osmose.openstreetmap.fr/).",
-        "issues_h": "Arreglar problemas",
-        "issues": "El manejo de problemas de Q/A es similar al manejo de notas. Seleccione un marcador para ver los detalles del problema en la barra lateral. Cada herramienta tiene sus propias capacidades, pero generalmente puede comentar y/o cerrar un problema."
+        "issues_h": "Arreglar problemas"
       },
       "field": {
         "restrictions": {
@@ -1972,18 +1652,11 @@
     },
     "issues": {
       "title": "Problemas",
-      "list_title": "Problemas",
-      "errors": {
-        "list_title": "Errores"
-      },
-      "warnings": {
-        "list_title": "Advertencias"
-      },
-      "rules": {
-        "title": "Reglas"
-      },
-      "user_resolved_issues": "Problemas resueltos con sus ediciones",
-      "warnings_and_errors": "Advertencias y errores",
+      "errors": "Errores",
+      "warnings": "Advertencias",
+      "suggestions": "Sugerencias",
+      "rules": "Reglas",
+      "resolved_tooltip": "Problemas resueltos con sus ediciones",
       "no_issues": {
         "message": {
           "everything": "Todo parece correcto",
@@ -2142,8 +1815,6 @@
         "title": "Formato no válido",
         "tip": "Encuentre etiquetas con formatos inesperados",
         "email": {
-          "message": "{feature} tiene una dirección de email no válida",
-          "message_multi": "{feature} tiene varias direcciones de email no válidas",
           "reference": "Las direcciones de correo electrónico deben verse como «usuario@ejemplo.com»."
         }
       },
@@ -2647,6 +2318,9 @@
         "retry_circle": "No presionó el botón {circularize_icon} {circularize}. Inténtelo de nuevo.",
         "play": "¡Buen trabajo! Practique trazando algunos edificios más y pruebe algunas de los otras operaciones en el menú de edición. **Cuando esté listo para continuar con el próximo capítulo, presione '{next}'.**"
       },
+      "rapid": {
+        "title": "Elementos de Rapid"
+      },
       "startediting": {
         "title": "Empezar a editar",
         "help": "¡Ahora está listo para editar OpenStreetMap!{br}Puede reproducir este tutorial en cualquier momento o ver más documentación presionando el botón {help_icon} {help} o la tecla `{help_key}`.",
@@ -2678,97 +2352,177 @@
         "drag": "arrastrar"
       },
       "or": "-o-",
-      "browsing": {
-        "title": "Exploración",
-        "navigation": {
-          "title": "Navegación",
-          "pan": "Desplaza el mapa"
+      "browsing": "Exploración",
+      "editing": "Edición",
+      "tools": "Herramientas/demostración",
+      "navigation": "Navegación",
+      "selecting_features": "Selección de elementos",
+      "with_features_selected": "Con elementos seleccionados",
+      "with_node_selected": "Con nodo seleccionado",
+      "with_way_selected": "Con vía seleccionada",
+      "drawing": "Dibujo",
+      "commands": "Comandos",
+      "help": "Ayuda",
+      "display_options": "Opciones de visualización",
+      "viewers": "Visores",
+      "layers": "Capas",
+      "info": "Información",
+      "command": {
+        "pan": {
+          "label": "Desplaza el mapa"
         },
-        "help": {
-          "title": "Ayuda",
-          "help": "Muestra la ayuda/documentación",
-          "keyboard": "Muestra atajos de teclado"
+        "rotate_map": {
+          "label": "Rotar mapa"
         },
-        "display_options": {
-          "title": "Opciones de visualización",
-          "background": "Alterna panel de imágenes de fondo",
-          "map_data": "Alterna panel de datos del mapa",
-          "issues": "Alterna panel de validación de problemas",
-          "preferences": "Alterna panel de preferencias del usuario",
-          "sidebar": "Alterna barra lateral",
-          "wireframe": "Alterna el modo rejilla",
-          "osm_data": "Alterna datos de OpenStreetMap",
-          "highlight_edits": "Resalta ediciones sin guardar"
+        "select_one": {
+          "label": "Selecciona un solo elemento"
         },
-        "selecting": {
-          "title": "Selección de elementos",
-          "select_one": "Selecciona un solo elemento",
-          "select_multi": "Selecciona múltiples elementos",
-          "lasso": "Dibuja un lazo de selección alrededor de los elementos",
-          "search": "Encuentra elementos que coincidan con el texto de búsqueda"
+        "select_multi": {
+          "label": "Selecciona múltiples elementos"
         },
-        "with_selected": {
-          "title": "Con elementos seleccionados",
-          "edit_menu": "Alterna el menú de edición"
+        "lasso": {
+          "label": "Dibuja un lazo de selección alrededor de los elementos"
         },
-        "vertex_selected": {
-          "title": "Con nodo seleccionado",
-          "first": "Ir al primer nodo",
-          "last": "Ir al último nodo",
-          "change_parent": "Cambia de vía raíz",
-          "parent": "Selecciona la vía raíz"
+        "edit_menu": {
+          "label": "Alterna el menú de edición"
         },
-        "way_selected": {
-          "title": "Con vía seleccionada",
-          "child": "Selecciona nodos hijos"
-        }
-      },
-      "editing": {
-        "title": "Edición",
-        "drawing": {
-          "title": "Dibujo",
-          "add_point": "Modo «Agregar punto»",
-          "add_line": "Modo «Agregar línea»",
-          "add_area": "Modo «Agregar área»",
-          "add_note": "Modo «Agregar nota»",
-          "place_point": "Coloca un punto o nota",
-          "disable_snap": "Mantener presionado para desactivar el ajuste de punto",
-          "stop_line": "Finaliza el dibujo de una línea o área"
+        "first_node": {
+          "label": "Ir al primer nodo"
         },
-        "commands": {
-          "title": "Comandos",
-          "copy": "Copia elementos seleccionados",
-          "paste": "Pega elementos seleccionados",
-          "undo": "Deshace la última acción",
-          "redo": "Rehace la última acción",
-          "save": "Guarda cambios"
+        "last_node": {
+          "label": "Ir al último nodo"
         },
-        "operations": {
-          "continue_line": "Continúa una línea en el punto final seleccionado",
-          "merge": "Combina (fusiona) los elementos seleccionados",
-          "disconnect": "Desconecta los elementos seleccionados",
-          "extract": "Extrae un punto de un elemento",
-          "split": "Divide elementos en los puntos seleccionados",
-          "reverse": "Invierte elementos seleccionados.",
-          "move": "Mueve los elementos seleccionados",
-          "rotate": "Rota los elementos seleccionados",
-          "orthogonalize": "Escuadra esquinas de una línea o área",
-          "straighten": "Endereza una línea o puntos",
-          "circularize": "Redondea una línea cerrada o área",
-          "reflect_long": "Voltea elementos a través del eje más largo",
-          "reflect_short": "Voltea elementos a través del eje más corto",
-          "delete": "Elimina elementos seleccionados"
-        }
-      },
-      "tools": {
-        "title": "Herramientas",
-        "info": {
-          "title": "Información",
-          "all": "Alterna todos los paneles de información",
-          "background": "Alterna panel de fondo",
-          "history": "Alterna panel de historial",
-          "location": "Alterna panel de ubicación",
-          "measurement": "Alterna panel de medición"
+        "change_parent": {
+          "label": "Cambia de vía raíz"
+        },
+        "select_parent": {
+          "label": "Selecciona la vía raíz"
+        },
+        "select_children": {
+          "label": "Selecciona nodos hijos"
+        },
+        "add_point": {
+          "label": "Modo «Agregar punto»"
+        },
+        "add_line": {
+          "label": "Modo «Agregar línea»"
+        },
+        "add_area": {
+          "label": "Modo «Agregar área»"
+        },
+        "add_note": {
+          "label": "Modo «Agregar nota»"
+        },
+        "place_point": {
+          "label": "Coloca un punto o nota"
+        },
+        "disable_snap": {
+          "label": "Mantener presionado para desactivar el ajuste de punto"
+        },
+        "stop_line": {
+          "label": "Finaliza el dibujo de una línea o área"
+        },
+        "copy": {
+          "label": "Copia elementos seleccionados"
+        },
+        "paste": {
+          "label": "Pega elementos seleccionados"
+        },
+        "undo": {
+          "label": "Deshace la última acción"
+        },
+        "redo": {
+          "label": "Rehace la última acción"
+        },
+        "save": {
+          "label": "Guarda cambios"
+        },
+        "find": {
+          "label": "Encuentra elementos que coincidan con el texto de búsqueda"
+        },
+        "continue_line": {
+          "label": "Continúa una línea en el punto final seleccionado"
+        },
+        "merge": {
+          "label": "Combina (fusiona) los elementos seleccionados"
+        },
+        "disconnect": {
+          "label": "Desconecta los elementos seleccionados"
+        },
+        "extract": {
+          "label": "Extrae un punto de un elemento"
+        },
+        "split": {
+          "label": "Divide elementos en los puntos seleccionados"
+        },
+        "reverse": {
+          "label": "Invierte elementos seleccionados."
+        },
+        "move": {
+          "label": "Mueve los elementos seleccionados"
+        },
+        "rotate": {
+          "label": "Rota los elementos seleccionados"
+        },
+        "orthogonalize": {
+          "label": "Escuadra esquinas de una línea o área"
+        },
+        "straighten": {
+          "label": "Endereza una línea o puntos"
+        },
+        "circularize": {
+          "label": "Redondea una línea cerrada o área"
+        },
+        "reflect_long": {
+          "label": "Voltea elementos a través del eje más largo"
+        },
+        "reflect_short": {
+          "label": "Voltea elementos a través del eje más corto"
+        },
+        "delete": {
+          "label": "Elimina elementos seleccionados"
+        },
+        "toggle_background": {
+          "label": "Alterna panel de imágenes de fondo"
+        },
+        "toggle_map_data": {
+          "label": "Alterna panel de datos del mapa"
+        },
+        "toggle_issues": {
+          "label": "Alterna panel de validación de problemas"
+        },
+        "toggle_preferences": {
+          "label": "Alterna panel de preferencias del usuario"
+        },
+        "toggle_inspector": {
+          "key": "|"
+        },
+        "wireframe": {
+          "key": "O"
+        },
+        "highlight_edits": {
+          "label": "Resalta ediciones sin guardar"
+        },
+        "keyboard_shortcuts": {
+          "label": "Muestra atajos de teclado"
+        },
+        "toggle_osm_data": {
+          "label": "Alterna datos de OpenStreetMap"
+        },
+        "toggle_all_cards": {
+          "label": "Alterna todos los paneles de información"
+        },
+        "toggle_background_card": {
+          "label": "Alterna panel de fondo"
+        },
+        "toggle_history_card": {
+          "label": "Alterna panel de historial"
+        },
+        "toggle_location_card": {
+          "label": "Alterna panel de ubicación"
+        },
+        "toggle_measurement_card": {
+          "label": "Alterna panel de medición"
         }
       }
     },
@@ -2839,6 +2593,7 @@
       "bin": "bini",
       "bkm": "kom",
       "bla": "siksika",
+      "blo": "anii",
       "bm": "bambara",
       "bn": "bengalí",
       "bo": "tibetano",
@@ -3063,6 +2818,7 @@
       "kv": "komi",
       "kw": "córnico",
       "kwk": "kwakʼwala",
+      "kxv": "kuvi",
       "ky": "kirguís",
       "la": "latín",
       "lad": "ladino",
@@ -3073,6 +2829,7 @@
       "lez": "lezgiano",
       "lg": "ganda",
       "li": "limburgués",
+      "lij": "ligur",
       "lil": "lillooet",
       "lkt": "lakota",
       "lmo": "lombardo",
@@ -3088,7 +2845,6 @@
       "lua": "luba-lulua",
       "lui": "luiseño",
       "lun": "lunda",
-      "luo": "luo",
       "lus": "mizo",
       "luy": "luyia",
       "lv": "letón",
@@ -3269,6 +3025,7 @@
       "swb": "comorense",
       "syc": "siríaco clásico",
       "syr": "siriaco",
+      "szl": "silesio",
       "ta": "tamil",
       "tce": "tutchone meridional",
       "te": "telugu",
@@ -3314,9 +3071,10 @@
       "umb": "umbundu",
       "ur": "urdu",
       "uz": "uzbeko",
-      "vai": "vai",
       "ve": "venda",
+      "vec": "veneciano",
       "vi": "vietnamita",
+      "vmw": "makua",
       "vo": "volapük",
       "vot": "vótico",
       "vun": "vunjo",
@@ -3330,6 +3088,7 @@
       "wuu": "chino wu",
       "xal": "kalmyk",
       "xh": "xhosa",
+      "xnr": "kangri",
       "xog": "soga",
       "yao": "yao",
       "yap": "yapés",

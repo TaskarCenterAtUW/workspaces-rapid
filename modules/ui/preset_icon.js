@@ -1,4 +1,4 @@
-import { Color } from 'pixi.js';
+import * as PIXI from 'pixi.js';
 
 import { uiIcon } from './icon.js';
 
@@ -9,6 +9,7 @@ export function uiPresetIcon(context) {
 
 
   function getIcon(p, geom) {
+    if (Array.isArray(p)) return 'rapid-icon-data';
     if (p.icon) return p.icon;
     if (geom === 'line') return 'rapid-other-line';
     if (geom === 'vertex') return p.isFallback() ? '' : 'temaki-vertex';
@@ -21,7 +22,7 @@ export function uiPresetIcon(context) {
   //
   function renderCategoryBorder(container, style) {
     const px = 60;
-    const color = new Color(style.fill.color).toHex();
+    const color = new PIXI.Color(style.fill.color).toHex();
     const alpha = style.fill.alpha;
     const FOLDER_PATH = 'M9.5,7.5 L25.5,7.5 L28.5,12.5 L49.5,12.5 C51.709139,12.5 53.5,14.290861 53.5,16.5 L53.5,43.5 C53.5,45.709139 51.709139,47.5 49.5,47.5 L10.5,47.5 C8.290861,47.5 6.5,45.709139 6.5,43.5 L6.5,12.5 L9.5,7.5 Z';
 
@@ -87,7 +88,7 @@ export function uiPresetIcon(context) {
     const len = px * 2/3;
     const c1 = (px-len) / 2;
     const c2 = c1 + len;
-    const color = new Color(style.fill.color).toHex();
+    const color = new PIXI.Color(style.fill.color).toHex();
     const alpha = style.fill.alpha;
 
     const svg = container
@@ -135,8 +136,8 @@ export function uiPresetIcon(context) {
     const l = Math.round(px * 0.6);
     const x1 = (px - l) / 2;
     const x2 = x1 + l;
-    const casingColor = new Color(style.casing.color).toHex();
-    const strokeColor = new Color(style.stroke.color).toHex();
+    const casingColor = new PIXI.Color(style.casing.color).toHex();
+    const strokeColor = new PIXI.Color(style.stroke.color).toHex();
     const dash = style.stroke.dash;
     const hasDash = Array.isArray(dash);
 
@@ -230,9 +231,10 @@ export function uiPresetIcon(context) {
     let geom = _geometry;
     if (!p || !geom) return;  // nothing to display
 
-    // 'p' is either a preset or a category
-    const isPreset = (typeof p.setTags === 'function');
-    const isCategory = !isPreset;
+    // 'p' is either an array, a preset or a category
+    const isMulti = Array.isArray(p);
+    const isPreset = !isMulti && (typeof p.setTags === 'function');
+    const isCategory = !isMulti && !isPreset;
 
     const tags = isPreset ? p.setTags({}, geom) : {};
     for (let k in tags) {
@@ -245,8 +247,10 @@ export function uiPresetIcon(context) {
       geom = 'route';
     }
 
-    const prefs = context.systems.storage;
-    const showThirdPartyIcons = (prefs.getItem('preferences.privacy.thirdpartyicons') ?? 'true') === 'true';
+    const storage = context.systems.storage;
+    const styles = context.systems.styles;
+
+    const showThirdPartyIcons = (storage.getItem('preferences.privacy.thirdpartyicons') ?? 'true') === 'true';
     const imageURL = showThirdPartyIcons && p.imageURL;
     const picon = getIcon(p, geom);
     // const showPoint = isPreset && (geom === 'point');     // not actually used
@@ -254,7 +258,7 @@ export function uiPresetIcon(context) {
     const showLine = isPreset && (geom === 'line');
     const showArea = isPreset && (geom === 'area');
     const showRoute = isPreset && (geom === 'route') && (p.id !== 'type/route');
-    const style = context.systems.styles.styleMatch(tags);
+    const style = styles.styleMatch(tags);
 
     container
       .classed('showing-img', !!imageURL);
@@ -269,8 +273,8 @@ export function uiPresetIcon(context) {
 
     // Render Icon
     if (picon)  {
-      const isRaised = showLine || showRoute;                 // move the icon up a little
-      const isShrunk = isCategory || showLine || showRoute;   // make it smaller
+      const isRaised = showLine || showRoute;                  // move the icon up a little
+      const isShrunk = isMulti || isCategory || showLine || showRoute;    // make it smaller
       const isRapidIcon = /^rapid-/.test(picon);
 
       let klass = [];
@@ -281,7 +285,7 @@ export function uiPresetIcon(context) {
       let color = '#333';
       if (showLine || showRoute) {
         if (isRapidIcon) {
-          color = new Color(style.stroke.color).toHex();
+          color = new PIXI.Color(style.stroke.color).toHex();
         }
       }
 

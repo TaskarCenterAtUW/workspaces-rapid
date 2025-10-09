@@ -30,7 +30,6 @@
       "openstreetmapbrasilia": "OpenStreetMap Бразілія",
       "openstreetmapbremen": "OpenStreetMap Брэмен",
       "openstreetmapbulgaria": "OpenStreetMap Балгарыя",
-      "openstreetmapburkinafaso": "OpenStreetMap Буркіна Фасо",
       "openstreetmapburundi": "OpenStreetMap Бурундзі",
       "openstreetmapbzh": "OpenStreetMap Брэтань",
       "openstreetmapcambodia": "OpenStreetMap Камбоджа",
@@ -43,7 +42,6 @@
       "openstreetmapchile": "OpenStreetMap Чылі",
       "openstreetmapchina": "OpenStreetMap Кітай",
       "openstreetmapcologne": "OpenStreetMap Кёльн",
-      "openstreetmapcolombia": "OpenStreetMap Калумбія",
       "openstreetmapcomunitatvalenciana": "OpenStreetMap Валенсія",
       "openstreetmapcostarica": "OpenStreetMap Коста-Рыка",
       "openstreetmapcotedivoire": "OpenStreetMap Кот д’Івуар",
@@ -162,7 +160,6 @@
       "openstreetmapsaudiarabia": "OpenStreetMap Саудаўская Аравія",
       "openstreetmapsenegal": "OpenStreetMap Сенегал",
       "openstreetmapserbia": "OpenStreetMap Сербія",
-      "openstreetmapseychelles": "OpenStreetMap Сейшэлы",
       "openstreetmapsierraleone": "OpenStreetMap Сьера Леонэ",
       "openstreetmapslovenia": "OpenStreetMap Славенія",
       "openstreetmapsomalia": "OpenStreetMap Самалі",
@@ -172,7 +169,6 @@
       "openstreetmapsudan": "OpenStreetMap Судан",
       "openstreetmapsweden": "OpenStreetMap Швецыя",
       "openstreetmapswitzerland": "OpenStreetMap Швейцарыя",
-      "openstreetmapsyria": "OpenStreetMap Сірыя",
       "openstreetmaptaiwan": "OpenStreetMap Тайван",
       "openstreetmaptanzania": "OpenStreetMap Танзанія",
       "openstreetmapthailand": "OpenStreetMap Тайланд",
@@ -196,47 +192,30 @@
     },
     "_defaults": {
       "aparat": {
-        "name": "{супольнасць} у Апарат",
-        "description": "Падпішыцеся да нашага Апарат-каналу",
-        "url": "https://aparat.com/{акаўнт}"
+        "name": "{community} у Апарат",
+        "description": "Падпішыцеся да нашага Апарат-каналу"
       },
       "discord": {
-        "name": "{супольнасць} Discord",
-        "description": "Узаемадзейнічайце з іншымі картографамі ў Discord",
-        "url": "https://discord.gg/{акаўнт}"
+        "description": "Узаемадзейнічайце з іншымі картографамі ў Discord"
       },
       "discourse": {
-        "name": "{супольнасць} Форум Супольнасці",
-        "description": "Афіцыйны форум {супольнасць}",
-        "url": "https://community.openstreetmap.org/c/communities/{акаўнт}"
+        "name": "{community} Форум Супольнасці",
+        "description": "Афіцыйны форум {community}"
       },
       "facebook": {
-        "name": "{супольнасць} у Facebook",
-        "description": "Далучайцеся да нашай суполкі ў Facebook",
-        "url": "https://www.facebook.com/{акаўнт}"
+        "name": "{community} у Facebook",
+        "description": "Далучайцеся да нашай суполкі ў Facebook"
       },
       "forum": {
-        "name": "{супольнасць} Форум",
-        "description": "Афіцыйны форум для {супольнасць}"
-      },
-      "github": {
-        "name": "{супольнасць} GitHub",
-        "url": "https://github.com/{акаўнт}"
-      },
-      "gitlab": {
-        "name": "{супольнасць} GitLab",
-        "url": "https://gitlab.com/{акаўнт}"
-      },
-      "group": {
-        "name": "{супольнасць}"
+        "name": "{community} Форум",
+        "description": "Афіцыйны форум для {community}"
       },
       "irc": {
-        "name": "{супольнасць} у IRC",
-        "description": "Далучайцеся, #{акаўнт}, праз  irc.oftc.net (порт6667 для non-SSL або 6697 для SSL)",
-        "url": "https://webchat.oftc.net/?channels={акаўнт}"
+        "name": "{community} у IRC",
+        "description": "Далучайцеся, #{account}, праз  irc.oftc.net (порт6667 для non-SSL або 6697 для SSL)"
       },
       "linkedin": {
-        "name": "{супольнасць} у LinkedIn",
+        "name": "{community} у LinkedIn",
         "description": "Далучайцеся да суполкі ў LinkedIn"
       },
       "mailinglist": {
@@ -267,16 +246,8 @@
         "name": "{community} у Threads",
         "description": "Падпішыцеся на нас у Threads"
       },
-      "twitter": {
-        "name": "{community} у 𝕏",
-        "description": "Падпішыцеся на нас у 𝕏"
-      },
       "wiki": {
         "name": "{community} ВікіПраект"
-      },
-      "x": {
-        "name": "{community} у 𝕏",
-        "description": "Падпішыцеся на нас у 𝕏"
       },
       "youtube": {
         "name": "community} у YouTube",
@@ -294,6 +265,9 @@
       "description": "Грамадскія мерапрыемствы, зарганізаваныя дзеля картаграфіі — навічкі вітаюцца!",
       "extendedDescription": "Maptime — гэта адкрытае навучальнае асяроддзе для ўсіх узроўняў і ступеняў ведаў, якая прадугледжвае мэтавую адукацыйную падтрымку пачаткоўцам. Maptime адначасова гнуткі і структураваны, ствараючы прастору для навучальных дапаможнікаў па картаграфіі, семінараў, бягучых праектаў з агульнай мэтай і самастойнай/сумеснай працы."
     },
+    "am-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
     "at-matrix": {
       "description": "Неафіцыйны нямецкі канал Matrix для Аўстрыі"
     },
@@ -307,6 +281,96 @@
       "name": "Картографы OpenStreetMap з вобласці заліву",
       "description": "Палепшыце OpenStreetMap у вобласці заліву",
       "extendedDescription": "Гэтая група займаецца пашырэннем супольнасці OpenStreetMap тут, у раёне заліву. Нашыя мерапрыемствы адкрытыя для ўсіх: ад энтузіястаў з адкрытым зыходным кодам, раварыстаў, адмыслоўцаў па ГІС, збіральнікаў геаграфічных звестак ды не толькі. Усе, хто цікавіцца мапамі, складаннем мапаў і бясплатнымі картаграфічнымі данымі, могуць далучыцца да нашай групы, а таксама наведваць нашыя мерапрыемствы."
+    },
+    "br-telegram": {
+      "extendedDescription": "Далучайцеся да супольнасці, каб даведвацца больш пра OpenStreetMap, задаваць пытанні або ўдзельнічаць у нашых сустрэчах. Сардэчна запрашаем усіх!"
+    },
+    "cd-chapter": {
+      "name": "OpenStreetMap Дэмакратычная Рэспубліка Конга"
+    },
+    "cl-facebook": {
+      "extendedDescription": "Далучайцеся да супольнасці, каб даведвацца больш пра OpenStreetMap, задаваць пытанні або ўдзельнічаць у нашых сустрэчах. Сардэчна запрашаем усіх!"
+    },
+    "cl-telegram": {
+      "extendedDescription": "Далучайцеся да супольнасці, каб даведвацца больш пра OpenStreetMap, задаваць пытанні або ўдзельнічаць у нашых сустрэчах. Сардэчна запрашаем усіх!"
+    },
+    "de-aachen-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "de-berlin-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "de-bochum-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "de-bonn-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "de-bremen-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "de-cologne-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "de-dresden-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "de-dusseldorf-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "de-luneburg-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "de-munchen-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "DF-telegram": {
+      "extendedDescription": "Далучайцеся да супольнасці, каб даведвацца больш пра OpenStreetMap, задаваць пытанні або ўдзельнічаць у нашых сустрэчах. Сардэчна запрашаем усіх!"
+    },
+    "fr-35-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "fr-38-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "fr-montrouge-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "hu-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "kosovo-flossk": {
+      "name": "Бясплатнае праграмнае забеспячэнне Лібрэ ад Kosova"
+    },
+    "OSM-AR-geolibres": {
+      "name": "ГеаЛібрэс"
+    },
+    "osm-deep-south-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "osm-michigan-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "osm-ohio-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "RS-telegram": {
+      "extendedDescription": "Далучайцеся да супольнасці, каб даведвацца больш пра OpenStreetMap, задаваць пытанні або ўдзельнічаць у нашых сустрэчах. Сардэчна запрашаем усіх!"
+    },
+    "sg-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "si-ljubljana-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "si-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "uk-london-wiki": {
+      "description": "{community} старонка Вікіпедыі"
+    },
+    "vn-wiki": {
+      "description": "{community} старонка Вікіпедыі"
     }
   }
 }

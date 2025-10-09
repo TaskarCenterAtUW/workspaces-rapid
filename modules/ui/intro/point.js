@@ -16,7 +16,7 @@ export function uiIntroPoint(context, curtain) {
   const map = context.systems.map;
   const presets = context.systems.presets;
   const ui = context.systems.ui;
-  const editMenu = ui.editMenu;
+  const EditMenu = ui.EditMenu;
 
   const buildingExtent = new Extent([-85.63261, 41.94391], [-85.63222, 41.94419]);
   const cafePreset = presets.item('amenity/cafe');
@@ -99,9 +99,10 @@ export function uiIntroPoint(context, curtain) {
       _onModeChange = () => resolve(searchPresetAsync);
       _onStableChange = (difference) => {
         const created = difference.created();
-        if (created.length === 1) {
-          _pointID = created[0].id;
-        }
+        if (created.length !== 1) return;
+        const entity = created[0];
+        if (entity.geometry(difference._head) !== 'point') return;
+        _pointID = created[0].id;
       };
 
       const textID = (context.lastPointerType === 'mouse') ? 'place_point' : 'place_point_touch';
@@ -141,7 +142,7 @@ export function uiIntroPoint(context, curtain) {
 
         container.select('.inspector-wrap').on('wheel.intro', eventCancel);   // prevent scrolling
 
-        ui.sidebar.showPresetList();
+        ui.Sidebar.showPresetList();
 
         curtain.reveal({
           revealSelector: '.preset-search-input',
@@ -190,7 +191,7 @@ export function uiIntroPoint(context, curtain) {
         // If user leaves select mode here, just continue with the tutorial.
         _onModeChange = () => resolve(addNameAsync);
 
-        ui.sidebar.showEntityEditor();
+        ui.Sidebar.showEntityEditor();
 
         curtain.reveal({
           revealSelector: '.entity-editor-pane',
@@ -219,7 +220,7 @@ export function uiIntroPoint(context, curtain) {
         _onModeChange = () => resolve(hasPointAsync);
         _onStagingChange = () => resolve(addCloseEditorAsync);
 
-        ui.sidebar.showEntityEditor();
+        ui.Sidebar.showEntityEditor();
 
         // It's possible for the user to add a name in a previous step..
         // If so, don't tell them to add the name in this step.
@@ -261,7 +262,7 @@ export function uiIntroPoint(context, curtain) {
       _rejectStep = reject;
       _onModeChange = () => resolve(hasPointAsync);
 
-      ui.sidebar.showEntityEditor();
+      ui.Sidebar.showEntityEditor();
 
       const iconSelector = '.entity-editor-pane button.close svg use';
       const iconName = d3_select(iconSelector).attr('href') || '#rapid-icon-close';
@@ -336,7 +337,7 @@ export function uiIntroPoint(context, curtain) {
         _onModeChange = reject;   // disallow mode change
         _onStagingChange = () => resolve(updateCloseEditorAsync);
 
-        ui.sidebar.showEntityEditor();
+        ui.Sidebar.showEntityEditor();
 
         curtain.reveal({
           revealSelector: '.entity-editor-pane',
@@ -360,7 +361,7 @@ export function uiIntroPoint(context, curtain) {
       _rejectStep = reject;
       _onModeChange = () => resolve(rightClickPointAsync);
 
-      ui.sidebar.showEntityEditor();
+      ui.Sidebar.showEntityEditor();
 
       curtain.reveal({
         revealSelector: '.entity-editor-pane',
@@ -389,13 +390,13 @@ export function uiIntroPoint(context, curtain) {
         tipHtml: helpHtml(context, `intro.points.${textID}`)
       });
 
-      editMenu.on('toggled.intro', open => {
+      EditMenu.on('toggled.intro', open => {
         if (open) resolve(enterDeleteAsync);
       });
     })
     .finally(() => {
       _onStagingChange = null;
-      editMenu.on('toggled.intro', null);
+      EditMenu.on('toggled.intro', null);
     });
   }
 
@@ -441,7 +442,7 @@ export function uiIntroPoint(context, curtain) {
       _rejectStep = reject;
       _onStableChange = () => resolve(playAsync);
       curtain.reveal({
-        revealSelector: '.top-toolbar button.undo-button',
+        revealSelector: '.map-toolbar button.undo-button',
         tipHtml: helpHtml(context, 'intro.points.undo')
       });
     })

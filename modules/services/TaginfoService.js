@@ -38,6 +38,8 @@ const tag_members_fractions = {
 
 /**
  * `TaginfoService`
+ * This service runs queries against the OpenStreetMap Taginfo API.
+ * @see https://taginfo.openstreetmap.org/taginfo/apidoc
  */
 export class TaginfoService extends AbstractSystem {
 
@@ -48,6 +50,8 @@ export class TaginfoService extends AbstractSystem {
   constructor(context) {
     super(context);
     this.id = 'taginfo';
+
+    this._startPromise = null;
 
     this._inflight = {};
     this._cache = {};
@@ -92,6 +96,8 @@ export class TaginfoService extends AbstractSystem {
    * @return {Promise} Promise resolved when this component has completed startup
    */
   startAsync() {
+    if (this._startPromise) return this._startPromise;
+
     const langCode = this.context.systems.l10n.languageCode();
 
     // Fetch popular keys.  We'll exclude these from `values`
@@ -106,10 +112,12 @@ export class TaginfoService extends AbstractSystem {
       lang: langCode
     };
 
-    return new Promise((resolve, reject) => {
+    return this._startPromise = new Promise((resolve, reject) => {
       this.keys(params, (err, results) => {
         if (err) {
+          this._startPromise = null;
           reject();
+
         } else {
           for (const d of results) {
             if (d.value === 'opening_hours') continue;  // exception

@@ -78,29 +78,32 @@ export function geojsonExtent(geojson) {
 // Adds or removes highlight styling for the specified entities
 export function utilHighlightEntities(entityIDs, highlighted, context) {
   const editor = context.systems.editor;
-  const map = context.systems.map;
-  const scene = map.scene;
+  const gfx = context.systems.gfx;
+
+  const scene = gfx.scene;
   if (!scene) return;  // called too soon?
+
+  const layer = scene.layers.get('osm');
 
   if (highlighted) {
     for (const entityID of entityIDs) {
-      scene.classData('osm', entityID, 'highlighted');
+      layer.setClass('highlight', entityID);
 
       // When highlighting a relation, try to highlight its members.
       if (entityID[0] === 'r') {
         const relation = editor.staging.graph.hasEntity(entityID);
         if (!relation) continue;
         for (const member of relation.members) {
-          scene.classData('osm', member.id, 'highlighted');
+          layer.setClass('highlight', member.id);
         }
       }
     }
 
   } else {
-    scene.clearClass('highlighted');
+    layer.clearClass('highlight');
   }
 
-  map.immediateRedraw();
+  gfx.immediateRedraw();
 }
 
 
@@ -120,12 +123,12 @@ export function utilIsColorValid(value) {
 
 
 // `utilSetTransform`
-// Applies a CSS transformation to the given selection
-export function utilSetTransform(selection, x, y, scale, rotate) {
+// Applies a CSS transformation to the given element
+export function utilSetTransform(element, x, y, scale, rotate) {
   const t = `translate3d(${x}px,${y}px,0)`;
   const s = (scale && scale !== 1) ? ` scale(${scale})` : '';
   const r = rotate ? ` rotate(${rotate}rad)` : '';
-  return selection.style('transform', `${t}${s}${r}`);
+  element.style.transform = `${t}${s}${r}`;
 }
 
 
@@ -159,7 +162,9 @@ export function utilNoAuto(selection) {
     .attr('autocomplete',  'new-password')
     .attr('autocorrect', 'off')
     .attr('autocapitalize', 'off')
-    .attr('data-1p-ignore', '')      // Rapid#1085
-    .attr('data-lpignore', 'true')   // Rapid#1085
+    .attr('data-1p-ignore', 'true')  // 1Password
+    .attr('data-bwignore', 'true')   // Bitwarden
+    .attr('data-form-type', 'other') // Dashlane
+    .attr('data-lpignore', 'true')   // LastPass
     .attr('spellcheck', isText ? 'true' : 'false');
 }

@@ -88,7 +88,6 @@
       "openstreetmaprussia": "OpenStreetMap Rusland",
       "openstreetmapsaudiarabia": "OpenStreetMap Saudi-Arabië",
       "openstreetmapserbia": "OpenStreetMap Servië",
-      "openstreetmapseychelles": "OpenStreetMap Seychellen",
       "openstreetmapslovenia": "OpenStreetMap Slovenië",
       "openstreetmapsomalia": "OpenStreetMap Somalië",
       "openstreetmapsouthafrica": "OpenStreetMap Zuid-Afrika",
@@ -96,7 +95,6 @@
       "openstreetmapsudan": "OpenStreetMap Soedan",
       "openstreetmapsweden": "OpenStreetMap Zweden",
       "openstreetmapswitzerland": "OpenStreetMap Zwitserland",
-      "openstreetmapsyria": "OpenStreetMap Syrië",
       "openstreetmaptunisia": "OpenStreetMap Tunesië",
       "openstreetmapturin": "OpenStreetMap Turijn",
       "openstreetmapturkey": "OpenStreetMap Turkije",
@@ -116,6 +114,9 @@
       },
       "discord": {
         "description": "Kom in contact met andere mappers via Discord"
+      },
+      "discourse": {
+        "description": "Het officiële forum voor {community}"
       },
       "facebook": {
         "name": "{community} op Facebook",
@@ -147,9 +148,6 @@
       "telegram": {
         "description": "Kom erbij op de Telegram chat van onze community"
       },
-      "twitter": {
-        "name": "{community} op 𝕏"
-      },
       "youtube": {
         "name": "{community} op YouTube",
         "description": "Abonneer op ons YouTube-kanaal"
@@ -161,6 +159,9 @@
     "al-maptime-tirana": {
       "description": "Sociale evenementen georganiseerd rondom mappen - beginners zijn van harte welkom!",
       "extendedDescription": "Maptime is een open leeromgeving voor alle niveaus. Het biedt interantionale educatieve ondersteuning voor beginners. Maptine is tegelijkertijk flexibel en gestructureerd, biedt ruimte voor mapping tutorials, workshops, projecten met een gezamenlijk doel en onafhankelijke/samenwerkende werktijd."
+    },
+    "am-wiki": {
+      "description": "{community} Wikipagina"
     },
     "at-matrix": {
       "description": "Onofficiële Duitse Matrix kanaal voor Oostenrijk"
@@ -236,11 +237,11 @@
     "cl-telegram": {
       "extendedDescription": "Sluit je aan bij onze gemeenschap om meer te leren over OpenStreetMap, om vragen te stellen of om deel te nemen aan onze bijeenkomsten. Iedereen is welkom!"
     },
-    "co-facebook": {
-      "extendedDescription": "Sluit je aan bij de gemeenschap om meer te leren over OpenStreetMap. Iedereen is welkom! "
-    },
     "czech-community": {
       "description": "Kaartportaal, website en contactgegevens van OSM leden in Tsjechie"
+    },
+    "de-aachen-wiki": {
+      "description": "{community} Wikipagina"
     },
     "de-berlin-mailinglist": {
       "name": "Berlijn Mailinglijst"
@@ -249,8 +250,7 @@
       "description": "{community} Wikipagina"
     },
     "de-berlin-xmpp": {
-      "name": "OpenStreetMap Berlijn-Brandenburg XMPP",
-      "description": "Kom erbij op onze XMPP chat: {url}"
+      "name": "OpenStreetMap Berlijn-Brandenburg XMPP"
     },
     "de-bochum-wiki": {
       "description": "{community} Wikipagina"
@@ -272,9 +272,6 @@
     },
     "de-dusseldorf-wiki": {
       "description": "{community} Wikipagina"
-    },
-    "de-hamburg-xmpp": {
-      "description": "Kom erbij op onze XMPP chat: {url}"
     },
     "de-karlsruhe-mailinglist": {
       "name": "Karlsruhe Mailinglijst"
@@ -314,11 +311,14 @@
     "de-viersen-meetup": {
       "description": "OSM-gemeenschap en gebruikers-bijeenkomst Kreis Viersen en Mönchengladbach"
     },
-    "de-xmpp": {
-      "description": "Kom erbij op onze XMPP chat: {url}"
-    },
     "DF-telegram": {
       "extendedDescription": "Sluit je aan bij onze gemeenschap om meer te leren over OpenStreetMap, om vragen te stellen of om deel te nemen aan onze bijeenkomsten. Iedereen is welkom!"
+    },
+    "fr-35-wiki": {
+      "description": "{community} Wikipagina"
+    },
+    "fr-38-wiki": {
+      "description": "{community} Wikipagina"
     },
     "fr-bzh-website": {
       "description": "De map die Bretoens spreekt"
@@ -355,9 +355,6 @@
       "description": "Bijeenkomst voor enthousiaste mappers in en rond Philadelphia",
       "extendedDescription": "Geophilly verenigt ontwikkelaars, geografen, data-nerds, open source liefhebbers, ethische hackers en kaartverslaafden in hun liefde voor kaarten en de verhalen daarover. Of je nou kaarten gebruikt voor je werk of gewoon meer wilt weten, dit is de gelegenheid voor jou! Onze evenementen zijn vriendelijk, open, leerzaam en sociaal. Ze variëren van \"happy hours\" tot bliksempraatjes en zelfs workshops. Kom en vorm samen met ons een gevarieerde geospatiale gemeenschap  in Philadelphia!"
     },
-    "hr-irc": {
-      "description": "Kom erbij op #{account} op irc.freenode.org (poort 6667)"
-    },
     "hr-wiki": {
       "description": "Wikiproject pagina voor Kroatië"
     },
@@ -367,19 +364,20 @@
     "hu-matrix": {
       "extendedDescription": "OpenStreetMap chat over kaart onderwerpen. Een van de hulpfora van de OSM gemeenschap."
     },
-    "hu-meetup": {
-      "description": "Het platform om meetups te organiseren in Hongarije"
-    },
     "hu-mobilizon": {
       "name": "{community} op Mobilizon"
     },
-    "hu-website": {
-      "description": "Wij helpen OpenStreetMap groeien en verbeteren in Hongarije."
+    "hu-wiki": {
+      "description": "{community} Wikipagina"
     },
     "humanitarian-osm-tr-slack": {
       "description": "Kom bij het Humanitarian OpenStreetMap Turkije-kanaal op HOTOSM's Slackserver op {url}"
     },
     "id-facebook": {
+      "extendedDescription": "Map je in Indonesië? Heb je vragen, wil je in contact komen met de gemeenschap hier? Kom erbij op {url}. Iedereen is welkom!"
+    },
+    "id-facebook-group": {
+      "name": "{community} Facebookgroep",
       "extendedDescription": "Map je in Indonesië? Heb je vragen, wil je in contact komen met de gemeenschap hier? Kom erbij op {url}. Iedereen is welkom!"
     },
     "ireland-chapter": {
@@ -418,6 +416,13 @@
     "lv-wiki": {
       "description": "WikiProject Letland"
     },
+    "madrid-uam-ym": {
+      "name": "YouthMappers aan de UAM",
+      "description": "YouthMappers-afdeling aan de Universidad Autonoma de Madrid"
+    },
+    "madrid-upm-ym": {
+      "description": "YouthMappers-afdeling aan de Universidad Politécnica de Madrid"
+    },
     "mailinglist-sk-googlegroups": {
       "name": "Slowaakse mailinglijst op Google Groups",
       "description": "Officiële mailinglijst voor de Slowaakse gemeenschap"
@@ -425,20 +430,12 @@
     "map-kibera": {
       "description": "Map Kibera is een geregistreerde organisatie die te werk gaat in Kenia"
     },
-    "MapColabora-mailinglist": {
-      "name": "Collaborative Mapping / Geoinquietos Zaragoza",
-      "description": "Mapeado Colaborativo / Geoinquietos Zaragoza Mailinglijst"
-    },
     "MapColabora-twitter": {
       "name": "Collaborative Mapping / Geoinquietos Zaragoza",
       "description": "Collaborative Mapping / Geoinquietos Zaragoza Twitter account"
     },
     "mappa-mercia-group": {
       "name": "Mappa Mercia lokale groep"
-    },
-    "MappingDC-meetup": {
-      "description": "Verbeter OpenStreetMap in de DC regio",
-      "extendedDescription": "Wij zijn een groep vrijwillige mappers die OpenStreetMap in de DC-regio willen verbeteren. We willen daarnaast aan anderen vertellen over het OSM-ecosysteem, gegevensanalyse, cartografie en GIS. We komen om de maand bijeen op bijeenkomsten om ons op een deel van onze stad te richten."
     },
     "MappingWR": {
       "description": "Uitstootarme routes rond Waterloo Region vindbaar maken."
@@ -454,6 +451,9 @@
     "md-googlegroup": {
       "description": "Kom bij de {community} Google Group"
     },
+    "me-telegram": {
+      "description": "Iedereen is welkom! Meld je aan op {signupUrl}"
+    },
     "mm-facebook": {
       "extendedDescription": "Map je in Myanmar? Heb je vragen, wil je in contact komen met de gemeenschap hier? Kom erbij op {url}. Iedereen is welkom!"
     },
@@ -462,6 +462,9 @@
     },
     "mt-irc": {
       "extendedDescription": "Kom erbij op #{account} op irc.oftc.net (poort 6667), wees alsjeblieft geduldig en wacht een paar minuutjes nadat je een vraag stelt"
+    },
+    "nl-matrix": {
+      "description": "Alle cartografen zijn welkom!"
     },
     "no-irc": {
       "description": "Chatroom voor mappers en OpenStreetMap-gebruikers, ontwikkelaars en liefhebbers in Noorwegen"
@@ -474,6 +477,9 @@
     "np-facebook": {
       "extendedDescription": "Map je in Nepal? Heb je vragen, wil je in contact komen met de gemeenschap hier? Kom erbij op {url}. Iedereen is welkom!"
     },
+    "Open-Source-San-Jose-Slack": {
+      "description": "Iedereen is welkom! Meld je aan op {signupUrl}, en kies daarna het #proj-osm kanaal. "
+    },
     "OpenCleveland-meetup": {
       "description": "Verbeter OpenStreetMap in de regio Cleveland"
     },
@@ -481,6 +487,15 @@
       "name": "OSGeo Oceanië",
       "description": "Wij ondersteunen de ontwikkeling van de OpenStreetMap-gemeenschap in Oceanië.",
       "extendedDescription": "OSGeo Oceania's doel is om de open geospatial-gemeenschap in Oceanië te ondersteunen en groeien, inclusief het toezicht op en het beheer van de FOSS4G SotM Oceania conferentie-serie."
+    },
+    "osm-africa-facebook-group": {
+      "name": "{community} Facebookgroep"
+    },
+    "osm-africa-matrix": {
+      "description": "Alle cartografen zijn welkom!"
+    },
+    "osm-africa-slack": {
+      "description": "Iedereen is welkom! Meld je aan op {signupUrl}"
     },
     "OSM-AR-geolibres": {
       "extendedDescription": "Wij promoten het maken en gebruiken van vrij toegankelijke geografische gegevens, de adoptie van geografische standaarden en het gebruik van vrije en open-source software."
@@ -513,6 +528,9 @@
     },
     "osm-de": {
       "description": "Het platform voor informatie over OpenStreetMap in Duitsland"
+    },
+    "osm-deep-south-wiki": {
+      "description": "{community} Wikipagina"
     },
     "OSM-Facebook": {
       "description": "Like ons op Facebook om nieuws en updates over OpenStreetMap te ontvangen."
@@ -561,13 +579,14 @@
     "OSM-japan-facebook": {
       "description": "Mappers en OpenStreetMap-gebruikers in Japan"
     },
-    "OSM-japan-slack": {
-      "description": "Een Slack werkplek voor de Japanse OSM gemeenschap {signupUrl}"
-    },
     "OSM-japan-website": {
       "description": "Mappers en OpenStreetMap-gebruikers in Japan"
     },
     "osm-kenya": {
+      "description": "OSM Kenya is een gemeenschap van OSM-bijdragers en gebruikers",
+      "extendedDescription": "OSM is een lokale gemeenschap voor personen die geïnteresseerd zijn in OpenStreetMap, waaronder organisaties, ontwikkelaars en YouthMappers-afdelingen in het land."
+    },
+    "osm-kenya-facebook": {
       "description": "OSM Kenya is een gemeenschap van OSM-bijdragers en gebruikers",
       "extendedDescription": "OSM is een lokale gemeenschap voor personen die geïnteresseerd zijn in OpenStreetMap, waaronder organisaties, ontwikkelaars en YouthMappers-afdelingen in het land."
     },
@@ -587,6 +606,12 @@
     },
     "osm-mg-facebook": {
       "description": "Malagasi-Facebookgroep voor mensen geïnteresseerd in OpenStreetMap."
+    },
+    "osm-michigan-wiki": {
+      "description": "{community} Wikipagina"
+    },
+    "osm-ohio-wiki": {
+      "description": "{community} Wikipagina"
     },
     "OSM-Ottawa-meetup": {
       "description": "Mappers en OpenStreetMap-gebruikers in de omgeving van Ottawa"
@@ -614,9 +639,6 @@
     "OSM-Seattle": {
       "description": "Mappers en OpenStreetMap-gebruikers in de omgeving van Seattle"
     },
-    "osm-sierra-leone": {
-      "description": "Wij focussen ons op het maken en gebruiken van open data om sociale, economische en gemeenschappelijke uitdagingen op te lossen."
-    },
     "OSM-SoCal": {
       "name": "OpenStreetMap Zuid Californië",
       "description": "Laten we wat plezier hebben door iets bij te dragen aan Los Angeles en te leren over mappen!"
@@ -640,15 +662,15 @@
     "OSM-US-Slack": {
       "description": "Iedereen is welkom! Meld je aan op {signupUrl}"
     },
-    "OSM-Utah": {
-      "description": "Mappers en OpenStreetMap-gebruikers in de omgeving van Salt Lake City"
-    },
     "OSM-Wyoming": {
       "description": "Mappers en OpenStreetMap-gebruikers in de omgeving van Wyoming"
     },
     "OSMF": {
       "name": "OpenStreetMap Stichting",
       "description": "OSMF is een in de VK-gehuisveste not-for-profit die het OpenStreetMap-project ondersteunt"
+    },
+    "ph-facebook-group": {
+      "name": "{community} Facebookgroep"
     },
     "PHXGeo-meetup": {
       "description": "Mappers en OpenStreetMap-gebruikers in de omgeving van Phoenix, AZ"
@@ -665,6 +687,15 @@
     "rs-wiki": {
       "description": "Wikiproject pagina voor Servië"
     },
+    "sg-wiki": {
+      "description": "{community} Wikipagina"
+    },
+    "si-ljubljana-wiki": {
+      "description": "{community} Wikipagina"
+    },
+    "si-wiki": {
+      "description": "{community} Wikipagina"
+    },
     "talk-au": {
       "description": "Plaats voor Australische mappers om te chatten"
     },
@@ -673,6 +704,12 @@
     },
     "talk-mg": {
       "description": "Plek voor OpenStreetMap-bijdragers, -gemeenschappen en -gebruikers in Madagascar om te delen en voor overleg."
+    },
+    "tn-facebook-group": {
+      "name": "{community} Facebookgroep"
+    },
+    "tw-slack": {
+      "description": "Iedereen is welkom! Meld je aan op {signupUrl}"
     },
     "ua-github": {
       "description": "OpenStreetMap Oekraïne GitHub"
@@ -687,12 +724,19 @@
       "name": "OpenStreetMap Londen op Twitter",
       "description": "OpenStreetMap Londen op Twitter: {url}"
     },
+    "uk-london-wiki": {
+      "description": "{community} Wikipagina"
+    },
+    "us-massachusetts-mailinglist": {
+      "name": "Talk-us-massachusetts Mailinglijst",
+      "description": "Mailinglijst voor de Massachusetts OSM-gemeenschap"
+    },
     "uy-irc": {
       "description": "Kom erbij op #{account} op irc.freenode.org (poort 6667)",
       "extendedDescription": "Kom erbij op #{account} op irc.freenode.org"
     },
-    "vn-mailinglist": {
-      "description": "Mailinglijst aangaande OpenStreetMap in Vietnam of het Vietnamees"
+    "vn-wiki": {
+      "description": "{community} Wikipagina"
     },
     "ym-AASTU": {
       "description": "YouthMappers-afdeling aan de Addis Ababa Science and Technology University"
@@ -759,14 +803,8 @@
     "ym-Federal-School-of-Surveys": {
       "description": "YouthMappers-afdeling aan de Federal School of Surveys"
     },
-    "ym-Federal-University-of-Technology-Akure": {
-      "description": "YouthMappers-afdeling aan de Federal University of Technology, Akure"
-    },
     "ym-Fourah-Bay-College": {
       "description": "YouthMappers-afdeling aan het Fourah Bay College"
-    },
-    "ym-General-Lansana-Conte-University": {
-      "description": "YouthMappers-afdeling aan de General Lansana Conte University"
     },
     "ym-George-Mason-University": {
       "description": "YouthMappers-afdeling aan de George Mason University"
@@ -1045,9 +1083,6 @@
     },
     "ym-University-of-Northern-Colorado": {
       "description": "YouthMappers-afdeling aan de University of Northern Colorado"
-    },
-    "ym-University-of-Oregon": {
-      "description": "YouthMappers-afdeling aan de University of Oregon"
     },
     "ym-University-of-Port-Harcourt": {
       "description": "YouthMappers-afdeling aan de University of Port Harcourt"

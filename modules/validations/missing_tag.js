@@ -8,6 +8,7 @@ export function validationMissingTag(context) {
   const type = 'missing_tag';
   const editor = context.systems.editor;
   const l10n = context.systems.l10n;
+  const ui = context.systems.ui;
 
 
   function hasDescriptiveTags(entity, graph) {
@@ -94,7 +95,7 @@ export function validationMissingTag(context) {
             icon: 'rapid-icon-search',
             title: l10n.t(`issues.fix.${selectFixType}.title`),
             onClick: function() {
-              context.systems.ui.sidebar.showPresetList();
+              ui.Sidebar.showPresetList();
             }
           }));
 
@@ -116,7 +117,7 @@ export function validationMissingTag(context) {
             new ValidationFix({
               icon: 'rapid-operation-delete',
               title: l10n.t('issues.fix.delete_feature.title'),
-              disabledReason: disabledReasonID ? l10n.t(`operations.delete.${disabledReasonID}.single`) : undefined,
+              disabledReason: disabledReasonID ? l10n.t(`operations.delete.${disabledReasonID}`, { n: 1 }) : undefined,
               onClick: deleteOnClick
             })
           );

@@ -5,6 +5,9 @@
         "name": "Będzin: letecké snímky 2013"
       },
       "Bedzin-PL-buildings": {
+        "attribution": {
+          "text": "Okresní úřad v Będzinu"
+        },
         "name": "Będzin: Budovy"
       },
       "Bing": {
@@ -107,6 +110,13 @@
       "Dourados_Ortofotos": {
         "description": "Dourados (2018) a několik okresů (2020) ve vysokém rozlišení."
       },
+      "EOXAT2017CLOUDLESS": {
+        "attribution": {
+          "text": "Sentinel-2 bez mraků - https://s2maps.eu od EOX IT Services GmbH (Obsahuje upravená data z Copernicus Sentinel 2017)"
+        },
+        "description": "Následně zpracované snímky ze satelitu Sentinel.",
+        "name": "eox.at 2017 bez mraků"
+      },
       "EOXAT2018CLOUDLESS": {
         "attribution": {
           "text": "Sentinel-2 bez mraků – https://s2maps.eu – od společnosti EOX IT Services GmbH (obsahuje upravená data Copernicus Sentinel 2017 a 2018)"
@@ -142,6 +152,20 @@
         "description": "Následně zpracované snímky ze satelitu Sentinel.",
         "name": "eox.at 2022 bez mraků"
       },
+      "EOXAT2023CLOUDLESS": {
+        "attribution": {
+          "text": "Sentinel-2 bez mraků - https://s2maps.eu od EOX IT Services GmbH (Obsahuje upravená data z Copernicus Sentinel 2023)"
+        },
+        "description": "Následně zpracované snímky ze satelitu Sentinel.",
+        "name": "eox.at 2023 bez mraků"
+      },
+      "EOXAT2024CLOUDLESS": {
+        "attribution": {
+          "text": "Sentinel-2 bez mraků - https://s2maps.eu od EOX IT Services GmbH (Obsahuje upravená data z Copernicus Sentinel 2024)"
+        },
+        "description": "Následně zpracované snímky ze satelitu Sentinel.",
+        "name": "eox.at 2024 bez mraků"
+      },
       "EsriWorldImagery": {
         "attribution": {
           "text": "Podmínky použití a zpětná vazba"
@@ -155,6 +179,24 @@
         },
         "description": "Archivní snímky Esri, které mohou být čistší a přesnější jak výchozí vrstva.",
         "name": "Světové snímky Esri (Clarity) Beta"
+      },
+      "FOMI_2011_2014": {
+        "attribution": {
+          "text": "Znalostní centrum Lechner"
+        },
+        "description": "Vládní ortofotomapy s listovým pokrytím s rozlišením 40 cm/pixel pro celou zemi. Tato vrstva by měla být použita jako vyrovnávací základna v případě, že chybí přesnější reference. Obrázky ve formátu WEBP, JOSM pro ně potřebuje zásuvný modul WebP."
+      },
+      "FOMI_2015": {
+        "attribution": {
+          "text": "Znalostní centrum Lechner"
+        },
+        "description": "Vládní ortofotomapy s listovým pokrytím s rozlišením 40 cm/pixel pro celou zemi. Tato vrstva by měla být použita jako vyrovnávací základna v případě, že chybí přesnější reference. Obrázky ve formátu WEBP, JOSM pro ně potřebuje zásuvný modul WebP."
+      },
+      "FOMI_2015_leafoff_20cm": {
+        "attribution": {
+          "text": "Znalostní centrum Lechner"
+        },
+        "description": "Ortofotomapy s rozlišením 20 cm/pixel pro 6 okresů založené na vládních datech. Tato vrstva by měla být použita jako podklad pro vyrovnání při nedostatku přesnější reference. Snímky ve formátu WEBP, JOSM pro ně potřebuje plugin webp."
       },
       "Frankfurt-am-Main-2019": {
         "attribution": {
@@ -392,14 +434,24 @@
         },
         "name": "Hlivice: Budovy"
       },
-      "LSA-ATKIS_BU": {
-        "description": "Tvar budov v Sasku-Anhaltsku"
+      "LSA-ALKIS-CP": {
+        "description": "Vektorový záznam parcel z oficiálního katastru nemovitostí.",
+        "name": "© GeoBasis-DE/LVermGeo LSA, Katastrální parcely ALKIS"
+      },
+      "LSA-ALKIS_BU": {
+        "description": "Tvar budov v Sasku-Anhaltsku",
+        "name": "© GeoBasis-DE/LVermGeo LSA, Obrysy budov ALKIS"
+      },
+      "LSA-ATKIS-HYN": {
+        "description": "Záznam vodovodních sítí (přesnost se může lišit od skutečnosti, vždy uvažujte v souvislosti s ortofotem)",
+        "name": "© GeoBasis-DE/LVermGeo LSA, Vodovodní síť ATKIS"
       },
       "LSA-DOP20": {
         "description": "Letecký snímek spolkové země Sasko-Anhaltsko, rozlišení 20 cm"
       },
       "LSA-DVG": {
-        "description": "Vektorový záznam administrativních hranic. Jsou uvedeny hranice spolkové země, okresu, obce a části obce."
+        "description": "Vektorový záznam administrativních hranic. Jsou uvedeny hranice spolkové země, okresu, obce a části obce.",
+        "name": "© GeoBasis-DE/LVermGeo LSA, Digitální administrativní hranice"
       },
       "LocalAuthorities_RightsOfWay": {
         "attribution": {
@@ -451,26 +503,43 @@
         "description": "Denně aktualizované stezky v přírodních rezervacích nebo okolí zaznamenané švédskou agenturou pro ochranu životního prostředí",
         "name": "Agentura pro ochranu životního prostředí - Stezky"
       },
+      "ODOT_TIMS_Road_Inventory": {
+        "attribution": {
+          "text": "Ohijské ministerstvo dopravy"
+        },
+        "description": "Ohijské ministerstvo dopravy (ODOT) - inventář silnic Dopravního informačního mapového systému (TIMS) vydaný v červnu 2024.",
+        "name": "Inventář silnic ODOT"
+      },
+      "ORTOS_DGRF_2004_06": {
+        "attribution": {
+          "text": "Zeměpisné informace poskytnuté Generálním ředitelstvím pro území"
+        },
+        "name": "Letecké snímky pevninské části Portugalska - 50 cm - 2004-2006 (DGT)"
+      },
+      "ORTOS_DGT_2014_15": {
+        "attribution": {
+          "text": "Zeměpisné informace poskytnuté Generálním ředitelstvím pro území"
+        },
+        "name": "Letecké snímky pobřežních oblastí pevninské části Portugalska - 10 cm - 2014-2015 (DGT)"
+      },
+      "ORTOS_DGT_2018_WMS": {
+        "attribution": {
+          "text": "Zeměpisné informace poskytnuté Generálním ředitelstvím pro území"
+        },
+        "name": "Letecké snímky pevninské části Portugalska - 25 cm - 2018 (DGT)"
+      },
+      "ORTOS_DGT_2021_RGB": {
+        "attribution": {
+          "text": "Zeměpisné informace poskytnuté Generálním ředitelstvím pro území"
+        },
+        "name": "Letecké snímky severní pevninské části Portugalska - 25 cm - 2021 (DGT)"
+      },
       "OSIP": {
         "attribution": {
           "text": "Celostátní snímkovací program v Ohiu"
         },
-        "description": "Ohio celostátní snímky III nejprodávanější ortoimagery každého kraje při řešení od 1 stopy do 3 palců od roku 2017 do roku 2020.",
+        "description": "Celostátní snímkovací program III v Ohiu - nejaktuálnější ortosnímky každého kraje při rozlišeních od 1 stopy do 3 palců od roku 2017 do roku 2020.",
         "name": "Celostátní snímkovací program v Ohiu"
-      },
-      "OSIP_1ft": {
-        "attribution": {
-          "text": "Celostátní snímkovací program v Ohiu"
-        },
-        "description": "Ortosnímky Celostátního snímkovacího programu v Ohiu II všech 88 okresů v rozlišení jedné stopy v letech 2011 až 2014.",
-        "name": "Celostátní snímkovací program v Ohiu jednostopý"
-      },
-      "OSIP_6in": {
-        "attribution": {
-          "text": "Celostátní snímkovací program v Ohiu"
-        },
-        "description": "Ortosnímky Celostátního snímkovacího programu v Ohiu III 40 okresů pořízené v 6palcovém rozlišení v letech 2017 a 2018 plus snímky OSIP I a OSIP II v 16 dalších okresech od roku 2010 do roku 2014.",
-        "name": "Celostátní snímkovací program v Ohiu 6palcový"
       },
       "OSMUK-Cadastral-Parcels": {
         "attribution": {
@@ -717,6 +786,13 @@
         },
         "description": "Fotografie se zeměpisnými souřadnicemi od Balaton Limnological Institute z roku 1940.",
         "name": "Ortofoto EUFAR Balaton"
+      },
+      "geoscribble-latest": {
+        "attribution": {
+          "text": "Přispěvatelé GeoScribble"
+        },
+        "description": "Poznámky z geometrického průzkumu editora Every Door, stáří maximálně tři týdny",
+        "name": "Poslední poznámky GeoScribble"
       },
       "gothenburg-citymap": {
         "attribution": {

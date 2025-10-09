@@ -1,3 +1,4 @@
+import { select as d3_select } from 'd3-selection';
 import { vecLength } from '@rapid-sdk/math';
 
 import { AbstractBehavior } from './AbstractBehavior.js';
@@ -57,7 +58,7 @@ export class DragBehavior extends AbstractBehavior {
     this.lastMove = null;
     this.dragTarget = null;
 
-    const eventManager = this.context.systems.map.renderer.events;
+    const eventManager = this.context.systems.gfx.events;
     eventManager.on('modifierchange', this._doMove);
     eventManager.on('pointerover', this._doMove);
     eventManager.on('pointerout', this._doMove);
@@ -77,9 +78,11 @@ export class DragBehavior extends AbstractBehavior {
 
     // Something is currently dragging, so cancel the drag first.
     const eventData = this.lastMove;
-    if (eventData && this.dragTarget) {
-      eventData.target = null;
-      this.dragTarget.feature.active = false;
+    const target = this.dragTarget;
+
+    if (eventData && target) {
+      target.feature.allowInteraction = true;
+      this.dragTarget = null;
       this.emit('cancel', eventData);
     }
 
@@ -88,7 +91,7 @@ export class DragBehavior extends AbstractBehavior {
     this.lastMove = null;
     this.dragTarget = null;
 
-    const eventManager = this.context.systems.map.renderer.events;
+    const eventManager = this.context.systems.gfx.events;
     eventManager.off('modifierchange', this._doMove);
     eventManager.off('pointerover', this._doMove);
     eventManager.off('pointerout', this._doMove);
@@ -135,19 +138,19 @@ export class DragBehavior extends AbstractBehavior {
   _pointermove(e) {
     const context = this.context;
     const editor = context.systems.editor;
+    const gfx = context.systems.gfx;
     const graph = editor.staging.graph;
-    const map = context.systems.map;
 
     // If we detect the edit (right-click) menu, we should cease any dragging behavior.
-    const hasEditmenu = map.supersurface.select('.edit-menu').size();
-    if (hasEditmenu) {
+    const hasEditMenu = d3_select(gfx.overlay).select('.edit-menu').size();
+    if (hasEditMenu) {
       this._pointercancel(e);
       return;
     }
 
     // Ignore it if we are not over the canvas
     // (e.g. sidebar, out of browser window, over a button, toolbar, modal)
-    const eventManager = map.renderer.events;
+    const eventManager = gfx.events;
     if (!eventManager.pointerOverRenderer) return;
 
     const down = this.lastDown;
@@ -171,7 +174,7 @@ export class DragBehavior extends AbstractBehavior {
         // This lets us catch events for what other objects it passes over as the user drags it.
         const target = Object.assign({}, down.target);  // shallow copy
         this.dragTarget = target;
-        target.feature.active = true;
+        target.feature.allowInteraction = false;
 
         // What are we dragging?
         const data = target.data;
@@ -240,12 +243,12 @@ export class DragBehavior extends AbstractBehavior {
       }
     }
 
-
     this.lastDown = null;
     this.lastMove = null;
 
-    if (this.dragTarget) {
-      this.dragTarget.feature.active = false;
+    const target = this.dragTarget;
+    if (target) {
+      target.feature.allowInteraction = true;
       this.dragTarget = null;
       this.emit('end', up);
     }
@@ -265,8 +268,9 @@ export class DragBehavior extends AbstractBehavior {
     this.lastDown = null;
     this.lastMove = null;
 
-    if (this.dragTarget) {
-      this.dragTarget.feature.active = false;
+    const target = this.dragTarget;
+    if (target) {
+      target.feature.allowInteraction = true;
       this.dragTarget = null;
       this.emit('cancel', cancel);
     }
@@ -279,7 +283,7 @@ export class DragBehavior extends AbstractBehavior {
   _snappingDisabled() {
     // Ignore it if we are not over the canvas
     // (e.g. sidebar, out of browser window, over a button, toolbar, modal)
-    const eventManager = this.context.systems.map.renderer.events;
+    const eventManager = this.context.systems.gfx.events;
     if (!eventManager.pointerOverRenderer) return false;
 
     const modifiers = eventManager.modifierKeys;

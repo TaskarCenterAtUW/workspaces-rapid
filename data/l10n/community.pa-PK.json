@@ -5,7 +5,6 @@
       "kiribatiwomeninmapping": "کیریباس ‘تے نقشہ کرن دیاں عورتاں",
       "mappingbotswana": "بوٹسوانا ‘تے نقشہ کرن",
       "maptimebogota": "بوگوٹا ‘تے نقشہ کرن دا ٹائم",
-      "maptimehrva": "ایچ آر وی اے ‘تے نقشہ کرن",
       "openstreetmap": "اوپن سٹریٹ میپ",
       "openstreetmapafghanistan": "افغانستان ‘تے اوپن سٹریٹ میپ ",
       "openstreetmapafrica": "افریقہ ‘تے اوپن سٹریٹ میپ",
@@ -30,7 +29,6 @@
       "openstreetmapbrasilia": "برازیلیا ‘تے اوپن سٹریٹ میپ",
       "openstreetmapbremen": "بریمن ‘تے اوپن سٹریٹ میپ",
       "openstreetmapbulgaria": "بلجیریا ‘تے اوپن سٹریٹ میپ",
-      "openstreetmapburkinafaso": "برکینا فسو ‘تے اوپن سٹریٹ میپ",
       "openstreetmapburundi": "برونڈی ‘تے اوپن سٹریٹ میپ",
       "openstreetmapbzh": "برٹنی ‘تے اوپن سٹریٹ میپ",
       "openstreetmapcambodia": "کمبوڈیا ‘تے اوپن سٹریٹ میپ",
@@ -42,7 +40,6 @@
       "openstreetmapchile": "چیلے ‘تے اوپن سٹریٹ میپ",
       "openstreetmapchina": "چینی ‘تے اوپن سٹریٹ میپ",
       "openstreetmapcologne": "کولون ‘تے اوپن سٹریٹ میپ",
-      "openstreetmapcolombia": "کولومبیا ‘تے اوپن سٹریٹ میپ",
       "openstreetmapcomunitatvalenciana": "کمونیٹٹ ولینسیانا ‘تے اوپن سٹریٹ میپ",
       "openstreetmapcostarica": "کوسٹا ریکا ‘تے اوپن سٹریٹ میپ",
       "openstreetmapcotedivoire": "کوٹ ڈیوار ‘تے اوپن سٹریٹ میپ",
@@ -70,8 +67,28 @@
       "openstreetmaprdc": "آر دی سی ‘تے اوپن سٹریٹ میپ",
       "openstreetmapuk": "یو کے ‘تے اوپن سٹریٹ میپ"
     },
+    "_defaults": {
+      "youtube": {
+        "description": "ਸਾਡੇ YouTube ਚੈਨਲ ਨੂੰ ਸਬਸਕ੍ਰਾਈਬ ਕਰੋ"
+      }
+    },
     "af-matrix": {
       "description": "افغانی لوک لئی میٹرِکس ‘تے گروپ"
+    },
+    "am-wiki": {
+      "description": "وِکی تے {community} دا صفحہ"
+    },
+    "at-wiki": {
+      "description": "وِکی تے {community} دا صفحہ"
+    },
+    "bo-facebook-group": {
+      "name": "فیس‌بوک تے {community} دا صفحہ"
+    },
+    "cd-chapter": {
+      "name": "آر دی سی ‘تے اوپن سٹریٹ میپ"
+    },
+    "de-aachen-wiki": {
+      "description": "وِکی تے {community} دا صفحہ"
     },
     "de-berlin-wiki": {
       "description": "وِکی تے {community} دا صفحہ"
@@ -100,11 +117,14 @@
     "de-munchen-wiki": {
       "description": "وِکی تے {community} دا صفحہ"
     },
-    "fr-montrouge-wiki": {
+    "fr-35-wiki": {
       "description": "وِکی تے {community} دا صفحہ"
     },
-    "hr-irc": {
-      "description": "irc.freenode.org (پورٹ 6667) ‘تے #{account} جوڑو"
+    "fr-38-wiki": {
+      "description": "وِکی تے {community} دا صفحہ"
+    },
+    "fr-montrouge-wiki": {
+      "description": "وِکی تے {community} دا صفحہ"
     },
     "hu-facebook-group": {
       "name": "فیس‌بوک تے {community} دا صفحہ"
@@ -114,9 +134,6 @@
     },
     "id-facebook-group": {
       "name": "فیس‌بوک تے {community} دا صفحہ"
-    },
-    "MappingDC-meetup": {
-      "name": "ڈی سی ‘تے نقشہ کرن"
     },
     "osm-africa-facebook-group": {
       "name": "فیس‌بوک تے {community} دا صفحہ"
@@ -133,8 +150,20 @@
     "osm-michigan-wiki": {
       "description": "وِکی تے {community} دا صفحہ"
     },
+    "osm-ohio-wiki": {
+      "description": "وِکی تے {community} دا صفحہ"
+    },
     "ph-facebook-group": {
       "name": "فیس‌بوک تے {community} دا صفحہ"
+    },
+    "sg-wiki": {
+      "description": "وِکی تے {community} دا صفحہ"
+    },
+    "si-ljubljana-wiki": {
+      "description": "وِکی تے {community} دا صفحہ"
+    },
+    "si-wiki": {
+      "description": "وِکی تے {community} دا صفحہ"
     },
     "tn-facebook-group": {
       "name": "فیس‌بوک تے {community} دا صفحہ"
@@ -145,6 +174,9 @@
     "uy-irc": {
       "description": "irc.freenode.org (پورٹ 6667) ‘تے #{account} جوڑو",
       "extendedDescription": "irc.freenode.org ‘تے #{account} جوڑو"
+    },
+    "vn-wiki": {
+      "description": "وِکی تے {community} دا صفحہ"
     }
   }
 }

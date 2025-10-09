@@ -1,17 +1,22 @@
+import { Extent } from '@rapid-sdk/math';
+
 import { AbstractSystem } from './AbstractSystem.js';
 
 
 /**
- * `PhotoSystem` maintains the state of the photo viewer
+ * `PhotoSystem` maintains the state of the photo viewer.
  *
  * Properties available:
- *   `allPhotoTypes`     List of all available photo types ('flat', 'panoramic')
- *   `fromDate`          Current fromDate filter value
- *   `toDate`            Current toDate filter value
- *   `usernames`         Current usernames filter value
+ *   `fromDate`              Current fromDate filter value
+ *   `toDate`                Current toDate filter value
+ *   `usernames`             Current usernames filter value
+ *   `currPhotoID`           Current PhotoID
+ *   `currPhotoLayerID`      Current Photo LayerID
+ *   `currDetectionID`       Current DetectionID
+ *   `currDetectionLayerID`  Current Detection LayerID
  *
  * Events available:
- *   `photochange`       Fires on any change in photo display or filtering options
+ *   `photochange`   Fires on any change in selected photo, detection, or filtering options
  */
 export class PhotoSystem extends AbstractSystem {
 
@@ -22,29 +27,23 @@ export class PhotoSystem extends AbstractSystem {
   constructor(context) {
     super(context);
     this.id = 'photos';
-    this.dependencies = new Set(['map', 'urlhash']);
+    this.dependencies = new Set(['gfx', 'map', 'urlhash', 'ui']);
 
-    this._LAYERIDS = ['streetside', 'mapillary', 'mapillary-map-features', 'mapillary-signs', 'kartaview'];
-    this._LAYERNAMES = {
-      'streetside': 'Bing Streetside',
-      'mapillary': 'Mapillary',
-      'mapillary-map-features': 'Mapillary Map Features',
-      'mapillary-signs': 'Mapillary Street Signs',
-      'kartaview': 'KartaView'
-    };
-    this._PHOTOTYPES = ['flat', 'panoramic'];
-    this._DATEFILTERS = ['fromDate', 'toDate'];
-    this._shownPhotoTypes = new Set(this._PHOTOTYPES);
-    this._fromDate = null;
-    this._toDate = null;
-    this._usernames = null;
-    this._currLayerID = null;
+    this._currPhotoLayerID = null;
     this._currPhotoID = null;
+    this._currDetectionLayerID = null;
+    this._currDetectionID = null;
+
+    this._filterPhotoTypes = new Set(this.photoTypes);
+    this._filterFromDate = null;
+    this._filterToDate = null;
+    this._filterUsernames = null;
+
     this._initPromise = null;
-    this._startPromise = null;
 
     // Ensure methods used as callbacks always have `this` bound correctly.
     this._hashchange = this._hashchange.bind(this);
+    this._layerchange = this._layerchange.bind(this);
     this._photoChanged = this._photoChanged.bind(this);
   }
 
@@ -64,16 +63,22 @@ export class PhotoSystem extends AbstractSystem {
     }
 
     const context = this.context;
+    const gfx = context.systems.gfx;
     const map = context.systems.map;
     const urlhash = context.systems.urlhash;
 
     const prerequisites = Promise.all([
-      map.initAsync(),   // PhotoSystem should listen for hashchange after MapSystem
+      gfx.initAsync(),   // `gfx.scene` will exist after `initAsync`
+      map.initAsync(),   // `PhotoSystem` should listen for 'hashchange' after `MapSystem`
       urlhash.initAsync()
     ]);
 
     return this._initPromise = prerequisites
-      .then(() => urlhash.on('hashchange', this._hashchange));
+      .then(() => {
+        // Setup event handlers..
+        urlhash.on('hashchange', this._hashchange);
+        gfx.scene.on('layerchange', this._layerchange);
+      });
   }
 
 
@@ -83,16 +88,8 @@ export class PhotoSystem extends AbstractSystem {
    * @return {Promise} Promise resolved when this component has completed startup
    */
   startAsync() {
-    if (this._startPromise) return this._startPromise;
-
-    const map = this.context.systems.map;
-    const prerequisites = map.startAsync();  // PhotoSystem should listen for layerchange after scene exists
-
-    return this._startPromise = prerequisites
-      .then(() => {
-        map.scene.on('layerchange', this._photoChanged);
-        this._started = true;
-      });
+    this._started = true;
+    return Promise.resolve();
   }
 
 
@@ -113,8 +110,7 @@ export class PhotoSystem extends AbstractSystem {
    * @param  prevParams   Map(key -> value) of the previous hash parameters
    */
   _hashchange(currParams, prevParams) {
-    const context = this.context;
-    const scene = context.scene();
+    const scene = this.context.systems.gfx.scene;
 
     // photo_overlay
     // support enabling photo layers by default via a URL parameter, e.g. `photo_overlay=kartaview;mapillary;streetside`
@@ -125,7 +121,7 @@ export class PhotoSystem extends AbstractSystem {
       if (typeof newPhotoOverlay === 'string') {
         toEnableIDs = new Set(newPhotoOverlay.replace(/;/g, ',').split(','));
       }
-      for (const layerID of this._LAYERIDS) {
+      for (const layerID of this.layerIDs) {
         const layer = scene.layers.get(layerID);
         if (!layer) continue;
         layer.enabled = toEnableIDs.has(layer.id);
@@ -142,7 +138,7 @@ export class PhotoSystem extends AbstractSystem {
         this.setDateFilter('fromDate', parts && parts.length >= 2 && parts[1]);
         this.setDateFilter('toDate', parts && parts.length >= 3 && parts[2]);
       } else {
-        this._toDate = this._fromDate = null;
+        this._filterToDate = this._filterFromDate = null;
       }
     }
 
@@ -154,18 +150,72 @@ export class PhotoSystem extends AbstractSystem {
     }
 
     // photo
-    // support opening a specific photo via a URL parameter, e.g. `photo=mapillary/fztgSDtLpa08ohPZFZjeRQ`
-    const newPhoto = currParams.get('photo');
-    const oldPhoto = prevParams.get('photo');
+    // support opening a specific photo via a URL parameter, e.g. `photo=mapillary/<photoID>`
+    const newPhoto = currParams.get('photo') || '';
+    const oldPhoto = prevParams.get('photo') || '';
     if (newPhoto !== oldPhoto) {
-      if (typeof newPhoto === 'string') {
-        const [layerID, photoID] = newPhoto.split('/', 2).filter(Boolean);
-        if (layerID && photoID) {
-          this.selectPhoto(layerID, photoID);
+      const [layerID, photoID] = newPhoto.split('/', 2).filter(Boolean);
+      if (layerID && photoID) {
+        this.selectPhoto(layerID, photoID);
+      } else {
+        this.selectPhoto();  // deselect
+      }
+    }
+
+    // detections
+    // support opening a specific detection via a URL parameter, e.g. `detection=mapillary-detections/<detectionID>`
+    const newDetection = currParams.get('detection') || '';
+    const oldDetection = prevParams.get('detection') || '';
+    if (newDetection !== oldDetection) {
+      const [layerID, detectionID] = newDetection.split('/', 2).filter(Boolean);
+      if (layerID && detectionID) {
+        this.selectDetection(layerID, detectionID);
+      } else {
+        this.selectDetection();  // deselect
+      }
+    }
+  }
+
+
+  /**
+   * _layerchange
+   * Respond to any changes in the layers that are enabled
+   */
+  _layerchange() {
+    const context = this.context;
+    const scene = context.systems.gfx.scene;
+
+    // Update detections
+    // If there is a currently selected detection, return to browse mode.
+    for (const layerID of this.detectionLayerIDs) {
+      const layer = scene.layers.get(layerID);
+      if (!layer.enabled && this._currDetectionLayerID === layerID) {
+        context.enter('browse');
+        this.selectDetection();  // deselect
+      }
+    }
+
+    // Update photos
+    // If there is a current photo layer, refresh it by calling `selectPhoto` again.
+    // (Maybe the detections layers changed, and we need to redraw the viewer
+    // to remove the highlighting or make the segmentations appear or disappear)
+    let enabledCount = 0;
+    for (const layerID of this.photoLayerIDs) {
+      const layer = scene.layers.get(layerID);
+      if (layer.enabled) {
+        enabledCount++;
+      }
+      if (layerID === this._currPhotoLayerID) {
+        if (layer.enabled) {
+          this.selectPhoto(this._currPhotoLayerID, this._currPhotoID);  // keep selection
         } else {
-          this.selectPhoto();  // deselect it
+          this.selectPhoto();  // deselect
         }
       }
+    }
+
+    if (!enabledCount) {  // no photo layers enabled, hide the viewer
+      this.hideViewer();
     }
   }
 
@@ -175,12 +225,13 @@ export class PhotoSystem extends AbstractSystem {
    * Push changes in photo viewer state to the urlhash
    */
   _photoChanged() {
-    const urlhash = this.context.systems.urlhash;
-    const scene = this.context.scene();
+    const context = this.context;
+    const urlhash = context.systems.urlhash;
+    const scene = context.systems.gfx.scene;
 
     // photo_overlay
     let enabledIDs = [];
-    for (const layerID of this._LAYERIDS) {
+    for (const layerID of this.layerIDs) {
       const layer = scene.layers.get(layerID);
       if (layer && layer.supported && layer.enabled) {
         enabledIDs.push(layerID);
@@ -188,60 +239,109 @@ export class PhotoSystem extends AbstractSystem {
     }
     urlhash.setParam('photo_overlay', enabledIDs.length ? enabledIDs.join(',') : null);
 
-    // photo
-    let photoString;
-    if (this._currLayerID && this._currPhotoID) {
-      photoString = `${this._currLayerID}/${this._currPhotoID}`;
-    }
-    urlhash.setParam('photo', photoString);
-
     // photo_dates
     let rangeString;
-    if (this._fromDate || this._toDate) {
-      rangeString = (this._fromDate || '') + '_' + (this._toDate || '');
+    if (this._filterFromDate || this._filterToDate) {
+      rangeString = (this._filterFromDate || '') + '_' + (this._filterToDate || '');
     }
     urlhash.setParam('photo_dates', rangeString);
 
     // photo_username
-    urlhash.setParam('photo_username', this._usernames ? this._usernames.join(',') : null);
+    urlhash.setParam('photo_username', this._filterUsernames ? this._filterUsernames.join(',') : null);
+
+    // current photo
+    let photoString;
+    if (this._currPhotoLayerID && this._currPhotoID) {
+      photoString = `${this._currPhotoLayerID}/${this._currPhotoID}`;
+    }
+    urlhash.setParam('photo', photoString);
+
+    // current detection
+    let detectionString;
+    if (this._currDetectionLayerID && this._currDetectionID) {
+      detectionString = `${this._currDetectionLayerID}/${this._currDetectionID}`;
+    }
+    urlhash.setParam('detection', detectionString);
+
+    this.emit('photochange');
   }
 
 
   /**
    * photosUsed
-   * @return  {Array}  Array of single element for the photo layer currently enabled
+   * Called by the EditSystem to gather the sources being used to make an edit.
+   * We can return the English names of:
+   *  - current photo layer (if showing a photo)
+   *  - current detection layer (if showing a detection)
+   * These strings will be included in the user's changeset as sources.
+   * @return  {Array<string>}  Array of layers currently being used.
    */
   photosUsed() {
-    const layerID = this._currLayerID;
-    return layerID ? [ this._LAYERNAMES[layerID] ] : [];
+    // These are the English layer names that will appear in the changeset tag if the layer is used.
+    const LAYERNAMES = {
+      'streetside': 'Bing Streetside',
+      'mapillary': 'Mapillary',
+      'mapillary-detections': 'Mapillary Detected Objects',
+      'mapillary-signs': 'Mapillary Traffic Signs',
+      'kartaview': 'KartaView'
+    };
+
+    const results = [];
+
+    if (this._currPhotoLayerID && this._currPhotoID) {
+      results.push(LAYERNAMES[this._currPhotoLayerID]);
+    }
+    if (this._currDetectionLayerID && this._currDetectionID) {
+      results.push(LAYERNAMES[this._currDetectionLayerID]);
+    }
+
+    return results;
   }
 
 
   /**
-   * overlayLayerIDs
-   * @return   Array of available layer ids
+   * layerIDs
+   * @return   {Array<string>} All available layerIDs
    * @readonly
    */
-  get overlayLayerIDs() {
-    return this._LAYERIDS;
+  get layerIDs() {
+    return ['streetside', 'mapillary', 'mapillary-detections', 'mapillary-signs', 'kartaview'];
   }
 
   /**
-   * allPhotoTypes
-   * @return  Array of available photo types
+   * photoLayerIDs
+   * @return   {Array<string>} All available photo layerIDs
    * @readonly
    */
-  get allPhotoTypes() {
-    return this._PHOTOTYPES;
+  get photoLayerIDs() {
+    return ['streetside', 'mapillary', 'kartaview'];
+  }
+
+  /**
+   * detectionLayerIDs
+   * @return   {Array<string>} All available detection layerIDs
+   * @readonly
+   */
+  get detectionLayerIDs() {
+    return ['mapillary-detections', 'mapillary-signs'];
+  }
+
+  /**
+   * photoTypes
+   * @return   {Array<string>} All available photo types
+   * @readonly
+   */
+  get photoTypes() {
+    return ['flat', 'panoramic'];
   }
 
   /**
    * dateFilters
-   * @return  Array of available date filter types
+   * @return   {Array<string>} All available date filters
    * @readonly
    */
   get dateFilters() {
-    return this._DATEFILTERS;
+    return ['fromDate', 'toDate'];
   }
 
   /**
@@ -250,7 +350,7 @@ export class PhotoSystem extends AbstractSystem {
    * @readonly
    */
   get fromDate() {
-    return this._fromDate;
+    return this._filterFromDate;
   }
 
   /**
@@ -259,7 +359,7 @@ export class PhotoSystem extends AbstractSystem {
    * @readonly
    */
   get toDate() {
-    return this._toDate;
+    return this._filterToDate;
   }
 
   /**
@@ -268,59 +368,190 @@ export class PhotoSystem extends AbstractSystem {
    * @readonly
    */
   get usernames() {
-    return this._usernames;
+    return this._filterUsernames;
+  }
+
+  /**
+   * currPhotoLayerID
+   * @return  {string} The current photo layerID
+   * @readonly
+   */
+  get currPhotoLayerID() {
+    return this._currPhotoLayerID;
+  }
+
+  /**
+   * currPhotoID
+   * @return  {string} The current photoID
+   * @readonly
+   */
+  get currPhotoID() {
+    return this._currPhotoID;
+  }
+
+  /**
+   * currDetectionLayerID
+   * @return  {string} The current detection layerID
+   * @readonly
+   */
+  get currDetectionLayerID() {
+    return this._currDetectionLayerID;
+  }
+
+  /**
+   * currDetectionID
+   * @return  {string} The current detectionID
+   * @readonly
+   */
+  get currDetectionID() {
+    return this._currDetectionID;
   }
 
 
   /**
    * selectPhoto
-   * Pass `null` or `undefined` to de-select the layer and photo
-   * @param   layerID  The layerID to select
-   * @param   photoID  The photoID to select
+   * Pass falsy values to deselect the layer and photo.
+   * @param {string}  layerID? - The layerID to select
+   * @param {string}  photoID? - The photoID to select
    */
   selectPhoto(layerID = null, photoID = null) {
-    if (layerID === this._currLayerID && photoID === this._currPhotoID) return;  // nothing to do
-
-    if (layerID !== null) {
-      this._currLayerID = layerID;
-    }
-    const oldPhotoID = this._currPhotoID;
-    this._currPhotoID = photoID;
-
     const context = this.context;
-    const scene = context.scene();
+    const map = context.systems.map;
+    const scene = context.systems.gfx.scene;
 
-    // renderer is not yet listening to photochange, so just manually tell the renderer to select-style it, for now
-    // 'Active' may stay resident if the user clicks off the image onto an OSM entity
-    // in which case we still may want to draw the image point differently.
-//    scene.clearClass('selected');
-    scene.unclassData(layerID, oldPhotoID, 'selected');
-    scene.unclassData(layerID, oldPhotoID, 'active');
+    const didChange = (this._currPhotoLayerID !== layerID || this._currPhotoID !== photoID);
 
-    // Leave the 'active' class on the photo in the case where we clicked on something besides a photo.
-    if (layerID !== null && photoID !== null) {
-      scene.clearClass('active');
+    // If we're selecting a photo then make sure its layer is enabled too.
+    if (this.photoLayerIDs.includes(layerID) && !this.isLayerEnabled(layerID)) {
+      scene.enableLayers(layerID);
+      return;  // exit to avoid infinite loop, we will be right back in here via `_layerchange` handler.
     }
 
-    if (layerID && photoID) {
+    // Clear out any existing selection..
+    this._currPhotoLayerID = null;
+    this._currPhotoID = null;
+    scene.clearClass('selectphoto');
+
+    // Apply the new selection..
+    if (photoID && this.photoLayerIDs.includes(layerID)) {
       const service = context.services[layerID];
-      if (!service) return null;
+      if (!service) return;
 
-      // If we're selecting a photo then make sure its layer is enabled too.
-      scene.enableLayers(layerID);
-
-      // renderer is not yet listening to photochange, so just manually tell the renderer to select-style it, for now
-      scene.classData(layerID, photoID, 'selected');
-      scene.classData(layerID, photoID, 'active');
+      this._currPhotoLayerID = layerID;
+      this._currPhotoID = photoID;
+      scene.setClass('selectphoto', layerID, photoID);
 
       // Try to show the viewer with the image selected..
-      service.startAsync()
-        .then(() => service.selectImageAsync(photoID))
-        .then(() => service.showViewer());
+      service.selectImageAsync(photoID)
+        .then(photo => {
+          if (!photo) return;
+          if (photo.id !== this._currPhotoID) return;  // exit if something else is now selected
+          if (this._currDetectionID) return;  // don't adjust the map if a detection is already selected
+
+          if (didChange) {
+            map.centerEase(photo.loc);
+          }
+        })
+        .then(() => this.showViewer());
     }
 
     this._photoChanged();
-    this.emit('photochange');
+  }
+
+
+  /**
+   * selectDetection
+   * Pass falsy values to deselect the layer and detection.
+   * @param {string}  layerID?     - The layerID to select
+   * @param {string}  detectionID? - The detectionID to select
+   */
+  selectDetection(layerID = null, detectionID = null) {
+    const context = this.context;
+    const map = context.systems.map;
+    const scene = context.systems.gfx.scene;
+
+    // If we're selecting a detection then make sure its layer is enabled too.
+    if (this.detectionLayerIDs.includes(layerID) && !this.isLayerEnabled(layerID)) {
+      scene.enableLayers(layerID);
+      return;  // exit to avoid infinite loop, we will be right back in here via `_layerchange` handler.
+    }
+
+    // Clear out any existing selection..
+    this._currDetectionLayerID = null;
+    this._currDetectionID = null;
+    scene.clearClass('selectdetection');
+    scene.clearClass('highlightphoto');
+
+    // Apply the new selection..
+    if (detectionID && this.detectionLayerIDs.includes(layerID)) {
+      const photoLayerID = layerID.split('-')[0];     // e.g. 'mapillary-signs' -> 'mapillary'
+      const service = context.services[photoLayerID];
+      if (!service) return;
+
+      this._currDetectionLayerID = layerID;
+      this._currDetectionID = detectionID;
+      scene.setClass('selectdetection', layerID, detectionID);
+
+      // Try to highlight any photos that show this detection,
+      // And try to select a photo in the viewer that shows it.
+      service.selectDetectionAsync(detectionID)
+        .then(detection => {
+          if (!detection) return;
+          if (detection.id !== this._currDetectionID) return;  // exit if something else is now selected
+
+          // Handle the situation where we want to select a detection,
+          // but we haven't properly entered SelectMode yet.
+          // This can happen if the detection arrived in the URL hash.
+          if (!context.selectedData().has(detection.id)) {
+            const selection = new Map().set(detection.id, detection);
+            context.enter('select', { selection: selection });
+            return;  // exit to avoid infinite loop - entering select mode will bring us right back in here.
+          }
+
+          // Highlight any images that show this detection..
+          const highlightPhotoIDs = (detection.images ?? []).map(image => image.id);
+          for (const photoID of highlightPhotoIDs) {
+            scene.setClass('highlightphoto', photoLayerID, photoID);
+          }
+
+          // Try to select a photo that shows this detection..
+          // - If the current photo already shows it, keep it selected
+          // - Otherwise choose the "best" photo suggested by the detection
+          // - Otherwise no selected photo.
+          let bestPhotoID;
+          if (this._currPhotoLayerID === photoLayerID && highlightPhotoIDs.includes(this._currPhotoID)) {
+            bestPhotoID = this._currPhotoID;
+          } else {
+            bestPhotoID = detection.bestImageID;
+          }
+
+          // If we are changing the selected photo to a new photo,
+          // Try to adjust the map to show both the detection and the best photo (if any)
+          // (note: make sure the detection actually has a location, see Rapid#1557)
+          if (detection.loc && (!this._currPhotoID || this._currPhotoID !== bestPhotoID)) {
+            const extent = new Extent(detection.loc);
+            const bestPhoto = service.getImage(bestPhotoID);
+            if (bestPhoto?.loc) {
+              extent.extendSelf(bestPhoto.loc);
+            }
+
+            // Need to zoom out a little to see both things?
+            const needZoom = map.trimmedExtentZoom(extent) - 0.5;  // little extra so the things aren't at the map edges
+            const currZoom = context.viewport.transform.zoom;
+            map.centerZoomEase(extent.center(), Math.min(needZoom, currZoom));
+          }
+
+          // Select the best photo (if any)
+          this.selectPhoto(photoLayerID, bestPhotoID);
+        });
+
+    // If there is now no detection selected, we should still refresh the viewer,
+    // in case it needs to replace any detection highlights or segmentations..
+    } else {
+      this.selectPhoto(this._currPhotoLayerID, this._currPhotoID);  // keep selection
+    }
+
+    this._photoChanged();
   }
 
 
@@ -331,8 +562,8 @@ export class PhotoSystem extends AbstractSystem {
    * @return  The from date or to date value, or `null` if unset
    */
   dateFilterValue(val) {
-    if (val === 'fromDate') return this._fromDate;
-    if (val === 'toDate') return this._toDate;
+    if (val === 'fromDate') return this._filterFromDate;
+    if (val === 'toDate') return this._filterToDate;
     return null;
   }
 
@@ -354,23 +585,22 @@ export class PhotoSystem extends AbstractSystem {
 
     let didChange = false;
     if (type === 'fromDate') {
-      this._fromDate = val;
+      this._filterFromDate = val;
       didChange = true;
-      if (this._fromDate && this._toDate && new Date(this._toDate) < new Date(this._fromDate)) {
-        this._toDate = this._fromDate;
+      if (this._filterFromDate && this._filterToDate && new Date(this._filterToDate) < new Date(this._filterFromDate)) {
+        this._filterToDate = this._filterFromDate;
       }
     }
     if (type === 'toDate') {
-      this._toDate = val;
+      this._filterToDate = val;
       didChange = true;
-      if (this._fromDate && this._toDate && new Date(this._toDate) < new Date(this._fromDate)) {
-        this._fromDate = this._toDate;
+      if (this._filterFromDate && this._filterToDate && new Date(this._filterToDate) < new Date(this._filterFromDate)) {
+        this._filterFromDate = this._filterToDate;
       }
     }
 
     if (didChange) {
       this._photoChanged();
-      this.emit('photochange');
     }
   }
 
@@ -390,9 +620,8 @@ export class PhotoSystem extends AbstractSystem {
         val = null;
       }
     }
-    this._usernames = val;
+    this._filterUsernames = val;
     this._photoChanged();
-    this.emit('photochange');
   }
 
 
@@ -402,34 +631,84 @@ export class PhotoSystem extends AbstractSystem {
    * @param   which  String phototype to toggle on/off ('flat', or 'panoramic')
    */
   togglePhotoType(which) {
-    if (!this._PHOTOTYPES.includes(which)) return;
+    if (!this.photoTypes.includes(which)) return;
 
-    if (this._shownPhotoTypes.has(which)) {
-      this._shownPhotoTypes.delete(which);
+    if (this._filterPhotoTypes.has(which)) {
+      this._filterPhotoTypes.delete(which);
     } else {
-      this._shownPhotoTypes.add(which);
+      this._filterPhotoTypes.add(which);
     }
-    this.emit('photochange');
+    this._photoChanged();
   }
 
 
-  _showsLayer(layerID) {
-    const layer = this.context.scene().layers.get(layerID);
+  /**
+   * isLayerEnabled
+   * Is the given layerID enabled?
+   * @param  {string}   layerID - the layerID to check
+   * @return {boolean}  `true` if enabled, `false` if not
+   */
+  isLayerEnabled(layerID) {
+    const context = this.context;
+    const scene = context.systems.gfx.scene;
+    const layer = scene.layers.get(layerID);
     return layer?.enabled;
   }
 
+
+  /**
+   * showViewer
+   * Show the photo viewer
+   */
+  showViewer() {
+    const context = this.context;
+    const layerID = this._currPhotoLayerID;
+    const photoID = this._currPhotoID;
+    if (!layerID || !photoID) return;   // nothing to show
+
+    const service = context.services[layerID];
+    service?.showViewer();
+  }
+
+
+  /**
+   * hideViewer
+   * Hide the photo viewer.  If the viewer was showing a photo, deselect the photo.
+   */
+  hideViewer() {
+    for (const layerID of this.photoLayerIDs) {
+      if (layerID === this._currPhotoLayerID) {
+        this.selectPhoto();  // deselect
+      }
+      const service = this.context.services[layerID];
+      service?.hideViewer();
+    }
+  }
+
+
+  /**
+   * isViewerShowing
+   * @return {boolean} `true` if showing, `false` if not
+   */
+  isViewerShowing() {
+    // viewer exists and is not hidden
+    const $viewer = this.context.container().selectAll('.photoviewer');
+    return $viewer.size() && !$viewer.classed('hide');
+  }
+
+
   shouldFilterByDate() {
-    return this._showsLayer('mapillary') || this._showsLayer('kartaview') || this._showsLayer('streetside');
+    return this.isLayerEnabled('mapillary') || this.isLayerEnabled('kartaview') || this.isLayerEnabled('streetside');
   }
   shouldFilterByPhotoType() {
-    return this._showsLayer('mapillary') || (this._showsLayer('streetside') && this._showsLayer('kartaview'));
+    return this.isLayerEnabled('mapillary') || (this.isLayerEnabled('streetside') && this.isLayerEnabled('kartaview'));
   }
   shouldFilterByUsername() {
-    return !this._showsLayer('mapillary') && this._showsLayer('kartaview') && !this._showsLayer('streetside');
+    return !this.isLayerEnabled('mapillary') && this.isLayerEnabled('kartaview') && !this.isLayerEnabled('streetside');
   }
   showsPhotoType(val) {
     if (!this.shouldFilterByPhotoType()) return true;
-    return this._shownPhotoTypes.has(val);
+    return this._filterPhotoTypes.has(val);
   }
   showsFlat() {
     return this.showsPhotoType('flat');

@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js';
-import { DashLine } from '@rapideditor/pixi-dashed-line';
-import { geoMetersToLon } from '@rapid-sdk/math';
+import { geoMetersToLon, vecEqual } from '@rapid-sdk/math';
 
 import { AbstractLayer } from './AbstractLayer.js';
+import { DashLine } from './lib/DashLine.js';
 
 
 /**
@@ -29,59 +29,88 @@ export class PixiLayerMapUI extends AbstractLayer {
     super(scene, layerID);
     this.enabled = true;   // this layer should always be enabled
 
-// todo: I'm adjusting the container nesting, this will need to be revisited
-const container = new PIXI.Container();
-container.name = layerID;
-container.sortableChildren = true;
-this.container = container;
+    this._oldk = 0;
 
-const groupContainer = this.scene.groups.get('ui');
-groupContainer.addChild(container);
+    this._geolocationData = null;
+    this._geolocationDirty = false;
+
+    this._lassoData = null;
+    this._lassoDirty = false;
+
+    this.geolocation = null;
+    this.tileDebug = null;
+    this.selected = null;
+    this.halo = null;
+    this.lasso = null;
+  }
+
+
+  /**
+   * reset
+   * Every Layer should have a reset function to replace any Pixi objects and internal state.
+   */
+  reset() {
+    super.reset();
 
     this._oldk = 0;
 
-    // setup the child containers
-    // these only go visible if they have something to show
+    const groupContainer = this.scene.groups.get('ui');
+
+    // Remove any existing containers
+    for (const child of groupContainer.children) {
+      groupContainer.removeChild(child);
+      child.destroy({ children: true });  // recursive
+    }
+
+    // Add containers
+    // These only go visible if they have something to show
 
     // GEOLOCATION
-    this._geolocationData = null;
-    this._geolocationDirty = false;
-    const geolocationContainer = new PIXI.Container();
-    geolocationContainer.name = 'geolocation';
-    geolocationContainer.eventMode = 'none';
-    geolocationContainer.sortableChildren = false;
-    geolocationContainer.visible = false;
-    this.geolocationContainer = geolocationContainer;
+    const geolocation = new PIXI.Container();
+    geolocation.label = 'geolocation';
+    geolocation.eventMode = 'none';
+    geolocation.sortableChildren = false;
+    geolocation.visible = false;
+    this.geolocation = geolocation;
 
     // TILE DEBUGGING
-    const tileDebugContainer = new PIXI.Container();
-    tileDebugContainer.name = 'tile-debug';
-    tileDebugContainer.eventMode = 'none';
-    tileDebugContainer.sortableChildren = false;
-    tileDebugContainer.visible = false;
-    this.tileDebugContainer = tileDebugContainer;
+    const tileDebug = new PIXI.Container();
+    tileDebug.label = 'tile-debug';
+    tileDebug.eventMode = 'none';
+    tileDebug.sortableChildren = false;
+    tileDebug.visible = false;
+    this.tileDebug = tileDebug;
 
     // SELECTED
-    const selectedContainer = new PIXI.Container();
-    selectedContainer.name = 'selected';
-    selectedContainer.sortableChildren = true;
-    selectedContainer.visible = true;
-    this.selectedContainer = selectedContainer;
+    const selected = new PIXI.Container();
+    selected.label = 'selected';
+    selected.sortableChildren = true;
+    selected.visible = true;
+    this.selected = selected;
 
-    // Lasso polygon
-    this._lassoPolygonData = null;
-    this._lassoPolygonDirty = false;
-    this._lassoLineGraphics = new PIXI.Graphics();
-    this._lassoFillGraphics = new PIXI.Graphics();
-    const lassoContainer = new PIXI.Container();
-    lassoContainer.name = 'lasso';
-    lassoContainer.eventMode = 'none';
-    lassoContainer.sortableChildren = false;
-    lassoContainer.visible = true;
-    lassoContainer.addChild(this._lassoLineGraphics, this._lassoFillGraphics);
-    this.lassoContainer = lassoContainer;
+    // HALO
+    const halo = new PIXI.Container();
+    halo.label = 'halo';
+    halo.sortableChildren = true;
+    halo.visible = true;
+    this.halo = halo;
 
-    this.container.addChild(geolocationContainer, tileDebugContainer, selectedContainer, lassoContainer);
+    // LASSO
+    if (this._lassoLine)  this._lassoLine.destroy();
+    if (this._lassoFill)  this._lassoFill.destroy();
+
+    this._lassoLine = new PIXI.Graphics();
+    this._lassoFill = new PIXI.Graphics();
+    this._lassoData = null;
+
+    const lasso = new PIXI.Container();
+    lasso.label = 'lasso';
+    lasso.eventMode = 'none';
+    lasso.sortableChildren = false;
+    lasso.visible = false;
+    this.lasso = lasso;
+
+    groupContainer.addChild(geolocation, tileDebug, selected, halo, lasso);
   }
 
 
@@ -111,14 +140,15 @@ groupContainer.addChild(container);
 
 
   /**
-   * lassoPolygonData
+   * lassoData
+   * Pass an array of coordinate data that grows at the user draws the lasso
    */
-   get lassoPolygonData() {
-    return this._lassoPolygonData;
+  get lassoData() {
+    return this._lassoData;
   }
-  set lassoPolygonData(val) {
-    this._lassoPolygonData = val;
-    this._lassoPolygonDirty = true;
+  set lassoData(val) {
+    this._lassoData = val;
+    this._lassoDirty = true;
   }
 
 
@@ -133,7 +163,7 @@ groupContainer.addChild(container);
     const k = viewport.transform.scale;
     if (k !== this._oldk) {
       this._geolocationDirty = true;
-      this._lassoPolygonDirty = true;
+      this._lassoDirty = true;
       this._oldk = k;
     }
 
@@ -141,7 +171,7 @@ groupContainer.addChild(container);
       this.renderGeolocation(frame, viewport);
     }
 
-    if (this._lassoPolygonDirty) {
+    if (this._lassoDirty) {
       this.renderLasso(frame, viewport);
     }
 
@@ -154,43 +184,48 @@ groupContainer.addChild(container);
    * @param  viewport   Pixi viewport to use for rendering
    */
   renderLasso(frame, viewport) {
-    if (this._lassoPolygonDirty) {
-      this._lassoPolygonDirty = false;
-    }
+    if (!this._lassoDirty) return;
 
-    const LASSO_STYLE = {
-      alpha: 0.7,
-      dash: [6, 3],
-      width: 1,   // px
-      color: 0xffffff
-    };
+    const container = this.lasso;
+    const line = this._lassoLine;
+    const fill = this._lassoFill;
+    const data = this._lassoData;
 
-    // Simple state machine: If there's lasso data set, ensure that the lasso graphcs are added to the container.
-    // If there's no lasso data set, remove the graphics from the container and stop rendering.
-
-    // No polygon data? remove the graphics from the container.
-    if (!this._lassoPolygonData && this._lassoLineGraphics.parent) {
-      this.lassoContainer.removeChildren();
-
-    } else {
-      // Otherwise, we have polygon data but no parent. Add the graphics to the lasso container.
-      if (!this._lassoLineGraphics.parent) {
-        this.lassoContainer.addChild(this._lassoLineGraphics);
-        this.lassoContainer.addChild(this._lassoFillGraphics);
+    if (Array.isArray(data) && data.length > 1) {  // should show lasso
+      container.visible = true;
+      if (!container.children.length) {
+        container.addChild(line, fill);
       }
 
-      // Update polygon rendered to map UI
-      this._lassoLineGraphics.clear();
-      this._lassoFillGraphics.clear();
+      // Make sure the lasso is closed
+      const coords = data.slice();  // shallow copy
+      const start = coords.at(0);
+      const end = coords.at(-1);
+      if (!vecEqual(start, end)) {
+        coords.push(start);
+      }
 
-      // Render the data only as long as we have something meaningful.
-      if (this._lassoPolygonData?.length > 0) {
-        const projectedCoords = this._lassoPolygonData.map(coord => viewport.project(coord));
-        new DashLine(this._lassoLineGraphics, LASSO_STYLE).drawPolygon(projectedCoords.flat());
-        this._lassoFillGraphics.beginFill(0xaaaaaa, 0.5).drawPolygon(projectedCoords.flat()).endFill();
+      const flatCoords = coords.map(coord => viewport.project(coord)).flat();
+
+      // line
+      const lineStyle = { alpha: 0.7, dash: [6, 3], width: 1, color: 0xffffff };
+      line.clear();
+      new DashLine(this.gfx, line, lineStyle).poly(flatCoords);
+
+      // fill
+      const fillStyle = { alpha: 0.5, color: 0xaaaaaa };
+      fill.clear().poly(flatCoords).fill(fillStyle);
+
+    } else {  // no lasso data
+      container.visible = false;
+      if (container.children.length) {
+        container.removeChildren();
       }
     }
+
+    this._lassoDirty = false;
   }
+
 
   /**
    * renderGeolocation
@@ -199,54 +234,56 @@ groupContainer.addChild(container);
    * @param  viewport   Pixi viewport to use for rendering
    */
   renderGeolocation(frame, viewport) {
-    if (this._geolocationDirty) {
-      this._geolocationDirty = false;
-      this.geolocationContainer.removeChildren();
+    if (!this._geolocationDirty) return;
 
-      if (this.geolocationData && this.geolocationData.coords) {
-        const d = this.geolocationData.coords;
-        const coord = [d.longitude, d.latitude];
-        const [x, y] = viewport.project(coord);
+    const container = this.geolocation;
 
-        // Calculate the radius of the accuracy aura (convert meters -> pixels)
-        const dLon = geoMetersToLon(d.accuracy, coord[1]);  // coord[1] = at this latitude
-        const edge = [d.longitude + dLon, d.latitude];
-        const x2 = viewport.project(edge)[0];
-        const r = Math.max(Math.abs(x2 - x), 15);
-        const BLUE = 0xe60ff;
+    container.removeChildren();
 
-        const locatorAura = new PIXI.Graphics()
-          .beginFill(BLUE, 0.4)
-          .drawCircle(x, y, r)
-          .endFill();
-        locatorAura.name = 'aura';
-        this.geolocationContainer.addChild(locatorAura);
+    if (this.geolocationData && this.geolocationData.coords) {
+      container.visible = true;
 
-        // Show a viewfield for the heading if we have it
-        if (d.heading !== null && !isNaN(d.heading)) {
-          const textures = this.renderer.textures;
-          const locatorHeading = new PIXI.Sprite(textures.get('viewfieldDark'));
-          locatorHeading.anchor.set(0.5, 1);  // middle, top
-          locatorHeading.angle = d.heading;
-          locatorHeading.name = 'heading';
-          locatorHeading.position.set(x, y);
-          this.geolocationContainer.addChild(locatorHeading);
-        }
+      const d = this.geolocationData.coords;
+      const coord = [d.longitude, d.latitude];
+      const [x, y] = viewport.project(coord);
 
-        const locatorPosition = new PIXI.Graphics()
-          .lineStyle(1.5, 0xffffff, 1.0)
-          .beginFill(BLUE, 1.0)
-          .drawCircle(x, y, 6.5)
-          .endFill();
-        locatorPosition.name = 'position';
-        this.geolocationContainer.addChild(locatorPosition);
+      // Calculate the radius of the accuracy aura (convert meters -> pixels)
+      const dLon = geoMetersToLon(d.accuracy, coord[1]);  // coord[1] = at this latitude
+      const edge = [d.longitude + dLon, d.latitude];
+      const x2 = viewport.project(edge)[0];
+      const r = Math.max(Math.abs(x2 - x), 15);
+      const BLUE = 0xe60ff;
 
-        this.geolocationContainer.visible = true;
+      const aura = new PIXI.Graphics()
+        .circle(x, y, r)
+        .fill({ color: BLUE, alpha: 0.4 });
+      aura.label = 'aura';
+      container.addChild(aura);
 
-      } else {
-        this.geolocationContainer.visible = false;
+      // Show a viewfield for the heading if we have it
+      if (d.heading !== null && !isNaN(d.heading)) {
+        const textures = this.gfx.textures;
+        const heading = new PIXI.Sprite(textures.get('viewfieldDark'));
+        heading.anchor.set(0.5, 1);  // middle, top
+        heading.angle = d.heading;
+        heading.label = 'heading';
+        heading.position.set(x, y);
+        container.addChild(heading);
       }
+
+      const position = new PIXI.Graphics()
+        .circle(x, y, 6.5)
+        .stroke(1.5, 0xffffff, 1.0)
+        .fill({ color: BLUE, alpha: 1.0 });
+      position.label = 'position';
+      container.addChild(position);
+
+    } else {
+      container.visible = false;
     }
+
+    this._geolocationDirty = false;
+
   }
 
 }

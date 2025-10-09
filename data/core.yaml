@@ -27,23 +27,20 @@ en:
     labeled_and_more:
       one: "{labeled} and {count} more"
       other: "{labeled} and {count} more"
+
   modes:
     add_area:
       title: Area
       description: "Add buildings, parks, lakes, or other areas to the map."
-      filter_tooltip: areas
     add_line:
       title: Line
       description: "Add roads, walking paths, streams, or other lines to the map."
-      filter_tooltip: lines
     add_point:
       title: Point
       description: "Add businesses, waste baskets, post boxes, or other points to the map."
-      filter_tooltip: points
     add_note:
       title: Note
       description: "Spotted an issue? Let other mappers know."
-      key: 'N'
     add_preset:
       title: "Add {feature}"
     browse:
@@ -51,6 +48,7 @@ en:
       description: Pan and zoom the map.
     drag_node:
       connected_to_hidden: This can't be edited because it is connected to a hidden feature.
+
   operations:
     add:
       annotation:
@@ -63,7 +61,6 @@ en:
         line: Started a line.
         area: Started an area.
     continue:
-      key: A
       title: Continue
       description: Continue this line.
       not_eligible: No line can be continued here.
@@ -102,40 +99,39 @@ en:
     circularize:
       title: Circularize
       description:
-        single: Make this feature circular.
-        multiple: Make these features circular.
-      key: O
+        one: Make this feature circular.
+        other: Make these features circular.
       annotation:
         feature:
           one: Made a feature circular.
           other: "Made {n} features circular."
       multiple_blockers:
-        multiple: These can't be made circular for multiple reasons.
+        one: This can't be made circular for multiple reasons.
+        other: These can't be made circular for multiple reasons.
       not_closed:
-        single: This can't be made circular because it's not a loop.
-        multiple: These can't be made circular because they aren't loops.
+        one: This can't be made circular because it's not a loop.
+        other: These can't be made circular because they aren't loops.
       too_large:
-        single: This can't be made circular because not enough of it is currently visible.
-        multiple: These can't be made circular because not enough of them are currently visible.
+        one: This can't be made circular because not enough of it is currently visible.
+        other: These can't be made circular because not enough of them are currently visible.
       connected_to_hidden:
-        single: This can't be made circular because it is connected to a hidden feature.
-        multiple: These can't be made circular because some are connected to hidden features.
+        one: This can't be made circular because it is connected to a hidden feature.
+        other: These can't be made circular because some are connected to hidden features.
       not_downloaded:
-        single: This can't be made circular because parts of it have not yet been downloaded.
-        multiple: These can't be made circular because parts of them have not yet been downloaded.
+        one: This can't be made circular because parts of it have not yet been downloaded.
+        other: These can't be made circular because parts of them have not yet been downloaded.
       already_circular:
-        single: This can't be made more circular than it already is.
-        multiple: These can't be made more circular than they already are.
+        one: This can't be made more circular than it already is.
+        other: These can't be made more circular than they already are.
     orthogonalize:
       title: Square
       description:
         corner:
-          single: Square this corner.
-          multiple: Square these corners.
+          one: Square this corner.
+          other: Square these corners.
         feature:
-          single: Square the corners of this feature.
-          multiple: Square the corners of these features.
-      key: Q
+          one: Square the corners of this feature.
+          other: Square the corners of these features.
       annotation:
         corner:
           one: Squared a corner.
@@ -144,32 +140,32 @@ en:
           one: Squared the corners of a feature.
           other: "Squared the corners of {n} features."
       multiple_blockers:
-        multiple: These can't be squared for multiple reasons.
+        one: This can't be squared for multiple reasons.
+        other: These can't be squared for multiple reasons.
       end_vertex:
-        single: This can't be squared because it is an endpoint.
-        multiple: These can't be squared because they are endpoints.
+        one: This can't be squared because it is an endpoint.
+        other: These can't be squared because they are endpoints.
       square_enough:
-        single: This can't be made more square than it already is.
-        multiple: These can't be made more square than they already are.
+        one: This can't be made more square than it already is.
+        other: These can't be made more square than they already are.
       not_squarish:
-        single: This can't be made square because it is not squarish.
-        multiple: These can't be made square because they are not squarish.
+        one: This can't be made square because it is not squarish.
+        other: These can't be made square because they are not squarish.
       too_large:
-        single: This can't be made square because not enough of it is currently visible.
-        multiple: These can't be made square because not enough of them are currently visible.
+        one: This can't be made square because not enough of it is currently visible.
+        other: These can't be made square because not enough of them are currently visible.
       connected_to_hidden:
-        single: This can't be made square because it is connected to a hidden feature.
-        multiple: These can't be made square because some are connected to hidden features.
+        one: This can't be made square because it is connected to a hidden feature.
+        other: These can't be made square because some are connected to hidden features.
       not_downloaded:
-        single: This can't be made square because parts of it have not yet been downloaded.
-        multiple: These can't be made square because parts of them have not yet been downloaded.
+        one: This can't be made square because parts of it have not yet been downloaded.
+        other: These can't be made square because parts of them have not yet been downloaded.
     straighten:
       title: Straighten
       description:
         points: Straighten these points.
         line: Straighten this line.
         lines: Straighten these lines.
-      key: S
       annotation:
         point:
           one: Straightened a point.
@@ -178,25 +174,25 @@ en:
           one: Straightened a line.
           other: "Straightened {n} lines."
       too_bendy:
-        single: This can't be straightened because it bends too much.
-        multiple: These can't be straightened because they bend too much.
+        one: This can't be straightened because it bends too much.
+        other: These can't be straightened because they bend too much.
       connected_to_hidden:
-        single: This can't be straightened because it is connected to a hidden feature.
-        multiple: These can't be straightened because some are connected to hidden features.
+        one: This can't be straightened because it is connected to a hidden feature.
+        other: These can't be straightened because some are connected to hidden features.
       not_downloaded:
-        single: This can't be straightened because parts of it have not yet been downloaded.
-        multiple: These can't be straightened because parts of them have not yet been downloaded.
+        one: This can't be straightened because parts of it have not yet been downloaded.
+        other: These can't be straightened because parts of them have not yet been downloaded.
       straight_enough:
-        single: This can't be made straighter than it already is.
-        multiple: These can't be made straighter than they already are.
+        one: This can't be made straighter than it already is.
+        other: These can't be made straighter than they already are.
       too_large:
-        single: This can't be straightened because not enough of it is currently visible.
-        multiple: These can't be straightened because not enough of them are currently visible.
+        one: This can't be straightened because not enough of it is currently visible.
+        other: These can't be straightened because not enough of them are currently visible.
     delete:
       title: Delete
       description:
-        single: Delete this feature permanently.
-        multiple: Delete these features permanently.
+        one: Delete this feature permanently.
+        other: Delete these features permanently.
       annotation:
         point: Deleted a point.
         vertex: Deleted a node from a way.
@@ -207,23 +203,23 @@ en:
           one: "Deleted a feature."
           other: "Deleted {n} features."
       too_large:
-        single: This feature can't be deleted because not enough of it is currently visible.
-        multiple: These features can't be deleted because not enough of them are currently visible.
+        one: This feature can't be deleted because not enough of it is currently visible.
+        other: These features can't be deleted because not enough of them are currently visible.
       incomplete_relation:
-        single: This feature can't be deleted because it hasn't been fully downloaded.
-        multiple: These features can't be deleted because they haven't been fully downloaded.
+        one: This feature can't be deleted because it hasn't been fully downloaded.
+        other: These features can't be deleted because they haven't been fully downloaded.
       part_of_relation:
-        single: This feature can't be deleted because it is part of a larger relation. You must remove it from the relation first.
-        multiple: These features can't be deleted because they are part of larger relations. You must remove them from the relations first.
+        one: This feature can't be deleted because it is part of a larger relation. You must remove it from the relation first.
+        other: These features can't be deleted because they are part of larger relations. You must remove them from the relations first.
       connected_to_hidden:
-        single: This feature can't be deleted because it is connected to a hidden feature.
-        multiple: These features can't be deleted because some are connected to hidden features.
+        one: This feature can't be deleted because it is connected to a hidden feature.
+        other: These features can't be deleted because some are connected to hidden features.
       not_downloaded:
-        single: This feature can't be deleted because parts of it have not yet been downloaded.
-        multiple: These features can't be deleted because parts of them have not yet been downloaded.
+        one: This feature can't be deleted because parts of it have not yet been downloaded.
+        other: These features can't be deleted because parts of them have not yet been downloaded.
       has_wikidata_tag:
-        single: This feature can't be deleted because it has a Wikidata tag.
-        multiple: These features can't be deleted because some have Wikidata tags.
+        one: This feature can't be deleted because it has a Wikidata tag.
+        other: These features can't be deleted because some have Wikidata tags.
     downgrade:
       title: Downgrade
       description:
@@ -242,8 +238,8 @@ en:
           one: "Downgraded a feature."
           other: "Downgraded {n} features."
       has_wikidata_tag:
-        single: This feature can't be downgraded because it has a Wikidata tag.
-        multiple: These features can't be downgraded because some have Wikidata tags.
+        one: This feature can't be downgraded because it has a Wikidata tag.
+        other: These features can't be downgraded because some have Wikidata tags.
     add_member:
       annotation:
         one: Added a member to a relation.
@@ -292,7 +288,6 @@ en:
             line: Disconnect the selected line at these points.
             area: Disconnect the selected area at these points.
           multiple_ways: Disconnect the selected features at these points.
-      key: D
       annotation:
         features: Disconnected features.
         from_each_other: Disconnected features from each other.
@@ -306,7 +301,6 @@ en:
     merge:
       title: Merge
       description: Merge these features.
-      key: C
       annotation:
         one: "Merged a feature."
         other: "Merged {n} features."
@@ -322,9 +316,8 @@ en:
     move:
       title: Move
       description:
-        single: Move this feature to a different location.
-        multiple: Move these features to a different location.
-      key: M
+        one: Move this feature to a different location.
+        other: Move these features to a different location.
       annotation:
         point: Moved a point.
         vertex: Moved a node in a way.
@@ -335,31 +328,28 @@ en:
           one: "Moved a feature."
           other: "Moved {n} features."
       incomplete_relation:
-        single: This feature can't be moved because it hasn't been fully downloaded.
-        multiple: These features can't be moved because they haven't been fully downloaded.
+        one: This feature can't be moved because it hasn't been fully downloaded.
+        other: These features can't be moved because they haven't been fully downloaded.
       too_large:
-        single: This feature can't be moved because not enough of it is currently visible.
-        multiple: These features can't be moved because not enough of them are currently visible.
+        one: This feature can't be moved because not enough of it is currently visible.
+        other: These features can't be moved because not enough of them are currently visible.
       connected_to_hidden:
-        single: This feature can't be moved because it is connected to a hidden feature.
-        multiple: These features can't be moved because some are connected to hidden features.
+        one: This feature can't be moved because it is connected to a hidden feature.
+        other: These features can't be moved because some are connected to hidden features.
       not_downloaded:
-        single: This feature can't be moved because parts of it have not yet been downloaded.
-        multiple: These features can't be moved because parts of them have not yet been downloaded.
+        one: This feature can't be moved because parts of it have not yet been downloaded.
+        other: These features can't be moved because parts of them have not yet been downloaded.
     reflect:
       title:
         long: Flip Long
         short: Flip Short
       description:
         long:
-          single: Flip this feature across its long axis.
-          multiple: Flip these features across their long axis.
+          one: Flip this feature across its long axis.
+          other: Flip these features across their long axis.
         short:
-          single: Flip this feature across its short axis.
-          multiple: Flip these features across their short axis.
-      key:
-        long: T
-        short: Y
+          one: Flip this feature across its short axis.
+          other: Flip these features across their short axis.
       annotation:
         long:
           feature:
@@ -370,23 +360,22 @@ en:
             one: Flipped a feature across its short axis.
             other: "Flipped {n} features across their short axis."
       incomplete_relation:
-        single: This feature can't be flipped because it hasn't been fully downloaded.
-        multiple: These features can't be flipped because they haven't been fully downloaded.
+        one: This feature can't be flipped because it hasn't been fully downloaded.
+        other: These features can't be flipped because they haven't been fully downloaded.
       too_large:
-        single: This feature can't be flipped because not enough of it is currently visible.
-        multiple: These features can't be flipped because not enough of them are currently visible.
+        one: This feature can't be flipped because not enough of it is currently visible.
+        other: These features can't be flipped because not enough of them are currently visible.
       connected_to_hidden:
-        single: This feature can't be flipped because it is connected to a hidden feature.
-        multiple: These features can't be flipped because some are connected to hidden features.
+        one: This feature can't be flipped because it is connected to a hidden feature.
+        other: These features can't be flipped because some are connected to hidden features.
       not_downloaded:
-        single: This feature can't be flipped because parts of it have not yet been downloaded.
-        multiple: These features can't be flipped because parts of them have not yet been downloaded.
+        one: This feature can't be flipped because parts of it have not yet been downloaded.
+        other: These features can't be flipped because parts of them have not yet been downloaded.
     rotate:
       title: Rotate
       description:
-        single: Rotate this feature around its center point.
-        multiple: Rotate these features around their center point.
-      key: R
+        one: Rotate this feature around its center point.
+        other: Rotate these features around their center point.
       annotation:
         line: Rotated a line.
         area: Rotated an area.
@@ -395,17 +384,17 @@ en:
           one: Rotated a feature.
           other: "Rotated {n} features."
       incomplete_relation:
-        single: This feature can't be rotated because it hasn't been fully downloaded.
-        multiple: These features can't be rotated because they haven't been fully downloaded.
+        one: This feature can't be rotated because it hasn't been fully downloaded.
+        other: These features can't be rotated because they haven't been fully downloaded.
       too_large:
-        single: This feature can't be rotated because not enough of it is currently visible.
-        multiple: These features can't be rotated because not enough of them are currently visible.
+        one: This feature can't be rotated because not enough of it is currently visible.
+        other: These features can't be rotated because not enough of them are currently visible.
       connected_to_hidden:
-        single: This feature can't be rotated because it is connected to a hidden feature.
-        multiple: These features can't be rotated because some are connected to hidden features.
+        one: This feature can't be rotated because it is connected to a hidden feature.
+        other: These features can't be rotated because some are connected to hidden features.
       not_downloaded:
-        single: This feature can't be rotated because parts of it have not yet been downloaded.
-        multiple: These features can't be rotated because parts of them have not yet been downloaded.
+        one: This feature can't be rotated because parts of it have not yet been downloaded.
+        other: These features can't be rotated because parts of them have not yet been downloaded.
     reverse:
       title: Reverse
       description:
@@ -414,7 +403,6 @@ en:
         line: Make this line go in the opposite direction.
         lines: Make these lines go in the opposite direction.
         features: Flip the directions of these features.
-      key: V
       annotation:
         point:
           one: Reversed a point.
@@ -436,17 +424,17 @@ en:
             one: Scaled up a feature.
             other: "Scaled up {n} features."
       too_small:
-        single: This feature can't be scaled down because it would become too small.
-        multiple: These features can't be scaled down because they would become too small.
+        one: This feature can't be scaled down because it would become too small.
+        other: These features can't be scaled down because they would become too small.
       too_large:
-        single: This feature can't be scaled because not enough of it is currently visible.
-        multiple: These features can't be scaled because not enough of them are currently visible.
+        one: This feature can't be scaled because not enough of it is currently visible.
+        other: These features can't be scaled because not enough of them are currently visible.
       connected_to_hidden:
-        single: This feature can't be scaled because it is connected to a hidden feature.
-        multiple: These features can't be scaled because some are connected to hidden features.
+        one: This feature can't be scaled because it is connected to a hidden feature.
+        other: These features can't be scaled because some are connected to hidden features.
       not_downloaded:
-        single: This feature can't be scaled because parts of it have not yet been downloaded.
-        multiple: These features can't be scaled because parts of them have not yet been downloaded.
+        one: This feature can't be scaled because parts of it have not yet been downloaded.
+        other: These features can't be scaled because parts of them have not yet been downloaded.
     split:
       title: Split
       description:
@@ -468,7 +456,6 @@ en:
           multiple:
             single_node: Divide these features at this point.
             multiple_node: Divide these features at these points.
-      key: X
       annotation:
         line:
           one: "Split a line."
@@ -487,34 +474,33 @@ en:
         delete: Deleted a turn restriction
     extract:
       title: Extract
-      key: E
       description:
         vertex:
-          single: Extract this point from its parent lines/areas.
-          multiple: Extract these points from their parent features.
+          one: Extract this point from its parent lines/areas.
+          other: Extract these points from their parent features.
         line:
-          single: Extract a point from this line.
-          multiple: Extract points from these lines.
+          one: Extract a point from this line.
+          other: Extract points from these lines.
         area:
-          single: Extract a point from this area.
-          multiple: Extract points from these areas.
+          one: Extract a point from this area.
+          other: Extract points from these areas.
         feature:
-          multiple: Extract points from these features.
+          other: Extract points from these features.
       annotation:
         one: Extracted a point.
         other: "Extracted {n} points."
       too_large:
-        single: A point can't be extracted because not enough of this feature is visible.
-        multiple: Points can't be extracted because not enough of these features are visible.
+        one: A point can't be extracted because not enough of this feature is visible.
+        other: Points can't be extracted because not enough of these features are visible.
       connected_to_hidden:
-        single: This point can't be extracted because it is connected to a hidden feature.
-        multiple: Points can't be extracted from these features because some are connected to hidden features.
+        one: This point can't be extracted because it is connected to a hidden feature.
+        other: Points can't be extracted from these features because some are connected to hidden features.
     cycle_highway_tag:
       title: Cycle Highway Tag
-      key: C
       description: Shortcut to cycle selected highway or crosswalk through several different tags.
       highway_annotation: Changed highway tag of selected way.
       crosswalk_annotation: Changed crosswalk tag of selected way.
+
   restriction:
     controls:
       distance: Distance
@@ -573,14 +559,17 @@ en:
     hidden_warning:
       one: "{count} hidden feature"
       other: "{count} hidden features"
-  osm_api_status:
+  status:
     message:
       error: Unable to reach the OpenStreetMap API. Your edits are safe locally. Check your network connection.
       offline: The OpenStreetMap API is offline. Your edits are safe locally. Please come back later.
       readonly: The OpenStreetMap API is currently read-only. You can continue editing, but must wait to save your changes.
       ratelimit: You have downloaded too much data from OpenStreetMap. Please try again in {seconds} seconds or switch accounts.
       local_storage_full: You have made too many edits to back up. Consider saving your changes now.
+      contextlost: The graphics system has encountered a problem.  Rapid will try to continue with reduced quality.
+    dismiss: Dismiss
     retry: Retry
+
   commit:
     title: Upload to OpenStreetMap
     upload_explanation: "The changes you upload will be visible on all maps that use OpenStreetMap data."
@@ -608,12 +597,10 @@ en:
       one: "Edits by {users} and {count} other"
       other: "Edits by {users} and {count} others"
   info_panels:
-    key: I
     selected:
       one: "{n} selected"
       other: "{n} selected"
     background:
-      key: B
       title: Background
       zoom: Zoom
       vintage: Vintage
@@ -621,18 +608,15 @@ en:
       description: Description
       resolution: Resolution
       accuracy: Accuracy
-      unknown: Unknown
       show_tiles: Show Tiles
       hide_tiles: Hide Tiles
     history:
-      key: H
       title: History
       no_history: "No History (New Feature)"
       version: Version
       last_edit: Last Edit
       edited_by: Edited By
       changeset: Changeset
-      unknown: Unknown
       link_text: History on openstreetmap.org
       note_no_history: "No History (New Note)"
       note_comments: Comments
@@ -640,11 +624,9 @@ en:
       note_created_user: Created By
       note_link_text: Note on openstreetmap.org
     location:
-      key: L
       title: Location
       unknown_location: Unknown Location
     measurement:
-      key: M
       title: Measurement
       geometry: Geometry
       closed_line: closed line
@@ -670,15 +652,12 @@ en:
     search: Search worldwide...
     no_results_worldwide: No results found
   geolocate:
-    key: L
     title: Show My Location
     locating: "Locating, please wait..."
     location_unavailable: Your location is unavailable.
   inspector:
-    key: '`'
     tooltip: Toggle the feature inspector.
     zoom_to:
-      key: Z
       title: Zoom To Selection
       no_selection: Nothing to zoom to.
     show_more: Show More
@@ -710,24 +689,21 @@ en:
     multiple_values: Multiple Values
     multiple_types: Multiple Types
     unshared_value_tooltip: not shared by all features
-    hidden_preset:
-      manual: "{features} are hidden. Enable them in the Map Data pane."
-      zoom: "{features} are hidden. Zoom in to enable them."
     back_tooltip: Change feature type
+    type: Type
+    details: Details
     remove: Remove
     search: Search
     unknown: Unknown
     incomplete: <not downloaded>
     feature_list: Search features
-    edit: Edit feature
-    edit_features: Edit features
+    multiselect: Multiple Selection
     check:
       "yes": "Yes"
       "no": "No"
       reverser: "Change Direction"
     radio:
       structure:
-        type: Type
         default: Default
         layer: Layer
     add: Add
@@ -757,10 +733,12 @@ en:
       network_ref_direction: "{network} {ref} {direction}"
       network_ref_from_to: "{network} {ref} from {from} to {to}"
       network_ref_from_to_via: "{network} {ref} from {from} to {to} via {via}"
+    first_seen: First Seen
+    last_seen: Last Seen
+
   background:
     title: Background
     description: Background Settings
-    key: B
     backgrounds: Backgrounds
     none: None
     best_imagery: Best known imagery source for this location
@@ -787,11 +765,9 @@ en:
     3dmap:
       description: Show 3D map
       tooltip: Show an inset 3D map.
-      key: '/'
     minimap:
       description: Show Minimap
       tooltip: Show a zoomed out map to help locate the area currently displayed.
-      key: '/'
     panel:
       description: Show Background Panel
       tooltip: Show advanced background information.
@@ -800,45 +776,46 @@ en:
       tooltip: Show coordinates and regional details.
     fix_misalignment: Imagery Offset
     offset: "Drag anywhere in the gray area below to adjust the imagery offset, or enter the offset values in meters."
-    next_background:
-      key: '.'
-    previous_background:
-      key: ','
+
   map_data:
     title: Map Data
     description: Map Data
-    key: F
     data_layers: Data Layers
     layers:
       osm:
         tooltip: Map data from OpenStreetMap
         title: OpenStreetMap Data
-        key: O
+        feature: OpenStreetMap Feature
       notes:
         tooltip: Note data from OpenStreetMap
         title: OpenStreetMap Notes
-        key: 'N'
       rapid:
         tooltip: Suggested features detected from machine learning and open data that can be used to improve OpenStreetMap
         title: Rapid Features
-        key: R
+        license: Facebook's Map With AI License
       maproulette:
-        tooltip: Tasks from maproulette.org
-        title: MapRoulette Task
+        tooltip: Tasks from maproulette.org.  You can also enter a comma-separated list of challenge IDs to filter.
+        title:
+          one: MapRoulette Task
+          other: MapRoulette Tasks
         loading_task_details: Loading Task Details...
+        error_loading_task_details: Error while loading the task details. Try waiting and selecting it again.
         detail_title: Details
         id_title: Challenge Id / Task Id
+        id_placeholder: Challenge IDs
         instruction_title: Instructions
-        fixedIt: I fixed it!
+        fixed: I fixed it!
         cantComplete: Can't Complete
         alreadyFixed: Already Fixed
         notAnIssue: Not an Issue
         login: You must log in to change MapRoulette challenge.
-        loginMaproulette: You must log in to Maproulette to edit this task.
+        loginMaproulette: You must log in to MapRoulette to edit this task.
         inputPlaceholder: Change comment (optional)
         comment: Please confirm
         cancel: Cancel
         submit: Submit
+        nearbyTask:
+          title: Jump to nearby task
       keepRight:
         tooltip: Data issues detected by keepright.at
         title: KeepRight Issues
@@ -860,96 +837,99 @@ en:
       title: Show Measurement Panel
       tooltip: Show geometry values for the selection.
     style_options: Style Options
-    highlight_edits:
-      key: G
-    map_features: Map Features
     autohidden: "These features have been automatically hidden because too many would be shown on the screen.  You can zoom in to edit them."
     osmhidden: "These features have been automatically hidden because the OpenStreetMap layer is hidden."
+
   visual_diff:
     highlight_edits:
       description: Highlight Changes
       tooltip: Outline edited features
+
   photo_overlays:
     title: Photo Overlays
-    traffic_signs:
-      title: Traffic Signs
     photo_type:
       flat:
-        title: "Flat Photos"
-        tooltip: "Traditional photos"
+        title: Flat Photos
+        tooltip: Traditional photos
       panoramic:
-        title: "Panoramic Photos"
-        tooltip: "360° photos"
+        title: Panoramic Photos
+        tooltip: 360° photos
     date_filter:
       fromDate:
-        title: "From"
-        tooltip: "Show photos taken after this date"
+        title: From
+        tooltip: Show photos taken after this date
       toDate:
-        title: "To"
-        tooltip: "Show photos taken before this date"
+        title: To
+        tooltip: Show photos taken before this date
     username_filter:
-      title: "Username"
-      tooltip: "Show only photos by this user"
-  feature:
+      title: Username
+      tooltip: Show only photos by this user
+
+  filters:
+    title: Filters
+    active: "Some features are filtered:"
+    hidden_preset:
+      manual: "{features} are filtered. Enable them in the Map Data pane."
     points:
       description: Points
-      tooltip: "Points of Interest"
+      tooltip: Points of Interest
     traffic_roads:
       description: Traffic Roads
-      tooltip: "Highways, Streets, etc."
+      tooltip: Highways, Streets, etc.
     service_roads:
       description: Service Roads
-      tooltip: "Service Roads, Parking Aisles, Tracks, etc."
+      tooltip: Service Roads, Parking Aisles, Tracks, etc.
     paths:
       description: Paths
-      tooltip: "Sidewalks, Foot Paths, Cycle Paths, etc."
+      tooltip: Sidewalks, Foot Paths, Cycle Paths, etc.
     buildings:
       description: Buildings
-      tooltip: "Buildings, Shelters, Garages, etc."
+      tooltip: Buildings, Shelters, Garages, etc.
     building_parts:
       description: Building Parts
-      tooltip: "3D Building and Roof Components"
+      tooltip: 3D Building and Roof Components
     indoor:
       description: Indoor Features
-      tooltip: "Rooms, Corridors, Stairwells, etc."
+      tooltip: Rooms, Corridors, Stairwells, etc.
     landuse:
       description: Landuse Features
-      tooltip: "Forests, Farmland, Parks, Residential, Commercial, etc."
+      tooltip: Forests, Farmland, Parks, Residential, Commercial, etc.
     boundaries:
       description: Boundaries
-      tooltip: "Administrative Boundaries"
+      tooltip: Administrative Boundaries
     water:
       description: Water Features
-      tooltip: "Rivers, Lakes, Ponds, Basins, etc."
+      tooltip: Rivers, Lakes, Ponds, Basins, etc.
     rail:
       description: Rail Features
-      tooltip: "Railways"
+      tooltip: Railways
     pistes:
       description: Pistes
-      tooltip: "Ski Slopes, Sled Runs, Ice Skating Trails, etc."
+      tooltip: Ski Slopes, Sled Runs, Ice Skating Trails, etc.
     aerialways:
       description: Aerial Features
-      tooltip: "Chair Lifts, Gondolas, Zip Lines, etc."
+      tooltip: Chair Lifts, Gondolas, Zip Lines, etc.
     power:
       description: Power Features
-      tooltip: "Power Lines, Power Plants, Substations, etc."
+      tooltip: Power Lines, Power Plants, Substations, etc.
     past_future:
       description: Past/Future Features
-      tooltip: "Proposed, Construction, Abandoned, Demolished, etc."
+      tooltip: Proposed, Construction, Abandoned, Demolished, etc.
     others:
       description: Other Features
-      tooltip: "Everything Else"
+      tooltip: Everything Else
+
   area_fill:
     wireframe:
       description: No Fill (Wireframe)
-      tooltip: "Enabling wireframe mode makes it easy to see the background imagery."
-      key: W
+      tooltip: Enabling wireframe mode makes it easy to see the background imagery.
     partial:
       description: Partial Fill
-      tooltip: "Areas are drawn with fill only around their inner edges. (Recommended for beginner mappers)"
+      tooltip: Areas are drawn with fill only around their inner edges. (Recommended for beginner mappers)
     full:
       description: Full Fill
-      tooltip: "Areas are drawn fully filled."
+      tooltip: Areas are drawn fully filled.
+
   settings:
     custom_background:
       tooltip: Edit custom background
@@ -993,10 +973,10 @@ en:
         example_xyz: "https://example.com/{z}/{x}/{y}.mvt?access_token=123"
         example_pmtiles: "https://example.com/buildings.pmtiles"
         placeholder: Enter a url
+
   preferences:
     title: Preferences
     description: Preferences
-    key: P
     privacy:
       title: Privacy
       privacy_link: View the Rapid privacy policy
@@ -1030,11 +1010,13 @@ en:
       deuteranopia: Deuteranopia
       tritanopia: Tritanopia
       placeholder: Select colorblind mode
+
   restore:
     heading: You have unsaved changes
     description: "Do you wish to restore unsaved changes from a previous editing session?"
     restore: Restore my changes
     reset: Discard my changes
+
   save:
     title: Save
     help: "Review your changes and upload them to OpenStreetMap, making them visible to other users."
@@ -1057,10 +1039,12 @@ en:
       download_changes: Or download osmChange file
       done: "All conflicts resolved!"
       help: "Another user changed some of the same map features you changed. Click on each feature below for more details about the conflict, and choose whether to keep your changes or the other user's changes."
+
   download_osc:
     title: Download
-    help: "Download current changes to the map in an osc file."
+    help: Download current changes to the map in an osc file.
     no_changes: No changes to download.
+
   merge_remote_changes:
     conflict:
       deleted: 'This feature has been deleted by {user}.'
@@ -1068,9 +1052,10 @@ en:
       nodelist: 'Nodes were changed by both you and {user}.'
       memberlist: 'Relation members were changed by both you and {user}.'
       tags: 'You changed the <b>{tag}</b> tag to "{local}" and {user} changed it to "{remote}".'
+
   success:
-    just_edited: "You just edited OpenStreetMap!"
-    thank_you: "Thank you for improving the map."
+    just_edited: You just edited OpenStreetMap!
+    thank_you: Thank you for improving the map.
     thank_you_location: "Thank you for improving the map around {where}."
     thank_you_where:
       format: "{place}{separator}{region}"
@@ -1084,27 +1069,28 @@ en:
     more: More
     events: Events
     languages: "Languages: {languages}"
-    missing: "Is something missing from this list?"
-    tell_us: "Tell us!"
+    missing: Is something missing from this list?
+    tell_us: Tell us!
+
   confirm:
-    okay: "OK"
-    cancel: "Cancel"
+    okay: OK
+    cancel: Cancel
   splash:
-    welcome: "Welcome to {rapidicon}!"
-    text: "Rapid is a friendly but powerful editor for OpenStreetMap, a free map of the world. If this is your first time here, click the button below to start the tutorial. Anyone can be a mapper!\n\nThis is Rapid version **{version}**. For more information visit our [changelog](https://github.com/facebook/Rapid/blob/main/CHANGELOG.md#whats-new) and [issue tracker](https://github.com/facebook/Rapid/issues) on GitHub. Happy Mapping! 👍"
-    privacy_update: "*Our privacy policy has recently been updated.*"
-    privacy: "By using this software, you agree to do so in accordance with the [Rapid privacy policy](https://github.com/facebook/Rapid/blob/main/PRIVACY.md)."
-    walkthrough: "Start the Tutorial"
+    welcome: "Welcome to {rapidicon} {version}!"
+    text: "Rapid is a friendly but powerful editor for OpenStreetMap, a free map of the world. If this is your first time here, click the button below to start the tutorial. Anyone can be a mapper!\n\nFor more information visit our [changelog](https://github.com/facebook/Rapid/blob/main/CHANGELOG.md#whats-new) and [issue tracker](https://github.com/facebook/Rapid/issues) on GitHub. Happy Mapping! 👍" # This string may contain markdown
+    privacy_update: "*Our privacy policy has recently been updated.*"  # This string may contain markdown
+    privacy: "By using this software, you agree to do so in accordance with the [Rapid privacy policy](https://github.com/facebook/Rapid/blob/main/PRIVACY.md)."  # This string may contain markdown
+    walkthrough: Start the Tutorial
     start: "Edit now"
   whats_new:
-    welcome: "Welcome to {rapidicon} v2.3!"
-    text: "🌸 **Happy Spring 2024!**  We've added support for GeoScribble field notes, Esri Wayback Imagery, and completing MapRoulette tasks right from within Rapid. And, you can now rotate the map to make editing easier!\n\nFor all the details check out our [changelog](https://github.com/facebook/Rapid/blob/main/CHANGELOG.md#whats-new) and [issue tracker](https://github.com/facebook/Rapid/issues) on GitHub. Happy Mapping! 👍"
+    text_v24: "This release improves Rapid's text localization, and makes it easier to work with street-level data like Mapillary. Now you can inspect detected objects, such as traffic signs, crosswalks, bike racks, and more!\n\nFor all the details check out our [changelog](https://github.com/facebook/Rapid/blob/main/CHANGELOG.md#whats-new) and [issue tracker](https://github.com/facebook/Rapid/issues) on GitHub. Happy Mapping! 👍" # This string may contain markdown
+    text_v25: "This release includes a new validation to make mapping curbs easier, new datasets in the data catalog, and upgrades to the renderer for better performance." # This string may contain markdown
+    project_links: "For all the details check out our [changelog](https://github.com/facebook/Rapid/blob/main/CHANGELOG.md#whats-new) and [issue tracker](https://github.com/facebook/Rapid/issues) on GitHub. Happy Mapping! 👍" # This string may contain markdown
     dontshowagain: "Hide this screen until the next version"
   source_switch:
+    dev: dev
     live: live
     lose_changes: "You have unsaved changes. Switching the map server will discard them. Are you sure you want to switch servers?"
-    dev: dev
-  rapid_multiselect: Multiple Selection
   rapid_splash:
     welcome: Introducing AI-assisted mapping!
     text: "Select the {rapidicon} option to start the Rapid walkthrough. If you're new to OSM and haven't mapped before, select the first {walkthrough} option. Finally, click the last {edit} option if you want to get straight to mapping. You can always access the walkthrough later from the help menu."
@@ -1114,59 +1100,79 @@ en:
   rapid_first_edit:
     nice: You just added your first {rapidicon} AI-Assisted feature, nice.
     text: You'll need an OpenStreetMap account to save your work. Would you like to log in with OSM now or keep exploring?
-    exploring: "I'm just exploring"
-    login_with_osm: "Log in with OSM"
-  rapid_feature_inspector:
+    exploring: I'm just exploring
+    login_with_osm: Log in with OSM
+
+  rapid_inspector:
     prompt: How would you like to proceed with this selected feature?
+    notice:
+      open_data: This dataset is comprised of open data. See our [license]({url}) for more details.  # This string may contain markdown
     tags: Tags
     option_accept:
-      label: Use This Feature
+      label: Add This Feature
       description: Does this look like an accurate feature? Select this to start editing it so that you can connect, tag, and save it to OpenStreetMap. 👍
       annotation: Added a Rapid feature.
       tooltip: Add this feature to the map to begin editing.
       disabled: To help improve OSM data quality, we only allow {n} AI features to be added in each mapping session. Please try to fix issues on your edits so far. You will be able to add more AI features after saving.
       disabled_flash: To help improve OSM data quality, we only allow {n} AI Features to be added in each mapping session.
-      key: A
     option_ignore:
       label: Ignore This Feature
       description: Ignoring this feature helps us improve our machine learning. If you are unsure whether or not this is an accurate feature, feel free to leave it as is, nothing will be saved or lost. 👍
       annotation: Ignored a Rapid feature.
       tooltip: Ignore this feature.
-      key: D
-  rapid_feature_license: Facebook's Map With AI License
-  rapid_feature_toggle:
-    toggle_all: Toggle all {rapidicon} features
-    view_manage_datasets: "Add/Manage Datasets"
+  rapid_menu:
+    license: License
+    toggle_all: Toggle all {rapidicon} data
+    add_manage_datasets: "Add/Manage Datasets"
     center_map: Center map here
     worldwide: Worldwide
+    no_datasets: No datasets available.
+    remove: Remove
+    add_dataset: Add Dataset
+    dataset_added: Dataset added
+    more_info: More Info
+    about_the_catalog: "These datasets have been provided as open data by various organizations and the Esri user community for the purpose of improving OpenStreetMap.<br/>You can learn more by clicking the links below, or visiting [the Rapid Guide](https://github.com/facebookmicrosites/Open-Mapping-At-Facebook/wiki/Esri-ArcGIS-FAQ) or [Esri/ArcGIS dataset page on the OSM Wiki](https://wiki.openstreetmap.org/wiki/Esri/ArcGIS_Datasets)."  # This string may contain markdown
+    clear_filters: Clear Filters
+    filter_datasets: filter datasets    # placeholder text for the filter text
+    any_type: any type                  # placeholder text for the filter type dropdown
+    datasets_found:
+      one: "{n} dataset found"
+      other: "{gt}{n} datasets found"   # {gt} = placeholder for greater than symbol '>', {n} = count
+    category:
+      addresses: addresses
+      buildings: buildings
+      esri: Esri
+      featured: featured
+      footways: footways
+      meta: Meta
+      microsoft: Microsoft
+      overture: Overture
+      places: places
+      preview: preview
+      roads: roads
+      trees: trees
     fbRoads:
       label: Facebook Roads
-      license_markdown: "[license](https://rapideditor.org/doc/license/MapWithAILicense.pdf)"
-    metaFootways:
-      label: Meta Footways
-      license_markdown: "[license](https://rapideditor.org/doc/license/MapWithAILicense.pdf)"
+      description: AI predicted roads detected from Maxar Premium imagery and available in over 80 countries.
     msBuildings:
       label: Microsoft Buildings
-      license_markdown: "[license](https://github.com/microsoft/USBuildingFootprints/blob/master/LICENSE-DATA)"
-    esri:
-      title: ArcGIS Datasets
-      about: "These datasets have been provided as open data by the ArcGIS user community for the purpose of improving OpenStreetMap.<br/>You can learn more by visiting [the Rapid Guide](https://github.com/facebookmicrosites/Open-Mapping-At-Facebook/wiki/Esri-ArcGIS-FAQ) or [Esri/ArcGIS dataset page on the OSM Wiki](https://wiki.openstreetmap.org/wiki/Esri/ArcGIS_Datasets)."
-      filter_datasets: filter datasets
-      any_type: any type
-      clear_filters: Clear Filters
-      datasets_found: "{num} dataset(s) found"
-      featured: featured
-      fetching_datasets: Fetching available datasets...
-      no_datasets: No datasets available.
-      remove: Remove
-      add_to_map: Add Dataset
-      more_info: More Info
-      license_markdown: "[license](https://wiki.openstreetmap.org/wiki/Esri/ArcGIS_Datasets#License)"
-  rapid_poweruser_features:
+      description: Open building footprints from around the world. Detected from Bing Maps imagery between 2014 and 2024 including Maxar, Airbus, and IGN France imagery.
+    overture:
+      places:
+        label: Overture Places
+        description: "Contains over 53 million point representations of real-world entities: schools, businesses, hospitals, religious organizations, landmarks, mountain peaks, and much more."
+    omdFootways:
+      label: Open Data Footways
+      description: Open footways data collected from various local government entities.
+    metaSyntheticFootways:
+      label: Synthetic Footways from Meta
+      description: Synthetic footways data collected from various local government entities.
+
+  rapid_poweruser:
     beta: Beta Feature
     heading:
       label: Rapid Power User Features
-      description: "for Rapid Insiders"
+      description: for Rapid Insiders
     previewDatasets:
       label: Show preview datasets
       description: Preview datasets are still in review and not available for all users
@@ -1182,28 +1188,34 @@ en:
     allowLargeEdits:
       label: Allow large edits
       description: Remove the limitations about editing features that are not currently visible
+
   version:
     whats_new: "What's new in Rapid {version}"
+
   tag_reference:
     description: Description
     on_wiki: "{tag} on wiki.osm.org"
     used_with: "used with {type}"
+
   zoom:
     in: Zoom In
     out: Zoom Out
     disabled:
       in: Cannot zoom in further.
       out: Cannot zoom out further.
+
   bearing:
     reset_bearing: Reset Bearing
     rotate_the_map: "Rotate the map:"
-    n: 'N'
-  cannot_zoom: "Cannot zoom out further in current mode."
+    n: 'N'     # This is the North 'N' that appears on the rotation control
+
   full_screen: Toggle Full Screen
+
   self_intersection:
     error:
       lines: Lines cannot cross over themselves.
       areas: Areas cannot cross over themselves.
+
   QA:
     osmose:
       title: Osmose Issue
@@ -1455,86 +1467,93 @@ en:
           description: '{var1} may have an outdated URL: {var2} contained suspicious text "{var3}".'
         413:
           description: '{var1} may have an outdated URL: {var2} did not contain keywords "{var3}".'
+
+  photos:
+    hires: High resolution
+
   streetside:
-    tooltip: "Streetside photos from Microsoft"
-    title: "Bing Streetside"
-    report: Report a privacy concern with this image
-    view_on_bing: "View on Bing Maps"
-    hires: "High resolution"
-  mapillary_images:
-    tooltip: "Street-level photos from Mapillary"
-  mapillary_map_features:
-    title: "Map Features"
-    tooltip: "Map features from Mapillary"
+    title: Bing Streetside
+    tooltip: Streetside photos from Microsoft
+
+  mapillary:
+    title: Mapillary
+    tooltip: Street-level photos from Mapillary
+    detection: Mapillary Detection
+    show_detections: Show Detections
+    view_on_mapillary: View on Mapillary
+
+  mapillary_signs:
+    title: Traffic Signs
+    tooltip: Detected traffic signs in Mapillary photos
+    traffic_sign: Traffic Sign
+
+  mapillary_detections:
+    title: Detected Objects
+    tooltip: Detected objects in Mapillary photos
     construction:
       barrier:
-        temporary: temporary barrier
+        temporary: Temporary Barrier
       flat:
-        crosswalk_plain: plain crosswalk
-        driveway: driveway
+        crosswalk_plain: Crosswalk - Plain
+        driveway: Driveway
     marking:
       discrete:
         arrow:
-          left: lane marking - arrow (left)
-          right: lane marking - arrow (right)
-          split_left_or_straight: lane marking - arrow (split left or straight)
-          split_right_or_straight: lane marking - arrow (split right or straight)
-          straight: lane marking - arrow (straight)
-        crosswalk_zebra: lane marking - crosswalk
-        give_way_row: lane marking - give way (row)
-        give_way_single: lane marking - give way (single)
-        other_marking: lane marking - other
-        stop_line: lane marking - stop line
+          left: Lane Marking - Arrow (Left)
+          right: Lane Marking - Arrow (Right)
+          split-left-or-straight: Lane Marking - Arrow (Split Left or Straight)
+          split-right-or-straight: Lane Marking - Arrow (Split Right or Straight)
+          straight: Lane Marking - Arrow (Straight)
+        crosswalk-zebra: Lane Marking - Crosswalk
+        give-way-row: Lane Marking - Give Way (Row)
+        give-way-single: Lane Marking - Give Way (Single)
+        other-marking: Lane Marking - Other
+        stop-line: Lane Marking - Stop Line
         symbol:
-          bicycle: lane marking - symbol (bicycle)
-        text: lane marking - text
+          bicycle: Lane Marking - Symbol (Bicycle)
+        text: Lane Marking - Text
     object:
-      banner: banner
-      bench: bench
-      bike_rack: bike rack
-      billboard: billboard
-      catch_basin: catch basin
-      cctv_camera: CCTV camera
-      fire_hydrant: fire hydrant
-      junction_box: junction box
-      mailbox: mailbox
-      manhole: manhole
-      parking_meter: parking meter
-      phone_booth: phone booth
+      banner: Banner
+      bench: Bench
+      bike-rack: Bike Rack
+      billboard: Billboard
+      catch-basin: Catch Basin
+      cctv-camera: CCTV Camera
+      fire-hydrant: Fire Hydrant
+      junction-box: Junction Box
+      mailbox: Mailbox
+      manhole: Manhole
+      parking-meter: Parking Meter
+      phone-booth: Phone Booth
       sign:
-        advertisement: advertisement
-        information: information sign
-        other: other sign
-        store: shop sign
-        traffic_sign:
-          back: traffic sign - back
-          direction_front: traffic sign - front
-          front: traffic sign - front
-      street_light: street light
+        advertisement: Signage - Advertisement
+        information: Signage - Information
+        other: Signage - Other
+        store: Signage - Store
+        traffic-sign:
+          back: Traffic Sign - Back
+          direction-front: Traffic Sign - Front
+          front: Traffic Sign - Front
+      street-light: Street Light
       support:
-        pole: pole
-        traffic_sign_frame: traffic sign frame
-        utility_pole: utility pole
-      traffic_cone: traffic cone
-      traffic_light:
-        cyclists: cyclist traffic light
-        general_horizontal: horizontal traffic light
-        general_single: single traffic light
-        general_upright: vertical traffic light
-        other: traffic light
-        pedestrians: pedestrian traffic light
-      trash_can: trash can
-      water_valve: water valve
-  mapillary:
-    title: Mapillary
-    signs:
-      tooltip: "Traffic signs from Mapillary"
-    view_on_mapillary: "View this image on Mapillary"
-  kartaview_images:
-    tooltip: "Street-level photos from KartaView"
+        pole: Pole
+        traffic-sign-frame: Traffic Sign Frame
+        utility-pole: Utility Pole
+      traffic-cone: Traffic Cone
+      traffic-light:
+        cyclists: Traffic Light - Cyclists
+        general-horizontal: Traffic Light - General (Horizontal)
+        general-single: Traffic Light - General (Single)
+        general-upright: Traffic Light - General (Upright)
+        other: Traffic Light - Other
+        pedestrians: Traffic Light - Pedestrians
+      trash-can: Trash Can
+      water-valve: Water Valve
+
   kartaview:
     title: KartaView
-    view_on_kartaview: "View this image on KartaView"
+    tooltip: "Street-level photos from KartaView"
+
   note:
     note: Note
     title: Edit note
@@ -1555,14 +1574,14 @@ en:
     open_comment: Reopen and Comment
     report: Report
     new: New Note
-    newDescription: "Describe the issue."
+    newDescription: Describe the issue.
     save: Save Note
     login: You must log in to change or comment on this note.
-    upload_explanation: "Your comments will be publicly visible to all OpenStreetMap users."
+    upload_explanation: Your comments will be publicly visible to all OpenStreetMap users.
     upload_explanation_with_user: "Your comments as {user} will be publicly visible to all OpenStreetMap users."
+
   help:
     title: Help
-    key: H
     help:
       title: Help
       welcome: "Welcome to the {rapidicon} editor for [OpenStreetMap](https://www.openstreetmap.org/). With this editor you can update OpenStreetMap right from your web browser."
@@ -1621,7 +1640,7 @@ en:
       title: Points
       intro: "*Points* can be used to represent features such as shops, restaurants, and monuments. They mark a specific location, and describe what's there."
       add_point_h: "Adding Points"
-      add_point: "To add a point, press the {point_icon} **{point}** button on the toolbar above the map, or press the shortcut key `1`."
+      add_point: "To add a point, press the {point_icon} **{point}** button on the toolbar above the map, or press the shortcut key `{add_point_key}`."
       add_point_finish: "Next, place the new point on the map. With a mouse, position the cursor where the point should go and {mouse_left_icon} left-click. On a touchscreen, {onefinger_tap_icon} tap the location."
       move_point_h: "Moving Points"
       move_point: "To move a point, {mouse_left_icon} left-click and drag it with a mouse or {onefinger_tap_and_drag_icon} tap-and-drag it on a touchscreen."
@@ -1632,7 +1651,7 @@ en:
       title: Lines
       intro: "*Lines* are used to represent features such as roads, railroads, and rivers. Lines should be drawn down the center of the feature that they represent."
       add_line_h: "Adding Lines"
-      add_line: "To add a line, press the {line_icon} **{line}** button on the toolbar above the map, or press the shortcut key `2`."
+      add_line: "To add a line, press the {line_icon} **{line}** button on the toolbar above the map, or press the shortcut key `{add_line_key}`."
       add_line_draw: "Next, mark the line's starting location. With a mouse, position the cursor where the line should begin and {mouse_left_icon} left-click to place a node. On a touchscreen, {onefinger_tap_icon} tap the location."
       add_line_continue: "Continue placing nodes by {mouse_left_icon} clicking or {onefinger_tap_icon} tapping along the shape of the line. While drawing, you can zoom in or drag the map in order to add more detail."
       add_line_finish: "To finish a line, click or tap on the last node again or press `{return}`."
@@ -1658,7 +1677,7 @@ en:
       point_or_area_h: "Points or Areas?"
       point_or_area: "Many features can be represented as points or areas. You should map buildings and property outlines as areas whenever possible. Place points inside a building area to represent businesses, amenities, and other features located inside the building."
       add_area_h: "Adding Areas"
-      add_area_command: "To add an area, press the {area_icon} **{area}** button on the toolbar above the map, or press the shortcut key `3`."
+      add_area_command: "To add an area, press the {area_icon} **{area}** button on the toolbar above the map, or press the shortcut key `{add_area_key}`."
       add_area_draw: "Next, place the first corner of the area. With a mouse, position the cursor over any corner and {mouse_left_icon} left-click to place a node. On a touchscreen, {onefinger_tap_icon} tap the location."
       add_area_continue: "Continue placing nodes by {mouse_left_icon} clicking or {onefinger_tap_icon} tapping along the edge of the area. While drawing, you can zoom in or drag the map in order to add more detail."
       add_area_finish: "To finish an area, click or tap on the first or last node again or press `{return}`."
@@ -1715,7 +1734,8 @@ en:
       copy_paste: "{copy_icon} **{copy}** and {paste_icon} **{paste}** let you duplicate features."
     notes:
       title: Notes
-      intro: "*Notes* are used to alert other users that a feature requires fixing or attention. Notes mark a specific location on the map. To view existing notes or add new ones, open the {data_icon} **{map_data}** panel and enable the {osm_notes} layer."
+      intro: "*Notes* are used to alert other users that a feature requires fixing or attention. Notes mark a specific location on the map. The notes layer is not enabled by default."
+      show_notes: "To enable the notes layer, open the {data_icon} **{map_data}** panel and click the checkbox for {osm_notes}, or press `{shift}`+`{toggle_notes_key}`."
       add_note_h: "Adding Notes"
       add_note: "To add a new note, press the {note_icon} **{note}** button on the toolbar above the map, or press the shortcut key `{add_note_key}`."
       place_note: "Next, place the new note on the map. With a mouse, position the cursor where the note should go and {mouse_left_icon} left-click. On a touchscreen, {onefinger_tap_icon} tap the location."
@@ -1789,16 +1809,12 @@ en:
           indirect_noedit: "You may not edit indirect restrictions. Instead, edit the nearby direct restriction."
   issues:
     title: Issues
-    key: I
-    list_title: "Issues"
-    errors:
-      list_title: "Errors"
-    warnings:
-      list_title: "Warnings"
-    rules:
-      title: Rules
-    user_resolved_issues: Issues resolved by your edits
-    warnings_and_errors: Warnings and errors
+    errors: Errors
+    warnings: Warnings
+    suggestions: Suggestions
+    rules: Rules
+    open_tooltip: Detected errors, warnings, and suggestions
+    resolved_tooltip: Issues resolved by your edits
     no_issues:
       message:
         everything: Everything looks fine
@@ -1818,12 +1834,12 @@ en:
     options:
       what:
         title: "Check:"
-        edited: "My Edits"
-        all: "Everything"
+        edited: My Edits
+        all: Everything
       where:
         title: "Where:"
-        visible: "In View"
-        all: "Everywhere"
+        visible: In View
+        all: Everywhere
     suggested: "Suggested updates:"
     enable_all: Enable All
     disable_all: Disable All
@@ -1835,7 +1851,7 @@ en:
       annotation: Fixed several validation issues.
     almost_junction:
       title: Almost Junctions
-      tip: "Find features that should possibly be connected to other nearby features"
+      tip: Find features that should possibly be connected to other nearby features
       message: "{feature} is very close but not connected to {feature2}"
       self:
         message: "{feature} ends very close to itself but does not reconnect"
@@ -1843,7 +1859,7 @@ en:
         reference: Intersecting highways should share a junction vertex.
     ambiguous_crossing:
       title: Ambiguous Crossing Tags
-      tip: "Find situations where crossing tagging is inconsistent or outdated"
+      tip: Find situations where crossing tagging is inconsistent or outdated
       not_a_crossing: "(not a crossing)"
       no_changes: "(no changes)"
       message:
@@ -1864,67 +1880,84 @@ en:
     area_as_point:
       message: '{feature} should be an area, not a point'
     close_nodes:
-      title: "Very Close Points"
-      tip: "Find redundant and crowded points"
+      title: Very Close Points
+      tip: Find redundant and crowded points
       message: "Two points in {way} are very close together"
       reference: "Redundant points in a way should be merged or moved apart."
       detached:
         message: "{feature} is too close to {feature2}"
         reference: "Separate points should not share a location."
     duplicate_way_segments:
-      title: "Duplicate Way Segments"
-      tip: "Find way segments that are duplicated (same node endpoints)"
-      message: "Two or more segments share the same pair of nodes"
-      reference: "Redundant way segments should be merged or moved apart."
+      title: Duplicate Way Segments
+      tip: Find way segments that are duplicated (same node endpoints)
+      message: Two or more segments share the same pair of nodes
+      reference: Redundant way segments should be merged or moved apart.
+    curb_nodes:
+      title: Curb Nodes
+      message: "{feature} may be missing curb nodes."
+      footway-highway: "Footways crossing highways should have separately-mapped curb nodes."
+      reference:
+        text: "Crossing ways should have individual curb nodes (where appropriate). Use photo overlays to help determine curb type."
+        link_alt_text: Curb Tagging Guidelines
+        link_text: More info
+        link_url: 'https://wiki.openstreetmap.org/wiki/Key:kerb#Values'
+      fix:
+        add_curb_nodes: "Add {type} curb nodes"
+        annotation: Added curb nodes
+      type:
+        yes: unspecified
+        flush: flush
+        lowered: lowered
+        raised: raised
     crossing_ways:
       title: Crossings Ways
       message: "{feature} crosses {feature2}"
       tip: "Find features that incorrectly cross over one another"
       aeroway-aeroway:
-        reference: "Crossing aeroways should be connected."
+        reference: Crossing aeroways should be connected.
       aeroway-building:
-        reference: "Aeroways crossing buildings should use bridges or different layers."
+        reference: Aeroways crossing buildings should use bridges or different layers.
       aeroway-highway:
-        reference: "Aeroways crossing railways should be connected."
+        reference: Aeroways crossing railways should be connected.
       aeroway-railway:
-        reference: "Aeroways crossing highways should be connected."
+        reference: Aeroways crossing highways should be connected.
       aeroway-waterway:
-        reference: "Aeroways crossing waterways should use tunnels."
+        reference: Aeroways crossing waterways should use tunnels.
       building-building:
-        reference: "Buildings should not intersect except on different layers."
+        reference: Buildings should not intersect except on different layers.
       building-highway:
-        reference: "Highways crossing buildings should use bridges, tunnels, or different layers."
+        reference: Highways crossing buildings should use bridges, tunnels, or different layers.
       building-railway:
-        reference: "Railways crossing buildings should use bridges, tunnels, or different layers."
+        reference: Railways crossing buildings should use bridges, tunnels, or different layers.
       building-waterway:
-        reference: "Waterways crossing buildings should use tunnels or different layers."
+        reference: Waterways crossing buildings should use tunnels or different layers.
       highway-highway:
-        reference: "Crossing highways should use bridges, tunnels, or intersections."
+        reference: Crossing highways should use bridges, tunnels, or intersections.
       highway-railway:
-        reference: "Highways crossing railways should use bridges, tunnels, or level crossings."
+        reference: Highways crossing railways should use bridges, tunnels, or level crossings.
       highway-waterway:
-        reference: "Highways crossing waterways should use bridges, tunnels, or fords."
+        reference: Highways crossing waterways should use bridges, tunnels, or fords.
       railway-railway:
-        reference: "Crossing railways should be connected or use bridges or tunnels."
+        reference: Crossing railways should be connected or use bridges or tunnels.
       railway-waterway:
-        reference: "Railways crossing waterways should use bridges or tunnels."
+        reference: Railways crossing waterways should use bridges or tunnels.
       waterway-waterway:
-        reference: "Crossing waterways should be connected or use tunnels."
+        reference: Crossing waterways should be connected or use tunnels.
       tunnel-tunnel:
-        reference: "Crossing tunnels should use different layers."
+        reference: Crossing tunnels should use different layers.
       tunnel-tunnel_connectable:
-        reference: "Crossing tunnels should be connected or use different layers."
+        reference: Crossing tunnels should be connected or use different layers.
       bridge-bridge:
-        reference: "Crossing bridges should use different layers."
+        reference: Crossing bridges should use different layers.
       bridge-bridge_connectable:
-        reference: "Crossing bridges should be connected or use different layers."
+        reference: Crossing bridges should be connected or use different layers.
       indoor-indoor:
-        reference: "Crossing indoor features should use different levels."
+        reference: Crossing indoor features should use different levels.
       indoor-indoor_connectable:
-        reference: "Crossing indoor features should be connected or use different levels."
+        reference: Crossing indoor features should be connected or use different levels.
     disconnected_way:
       title: Disconnected Ways
-      tip: "Find unroutable roads, paths, and ferry routes"
+      tip: Find unroutable roads, paths, and ferry routes
       routable:
         message:
           one: "{highway} is disconnected from other roads and paths"
@@ -1936,18 +1969,18 @@ en:
     short_road:
       title: Short road
       message: "{highway} is shorter than 20 meters."
-      tip: "You may want to delete or extend the road."
-      reference: "Short roads may need to be extended or deleted."
+      tip: You may want to delete or extend the road.
+      reference: Short roads may need to be extended or deleted.
     generic_name:
       message: '{feature} has the suspicious name "{name}"'
       message_language: '{feature} has the suspicious name "{name}" in {language}'
       reference: "Names should be the actual, on-the-ground names of features."
     help_request:
-      title: 'Help Requests'
-      tip: 'Find features where others requested assistance'
+      title: Help Requests
+      tip: Find features where others requested assistance
     incompatible_source:
       title: Suspicious Sources
-      tip: "Find features with suspicious source tags"
+      tip: Find features with suspicious source tags
       feature:
         message: '{feature} lists "{value}" as a data source'
       reference:
@@ -1961,8 +1994,9 @@ en:
       title: Invalid Formatting
       tip: Find tags with unexpected formats
       email:
-        message: '{feature} has an invalid email address'
-        message_multi: '{feature} has multiple invalid email addresses'
+        message:
+          one: '{feature} has an invalid email address'
+          other: '{feature} has multiple invalid email addresses'
         reference: 'Email addresses must look like "user@example.com".'
     line_as_area:
       message: '{feature} should be a line, not an area'
@@ -1970,18 +2004,18 @@ en:
       message: '{feature} should be a line, not a point'
     mismatched_geometry:
       title: Mismatched Geometry
-      tip: "Find features with conflicting tags and geometry"
+      tip: Find features with conflicting tags and geometry
       reference: Most features are limited to certain geometry types.
     missing_role:
       title: Missing Roles
       message: "{member} has no role within {relation}"
-      tip: "Find relations with missing or incorrect member roles"
+      tip: Find relations with missing or incorrect member roles
       multipolygon:
-        reference: "Multipolygon members must have an inner or outer role."
+        reference: Multipolygon members must have an inner or outer role.
     missing_tag:
       title: Missing Tags
-      tip: "Find features that are missing descriptive tags"
-      reference: "Features must have tags that define what they are."
+      tip: Find features that are missing descriptive tags
+      reference: Features must have tags that define what they are.
       any:
         message: "{feature} has no tags"
       descriptive:
@@ -1990,81 +2024,81 @@ en:
         message: "{feature} is a relation without a type"
     old_multipolygon:
       message: "{multipolygon} has misplaced tags"
-      reference: "Multipolygons should be tagged on their relation, not their outer way."
+      reference: Multipolygons should be tagged on their relation, not their outer way.
     outdated_tags:
       title: Outdated Tags
       message: "{feature} has outdated tags"
-      tip: "Find features with deprecated tags that can be updated"
-      reference: "Some tags change over time and should be updated."
+      tip: Find features with deprecated tags that can be updated
+      reference: Some tags change over time and should be updated.
       incomplete:
         message: "{feature} has incomplete tags"
-        reference: "Some features should have additional tags."
+        reference: Some features should have additional tags.
       noncanonical_brand:
         message: "{feature} looks like a common feature with nonstandard tags"
         message_incomplete: "{feature} looks like a common feature with incomplete tags"
-        reference: "Some features, for example retail chains or post offices, are expected to have certain tags in common."
+        reference: Some features, for example retail chains or post offices, are expected to have certain tags in common.
     point_as_area:
       message: '{feature} should be a point, not an area'
     point_as_line:
       message: '{feature} should be a point, not a line'
     point_as_vertex:
       message: '{feature} should be a standalone point based on its tags'
-      reference: "Some features shouldn't be part of lines or areas."
+      reference: Some features shouldn't be part of lines or areas.
     private_data:
       title: Private Information
-      tip: "Find features that may contain private information"
-      reference: "Sensitive data like personal phone numbers should not be tagged."
+      tip: Find features that may contain private information
+      reference: Sensitive data like personal phone numbers should not be tagged.
       contact:
         message: '{feature} might be tagged with private contact information'
     suspicious_name:
       title: Suspicious Names
-      tip: "Find features with generic or suspicious names"
+      tip: Find features with generic or suspicious names
     tag_suggests_area:
       message: '{feature} should be a closed area based on the tag "{tag}"'
-      reference: "Areas must have connected endpoints."
+      reference: Areas must have connected endpoints.
     unknown_road:
       message: "{feature} has no classification"
-      reference: "Roads without a specific type may not appear in maps or routing."
+      reference: Roads without a specific type may not appear in maps or routing.
     dupe_node_on_road:
       title: Very close nodes on road
-      message: "Very close nodes on road"
-      tip: "Nodes are less than 2 meters away."
-      tip_merge: "Nodes are less than 2 meters away; you may want to merge them."
-      tip_move_away: "Nodes are less than 2 meters away but not mergable; you may want to move them further apart."
+      message: Very close nodes on road
+      tip: Nodes are less than 2 meters away.
+      tip_merge: Nodes are less than 2 meters away; you may want to merge them.
+      tip_move_away: Nodes are less than 2 meters away but not mergable; you may want to move them further apart.
     y_shaped_connection:
       title: Possible extra node near connection
-      message: "Possible extra node near connection"
-      tip: "You may want to delete or move nodes around to simplify the connection."
-      reference: "Nodes around the connection may need to be moved or deleted."
+      message: Possible extra node near connection
+      tip: You may want to delete or move nodes around to simplify the connection.
+      reference: Nodes around the connection may need to be moved or deleted.
     impossible_oneway:
       title: Impossible One-Ways
-      tip: "Find route issues with one-way features"
+      tip: Find route issues with one-way features
       waterway:
         connected:
           start:
             message: "{feature} flows away from a connected waterway"
           end:
             message: "{feature} flows against a connected waterway"
-          reference: "Waterway segments should all flow in the same direction."
+          reference: Waterway segments should all flow in the same direction.
       highway:
         start:
           message: "{feature} is unreachable"
-          reference: "One-way roads must be accessible via other roads."
+          reference: One-way roads must be accessible via other roads.
         end:
           message: "{feature} has no outlet"
-          reference: "One-way roads must lead to other roads."
+          reference: One-way roads must lead to other roads.
     unclosed_multipolygon_part:
       message: "{feature} has an unclosed part"
-      reference: "All inner and outer parts of multipolygons should have connected endpoints."
+      reference: All inner and outer parts of multipolygons should have connected endpoints.
     unsquare_way:
       title: "Unsquare Corners (up to {val}°)"
       message: "{feature} has unsquare corners"
-      tip: "Find features with unsquare corners that can be drawn better"
+      tip: Find features with unsquare corners that can be drawn better
       buildings:
-        reference: "Buildings with unsquare corners can often be drawn more accurately."
+        reference: Buildings with unsquare corners can often be drawn more accurately.
     vertex_as_point:
       message: '{feature} should be part of a line or area based on its tags'
-      reference: "Some features shouldn't be standalone points."
+      reference: Some features shouldn't be standalone points.
     fix:
       add_a_bridge:
         title: Add a bridge
@@ -2182,133 +2216,135 @@ en:
         title: Delete this node to simplify connection
       move_node_around_conn:
         title: Move this node to adjust connection shape
+
   intro:
     done: done
     ok: OK
     graph:
-      block_number: "<value for addr:block_number>"
-      city: Three Rivers
-      county: "<value for addr:county>"
-      district: "<value for addr:district>"
-      hamlet: "<value for addr:hamlet>"
-      neighbourhood: "<value for addr:neighbourhood>"
-      postcode: "49093"
-      province: "<value for addr:province>"
-      quarter: "<value for addr:quarter>"
-      state: MI
-      subdistrict: "<value for addr:subdistrict>"
-      suburb: "<value for addr:suburb>"
-      countrycode: us
+      block_number: "<value for addr:block_number>"   # Translate with a realistic 'addr:block_number' value, or a value in angle brackets like '<addr:block_number>' if your locale does not use 'addr:block_number' in addresses.
+      city: Three Rivers                              # Translate with a realistic 'addr:city' value, or a value in angle brackets like '<addr:city>' if your locale does not use 'addr:city' in addresses.
+      county: "<value for addr:county>"               # Translate with a realistic 'addr:county' value, or a value in angle brackets like '<addr:county>' if your locale does not use 'addr:county' in addresses.
+      district: "<value for addr:district>"           # Translate with a realistic 'addr:district' value, or a value in angle brackets like '<addr:district>' if your locale does not use 'addr:district' in addresses.
+      hamlet: "<value for addr:hamlet>"               # Translate with a realistic 'addr:hamlet' value, or a value in angle brackets like '<addr:hamlet>' if your locale does not use 'addr:hamlet' in addresses.
+      neighbourhood: "<value for addr:neighbourhood>" # Translate with a realistic 'addr:neighbourhood' value, or a value in angle brackets like '<addr:neighbourhood>' if your locale does not use 'addr:neighbourhood' in addresses.
+      postcode: "49093"                               # Translate with a realistic 'addr:postcode' value, or a value in angle brackets like '<addr:postcode>' if your locale does not use 'addr:postcode' in addresses.
+      province: "<value for addr:province>"           # Translate with a realistic 'addr:province' value, or a value in angle brackets like '<addr:province>' if your locale does not use 'addr:province' in addresses.
+      quarter: "<value for addr:quarter>"             # Translate with a realistic 'addr:quarter' value, or a value in angle brackets like '<addr:quarter>' if your locale does not use 'addr:quarter' in addresses.
+      state: MI                                       # Translate with a realistic 'addr:state' value, or a value in angle brackets like '<addr:state>' if your locale does not use 'addr:state' in addresses.
+      subdistrict: "<value for addr:subdistrict>"     # Translate with a realistic 'addr:subdistrict' value, or a value in angle brackets like '<addr:subdistrict>' if your locale does not use 'addr:subdistrict' in addresses.
+      suburb: "<value for addr:suburb>"               # Translate with a realistic 'addr:suburb' value, or a value in angle brackets like '<addr:suburb>' if your locale does not use 'addr:suburb' in addresses.
+      countrycode: us                                 # This is the 2-letter country code that determines what address format to use in the walkthrough.
       name:
-        1st-avenue: 1st Avenue
-        2nd-avenue: 2nd Avenue
-        4th-avenue: 4th Avenue
-        5th-avenue: 5th Avenue
-        6th-avenue: 6th Avenue
-        6th-street: 6th Street
-        7th-avenue: 7th Avenue
-        8th-avenue: 8th Avenue
-        9th-avenue: 9th Avenue
-        10th-avenue: 10th Avenue
-        11th-avenue: 11th Avenue
-        12th-avenue: 12th Avenue
-        access-point-employment: Access Point Employment
-        adams-street: Adams Street
-        andrews-elementary-school: Andrews Elementary School
-        andrews-street: Andrews Street
-        armitage-street: Armitage Street
-        barrows-school: Barrows School
-        battle-street: Battle Street
-        bennett-street: Bennett Street
-        bowman-park: Bowman Park
-        collins-drive: Collins Drive
-        conrail-railroad: Conrail Railroad
-        conservation-park: Conservation Park
-        constantine-street: Constantine Street
-        cushman-street: Cushman Street
-        dollar-tree: Dollar Tree
-        douglas-avenue: Douglas Avenue
-        east-street: East Street
-        elm-street: Elm Street
-        flower-street: Flower Street
-        foster-street: Foster Street
-        french-street: French Street
-        garden-street: Garden Street
-        gem-pawnbroker: Gem Pawnbroker
-        golden-finch-framing: Golden Finch Framing
-        grant-avenue: Grant Avenue
-        hoffman-pond: Hoffman Pond
-        hoffman-street: Hoffman Street
-        hook-avenue: Hook Avenue
-        jefferson-street: Jefferson Street
-        kelsey-street: Kelsey Street
-        lafayette-park: LaFayette Park
-        las-coffee-cafe: L.A.'s Coffee Cafe
-        lincoln-avenue: Lincoln Avenue
-        lowrys-books: Lowry's Books
-        lynns-garage: Lynn's Garage
-        main-street-barbell: Main Street Barbell
-        main-street-cafe: Main Street Cafe
-        main-street-fitness: Main Street Fitness
-        main-street: Main Street
-        maple-street: Maple Street
-        marina-park: Marina Park
-        market-street: Market Street
-        memory-isle-park: Memory Isle Park
-        memory-isle: Memory Isle
-        michigan-avenue: Michigan Avenue
-        middle-street: Middle Street
-        millard-street: Millard Street
-        moore-street: Moore Street
-        morris-avenue: Morris Avenue
-        mural-mall: Mural Mall
-        paisanos-bar-and-grill: Paisano's Bar and Grill
-        paisley-emporium: Paisley Emporium
-        paparazzi-tattoo: Paparazzi Tattoo
-        pealer-street: Pealer Street
-        pine-street: Pine Street
-        pizza-hut: Pizza Hut
-        portage-avenue: Portage Avenue
-        portage-river: Portage River
-        preferred-insurance-services: Preferred Insurance Services
-        railroad-drive: Railroad Drive
-        river-city-appliance: River City Appliance
-        river-drive: River Drive
-        river-road: River Road
-        river-street: River Street
-        riverside-cemetery: Riverside Cemetery
-        riverwalk-trail: Riverwalk Trail
-        riviera-theatre: Riviera Theatre
-        rocky-river: Rocky River
-        saint-joseph-river: Saint Joseph River
-        scidmore-park-petting-zoo: Scidmore Park Petting Zoo
-        scidmore-park: Scidmore Park
-        scouter-park: Scouter Park
-        sherwin-williams: Sherwin-Williams
-        south-street: South Street
-        southern-michigan-bank: Southern Michigan Bank
-        spring-street: Spring Street
-        sturgeon-river-road: Sturgeon River Road
-        three-rivers-city-hall: Three Rivers City Hall
-        three-rivers-elementary-school: Three Rivers Elementary School
-        three-rivers-fire-department: Three Rivers Fire Department
-        three-rivers-high-school: Three Rivers High School
-        three-rivers-middle-school: Three Rivers Middle School
-        three-rivers-municipal-airport: Three Rivers Municipal Airport
-        three-rivers-post-office: Three Rivers Post Office
-        three-rivers-public-library: Three Rivers Public Library
-        three-rivers: Three Rivers
-        tulip-lane: Tulip Lane
-        unique-jewelry: Unique Jewelry
-        walnut-street: Walnut Street
-        washington-street: Washington Street
-        water-street: Water Street
-        west-street: West Street
-        wheeler-street: Wheeler Street
-        william-towing: William Towing
-        willow-drive: Willow Drive
-        wood-street: Wood Street
-        world-fare: World Fare
+        1st-avenue: 1st Avenue                                 # Translate with a realistic residential street name that might appear in your locale.
+        2nd-avenue: 2nd Avenue                                 # Translate with a realistic residential street name that might appear in your locale.
+        4th-avenue: 4th Avenue                                 # Translate with a realistic residential street name that might appear in your locale.
+        5th-avenue: 5th Avenue                                 # Translate with a realistic residential street name that might appear in your locale.
+        6th-avenue: 6th Avenue                                 # Translate with a realistic residential street name that might appear in your locale.
+        6th-street: 6th Street                                 # Translate with a realistic residential street name that might appear in your locale.
+        7th-avenue: 7th Avenue                                 # Translate with a realistic residential street name that might appear in your locale.
+        8th-avenue: 8th Avenue                                 # Translate with a realistic residential street name that might appear in your locale.
+        9th-avenue: 9th Avenue                                 # Translate with a realistic residential street name that might appear in your locale.
+        10th-avenue: 10th Avenue                               # Translate with a realistic residential street name that might appear in your locale.
+        11th-avenue: 11th Avenue                               # Translate with a realistic residential street name that might appear in your locale.
+        12th-avenue: 12th Avenue                               # Translate with a realistic residential street name that might appear in your locale.
+        access-point-employment: Access Point Employment       # Translate with a realistic employment agency name that might appear in your locale.
+        adams-street: Adams Street                             # Translate with a realistic residential street name that might appear in your locale.
+        andrews-elementary-school: Andrews Elementary School   # Translate with a realistic school name that might appear in your locale.
+        andrews-street: Andrews Street                         # Translate with a realistic residential street name that might appear in your locale.
+        armitage-street: Armitage Street                       # Translate with a realistic residential street name that might appear in your locale.
+        barrows-school: Barrows School                         # Translate with a realistic school name that might appear in your locale.
+        battle-street: Battle Street                           # Translate with a realistic residential street name that might appear in your locale.
+        bennett-street: Bennett Street                         # Translate with a realistic residential street name that might appear in your locale.
+        bowman-park: Bowman Park                               # Translate with a realistic park name that might appear in your locale.
+        collins-drive: Collins Drive                           # Translate with a realistic residential street name that might appear in your locale.
+        conrail-railroad: Conrail Railroad                     # Translate with a realistic railroad name that might appear in your locale.
+        conservation-park: Conservation Park                   # Translate with a realistic park name that might appear in your locale.
+        constantine-street: Constantine Street                 # Translate with a realistic residential street name that might appear in your locale.
+        cushman-street: Cushman Street                         # Translate with a realistic residential street name that might appear in your locale.
+        dollar-tree: Dollar Tree                               # Translate with a realistic discount store name that might appear in your locale.
+        douglas-avenue: Douglas Avenue                         # Translate with a realistic residential street name that might appear in your locale.
+        east-street: East Street                               # Translate with a realistic residential street name that might appear in your locale.
+        elm-street: Elm Street                                 # Translate with a realistic residential street name that might appear in your locale.
+        flower-street: Flower Street                           # Translate with a realistic residential street name that might appear in your locale.
+        foster-street: Foster Street                           # Translate with a realistic residential street name that might appear in your locale.
+        french-street: French Street                           # Translate with a realistic residential street name that might appear in your locale.
+        garden-street: Garden Street                           # Translate with a realistic residential street name that might appear in your locale.
+        gem-pawnbroker: Gem Pawnbroker                         # Translate with a realistic pawn shop name that might appear in your locale.
+        golden-finch-framing: Golden Finch Framing             # Translate with a realistic framing shop name that might appear in your locale.
+        grant-avenue: Grant Avenue                             # Translate with a realistic residential street name that might appear in your locale.
+        hoffman-pond: Hoffman Pond                             # Translate with a realistic pond name that might appear in your locale.
+        hoffman-street: Hoffman Street                         # Translate with a realistic secondary street name that might appear in your locale.
+        hook-avenue: Hook Avenue                               # Translate with a realistic residential street name that might appear in your locale.
+        jefferson-street: Jefferson Street                     # Translate with a realistic secondary street name that might appear in your locale.
+        kelsey-street: Kelsey Street                           # Translate with a realistic residential street name that might appear in your locale.
+        lafayette-park: LaFayette Park                         # Translate with a realistic park name that might appear in your locale.
+        las-coffee-cafe: L.A.'s Coffee Cafe                    # Translate with a realistic cafe name that might appear in your locale.
+        lincoln-avenue: Lincoln Avenue                         # Translate with a realistic residential street name that might appear in your locale.
+        lowrys-books: Lowry's Books                            # Translate with a realistic bookstore name that might appear in your locale.
+        lynns-garage: Lynn's Garage                            # Translate with a realistic auto repair name that might appear in your locale.
+        main-street-barbell: Main Street Barbell               # Translate with a realistic gym name that might appear in your locale.
+        main-street-cafe: Main Street Cafe                     # Translate with a realistic cafe name that might appear in your locale.
+        main-street-fitness: Main Street Fitness               # Translate with a realistic gym name that might appear in your locale.
+        main-street: Main Street                               # Translate with a realistic primary street name that might appear in your locale.
+        maple-street: Maple Street                             # Translate with a realistic residential street name that might appear in your locale.
+        marina-park: Marina Park                               # Translate with a realistic park name that might appear in your locale.
+        market-street: Market Street                           # Translate with a realistic residential street name that might appear in your locale.
+        memory-isle-park: Memory Isle Park                     # Translate with a realistic park name that might appear in your locale.
+        memory-isle: Memory Isle                               # Translate with a realistic island name that might appear in your locale.
+        michigan-avenue: Michigan Avenue                       # Translate with a realistic primary street name that might appear in your locale.
+        middle-street: Middle Street                           # Translate with a realistic residential street name that might appear in your locale.
+        millard-street: Millard Street                         # Translate with a realistic residential street name that might appear in your locale.
+        moore-street: Moore Street                             # Translate with a realistic residential street name that might appear in your locale.
+        morris-avenue: Morris Avenue                           # Translate with a realistic residential street name that might appear in your locale.
+        mural-mall: Mural Mall                                 # Translate with a realistic residential street name that might appear in your locale.
+        paisanos-bar-and-grill: Paisano's Bar and Grill        # Translate with a realistic pizza restaurant name that might appear in your locale.
+        paisley-emporium: Paisley Emporium                     # Translate with a realistic thrift shop name that might appear in your locale.
+        paparazzi-tattoo: Paparazzi Tattoo                     # Translate with a realistic tattoo parlor name that might appear in your locale.
+        pealer-street: Pealer Street                           # Translate with a realistic residential street name that might appear in your locale.
+        pine-street: Pine Street                               # Translate with a realistic residential street name that might appear in your locale.
+        pizza-hut: Pizza Hut                                   # Translate with a realistic pizza restaurant name that might appear in your locale.
+        portage-avenue: Portage Avenue                         # Translate with a realistic residential street name that might appear in your locale.
+        portage-river: Portage River                           # Translate with a realistic river name that might appear in your locale.
+        preferred-insurance-services: Preferred Insurance Services  # Translate with a realistic insurance office name that might appear in your locale.
+        railroad-drive: Railroad Drive                         # Translate with a realistic residential street name that might appear in your locale.
+        river-city-appliance: River City Appliance             # Translate with a realistic appliance store name that might appear in your locale.
+        river-drive: River Drive                               # Translate with a realistic residential street name that might appear in your locale.
+        river-road: River Road                                 # Translate with a realistic residential street name that might appear in your locale.
+        river-street: River Street                             # Translate with a realistic residential street name that might appear in your locale.
+        riverside-cemetery: Riverside Cemetery                 # Translate with a realistic cemetery name that might appear in your locale.
+        riverwalk-trail: Riverwalk Trail                       # Translate with a realistic trail name that might appear in your locale.
+        riviera-theatre: Riviera Theatre                       # Translate with a realistic theatre name that might appear in your locale.
+        rocky-river: Rocky River                               # Translate with a realistic river name that might appear in your locale.
+        saint-joseph-river: Saint Joseph River                 # Translate with a realistic river name that might appear in your locale.
+        scidmore-park-petting-zoo: Scidmore Park Petting Zoo   # Translate with a realistic zoo name that might appear in your locale.
+        scidmore-park: Scidmore Park                           # Translate with a realistic park name that might appear in your locale.
+        scouter-park: Scouter Park                             # Translate with a realistic park name that might appear in your locale.
+        sherwin-williams: Sherwin-Williams                     # Translate with a realistic paint store name that might appear in your locale.
+        south-street: South Street                             # Translate with a realistic residential street name that might appear in your locale.
+        southern-michigan-bank: Southern Michigan Bank         # Translate with a realistic bank name that might appear in your locale.
+        spring-street: Spring Street                           # Translate with a realistic residential street name that might appear in your locale.
+        sturgeon-river-road: Sturgeon River Road               # Translate with a realistic residential street name that might appear in your locale.
+        three-rivers-city-hall: Three Rivers City Hall         # Translate with a realistic city hall name that might appear in your locale.
+        three-rivers-elementary-school: Three Rivers Elementary School  # Translate with a realistic school name that might appear in your locale.
+        three-rivers-fire-department: Three Rivers Fire Department      # Translate with a realistic fire department name that might appear in your locale.
+        three-rivers-high-school: Three Rivers High School              # Translate with a realistic school name that might appear in your locale.
+        three-rivers-middle-school: Three Rivers Middle School          # Translate with a realistic school name that might appear in your locale.
+        three-rivers-municipal-airport: Three Rivers Municipal Airport  # Translate with a realistic airport name that might appear in your locale.
+        three-rivers-post-office: Three Rivers Post Office              # Translate with a realistic post office name that might appear in your locale.
+        three-rivers-public-library: Three Rivers Public Library        # Translate with a realistic library name that might appear in your locale.
+        three-rivers: Three Rivers                                      # Translate with a realistic town name that might appear in your locale.
+        tulip-lane: Tulip Lane                                 # Translate with a realistic residential street name that might appear in your locale.
+        unique-jewelry: Unique Jewelry                         # Translate with a realistic jewelry store name that might appear in your locale.
+        walnut-street: Walnut Street                           # Translate with a realistic residential street name that might appear in your locale.
+        washington-street: Washington Street                   # Translate with a realistic residential street name that might appear in your locale.
+        water-street: Water Street                             # Translate with a realistic residential street name that might appear in your locale.
+        west-street: West Street                               # Translate with a realistic residential street name that might appear in your locale.
+        wheeler-street: Wheeler Street                         # Translate with a realistic residential street name that might appear in your locale.
+        william-towing: William Towing                         # Translate with a realistic auto repair name that might appear in your locale.
+        willow-drive: Willow Drive                             # Translate with a realistic residential street name that might appear in your locale.
+        wood-street: Wood Street                               # Translate with a realistic residential street name that might appear in your locale.
+        world-fare: World Fare                                 # Translate with a realistic gift shop name that might appear in your locale.
+
     welcome:
       title: "Welcome"
       welcome: "Welcome! This walkthrough will teach you the basics of editing on OpenStreetMap."
@@ -2475,7 +2511,7 @@ en:
       ai_roads: "Rapid features are presented in a magenta-colored overlay. Press 'OK' to enable the Rapid features layer. (These feature layers can also be toggled with the {rapid} button up above)."
       add_road_h: "Adding Rapid features"
       select_road: "A single Rapid suggested road has shown up on the map. **Select the road with a left-click.**"
-      add_road: "Click the 'Use this Feature' button to add the road to the working map."
+      add_road: "Click the 'Add this Feature' button to add the road to the working map."
       add_road_not_saved_yet: "The road has been added as a change to the map. Like any other map change, it will not show up for others until you save it."
       open_issues: "Now let's open up the issues panel."
       new_lints: "The addition of the road has caused a new issue to appear in the issues panel. Rapid has introduced several new validation checks to detect issues that can arise from merging these suggested features into OpenStreetMap."
@@ -2490,11 +2526,10 @@ en:
       shortcuts: "You can view a list of commands along with their keyboard shortcuts by pressing the `{shortcuts_key}` key."
       save: "Don't forget to regularly save your changes!"
       start: "Start mapping!"
+
   shortcuts:
-    title: "Keyboard Shortcuts"
-    tooltip: "Show the keyboard shortcuts screen."
-    toggle:
-      key: '?'
+    title: Keyboard Shortcuts
+    tooltip: Show the keyboard shortcuts screen.
     key:
       alt: Alt
       backspace: Backspace
@@ -2517,112 +2552,239 @@ en:
     gesture:
       drag: drag
     or: "-or-"
-    browsing:
-      title: "Browsing"
-      navigation:
-        title: "Navigation"
-        pan: "Pan map"
-        pan_more: "Pan map by a lot"
-        zoom: "Zoom in / out"
-        zoom_more: "Zoom in / out by a lot"
-        rotate: "Rotate map"
-        rotate_incremental: "Rotate Map Incrementally"
-      help:
-        title: "Help"
-        help: "Show help/documentation"
-        keyboard: "Show keyboard shortcuts"
-      display_options:
-        title: "Display options"
-        background: "Toggle background imagery pane"
-        background_switch: "Switch back to last used background"
-        background_previous: "Switch to previous background in list"
-        background_next: "Switch to next background in list"
-        map_data: "Toggle map data pane"
-        issues: "Toggle validation issues pane"
-        preferences: "Toggle user preferences pane"
-        fullscreen: "Toggle full screen mode"
-        inspector: "Toggle feature inspector"
-        wireframe: "Toggle wireframe mode"
-        osm_data: "Toggle OpenStreetMap data"
-        osm_notes: "Toggle OpenStreetMap notes"
-        rapid_features_data: "Toggle Rapid features"
-        highlight_edits: "Highlight unsaved edits"
-      selecting:
-        title: "Selecting features"
-        select_one: "Select a single feature"
-        select_multi: "Select multiple features"
-        lasso: "Draw a selection lasso around features"
-        search: "Find features matching search text"
-      with_selected:
-        title: "With features selected"
-        edit_menu: "Toggle edit menu"
-        zoom_to: "Zoom in/out on selected features"
-      photo_selected:
-        title: "With photo selected"
-        sequence: "Step to next / previous photo in sequence"
-      vertex_selected:
-        title: "With node selected"
-        previous: "Step to previous node"
-        next: "Step to next node"
-        first: "Jump to first node"
-        last: "Jump to last node"
-        change_parent: "Switch parent way"
-        parent: "Select parent way"
-      way_selected:
-        title: "With way selected"
-        child: "Select child nodes"
-    editing:
-      title: "Editing"
-      drawing:
-        title: "Drawing"
-        add_point: "'Add point' mode"
-        add_line: "'Add line' mode"
-        add_area: "'Add area' mode"
-        add_note: "'Add note' mode"
-        place_point: "Place a point or note"
-        disable_snap: "Hold to disable point snapping"
-        stop_line: "Finish drawing a line or area"
-      commands:
-        title: "Commands"
-        copy: "Copy selected features"
-        paste: "Paste copied features"
-        undo: "Undo last action"
-        redo: "Redo last action"
-        save: "Save changes"
-      rapid:
-        title: "With Rapid feature selected"
-        accept_feature: "Accept the feature"
-        ignore_feature: "Ignore the feature"
-      operations:
-        title: "Editing Operations"
-        continue_line: "Continue a line at the selected endpoint"
-        merge: "Combine (merge) selected features"
-        disconnect: "Disconnect selected features"
-        extract: "Extract a point from a feature"
-        split: "Split features at the selected points"
-        reverse: "Reverse selected features"
-        move: "Move selected features"
-        rotate: "Rotate selected features"
-        orthogonalize: "Square corners of a line or area"
-        straighten: "Straighten a line or points"
-        circularize: "Circularize a closed line or area"
-        reflect_long: "Flip features across the longer axis"
-        reflect_short: "Flip features across the shorter axis"
-        delete: "Delete selected features"
-        cycle_highway_tag: "Cycle through common tags"
-    tools:
-      title: "Tools"
-      viewers:
-        title: "Viewers"
-        minimap: "Toggle minimap"
-        3dmap: "Toggle 3D map"
-      info:
-        title: "Information"
-        all: "Toggle all information panels"
-        background: "Toggle background panel"
-        history: "Toggle history panel"
-        location: "Toggle location panel"
-        measurement: "Toggle measurement panel"
+    browsing: Browsing
+    editing: Editing
+    tools: Tools/Display
+    navigation: Navigation
+    selecting_features: Selecting features
+    with_features_selected: With features selected
+    with_node_selected: With node selected
+    with_way_selected: With way selected
+    with_rapid_selected: With Rapid feature selected
+    with_photo_selected: With photo selected
+    drawing: Drawing
+    commands: Commands
+    operations: Editing Operations
+    help: Help
+    display_options: Display options
+    viewers: Viewers
+    layers: Layers
+    info: Information
+
+    command:
+      pan:
+        label: Pan map
+      pan_more:
+        label: Pan map by a lot
+      zoom:
+        label: Zoom in / out
+      zoom_more:
+        label: Zoom in / out by a lot
+      rotate_map:
+        label: Rotate map
+      rotate_incremental:
+        label: Rotate map Incrementally
+
+      select_one:
+        label: Select a single feature
+      select_multi:
+        label: Select multiple features
+      lasso:
+        label: Draw a selection lasso around features
+
+      edit_menu:
+        label: Toggle edit menu
+      zoom_to:
+        label: Zoom in / out on selected features
+        key: Z   # <this key> to zoom in / out on selected features
+
+      previous_node:
+        label: Step to previous node
+      next_node:
+        label: Step to next node
+      first_node:
+        label: Jump to first node
+      last_node:
+        label: Jump to last node
+      change_parent:
+        label: Switch parent way
+      select_parent:
+        label: Select parent way
+
+      select_children:
+        label: Select child nodes
+
+      accept_feature:
+        label: Accept the feature
+        key: A   # <this key> to Accept a suggested feature
+      ignore_feature:
+        label: Ignore the feature
+        key: D   # <this key> to Ignore a suggested feature
+
+      follow_sequence:
+        label: Step to next / previous photo in sequence
+
+      add_point:
+        label: "'Add point' mode"
+        key: '1'   # <this key> to Add a Point
+      add_line:
+        label: "'Add line' mode"
+        key: '2'   # <this key> to Add a Line
+      add_area:
+        label: "'Add area' mode"
+        key: '3'   # <this key> to Add an Area
+      add_note:
+        label: "'Add note' mode"
+        key: 'N'   # <this key> to Add a Note
+      place_point:
+        label: Place a point or note
+      disable_snap:
+        label: Hold to disable point snapping
+      stop_line:
+        label: Finish drawing a line or area
+
+      copy:
+        label: Copy selected features
+      paste:
+        label: Paste copied features
+      undo:
+        label: Undo last action
+      redo:
+        label: Redo last action
+      save:
+        label: Save changes
+      find:
+        label: Find features matching search text
+
+      continue_line:
+        label: Continue a line at the selected endpoint
+        key: A     # <this key> to continue a line at the selected endpoint
+      merge:
+        label: Combine (merge) selected features
+        key: C     # <this key> to combine (merge) selected features
+      disconnect:
+        label: Disconnect selected features
+        key: D     # <this key> to disconnect selected features
+      extract:
+        label: Extract a point from a feature
+        key: E     # <this key> to extract a point from an area feature
+      split:
+        label: Split features at the selected points
+        key: X     # <this key> to split features at the selected points
+      reverse:
+        label: Reverse selected features
+        key: V     # <this key> to reverse selected features
+      move:
+        label: Move selected features
+        key: M     # <this key> to move selected features
+      rotate:
+        label: Rotate selected features
+        key: R     # <this key> to rotate selected features
+      orthogonalize:
+        label: Square corners of a line or area
+        key: Q     # <this key> to square corners of a line or area
+      straighten:
+        label: Straighten a line or points
+        key: S     # <this key> to straighten a line or points
+      circularize:
+        label: Circularize a closed line or area
+        key: O     # <this key> to circularize a closed line or area
+      reflect_long:
+        label: Flip features across the longer axis
+        key: T     # <this key> to flip features across their long axis
+      reflect_short:
+        label: Flip features across the shorter axis
+        key: 'Y'   # <this key> to flip features across their short axis
+      delete:
+        label: Delete selected features
+      cycle_highway_tag:
+        label: Cycle through common tags
+        key: C     # <Command> + <this key> to cycle through common tags
+
+      toggle_background:
+        label: Toggle background imagery pane
+        key: B     # <this key> to toggle the Background pane
+      background_switch:
+        label: Switch back to last used background
+        key: B     # <Command> + <this key> to switch back to last used background
+      background_previous:
+        label: Switch to previous background in list
+        key: ','   # <this key> to switch to the next background in the list
+      background_next:
+        label: Switch to next background in list
+        key: '.'   # <this key> to switch to the previous background in the list
+      toggle_map_data:
+        label: Toggle map data pane
+        key: F     # <this key> to toggle the Map Data pane
+      toggle_issues:
+        label: Toggle validation issues pane
+        key: I     # <this key> to toggle the Issues pane
+      toggle_preferences:
+        label: Toggle user preferences pane
+        key: P     # <this key> to toggle the Preferences pane
+      toggle_help:
+        label: Toggle help/documentation pane
+        key: H     # <this key> to toggle the Help pane
+      toggle_fullscreen:
+        label: Toggle full screen mode
+      toggle_inspector:
+        label: Toggle feature inspector
+        key: '`'   # <this key> to toggle the inspector (sidebar)
+      wireframe:
+        label: Toggle wireframe display
+        key: W     # <this key> to toggle wireframe display
+      highlight_edits:
+        label: Highlight unsaved edits
+        key: G     # <this key> to toggle changed edits display
+      keyboard_shortcuts:
+        label: Show keyboard shortcuts
+        key: '?'   # <this key> to toggle the keyboard shortcuts screen
+
+      toggle_minimap:
+        label: Toggle minimap
+        key: '/'   # <this key> to toggle the minimap
+      toggle_3dmap:
+        label: Toggle 3D map
+        key: '/'   # <Command> + <this key> to toggle the 3D map
+
+      toggle_all_layers:
+        label: Toggle all data layers
+        key: D     # <Shift> + <this key> to toggle all data layers
+      toggle_osm_data:
+        label: Toggle OpenStreetMap data
+        key: O     # <Shift> + <this key> to toggle the OpenStreetMap data layer
+      toggle_osm_notes:
+        label: Toggle OpenStreetMap notes
+        key: 'N'   # <Shift> + <this key> to toggle the OpenStreetMap notes layer
+      toggle_rapid_data:
+        label: Toggle Rapid features
+        key: R     # <Shift> + <this key> to toggle the Rapid layer
+      toggle_mapillary:
+        label: Toggle Mapillary
+        key: M     # <Shift> + <this key> to toggle the Mapillary layer
+      toggle_streetside:
+        label: Toggle Bing Streetside
+        key: S     # <Shift> + <this key> to toggle the Bing Streetside layer
+      toggle_kartaview:
+        label: Toggle Kartaview
+        key: K     # <Shift> + <this key> to toggle the Kartaview layer
+
+      toggle_all_cards:
+        label: Toggle all information panels
+        key: I     # <Command> + <this key> to toggle all Info panels
+      toggle_background_card:
+        label: Toggle background panel
+        key: B     # <Command> + <Shift> + <this key> to toggle the Background Info panel
+      toggle_history_card:
+        label: Toggle history panel
+        key: H     # <Command> + <Shift> + <this key> to toggle the History Info panel
+      toggle_location_card:
+        label: Toggle location panel
+        key: L     # <Command> + <Shift> + <this key> to toggle the Location Info panel
+      toggle_measurement_card:
+        label: Toggle measurement panel
+        key: M     # <Command> + <Shift> + <this key> to toggle the Measurement Info panel
+
   units:
     feet: "{quantity} ft"
     miles: "{quantity} mi"
@@ -2646,7 +2808,8 @@ en:
     coordinate_pair: "{latitude}, {longitude}"
     # translate the letters but leave the format the same
     year_month_day: "YYYY-MM-DD"
+
   wikidata:
-    identifier: "Identifier"
-    label: "Label"
-    description: "Description"
+    identifier: Identifier
+    label: Label
+    description: Description

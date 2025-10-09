@@ -29,7 +29,6 @@
       "openstreetmapbrasilia": "OpenStreetMap Бразилиа",
       "openstreetmapbremen": "OpenStreetMap Бремен",
       "openstreetmapbulgaria": "OpenStreetMap Болгария",
-      "openstreetmapburkinafaso": "OpenStreetMap Буркина-Фасо",
       "openstreetmapburundi": "OpenStreetMap Бурунди",
       "openstreetmapbzh": "OpenStreetMap БЖ",
       "openstreetmapcambodia": "OpenStreetMap Камбоджа",
@@ -42,14 +41,15 @@
       "openstreetmapchile": "OpenStreetMap Чили",
       "openstreetmapchina": "OpenStreetMap Китай",
       "openstreetmapcologne": "OpenStreetMap Кёльн",
-      "openstreetmapcolombia": "OpenStreetMap Колумбия",
       "openstreetmapcomunitatvalenciana": "OpenStreetMap Валенсийское сообщество",
       "openstreetmapcostarica": "OpenStreetMap Коста-Рика",
       "openstreetmapcotedivoire": "OpenStreetMap Кот-д’Ивуар",
       "openstreetmapcroatia": "OpenStreetMap Хорватия",
       "openstreetmapcuba": "OpenStreetMap Куба",
       "openstreetmapcuneo": "OpenStreetMap Кунео",
+      "openstreetmapcyprus": "OpenStreetMap Кипр",
       "openstreetmapcz": "OpenStreetMap Чехия",
+      "openstreetmapde": "OpenStreetMap Германия",
       "openstreetmapdeepsouth": "OpenStreetMap Глубокий Юг",
       "openstreetmapdelhi": "OpenStreetMap Дели",
       "openstreetmapdenmark": "OpenStreetMap Дания",
@@ -132,28 +132,73 @@
       "openstreetmapmontenegro": "OpenStreetMap Черногория",
       "openstreetmapmontrouge": "OpenStreetMap Монружа",
       "openstreetmapmorocco": "OpenStreetMap Марокко ",
+      "openstreetmapmunchen": "OpenStreetMap Мюнхен",
+      "openstreetmapmyanmar": "OpenStreetMap Мьянма",
       "openstreetmapnepal": "OpenStreetMap Непал",
+      "openstreetmapnetherlands": "OpenStreetMap Нидерланды",
       "openstreetmapnicaragua": "OpenStreetMap Никарагуа",
+      "openstreetmapniger": "OpenStreetMap Нигер",
+      "openstreetmapnigeria": "OpenStreetMap Нигерия",
+      "openstreetmapnorthkorea": "OpenStreetMap Северная Корея",
+      "openstreetmapnorway": "OpenStreetMap Норвегия",
+      "openstreetmapoceania": "OpenStreetMap Океания",
+      "openstreetmapohio": "OpenStreetMap Огайо",
+      "openstreetmapottawa": "OpenStreetMap Оттава",
+      "openstreetmappakistan": "OpenStreetMap Пакистан",
       "openstreetmappanama": "OpenStreetMap Панама",
       "openstreetmapparaguay": "OpenStreetMap Парагвай",
       "openstreetmapperu": "OpenStreetMap Перу",
+      "openstreetmapphilippines": "OpenStreetMap Филиппины",
+      "openstreetmappiemonte": "OpenStreetMap Пьемонт",
       "openstreetmappoland": "OpenStreetMap Польша",
-      "openstreetmaprussia": "Cообщество OpenStreetMap России",
+      "openstreetmapportugal": "OpenStreetMap Португалия",
+      "openstreetmapromania": "OpenStreetMap Румыния",
+      "openstreetmaprussia": "OpenStreetMap в России",
+      "openstreetmaprwanda": "OpenStreetMap Руанда",
+      "openstreetmapsaudiarabia": "OpenStreetMap Саудовская Аравия",
+      "openstreetmapsenegal": "OpenStreetMap Сенегал",
       "openstreetmapserbia": "OpenStreetMap Сербия",
+      "openstreetmapsierraleone": "OpenStreetMap Сьерра-Леоне",
+      "openstreetmapsingapore": "OpenStreetMap Сингапур",
       "openstreetmapslovenia": "OpenStreetMap Словения",
+      "openstreetmapsomalia": "OpenStreetMap Сомали",
+      "openstreetmapsouthafrica": "OpenStreetMap ЮАР",
+      "openstreetmapsouthsudan": "OpenStreetMap Южный Судан",
+      "openstreetmapsrilanka": "OpenStreetMap Шри-Ланка",
+      "openstreetmapsudan": "OpenStreetMap Судан",
       "openstreetmapsweden": "OpenStreetMap Швеция ",
+      "openstreetmapswitzerland": "OpenStreetMap Швейцария",
+      "openstreetmaptaiwan": "OpenStreetMap Тайвань",
       "openstreetmaptanzania": "OpenStreetMap Танзания",
+      "openstreetmapthailand": "OpenStreetMap Тайланд",
+      "openstreetmaptoronto": "OpenStreetMap Торонто",
+      "openstreetmaptunisia": "OpenStreetMap Тунис",
       "openstreetmapturkey": "OpenStreetMap Турция",
+      "openstreetmapuganda": "OpenStreetMap Уганда",
       "openstreetmapuk": "OpenStreetMap Англия",
-      "openstreetmapus": "OpenStreetMap США"
+      "openstreetmapukraine": "OpenStreetMap Украина",
+      "openstreetmapuruguay": "OpenStreetMap Уругвай",
+      "openstreetmapus": "OpenStreetMap США",
+      "openstreetmapuzbekistan": "OpenStreetMap Узбекистан",
+      "openstreetmapvenezuela": "OpenStreetMap Венесуэла",
+      "openstreetmapvietnam": "OpenStreetMap Вьетнам",
+      "openstreetmapwarszawa": "OpenStreetMap Варшава",
+      "openstreetmapwesternsahara": "OpenStreetMap Западная Сахара",
+      "openstreetmapzambia": "OpenStreetMap Замбия",
+      "openstreetmapzimbabwe": "OpenStreetMap Зимбабве",
+      "osmmainz": "OpenStreetMap Майнц"
     },
     "_defaults": {
+      "bluesky": {
+        "description": "Подпишитесь на нас в Bluesky"
+      },
       "discord": {
         "name": "{community} в Discord",
         "description": "Свяжитесь с другими картографами через Discord"
       },
       "discourse": {
-        "name": "Форум Сообщества {community}"
+        "name": "Форум сообщества {community}",
+        "description": "Официальный форум {community}"
       },
       "facebook": {
         "name": "{community} в Facebook",
@@ -163,12 +208,23 @@
         "name": "Форум OpenStreetMap России",
         "description": "Официальный форум сообщества OpenStreetMap России"
       },
+      "github": {
+        "name": "{community} в GitHub"
+      },
+      "gitlab": {
+        "name": "{community} в GitLab"
+      },
+      "instagram": {
+        "name": "{community} в Instagram",
+        "description": "Подписывайтесь на нас в Instagram"
+      },
       "irc": {
         "name": "{community} в IRC",
         "description": "Подключайтесь к  #{account} на irc.oftc.net (порт 6667 или 6697 для SSL)"
       },
       "linkedin": {
-        "name": "{community} на LinkedIn"
+        "name": "{community} на LinkedIn",
+        "description": "Присоединяйтесь к нашему сообществу на LinkedIn"
       },
       "mailinglist": {
         "name": "Список рассылки {account}",
@@ -178,25 +234,52 @@
         "name": "{community} в Mastodon",
         "description": "Официальный аккаунт {community} в Mastodon"
       },
+      "matrix": {
+        "name": "{community} в Matrix Chat",
+        "description": "Присоединяйтесь к нашему Matrix chat"
+      },
       "reddit": {
         "name": "{community} в Reddit"
+      },
+      "signal": {
+        "description": "Присоединиться к часту в Signal"
+      },
+      "slack": {
+        "name": "{community} в Slack"
       },
       "telegram": {
         "name": "{community} в Telegram",
         "description": "Присоединяйтесь к нашему Telegram чату"
       },
+      "threads": {
+        "name": "{community} в Threads",
+        "description": "Подписывайся на нас в Threads"
+      },
+      "tiktok": {
+        "name": "{community} в TikTok",
+        "description": "Подписывайся на нас в TikTok"
+      },
       "twitter": {
-        "name": "{community} в 𝕏",
-        "description": "Присоединяйтесь к нам в 𝕏"
+        "name": "{community} в X",
+        "description": "Присоединяйтесь к нам в X"
       },
       "x": {
-        "name": "{community} в 𝕏",
-        "description": "Присоединяйтесь к нам в 𝕏"
+        "name": "{community} в X",
+        "description": "Присоединяйтесь к нам в X"
+      },
+      "youtube": {
+        "name": "{community} в YouTube"
       }
     },
     "al-maptime-tirana": {
       "description": "Общественные мероприятия, организованные вокруг темы картографирования — новички приветствуются!",
       "extendedDescription": "Maptime - это открытая обучающая среда для всех уровней и степеней знаний, предлагающая целенаправленную образовательную поддержку новичку. Maptime одновременно гибок и структурирован, создавая пространство для учебных пособий по составлению карт, семинаров, текущих проектов с общей целью и независимой / совместной работы."
+    },
+    "am-wiki": {
+      "description": "Вики-страница"
+    },
+    "at-wiki": {
+      "description": "Вики-страница"
     },
     "Bahia-telegram": {
       "extendedDescription": "Присоединиться к сообществу, чтобы узнать больше об OSM, задавать вопросы или участвовать в наших встречах. Всем добро пожаловать!"
@@ -205,28 +288,107 @@
       "description": "Улучшить перевод OpenStreetMap в Bay Area",
       "extendedDescription": "Эта группа занимается развитием сообщества OpenStreetMap здесь, в районе залива. Наши мероприятия открыты для всех: от энтузиастов с открытым исходным кодом до велосипедистов, специалистов по ГИС, геокэшеров и не только. Все, кто интересуется картами, картографированием и бесплатными картографическими данными, могут присоединиться к нашей группе, а также посещать наши мероприятия."
     },
+    "bd-facebook": {
+      "extendedDescription": "Картографируете в Бангладеше? Есть вопросы, хотите пообщаться с сообществом? Присоединяйтесь к нам по ссылке {Url}. Рады всем!"
+    },
+    "be-chapter": {
+      "description": "Мы помогаем OpenStreetMap расти и развиваться в Бельгии"
+    },
+    "be-matrix": {
+      "description": "Все картографы приветствуются!"
+    },
     "bo-facebook-group": {
       "name": "Группа {community} в Facebook"
+    },
+    "bo-matrix": {
+      "description": "Все картографы приветствуются!"
+    },
+    "br-telegram": {
+      "extendedDescription": "Присоединиться к сообществу, чтобы узнать больше об OpenStreetMap, задавать вопросы или участвовать в наших встречах. Всем добро пожаловать!"
     },
     "cape-coast-youthmappers": {
       "description": "Подписывайтесь на нас в Twitter {url}"
     },
+    "cl-facebook": {
+      "extendedDescription": "Присоединиться к сообществу, чтобы узнать больше об OpenStreetMap, задавать вопросы или участвовать в наших встречах. Всем добро пожаловать!"
+    },
+    "cl-telegram": {
+      "extendedDescription": "Присоединиться к сообществу, чтобы узнать больше об OpenStreetMap, задавать вопросы или участвовать в наших встречах. Всем добро пожаловать!"
+    },
     "de-aachen-wiki": {
+      "description": "Вики-страница"
+    },
+    "de-berlin-wiki": {
+      "description": "Вики-страница"
+    },
+    "de-bochum-wiki": {
+      "description": "Вики-страница"
+    },
+    "de-bonn-wiki": {
+      "description": "Вики-страница"
+    },
+    "de-bremen-wiki": {
+      "description": "Вики-страница"
+    },
+    "de-cologne-wiki": {
+      "description": "Вики-страница"
+    },
+    "de-dresden-wiki": {
+      "description": "Вики-страница"
+    },
+    "de-dusseldorf-wiki": {
+      "description": "Вики-страница"
+    },
+    "de-luneburg-wiki": {
+      "description": "Вики-страница"
+    },
+    "de-munchen-wiki": {
+      "description": "Вики-страница"
+    },
+    "DF-telegram": {
+      "extendedDescription": "Присоединиться к сообществу, чтобы узнать больше об OpenStreetMap, задавать вопросы или участвовать в наших встречах. Всем добро пожаловать!"
+    },
+    "fr-35-wiki": {
+      "description": "Вики-страница"
+    },
+    "fr-38-wiki": {
+      "description": "Вики-страница"
+    },
+    "fr-montrouge-wiki": {
       "description": "Вики-страница"
     },
     "Galicia-Xeoinquedos-Twitter": {
       "description": "Подписывайтесь на нас в Twitter {url}"
     },
+    "gb-irc": {
+      "extendedDescription": "Подключайтесь к #{account} на irc.oftc.net (порт 6667), будьте терпеливы, ответов на вопрос обычно нужно ждать"
+    },
+    "ge-matrix": {
+      "description": "Общий чат OpenStreetMap в Грузии, соединенный мостом с чатом в Telegram"
+    },
     "GeoPhilly": {
       "extendedDescription": "GeoPhilly объединяет разработчиков, географов, любителей обработки данных, энтузиастов открытого исходного кода, гражданских хакеров и любителей карт в нашей общей любви к картам и историям, которые они рассказывают. Если вы используете карты как часть своей работы или просто хотите узнать больше, эта встреча для вас! Наши мероприятия нацелены на то, чтобы быть открытыми, дружелюбными, образовательными и социальными и варьироваться от \"счастливых часов\" до молниеносных бесед или даже мастер-классов. Приходите и создавайте разнообразное, вдохновляющее геопространственное сообщество в Филадельфии вместе с нами!"
+    },
+    "hr-github": {
+      "description": "{community} в GitHub"
     },
     "hu-facebook-group": {
       "name": "Группа {community} в Facebook"
     },
+    "hu-wiki": {
+      "description": "Вики-страница"
+    },
     "id-facebook-group": {
       "name": "Группа {community} в Facebook"
     },
+    "ireland-irc": {
+      "extendedDescription": "Подключайтесь к #{account} на irc.oftc.net (порт 6667), будьте терпеливы, ответов на вопрос обычно нужно ждать"
+    },
+    "ko-github": {
+      "description": "{community} в GitHub"
+    },
     "kosovo-flossk": {
+      "name": "Бесплатное программное обеспечение с открытым исходным кодом Kosova (FLOSSK)",
       "extendedDescription": "Бесплатное программное обеспечение Libre с открытым исходным кодом Kosova (FLOSSK) - неправительственная организация, базирующаяся в Приштине, основанная в 2009 году с целью поддержки, продвижения и разработки свободного программного обеспечения с открытым исходным кодом. Кроме того, мы также вносим свой вклад в развитие открытых знаний, основанных на широком участии, образование в области информационных технологий с помощью открытого программного обеспечения и открытых стандартов, культуры и открытого общества с помощью свободного общения."
     },
     "latam-facebook": {
@@ -241,23 +403,33 @@
     "madrid-upm-ym": {
       "extendedDescription": "Группа геоволонтеров сформирована в кампусе Монклоа в ноябре 2017 года. Около 20 участников из трех университетов (Комплутенсе, CEU и UPM). Студенты бакалавриата, магистратуры и докторантуры сотрудничают с организациями (MSF, Acción contra el Hambre, ...) при поддержке тренеров из Geoinquietos. Официальное признание UPM в качестве Образовательного инновационного проекта (Код IE1718.0411)"
     },
-    "MappingDC-meetup": {
-      "extendedDescription": "Мы - группа картографов-волонтеров, которые стремятся улучшить OpenStreetMap в округе Колумбия. Мы также стремимся обучать других экосистеме OSM, анализу данных, картографии и ГИС. Раз в два месяца мы собираемся на встречи, чтобы сосредоточиться на одном районе нашего города."
-    },
     "Maptime-Oceania-Slack": {
       "description": "Войдите на {signupUrl}"
     },
+    "me-telegram": {
+      "description": "Приглашаются все! Регистрация на {signupUrl}"
+    },
     "mt-irc": {
       "extendedDescription": "Подключайтесь к #{account} на irc.oftc.net (порт 6667), будьте терпеливы, ответов на вопрос обычно нужно ждать"
+    },
+    "nl-matrix": {
+      "description": "Все картографы приветствуются!"
     },
     "Nottingham-OSM-pub-meetup": {
       "extendedDescription": "Группа встречалась с марта 2011 года, сначала в Ноттингеме, а в последнее время в Дерби и время от времени в других местах Ист-Мидлендс. Это общественные мероприятия, но они являются отличным местом для того, чтобы прийти и задать конкретные вопросы об OSM как в данном районе, так и в целом. В летние месяцы мы обычно в течение часа проводим световое картографирование поблизости от места нашей встречи. Группа в целом проявляет особый интерес к картографированию общественных полос движения и время от времени проводит картографические встречи с этой целью."
     },
     "OpenCleveland-meetup": {
+      "description": "Картографы и пользователи OpenStreetMap в районе Кливлэнда",
       "extendedDescription": " Open Geo Cleveland стремится стать ресурсом для обсуждения и обмена знаниями об использовании бесплатных наборов географических данных, особенно OpenStreetMap, и открытого геопространственного программного обеспечения, которое управляет, редактирует и отображает географические данные и выступает за их использование в Северо-Восточном Огайо. Мы также являемся подразделением maptime =)"
     },
     "osm-africa-facebook-group": {
       "name": "Группа {community} в Facebook"
+    },
+    "osm-africa-matrix": {
+      "description": "Все картографы приветствуются!"
+    },
+    "osm-africa-slack": {
+      "description": "Приглашаются все! Регистрация на {signupUrl}"
     },
     "OSM-Central-Salish-Sea": {
       "extendedDescription": "OpenStreetMap - это карта мира, созданная такими людьми, как вы. Это карта, которую создаете вы, и которую раздают бесплатно, как в Википедии. Ознакомьтесь с osm.org, чтобы узнать больше. Мы постоянно встречаемся, чтобы обсудить карты, составить их и повеселиться!"
@@ -269,6 +441,13 @@
       "name": "OpenStreetMap Колорадо",
       "extendedDescription": " OpenStreetMap (OSM) Colorado - это местное сотрудничество людей, заинтересованных в том, чтобы внести свой вклад в создание бесплатных карт. Мы призываем всех наших картографов организовывать или предлагать картографические мероприятия по всему штату. Мероприятия Meetup могут быть простыми социальными мероприятиями, обучением от базового до продвинутого уровня OSM или вечеринками по составлению карт сообщества."
     },
+    "osm-deep-south-wiki": {
+      "description": "Вики-страница"
+    },
+    "OSM-Discord": {
+      "name": "OpenStreetMap в Discord",
+      "description": "Неофициальный, поддерживаемый сообществом сервер Discord. Доступны каналы отдельных регионов"
+    },
     "OSM-Discourse": {
       "name": "Форум сообщества OpenStreetMap",
       "description": "Место, где любой может обсудить OpenStreetMap с другими участниками"
@@ -276,25 +455,46 @@
     "OSM-Facebook": {
       "description": "Нажмите Like на нашей странице в Facebook, чтобы подписаться на новости и обновления в OpenStreetMap."
     },
+    "OSM-India-facebook": {
+      "description": "Улучшить OpenStreetMap в Индии"
+    },
     "osm-india-github": {
       "description": "Кодируй вместе с нами: {url}"
+    },
+    "OSM-japan-facebook": {
+      "description": "Картографы и пользователи OpenStreetMap в Японии"
+    },
+    "OSM-japan-website": {
+      "description": "Картографы и пользователи OpenStreetMap в Японии"
+    },
+    "osm-kerala-github": {
+      "description": "Кодируй вместе с нами: {url}"
+    },
+    "osm-michigan-wiki": {
+      "description": "Вики-страница"
+    },
+    "osm-ohio-wiki": {
+      "description": "Вики-страница"
     },
     "OSM-Rome-meetup": {
       "extendedDescription": "Мы стремимся стать ресурсом для обсуждения и обмена знаниями об использовании бесплатных наборов географических данных, особенно OpenStreetMap, и открытого геопространственного программного обеспечения, которое управляет, редактирует и отображает географические данные, и выступает за их использование в Лацио."
     },
     "OSM-Seattle": {
-      "name": "OpenStreetMap Сиэтл"
+      "name": "OpenStreetMap Сиэтл",
+      "description": "Картографы и пользователи OpenStreetMap в районе Сиэтла"
     },
     "OSM-SoCal": {
       "extendedDescription": " OpenStreetMap (OSM) Южная Калифорния предназначена для всех, кто интересуется картографией, чтобы собраться вместе и поработать с OpenStreetMap. OpenStreetMap, раздел карт в Википедии, представляет собой бесплатную карту мира с открытым исходным кодом, созданную более чем 1 000 000 волонтеров по всему миру. Приглашаются все желающие. Если вы не знаете OpenStreetMap, мы научим вас. Если у вас есть идея для картографического проекта или даже экскурсии, которую может провести группа, отлично!"
     },
     "OSM-Tampa-Bay": {
+      "description": "Картографы и пользователи OpenStreetMap в районе залива Тампа",
       "extendedDescription": "OSM Tampa Bay group приглашает местных жителей собраться вместе и составить полную карту Тампа-Бэй с помощью OpenStreetMap, бесплатной и редактируемой карты мира. Если вы интересуетесь картами, данными, открытым исходным кодом, GPS, пешими прогулками, велоспортом и так далее, вам понравится работать с OpenStreetMap - так что присоединяйтесь! Мы будем собираться вместе, составлять карту и обсуждать новые темы примерно раз в месяц."
     },
     "OSM-Telegram": {
       "description": "Присоединяйтесь к глобальной супергруппе OpenStreetMap в Telegram по адресу {url}"
     },
     "OSM-US": {
+      "description": "Мы помогаем OpenStreetMap в США расти и развиваться",
       "events": {
         "mappingusa2022": {
           "description": "Присоединяйтесь к нам на бесплатной виртуальной конференции в честь сообществ Wiki и OpenStreetMap по всей Северной Америке!"
@@ -305,8 +505,7 @@
       "description": "Приглашаются все! Регистрация на {signupUrl}"
     },
     "OSM-Utah": {
-      "name": "OpenStreetMap Юта",
-      "extendedDescription": "Мероприятия могут включать в себя такие вещи, как семинары по составлению карт, картографические вечеринки и сбор данных на открытом воздухе. Мероприятия будут проходить в районе SLC, по крайней мере, на начальном этапе. Мы ищем опытных картографов, а также новичков в OSM. Присоединяйтесь, и давайте составим карту!"
+      "name": "OpenStreetMap Юта"
     },
     "OSM-Wyoming": {
       "name": "OpenStreetMap Вайоминг",
@@ -326,12 +525,40 @@
     "RS-telegram": {
       "extendedDescription": "Присоединиться к сообществу, чтобы узнать больше об OpenStreetMap, задавать вопросы или участвовать в наших встречах. Всем добро пожаловать!"
     },
+    "sg-wiki": {
+      "description": "Вики-страница"
+    },
+    "si-github": {
+      "description": "{community} в GitHub"
+    },
+    "si-ljubljana-wiki": {
+      "description": "Вики-страница"
+    },
+    "si-wiki": {
+      "description": "Вики-страница"
+    },
+    "talk-au": {
+      "description": "Место для общения австралийских картографов"
+    },
     "tn-facebook-group": {
       "name": "Группа {community} в Facebook"
+    },
+    "tw-slack": {
+      "description": "Приглашаются все! Регистрация на {signupUrl}"
+    },
+    "uk-london-wiki": {
+      "description": "Вики-страница"
+    },
+    "us-massachusetts-mailinglist": {
+      "name": "Список рассылки Talk-us-massachusetts",
+      "description": "Список рассылки сообщества OSM штата Массачусетс"
     },
     "uy-irc": {
       "description": "Подключайтесь к #{account} на irc.freenode.org (порт 6667)",
       "extendedDescription": "Подключайтесь к #{account} на irc.freenode.org"
+    },
+    "vn-wiki": {
+      "description": "Вики-страница {community}"
     },
     "ym-AASTU": {
       "extendedDescription": "Ассоциация студентов-инженеров-геоматиков (AGES) стремится продвигать продукты и услуги ГИС, а также обучать студентов их использованию. Это не только способствует социализации студентов и практикующих специалистов, но и предоставляет платформу для обмена новыми идеями по проведению новых мероприятий по ГИС и геодезии и обучению в университете."
@@ -377,9 +604,6 @@
     },
     "ym-Fourah-Bay-College": {
       "extendedDescription": "Студенческая географическая ассоциация- YouthMappers - это ассоциация студентов колледжа Фура-Бэй с общими целями нанесения на карту уязвимых мест в Сьерра-Леоне и мире в целом для оказания помощи и других полезных целей, проведения исследований и других образовательных мероприятий. Отделение состоит из молодых людей с замечательными идеями, ориентированных на развитие, способных взаимодействовать друг с другом, понимать и реализовывать проекты устойчивого развития в команде."
-    },
-    "ym-General-Lansana-Conte-University": {
-      "extendedDescription": "YouthMappers из Университета Дженерал Лансана Конте - некоммерческое сообщество, готовое внести свой вклад в создание карты Гвинеи и других частей света. Мы продвигаем использование ГИС и открытых данных для создания инструментов поддержки принятия решений. Мы также работаем над наращиванием потенциала студентов и местных сообществ."
     },
     "ym-George-Mason-University": {
       "extendedDescription": "Студенческое общество Mason Mappers Student Society - студенческая организация по гуманитарному картографированию на факультете GGS Университета Джорджа Мейсона, и ее целью является продвижение образования и знаний в области геотехнологий, геоинформатики, содействие хорошему глобальному управлению и профессиональному развитию при создании позитивного, интерактивного геосообщества, а также формирование из студентов лидеров завтрашнего дня."

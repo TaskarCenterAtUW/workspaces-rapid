@@ -1,6 +1,8 @@
+import { selection } from 'd3-selection';
+
 import { uiEntityEditor } from './entity_editor.js';
 import { uiPresetList } from './preset_list.js';
-import { uiViewOnOSM } from './view_on_osm.js';
+import { UiViewOn } from './UiViewOn.js';
 
 
 /**
@@ -34,11 +36,12 @@ export class UiInspector {
   constructor(context) {
     this.context = context;
 
-    // create child components
+    // Create child components
     this.PresetList = uiPresetList(context);
     this.EntityEditor = uiEntityEditor(context);
+    this.ViewOn = new UiViewOn(context);
 
-    // d3 selections
+    // D3 selections
     this.$parent = null;
     this.$inspector = null;
     this.$paneWrap = null;
@@ -74,10 +77,10 @@ export class UiInspector {
    * render
    * Accepts a parent selection, and renders the content under it.
    * (The parent selection is required the first time, but can be inferred on subsequent renders.)
-   * @param {d3-selection} $parent - A d3-selection to a HTMLEement that this component should render itself into
+   * @param {d3-selection} $parent - A d3-selection to a HTMLElement that this component should render itself into
    */
   render($parent = this.$parent) {
-    if ($parent) {
+    if ($parent instanceof selection) {
       this.$parent = $parent;
     } else {
       return;   // no parent - called too early?
@@ -86,6 +89,7 @@ export class UiInspector {
     const context = this.context;
     const editor = context.systems.editor;
     const graph = editor.staging.graph;
+    const osm = context.services.osm;
     const validator = context.systems.validator;
 
     const state = this._state;
@@ -101,18 +105,16 @@ export class UiInspector {
       .state(state)
       .entityIDs(entityIDs);
 
+
     // add .inspector-wrap
     let $inspector = $parent.selectAll('.inspector-wrap')
       .data([0]);
 
     const $$inspector = $inspector.enter()
       .append('div')
-      .attr('class', 'inspector-wrap inspector-hidden');
+      .attr('class', 'inspector-wrap inspector-hidden');   // UiSidebar will manage its visibility
 
     this.$inspector = $inspector = $inspector.merge($$inspector);
-
-    $inspector
-      .classed('inspector-hidden', !entityIDs.length);
 
 
     // add .panewrap
@@ -143,23 +145,20 @@ export class UiInspector {
 
     // add .sidebar-footer
     const entityID = graph.hasEntity(entityIDs.length === 1 && entityIDs[0]);
-    let $footer = $inspector.selectAll('.sidebar-footer')
-      .data([entityID]);
+    this.ViewOn.stringID = 'inspector.view_on_osm';
+    this.ViewOn.url = (osm && entityID) ? osm.entityURL(entityID) : '';
 
-    $footer.exit()
-      .remove();
+    const $footer = $inspector.selectAll('.sidebar-footer')
+      .data([0]);
 
-    const $$footer = $footer.enter()
+    $footer.enter()
       .append('div')
-      .attr('class', 'sidebar-footer');
-
-    $footer = $$footer.merge($footer);
-
-    $footer
-      .call(uiViewOnOSM(context).what(entityID));
+      .attr('class', 'sidebar-footer')
+      .merge($footer)
+      .call(this.ViewOn.render);
 
 
-    // Intrnal function for deciding which pane to show
+    // Internal function for deciding which pane to show
     function _shouldDefaultToPresetList() {
       // always show the inspector on hover
       if (state !== 'select') return false;

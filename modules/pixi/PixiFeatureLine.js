@@ -1,9 +1,9 @@
 import * as PIXI from 'pixi.js';
-import { DashLine } from '@rapideditor/pixi-dashed-line';
 import { GlowFilter } from 'pixi-filters';
 
 import { AbstractFeature } from './AbstractFeature.js';
-import { getLineCapEnum, getLineJoinEnum, getLineSegments, lineToPoly } from './helpers.js';
+import { DashLine } from './lib/DashLine.js';
+import { getLineSegments, lineToPoly } from './helpers.js';
 
 const ONEWAY_SPACING = 35;
 const SIDED_SPACING = 30;
@@ -26,8 +26,8 @@ export class PixiFeatureLine extends AbstractFeature {
 
   /**
    * @constructor
-   * @param  layer       The Layer that owns this Feature
-   * @param  featureID   Unique string to use for the name of this Feature
+   * @param  {Layer}   layer     - The Layer that owns this Feature
+   * @param  {string}  featureID - Unique string to use for the name of this Feature
    */
   constructor(layer, featureID) {
     super(layer, featureID);
@@ -36,13 +36,13 @@ export class PixiFeatureLine extends AbstractFeature {
     this._bufferdata = null;
 
     const casing = new PIXI.Graphics();
-    casing.name = 'casing';
+    casing.label = 'casing';
     casing.eventMode = 'none';
     casing.sortableChildren = false;
     this.casing = casing;
 
     const stroke = new PIXI.Graphics();
-    stroke.name = 'stroke';
+    stroke.label = 'stroke';
     stroke.eventMode = 'none';
     stroke.sortableChildren = false;
     this.stroke = stroke;
@@ -57,31 +57,34 @@ export class PixiFeatureLine extends AbstractFeature {
    * Do not use the Feature after calling `destroy()`.
    */
   destroy() {
-    super.destroy();
-    this.casing = null;
-    this.stroke = null;
-
-    if (this._bufferdata) {
-      delete this._bufferdata.inner;
-      delete this._bufferdata.outer;
-      delete this._bufferdata.perimeter;
-      this._bufferdata = null;
+    if (this.casing) {
+      this.casing.destroy();
+      this.casing = null;
     }
+    if (this.stroke) {
+      this.stroke.destroy();
+      this.stroke = null;
+    }
+
+    this._bufferdata = null;
+
+    super.destroy();
   }
 
 
   /**
    * update
-   * @param  viewport  Pixi viewport to use for rendering
-   * @param  zoom      Effective zoom to use for rendering
+   * @param  {Viewport}  viewport - Pixi viewport to use for rendering
+   * @param  {number}    zoom     - Effective zoom to use for rendering
    */
   update(viewport, zoom) {
     if (!this.dirty) return;  // nothing to do
 
-    const wireframeMode = this.context.systems.map.wireframeMode;
-    const textureManager = this.renderer.textures;
+    const isWireframe = this.context.systems.map.wireframeMode;
+    const textureManager = this.gfx.textures;
     const container = this.container;
     const style = this._style;
+
     //
     // GEOMETRY
     //
@@ -96,8 +99,6 @@ export class PixiFeatureLine extends AbstractFeature {
       this.sceneBounds.y = minY;
       this.sceneBounds.width = w;
       this.sceneBounds.height = h;
-
-      this.updateHitArea();
     }
 
     //
@@ -137,13 +138,13 @@ export class PixiFeatureLine extends AbstractFeature {
       // Update line markers, if any..
       // Todo: left/right markers (like for coastlines, retaining walls, etc)
       //
-      let lineMarkers = container.getChildByName('lineMarkers');
+      let lineMarkers = container.getChildByLabel('lineMarkers');
 
       if (showMarkers && ((style.lineMarkerTexture || style.lineMarkerName) || (style.sidedMarkerTexture || style.sidedMarkerName))) {
         // Create line marker container, if necessary
         if (!lineMarkers) {
           lineMarkers = new PIXI.Container();
-          lineMarkers.name = 'lineMarkers';
+          lineMarkers.label = 'lineMarkers';
           lineMarkers.eventMode = 'none';
           lineMarkers.sortableChildren = false;
           lineMarkers.roundPixels = false;
@@ -197,109 +198,118 @@ export class PixiFeatureLine extends AbstractFeature {
         lineMarkers.destroy({ children: true });
       }
 
+      // Buffer around line, used for hit area and halo..
+      if (this.visible && !this._classes.has('drawing')) {  // Rapid#648 - If drawing, `hitArea = null`
+        // what line width to use?? copied the 'casing' calculation from below, improve this later
+        const minwidth = 3;
+        let width = style.casing.width;
+
+        // Apply effectiveZoom style adjustments
+        if (zoom < 16) {
+          width -= 4;
+        } else if (zoom < 17) {
+          width -= 2;
+        }
+        if (width < minwidth) {
+          width = minwidth;
+        }
+
+        if (isWireframe) {
+          width = 1;
+        }
+
+        const bufferStyle = {
+          alpha: 1,
+          alignment: 0.5,  // middle of line
+          color: 0x000000,
+          width: width + 10,
+          cap: 'butt',
+          join: 'bevel'
+        };
+        this._bufferdata = lineToPoly(this.geometry.flatCoords, bufferStyle);
+        this.container.hitArea = new PIXI.Polygon(this._bufferdata.perimeter);
+      } else {
+        this._bufferdata = null;
+        this.container.hitArea = null;
+      }
+
       this._styleDirty = false;
     }
 
 
     if (this.casing.renderable) {
-      updateGraphic('casing', this.casing, this.geometry.coords, style, wireframeMode);
+      this.updateGraphic('casing', this.casing, this.geometry.coords, style, zoom, isWireframe);
     }
     if (this.stroke.renderable) {
-      updateGraphic('stroke', this.stroke, this.geometry.coords, style, wireframeMode);
+      this.updateGraphic('stroke', this.stroke, this.geometry.coords, style, zoom, isWireframe);
     }
 
     this.updateHalo();
-
-
-    function updateGraphic(which, graphic, points, style, wireframeMode) {
-      const minwidth = which === 'casing' ? 3 : 2;
-      let width = style[which].width;
-
-      // Apply effectiveZoom style adjustments
-      if (zoom < 16) {
-        width -= 4;
-      } else if (zoom < 17) {
-        width -= 2;
-      }
-      if (width < minwidth) {
-        width = minwidth;
-      }
-
-      if (wireframeMode) {
-        width = 1;
-      }
-
-      let g = graphic.clear();
-      if (style[which].alpha === 0) return;
-
-      if (style[which].dash) {
-        g = new DashLine(g, {
-          dash: style[which].dash,
-          color: style[which].color,
-          width: width,
-          alpha: style[which].alpha || 1.0,
-          join: getLineJoinEnum(style[which].join),
-          cap:  getLineCapEnum(style[which].cap),
-        });
-      } else {
-        g = g.lineStyle({
-          color: style[which].color,
-          width: width,
-          alpha: style[which].alpha || 1.0,
-          join: getLineJoinEnum(style[which].join),
-          cap:  getLineCapEnum(style[which].cap),
-        });
-      }
-
-      points.forEach(([x, y], i) => {
-        if (i === 0) {
-          g.moveTo(x, y);
-        } else {
-          g.lineTo(x, y);
-        }
-      });
-    }
-
   }
 
 
-// experiment
-  updateHitArea() {
-    if (!this.geometry.flatOuter) {
-      this.container.hitArea = null;
-      return;   // no points?
+  /**
+   * updateGraphic
+   */
+  updateGraphic(which, graphic, points, style, zoom, isWireframe) {
+    const minwidth = which === 'casing' ? 3 : 2;
+    let width = style[which].width;
+
+    // Apply effectiveZoom style adjustments
+    if (zoom < 16) {
+      width -= 4;
+    } else if (zoom < 17) {
+      width -= 2;
+    }
+    if (width < minwidth) {
+      width = minwidth;
     }
 
-//    //Fix for bug #648: If we're drawing, we don't need to hit ourselves.
-    // bhousel 3/23 sometimes we do!
-//    if (this._drawing) {
-//      this.container.hitArea = null;
-//      return;
-//    }
+    if (isWireframe) {
+      width = 1;
+    }
 
-    const hitWidth = Math.max(3, this._style.casing.width || 0);
-    const hitStyle = {
-      alignment: 0.5,  // middle of line
-      color: 0x0,
-      width: hitWidth + 10,
-      alpha: 1.0,
-      join: PIXI.LINE_JOIN.BEVEL,
-      cap: PIXI.LINE_CAP.BUTT
+    let g = graphic.clear();
+    if (style[which].alpha === 0) return;
+
+    const strokeStyle = {
+      color: style[which].color,
+      width: width,
+      alpha: style[which].alpha || 1.0,
+      join: style[which].join,
+      cap:  style[which].cap,
     };
 
-    this._bufferdata = lineToPoly(this.geometry.flatOuter, hitStyle);
-    this.container.hitArea = new PIXI.Polygon(this._bufferdata.perimeter);
+    if (style[which].dash) {
+      strokeStyle.dash = style[which].dash;
+      g = new DashLine(this.gfx, g, strokeStyle);
+      drawLineFromPoints(points, g);
+    } else {
+      drawLineFromPoints(points, g);
+      g = g.stroke(strokeStyle);
+    }
+
+    function drawLineFromPoints(points, graphics) {
+      points.forEach(([x, y], i) => {
+        if (i === 0) {
+          graphics.moveTo(x, y);
+        } else {
+          graphics.lineTo(x, y);
+        }
+      });
+    }
   }
 
 
   /**
    * updateHalo
-   * Show/Hide halo (expects `this._bufferdata` to be already set up by `updateHitArea` as a PIXI.Polygon)
+   * Show/Hide halo (expects `this._bufferdata` to be already set up by `update()`)
    */
   updateHalo() {
-    const showHover = (this.visible && this.hovered);
-    const showSelect = (this.visible && this.selected);
-    const showHighlight = (this.visible && this.highlighted);
+    const showHover = (this.visible && this._classes.has('hover'));
+    const showSelect = (this.visible && this._classes.has('select'));
+    const showHighlight = (this.visible && this._classes.has('highlight'));
+
     // Hover
     if (showHover) {
       if (!this.container.filters) {
@@ -323,9 +333,9 @@ export class PixiFeatureLine extends AbstractFeature {
     if (showSelect) {
       if (!this.halo) {
         this.halo = new PIXI.Graphics();
-        this.halo.name = `${this.id}-halo`;
-        const mapUIContainer = this.scene.layers.get('map-ui').container;
-        mapUIContainer.addChild(this.halo);
+        this.halo.label = `${this.id}-halo`;
+        const haloContainer = this.scene.layers.get('map-ui').halo;
+        haloContainer.addChild(this.halo);
       }
 
       const HALO_STYLE = {
@@ -336,18 +346,19 @@ export class PixiFeatureLine extends AbstractFeature {
       };
 
       this.halo.clear();
-      const dl = new DashLine(this.halo, HALO_STYLE);
+      const dl = new DashLine(this.gfx, this.halo, HALO_STYLE);
       if (this._bufferdata) {
-        if (this._bufferdata.outer && this._bufferdata.inner) {
-          dl.drawPolygon(this._bufferdata.outer);
-          dl.drawPolygon(this._bufferdata.inner);
-        } else {
-          dl.drawPolygon(this._bufferdata.perimeter);
+        if (this._bufferdata.outer && this._bufferdata.inner) {   // closed line
+          dl.poly(this._bufferdata.outer);
+          dl.poly(this._bufferdata.inner);
+        } else {   // unclosed line
+          dl.poly(this._bufferdata.perimeter);
         }
       }
+
     } else {
       if (this.halo) {
-        this.halo.destroy({ children: true });
+        this.halo.destroy();
         this.halo = null;
       }
     }
@@ -356,10 +367,10 @@ export class PixiFeatureLine extends AbstractFeature {
 
   /**
    * style
-   * @param  obj  Style `Object` (contents depends on the Feature type)
+   * @param {Object} obj - Style `Object` (contents depends on the Feature type)
    *
-   * 'point' - see `PixiFeaturePoint.js`
-   * 'line'/'polygon' - see `StyleSystem.js`
+   * 'point' - @see `PixiFeaturePoint.js`
+   * 'line'/'polygon' - @see `StyleSystem.js`
    */
   get style() {
     return this._style;

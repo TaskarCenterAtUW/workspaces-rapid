@@ -164,9 +164,10 @@
             "subdistrict!vn": "Karter/Kumun/Kêriadenn",
             "suburb": "Bannlev",
             "suburb!jp": "Karter pe bastell-vro (政令市)",
+            "town": "Kêr",
             "unit": "Unanenn"
           },
-          "terms": "Chomlec'h"
+          "terms": "Chomlec'h,adres"
         },
         "advertising": {
           "label": "Seurt"
@@ -215,6 +216,18 @@
           "label": "Aerreizherezh",
           "terms": "Aerreizherezh,Aerreizhañ"
         },
+        "aircraft/type": {
+          "label": "Seurt",
+          "options": {
+            "glider": "Plaverez",
+            "helicopter": "Biñsaskell",
+            "military": "Milour"
+          }
+        },
+        "alt_name": {
+          "label": "Anv all",
+          "terms": "anv all,anv alternativel"
+        },
         "amenity": {
           "label": "Seurt"
         },
@@ -251,6 +264,13 @@
         "area/highway": {
           "label": "Seurt"
         },
+        "armrest": {
+          "label": "Brenkoù",
+          "options": {
+            "no": "Brenk ebet",
+            "undefined": "Dianav"
+          }
+        },
         "artist": {
           "label": "Arzour"
         },
@@ -264,7 +284,8 @@
             "mural": "Murlivadur",
             "painting": "Livadur",
             "sculpture": "Kizelladur",
-            "statue": "Delwenn"
+            "statue": "Delwenn",
+            "tilework": "Karrellerezh"
           }
         },
         "athletics_pitch": {
@@ -459,6 +480,9 @@
         "boundary": {
           "label": "Seurt"
         },
+        "branch_brand": {
+          "label": "Skourr"
+        },
         "brand": {
           "label": "Merk",
           "terms": "merk,embregerezh,stal"
@@ -482,6 +506,7 @@
           "label": "Seurt",
           "options": {
             "aqueduct": "Pont-dour",
+            "boardwalk": "Treuzell",
             "viaduct": "Karrbont"
           }
         },
@@ -500,6 +525,7 @@
             "commercial": "Savadur koñvers",
             "construction": "Savadur war ober",
             "cowshed": "Kraou-saout",
+            "detached": "Ti distag",
             "dormitory": "Kousklec'h ",
             "farm": "Ti-feurm",
             "farm_auxiliary": "Savadur atant",
@@ -519,6 +545,7 @@
             "mosque": "Moskeenn",
             "office": "Burevioù",
             "outbuilding": "Pourpez",
+            "pavilion": "Pavilhon",
             "public": "Savadur foran",
             "residential": "Savadur annez",
             "retail": "Savadur kenwerzhel",
@@ -526,6 +553,7 @@
             "roof": "Toenn",
             "ruins": "Dismantroù",
             "school": "Skol",
+            "semidetached_house": "Ti ambion",
             "service": "Savadur servij",
             "shed": "Kabanenn",
             "stable": "Kraou-kezeg",
@@ -583,6 +611,9 @@
             "fixed": "Dreset"
           }
         },
+        "camp_site": {
+          "label": "Seurt"
+        },
         "capacity": {
           "label": "Barregezh",
           "terms": "dalc'had,dalc'h,plasoù,kadorioù,gobed"
@@ -638,6 +669,10 @@
         "circumference": {
           "placeholder": "1m, 20cm, 30mt…"
         },
+        "climbing/length": {
+          "label": "Hirder (metroù)",
+          "terms": "hirder,hirded,metr,metroù"
+        },
         "clothes": {
           "label": "Dilhadoù",
           "options": {
@@ -649,6 +684,7 @@
             "maternity": "Dilhad evit dougerezed",
             "men": "Dilhad paotred",
             "motorcycle": "Dilhad marc'h-tan",
+            "oversize": "Dilhadoù a vent vras",
             "socks": "Loeroù",
             "sports": "Dilhad sport",
             "swimwear": "Dilhad kouronkañ",
@@ -686,6 +722,13 @@
         "communication_multi": {
           "label": "Seurt kehentiñ",
           "terms": "Seurt kehentiñ"
+        },
+        "community_centre": {
+          "label": "Seurt",
+          "options": {
+            "cultural_centre": "Kreizenn sevenadurel",
+            "youth_centre": "Kreizenn yaouankiz"
+          }
         },
         "construction": {
           "label": "Seurt"
@@ -834,7 +877,8 @@
           "label": "Seurt",
           "options": {
             "traffic_signals": "Treuzenn gant gouleier triliv",
-            "uncontrolled": "Livadurioù hepken"
+            "uncontrolled": "Livadurioù hepken",
+            "unmarked": "Hep livioù na gouleier heñchañ"
           }
         },
         "crossing/barrier": {
@@ -943,6 +987,15 @@
           "label": "Seurt",
           "placeholder": "Dre ziouer"
         },
+        "cycle_barrier": {
+          "label": "Seurt"
+        },
+        "cycle_barrier/installation": {
+          "label": "Staliadur",
+          "options": {
+            "fixed": "Dreset"
+          }
+        },
         "cycle_network": {
           "label": "Rouedad"
         },
@@ -979,6 +1032,10 @@
           "label": "Kredenn",
           "terms": "kredenn,relijion,feiz"
         },
+        "denotation": {
+          "label": "Talvoudegezh",
+          "terms": "talvoudegezh"
+        },
         "departures_board": {
           "options": {
             "no": "Hini ebet",
@@ -1000,6 +1057,9 @@
         "destination": {
           "label": "Palioù"
         },
+        "destination_waterway": {
+          "label": "Pal"
+        },
         "devices": {
           "label": "Benvegoù"
         },
@@ -1009,19 +1069,22 @@
           "terms": "diametr,treuzkiz"
         },
         "diet_multi": {
+          "label": "Seurt reol-voued",
           "options": {
             "gluten_free": "Dic'hluten",
             "kosher": "Kacher",
             "lactose_free": "Hep laktoz",
             "pescetarian": "Debrer pesk",
             "vegetarian": "Vejetarian"
-          }
+          },
+          "terms": "boued,rejim,reol-voued,reol voued"
         },
         "diplomatic": {
           "label": "Seurt",
           "options": {
             "consulate": "Koñsuldi",
-            "embassy": "Kannati"
+            "embassy": "Kannati",
+            "liaison": "Burev liammañ"
           }
         },
         "diplomatic/services": {
@@ -1092,6 +1155,10 @@
             "unleashed": "Roll-chas diret",
             "yes": "Aotreet"
           }
+        },
+        "dog_check": {
+          "label": "Azasaet d'ar chas",
+          "terms": "chas,ki,kon,ar c'hon,evit ar chas,azasaet d'ar chas,d'ar c'hon"
         },
         "door": {
           "label": "Dor"
@@ -1211,6 +1278,7 @@
           "terms": "treuzkiz (mm,md, pe lizherennoù),treuzkiz"
         },
         "fire_hydrant/position": {
+          "label": "Lec'hiadur",
           "options": {
             "green": "Glasvez",
             "parking_lot": "Parklec'h",
@@ -1537,7 +1605,10 @@
           "label": "Seurt"
         },
         "highway_cartpath": {
-          "label": "Seurt roudenn"
+          "label": "Seurt roudenn",
+          "options": {
+            "service": "Hent moned"
+          }
         },
         "historic": {
           "label": "Seurt",
@@ -1575,13 +1646,16 @@
           "label": "Deiziad e oa peñseet"
         },
         "historic/wreck/visible_at_high_tide": {
-          "label": "Gwelus pa vez lanv"
+          "label": "A-wel pa vez lanv"
         },
         "historic/wreck/visible_at_low_tide": {
-          "label": "Gwelus pa vez tre"
+          "label": "A-wel pa vez tre"
         },
         "holding_position/type": {
-          "label": "Seurt"
+          "label": "Seurt",
+          "options": {
+            "runway": "Pradva"
+          }
         },
         "horse_riding": {
           "label": "Kreizenn varc'hegezh",
@@ -1640,17 +1714,21 @@
           "terms": "wifi,internet,kenrouedad,kennask,moned"
         },
         "internet_access/fee": {
-          "label": "Moned ouzh ar genrouedad",
           "options": {
             "customers": "Pratikoù nemetken",
             "no": "Digoust",
             "yes": "Paeet"
-          },
-          "terms": "wifi,internet,kenrouedad,kennask,moned"
+          }
         },
         "internet_access/ssid": {
           "label": "Anv ar rouedad Wifi",
           "terms": "wifi,ssid,rouedad,internet,kenrouedad,anv,anv ar rouedad,web"
+        },
+        "irrigation_pivot": {
+          "options": {
+            "pivot": "Ya",
+            "undefined": "Ket"
+          }
         },
         "junction_line": {
           "options": {
@@ -1704,13 +1782,15 @@
           "terms": "gwisk,gwiskad,gwelead,treuzfolenn"
         },
         "leaf_cycle": {
+          "label": "Fenologiezh an delioù",
           "options": {
             "deciduous": "Dibad",
             "evergreen": "Padus",
             "mixed": "Mesket",
             "semi_deciduous": "Hanter dibad",
             "semi_evergreen": "Hanter padus"
-          }
+          },
+          "terms": "delienn,delioù,fenologiezh,fenologiezh an delioù"
         },
         "leaf_type": {
           "label": "Seurt delienn",
@@ -1755,6 +1835,10 @@
           "label": "Sklêrijennet",
           "terms": "sklêrijennet,gouloù,goulaouet,sklaeriet,splannet"
         },
+        "loc_name": {
+          "label": "Anv lec'hel",
+          "terms": "Anv lec'hel"
+        },
         "location": {
           "label": "Lec'hiadur",
           "terms": "lec'h,pelec'h,e-men,lec'hiadur"
@@ -1787,7 +1871,10 @@
           "terms": "aozer,oberour,oberiataer,farder,saver"
         },
         "map_type": {
-          "label": "Seurt"
+          "label": "Seurt",
+          "options": {
+            "topo": "Kartenn dopografek"
+          }
         },
         "mapillary": {
           "label": "ID skeudenn Mapillary",
@@ -1832,7 +1919,7 @@
             "limestone": "Maen-raz",
             "marble": "Marbr",
             "plastic": "Plastik",
-            "reinforced_conrete": "Betoñs houarnet",
+            "reinforced_concrete": "Betoñs houarnet",
             "rock": "Roc'h",
             "sand": "Traezh",
             "sandstone": "Krag",
@@ -1879,6 +1966,9 @@
         "maxwidth": {
           "label": "Ledander bevennet",
           "terms": "ledander,ledanded,bevennet,uc'hek,uhelañ"
+        },
+        "maxwidth/physical": {
+          "label": "Ledander bevennet"
         },
         "memorial": {
           "label": "Seurt",
@@ -1928,6 +2018,10 @@
           "placeholder": "+33 7 12 34 56 78",
           "terms": "pellgomzer,pellgomz,hezoug"
         },
+        "model/wikidata": {
+          "label": "Wikidata ar patrom",
+          "terms": "Wikidata ar patrom,patrom,wikidata,wikiroadennoù"
+        },
         "mooring": {
           "label": "Eren",
           "options": {
@@ -1958,6 +2052,10 @@
           "label": "Anv",
           "placeholder": "Anv boutin (ma'z eus unan)",
           "terms": "anv"
+        },
+        "nat_name": {
+          "label": "Anv broadel",
+          "terms": "Anv broadel"
         },
         "natural": {
           "label": "Naturel"
@@ -2013,6 +2111,7 @@
         "nudism": {
           "label": "Noazhkorfegezh",
           "options": {
+            "customary": "Kustum",
             "no": "Difennet",
             "obligatory": "Rediet",
             "permissive": "Damasantet",
@@ -2034,6 +2133,7 @@
             "educational_institution": "Kreizenn stummañ",
             "employment_agency": "Ajañs implijout",
             "energy_supplier": "Pourvezer tredan",
+            "engineer": "Ijiner",
             "estate_agent": "Ajañs tiez",
             "financial_advisor": "Kuzulier-arc'hant",
             "forestry": "Mererezh ar c'hoadoù",
@@ -2052,6 +2152,7 @@
             "religion": "Burev relijiel",
             "research": "Aozadur enklask skiantel",
             "security": "Ajañs surentez prevez",
+            "surveyor": "Mentoniour",
             "tax_advisor": "Burev kuzulier kemedel",
             "telecommunication": "Ajañs pellgehenterezh",
             "therapist": "Yac'hadour",
@@ -2059,6 +2160,10 @@
             "union": "Burev sindikad",
             "water_utility": "Ajañs an dour"
           }
+        },
+        "official_name": {
+          "label": "Anv ofisiel",
+          "terms": "Anv ofisiel,anv kefridiel"
         },
         "oneway": {
           "label": "Untu",
@@ -2120,10 +2225,18 @@
         "parking": {
           "label": "Seurt",
           "options": {
-            "rooftop": "Toenn",
-            "sheds": "Lochoù",
-            "surface": "A-us d'an douar",
-            "underground": "Dindandouar"
+            "rooftop": {
+              "title": "Toenn"
+            },
+            "sheds": {
+              "title": "Lochoù"
+            },
+            "surface": {
+              "title": "A-us d'an douar"
+            },
+            "underground": {
+              "title": "Dindandouar"
+            }
           }
         },
         "parking/side/orientation": {
@@ -2170,6 +2283,7 @@
             "electronic_purses": "Doug-moneiz elektronek",
             "mastercard_contactless": "Mastercard distok",
             "notes": "Bilhedoù-bank",
+            "prepaid_ticket": "Tikedenn paeet en a-raok",
             "telephone_cards": "Kartenn bellgomz"
           },
           "terms": "seurt paeamant,paeañ,seurt,paeamant,paeamantoù,doare paeamant,doare paeañ"
@@ -2423,6 +2537,10 @@
           "label": "Anv an hent-tremen",
           "placeholder": "da skouer: A5"
         },
+        "reg_name": {
+          "label": "Anv rannvroel",
+          "terms": "Anv rannvroel"
+        },
         "relation": {
           "label": "Seurt"
         },
@@ -2490,6 +2608,20 @@
         "roof/colour": {
           "label": "Liv an doenn",
           "terms": "liv an doenn"
+        },
+        "roof/height": {
+          "label": "Uhelder an doenn (metroù)",
+          "terms": "uhelded,uhelder,uhelded an doenn,uhelder an doenn,uhel"
+        },
+        "roof/shape": {
+          "label": "Stumm an doenn",
+          "options": {
+            "flat": "Plat",
+            "onion": "Ognon",
+            "pyramidal": "Piramidenn",
+            "round": "Kelc'hiek"
+          },
+          "terms": "stumm an doenn,toenn,furm an doenn,stumm,furm"
         },
         "room": {
           "label": "Seurt"
@@ -2679,12 +2811,19 @@
         "shop": {
           "label": "Seurt"
         },
+        "short_name": {
+          "label": "Anv berr",
+          "terms": "Anv berr"
+        },
         "shower": {
           "label": "Strinkerezh",
           "terms": "strinkerezhioù,strinkerezh"
         },
         "side": {
           "label": "Tu"
+        },
+        "siren/purpose": {
+          "label": "Pal"
         },
         "siren/type": {
           "label": "Seurt",
@@ -2750,8 +2889,7 @@
             "osm notes": "Notennoù OpenStreetMap",
             "streetlevel imagery": "Skeudennoù-straed",
             "survey": "Sontadeg"
-          },
-          "terms": "mammenn,mammennoù,meneg,notenn"
+          }
         },
         "source/population": {
           "label": "Mammenn ar poblañs"
@@ -2867,6 +3005,14 @@
           "placeholder": "Dianav",
           "terms": "frammadur"
         },
+        "structure_canal": {
+          "label": "Frammadur",
+          "options": {
+            "bridge": "Pont",
+            "tunnel": "Riboul"
+          },
+          "placeholder": "Dianav"
+        },
         "structure_power": {
           "label": "Frammadur",
           "options": {
@@ -2915,6 +3061,7 @@
           "options": {
             "distribution": "Dasparzhañ rannvroel",
             "industrial": "Greantel",
+            "measurement": "Muzulioù",
             "minor_distribution": "Dasparzhañ lec'hel",
             "valve": "Begel"
           }
@@ -2923,11 +3070,16 @@
           "label": "Kalvar lein ur menez",
           "terms": "lein,lein ar menez,lein ur menez,kalvar,kroaz"
         },
+        "supervised": {
+          "label": "Evezhiet",
+          "terms": "evezhiet,eveshaet"
+        },
         "surface": {
           "label": "Gorread",
           "options": {
             "artificial_turf": "Leton sintetek",
             "asphalt": "Asfalt",
+            "clay": "Pri",
             "concrete": "Betoñs",
             "dirt": "Douar",
             "fine_gravel": "Grouan munut",
@@ -2967,7 +3119,9 @@
         "survey_point/structure": {
           "label": "Frammadur",
           "options": {
+            "block": "Bloc'h",
             "cairn": "Karn",
+            "magnet": "Maen-touch dindandouar",
             "medallion": "Medalenn",
             "pillar": "Piler",
             "plaque": "Plakenn",
@@ -3052,6 +3206,10 @@
             "pitlatrine": "Privezioù sec'h"
           }
         },
+        "toilets/handwashing": {
+          "label": "Gwalc'heris",
+          "terms": "gwalc'heris,dar,golc'heris,basin,gwalc'houer,golc'houer"
+        },
         "toilets/menstrual_products": {
           "label": "Produioù digoust evit ar mizioù da gaout",
           "options": {
@@ -3060,6 +3218,10 @@
             "yes": "Ya, e pep logell"
           },
           "terms": "Produioù digoust evit ar mizioù da gaout,produioù evit ar mizioù,mizioù,amzerioù,produioù digoust evit an amzerioù da gaout,produioù digoust evit ar mizioù hegerz,produioù digoust evit an amzerioù hegerz,produioù evit an amzerioù,produioù evit an amzerioù da gaout,produioù evit an amzerioù hegerz,produioù evit ar mizioù da gaout,produioù evit ar mizioù hegerz,serviedenn amzerioù,serviedennoù amzerioù,serviedenn yec'hedus,serviedennoù yec'hedus,tapon amzerioù,tapon mizioù,tapon,tampon,stouv,stouvoù,produ yec'hedel,produ yec'hedus,produ mizioù,produ amzerioù,serviedenn"
+        },
+        "toilets/position": {
+          "label": "Lec'hiadurioù",
+          "terms": "lec'hiadur,lec'h,lec'hiadurioù"
         },
         "toilets/wheelchair": {
           "label": "Privezioù aes d'an dud dalc'het en o c'herzhed",
@@ -3082,6 +3244,7 @@
             "mausoleum": "Kañvdi",
             "pyramid": "Piramidenn",
             "sarcophagus": "Laour",
+            "table": "Taol",
             "tumulus": "Krugell",
             "war_grave": "Bez-soudard war e-unan"
           }
@@ -3115,6 +3278,9 @@
             "hump": "Kein gwiz",
             "mini_bumps": "Skoilhoù torr-tizh bihan"
           }
+        },
+        "traffic_calming_road": {
+          "label": "Kein-gwiz"
         },
         "traffic_sign": {
           "label": "Panell-henchañ"
@@ -3188,6 +3354,7 @@
         "usage_rail": {
           "label": "Seurt implij",
           "options": {
+            "branch": "Eil skourr",
             "industrial": "Greantel",
             "main": "Pennañ",
             "military": "Milour",
@@ -3236,6 +3403,7 @@
             "coffee": "Kafe",
             "condoms": "Stevelloù",
             "drinks": "Evajoù",
+            "e-cigarettes": "Sigaretennoù elektronek",
             "eggs": "Vioù",
             "electronics": "Dafar elektronek",
             "elongated_coin": "Pezhioù (eñvorenn)",
@@ -3247,6 +3415,8 @@
             "ice_cubes": "Skornennoù",
             "milk": "Laezh",
             "newspapers": "Kazetennoù",
+            "parking_tickets": "Tikedennoù parkañ",
+            "public_transport_tickets": "Tikedennoù treuzdougen foran",
             "stamps": "Timbroù",
             "sweets": "Madigoù",
             "water": "Dour mat da evañ"
@@ -3611,6 +3781,10 @@
         "amenity/community_centre": {
           "name": "Sal liezimplij"
         },
+        "amenity/community_centre/cultural_centre": {
+          "name": "Kreizenn sevenadurel",
+          "terms": "Kreizenn sevenadurel"
+        },
         "amenity/community_centre/lgbtq": {
           "name": "Kreizenn LGDTQ+"
         },
@@ -3664,6 +3838,10 @@
           "name": "Koazhadour",
           "terms": "milchin,medisin,doktor,mezeg,mezekniezh,ospital,klañvdi,medisinerezh,gastroenterologiezh,koazhadouriezh,gastroenterologour,koazhadour,gastroenterit,koazhadur,koazhañ,stomog,bouzelloù,bouzellenn,genoù,treizher,korzenn-voued"
         },
+        "amenity/doctors/gynaecology": {
+          "name": "Amiegour/ginekologour",
+          "terms": "Amiegour/ginekologour,amiegez,amiegourez,ginekologourez,ginekologour,benvezeg,benvezegez,benevour,benevourez,medisin ar merc'hed,plac'hed,merc'h,verc'h,blac'h,plac'h,maouez,vaouez,maouezed,vaouezed"
+        },
         "amenity/doctors/haematology": {
           "name": "Hematologour",
           "terms": "hematologiezh,hematologour,gwadour,gwad"
@@ -3691,6 +3869,10 @@
         "amenity/doctors/orthopaedics": {
           "name": "Surjian ortopedek",
           "terms": "ortopediezh,surjian,surjian ortopedek,ortopedek,ortopedist"
+        },
+        "amenity/doctors/otolaryngology": {
+          "name": "Otorinolarintologour",
+          "terms": "otorinolarintologour,otorinolarintologourez,otorinolarintologiezh"
         },
         "amenity/doctors/plastic_surgery": {
           "name": "Surjian kenedel"
@@ -3753,6 +3935,10 @@
         "amenity/embassy": {
           "name": "Kannati"
         },
+        "amenity/exhibition_centre": {
+          "name": "Kreizenn diskouezadegoù",
+          "terms": "Kreizenn diskouezadegoù,diskouezadegoù,diskouezadeg,diskouezva"
+        },
         "amenity/fast_food": {
           "name": "Preti fast-food",
           "terms": "preti,ti-debriñ,fast-food,fast food,boued,boued-straed"
@@ -3806,6 +3992,9 @@
         "amenity/fast_food/sandwich": {
           "name": "Stal-sandwichoù",
           "terms": "sandwich,ti-sandwich,preti,ti-debriñ,stal-sandwich,stal sandwichoù,fast food,fast-food,predoù war ar prim,pretierezh prim"
+        },
+        "amenity/ferry_terminal": {
+          "name": "Arsav-dibenn ferry"
         },
         "amenity/fire_station": {
           "name": "Kazarn pomperien",
@@ -3935,7 +4124,8 @@
           "name": "Apotikerezh"
         },
         "amenity/photo_booth": {
-          "name": "Fotomaton"
+          "name": "Fotomaton",
+          "terms": "fotomaton,luc'hskeudennerez,foto,fotoioù,kamera"
         },
         "amenity/place_of_worship": {
           "name": "Lec'h azeuliñ",
@@ -3949,8 +4139,12 @@
           "name": "Iliz kristen",
           "terms": "Iliz kristen"
         },
+        "amenity/place_of_worship/christian/jehovahs_witness": {
+          "name": "Sal Rouantelezh Testoù Jehovah"
+        },
         "amenity/place_of_worship/christian/la_luz_del_mundo": {
-          "name": "Templ La Luz del Mundo"
+          "name": "Templ La Luz del Mundo",
+          "terms": "Templ La Luz del Mundo,Iliz La Luz del Mundo,templ,La Luz del Mundo"
         },
         "amenity/place_of_worship/hindu": {
           "name": "Templ hindou",
@@ -3958,14 +4152,15 @@
         },
         "amenity/place_of_worship/jewish": {
           "name": "Sinagogenn",
-          "terms": "Sinagogenn"
+          "terms": "Sinagogenn,yuzev,yuzeviezh"
         },
         "amenity/place_of_worship/muslim": {
           "name": "Moskeenn",
-          "terms": "Moskeenn"
+          "terms": "Moskeenn,muzulman"
         },
         "amenity/place_of_worship/shinto": {
-          "name": "Aoter chinto"
+          "name": "Aoter chinto",
+          "terms": "templ shinto,templ chinto,aoter shinto,aoter chinto,shinto,chinto"
         },
         "amenity/place_of_worship/sikh": {
           "name": "Templ sikh",
@@ -4220,8 +4415,8 @@
           "terms": "C'hoariva,teatr,pezh c'hoari,c'hoari,aktour,sonerezh,trajedienn,drama,komedienn,fentc'hoari"
         },
         "amenity/theatre/type/amphi": {
-          "name": "Selaouva",
-          "terms": "añfiteatr,c'hoariva,kelc'hva,selaouva,amfiteatr"
+          "name": "Añfiteatr",
+          "terms": "Añfiteatr,kelc'hva,selaouva,amfiteatr"
         },
         "amenity/ticket_validator": {
           "name": "Stamper tikedennoù",
@@ -4355,6 +4550,10 @@
           "name": "Mezeg-loened",
           "terms": "klinikenn,ospital,loened,anevaled,mezeg,mezegez,milchin,medisin,medisinez,doktor"
         },
+        "amenity/veterinary_pharmacy": {
+          "name": "Apotikerezh evit al loened",
+          "terms": "Apotikerezh evit al loened"
+        },
         "amenity/waste/dog_excrement": {
           "name": "Poubellenn gaoc'h-ki",
           "terms": "Poubellenn gaoc'h-ki,kaoc'h-ki,kaoc'h"
@@ -4386,6 +4585,10 @@
           "name": "Liorzhig-loened",
           "terms": "kloz,lorzhig-loened,loened,enkloz,zoo,liorzh"
         },
+        "attraction/big_wheel": {
+          "name": "Rod vras",
+          "terms": "rod vras"
+        },
         "attraction/bumper_car": {
           "name": "Kirri tos-tos",
           "terms": "tos-tos,kirri,karr,stok,karr-stok,kirri-stok"
@@ -4397,6 +4600,9 @@
         "attraction/carousel": {
           "name": "Kezeg-koad",
           "terms": "kazeg-vezevenn,kezeg-koad,manej,kezeg-mezevenn"
+        },
+        "attraction/kiddie_ride": {
+          "name": "Manej evit bugale"
         },
         "attraction/maze": {
           "name": "Milendall",
@@ -4417,6 +4623,9 @@
         "attraction/water_slide": {
           "name": "Ruz-revr-dour",
           "terms": "ruz-revr dour,ruz-revr,dour,tobogan,tobogan-dour,"
+        },
+        "barrier": {
+          "name": "Harz"
         },
         "barrier/block": {
           "name": "Bloc'h",
@@ -4484,6 +4693,9 @@
           "name": "Skalier",
           "terms": "Skalier"
         },
+        "barrier/turnstile": {
+          "name": "Draf-tro"
+        },
         "barrier/wall": {
           "name": "Moger",
           "terms": "mur,moger"
@@ -4525,6 +4737,9 @@
         "building/cabin": {
           "name": "Lochenn",
           "terms": "Loch,Lochenn,Kabanenn,Log,Logell,Logenn,Lojell"
+        },
+        "building/carport": {
+          "name": "Gwasked kirri"
         },
         "building/cathedral": {
           "name": "Iliz-veur",
@@ -4596,6 +4811,9 @@
           "name": "Ti-gwer",
           "terms": "Ti-gwer"
         },
+        "building/hangar": {
+          "name": "Sanailh"
+        },
         "building/hospital": {
           "name": "Ospital",
           "terms": "Ospital,Klañvdi"
@@ -4624,6 +4842,9 @@
           "name": "Savadur skol-vamm",
           "terms": "skol,skol kentañ derez,kentañ derez,skol-vamm,skol vamm,savadur,ti"
         },
+        "building/manufacture": {
+          "name": "Savadur produerezh greantel"
+        },
         "building/mosque": {
           "name": "Moskeenn",
           "terms": "Moskeenn"
@@ -4634,6 +4855,9 @@
         },
         "building/outbuilding": {
           "name": "Pourpez"
+        },
+        "building/pavilion": {
+          "name": "Pavilhon"
         },
         "building/public": {
           "name": "Savadur foran",
@@ -4663,12 +4887,18 @@
           "name": "Savadur skol",
           "terms": "deskadurezh,savadur,skol"
         },
+        "building/semidetached_house": {
+          "name": "Ti ambion"
+        },
         "building/service": {
           "name": "Savadur servij",
           "terms": "savadur servij"
         },
         "building/shed": {
           "name": "Loch"
+        },
+        "building/stable": {
+          "name": "Kraou-kezeg"
         },
         "building/stadium": {
           "name": "Stad",
@@ -5142,6 +5372,9 @@
           "name": "Treuzenn gerzhourien",
           "terms": "treuzenn,kerzhourien,kerzhet,kerzherien,gerzhourien,gerzhet,gerzherien"
         },
+        "highway/crossing/informal": {
+          "name": "Treuzenn nann-ofisiel"
+        },
         "highway/crossing/traffic_signals": {
           "name": "Treuzenn gerzhourien gant gouleier heñchañ",
           "terms": "treuzenn,kerzhourien,kerzhet,kerzherien,gerzhourien,gerzhet,gerzherien,gouloù,triliv,panellerezh,gouleier,heñchañ"
@@ -5262,6 +5495,9 @@
         "highway/path/boardwalk": {
           "name": "Treuzell",
           "terms": "kavagell,klouedenn-goad,klouedenn,pontenn"
+        },
+        "highway/path/crossing": {
+          "name": "Treuzenn evit kerzhourien ha beloioù"
         },
         "highway/path/informal": {
           "name": "Gwenodenn anfurmel",
@@ -5607,6 +5843,10 @@
         },
         "landuse/meadow": {
           "name": "Pradenn"
+        },
+        "landuse/meadow_orchard/meadow": {
+          "name": "Pradenn gant gwez-frouezh",
+          "terms": "Pradenn gant gwez-frouezh,pradenn,foenneg,geoteg,peurvan,gwez,frouezh-gwezeg"
         },
         "landuse/military": {
           "name": "Takad Milourel",
@@ -6414,6 +6654,26 @@
           "name": "Gwezenn",
           "terms": "gwez,gwezenn"
         },
+        "natural/tree/broadleaved": {
+          "name": "Gwezenn deliaouek"
+        },
+        "natural/tree/broadleaved/deciduous": {
+          "name": "Gwezenn deliaouek (delioù dibad)",
+          "terms": "kouezhapl,dibad,gwezenn deliaouek"
+        },
+        "natural/tree/broadleaved/evergreen": {
+          "name": "Gwezenn deliaouek (delioù padus)"
+        },
+        "natural/tree/needleleaved": {
+          "name": "Gwezenn delioù pin"
+        },
+        "natural/tree/needleleaved/deciduous": {
+          "name": "Gwezenn delioù pin (dibad)"
+        },
+        "natural/tree/needleleaved/evergreen": {
+          "name": "Gwezenn delioù pin (padus)",
+          "terms": "padus,Gwezenn delioù pin"
+        },
         "natural/tree_row": {
           "name": "Renkad gwez",
           "terms": "steudad,renkad,gwez,garzh"
@@ -6575,6 +6835,9 @@
         "office/energy_supplier": {
           "name": "Pourvezer tredan",
           "terms": "Pourvezer tredan,pourvezer,tredan,pourchaser,pourchaser tredan"
+        },
+        "office/engineer": {
+          "name": "Ijiner"
         },
         "office/estate_agent": {
           "name": "Ajañs-tiez",
@@ -6844,6 +7107,10 @@
         "power/plant/source/waste": {
           "name": " Pulluc'hva al lastez"
         },
+        "power/plant/source/wind": {
+          "name": "Park rodoù-avel",
+          "terms": "rod-avel,rod avel,park rodoù-avel,tour-avel,tourioù-avel,park tourioù-avel"
+        },
         "power/pole": {
           "name": "Peul tredan",
           "terms": "peul,tredan,post"
@@ -6873,7 +7140,7 @@
         },
         "public_transport/platform/ferry": {
           "name": "Kae ferryoù",
-          "terms": "mordreizher,bag,ferry,kae"
+          "terms": "mordreizher,bag,ferry,kae,karrlestr"
         },
         "public_transport/platform/ferry_point": {
           "name": "Arsav / kae ferry"
@@ -6963,35 +7230,35 @@
           "terms": "takad,arsav,arsaviñ,ehan,lec'h"
         },
         "public_transport/stop_position_bus": {
-          "name": "Lec'h ma'z ehan ar bus",
-          "terms": "Lec'h ma'z ehan ar bus,lec'h-ehan,lec'h-arsav,arsav"
+          "name": "Lec'h ehan ar bus",
+          "terms": "Lec'h ehan ar bus,lec'h-ehan,lec'h-arsav,arsav,lec'h arsav,lec'h ehan,bus,karr-boutin,kirri-boutin"
         },
         "public_transport/stop_position_ferry": {
-          "name": "Lec'h ma'z arsav ar ferry",
-          "terms": "Lec'h ma'z arsav ar ferry,lec'h-ehan,lec'h-arsav,arsav"
+          "name": "Lec'h arsav ar ferry",
+          "terms": "Lec'h arsav ar ferry,lec'h-ehan,lec'h-arsav,arsav,ferry,mordreizher,lec'h arsav,lec'h ehan"
         },
         "public_transport/stop_position_light_rail": {
-          "name": "Lec'h ma'z ehan ar metro skañv",
+          "name": "Lec'h ehan ar metro skañv",
           "terms": "Lec'h ma'z ehan ar metro skañv,lec'h-ehan,lec'h-arsav,arsav"
         },
         "public_transport/stop_position_monorail": {
-          "name": "Lec'h ma'z ehan an unroudenn",
+          "name": "Lec'h ehan an unroudenn",
           "terms": "Lec'h ma'z ehan an unroudenn,lec'h-ehan,lec'h-arsav,arsav"
         },
         "public_transport/stop_position_subway": {
-          "name": "Lec'h ma'z ehan ar metro",
+          "name": "Lec'h ehan ar metro",
           "terms": "Lec'h ma'z ehan ar metro,lec'h-ehan,lec'h-arsav,arsav"
         },
         "public_transport/stop_position_train": {
-          "name": "Lec'h ma'z ehan an tren",
+          "name": "Lec'h ehan an tren",
           "terms": "Lec'h ma'z ehan an tren,lec'h-ehan,lec'h-arsav,arsav,tren"
         },
         "public_transport/stop_position_tram": {
-          "name": "Lec'h ma'z ehan an tramgarr",
+          "name": "Lec'h ehan an tramgarr",
           "terms": "Lec'h ma'z ehan an tramgarr,lec'h-ehan,lec'h-arsav,arsav"
         },
         "public_transport/stop_position_trolleybus": {
-          "name": "Lec'h ma'z ehan an trolleybus",
+          "name": "Lec'h ehan an trolleybus",
           "terms": "Lec'h ma'z ehan an trolleybus,lec'h-ehan,lec'h-arsav,arsav"
         },
         "railway": {
@@ -7082,6 +7349,9 @@
           "name": "Forzh tramgarr",
           "terms": "tramgarr,tram,hent,hent-houarn,forzh"
         },
+        "railway/tram_stop": {
+          "name": "Lec'hiadur ehan an tramgarr"
+        },
         "railway/turntable": {
           "name": "Hent-houarn distreiñ",
           "terms": "Hent-houarn distreiñ,hentad,hent"
@@ -7096,7 +7366,7 @@
         },
         "route/ferry": {
           "name": "Hentad ferry",
-          "terms": "hentad,hent,roudenn,mordreizher,ferry"
+          "terms": "hentad,hent,roudenn,mordreizher,ferry,karrlestr"
         },
         "seamark": {
           "name": "Balizenn"
@@ -7108,6 +7378,9 @@
         "seamark/buoy_lateral/red": {
           "name": "Boue ruz",
           "terms": "boue,ruz,balizenn,arouez-aod"
+        },
+        "seamark/mooring": {
+          "name": "Eren"
         },
         "shop": {
           "name": "Stal",
@@ -7122,7 +7395,8 @@
           "terms": "alkool,bier,gwin,sistr,chistr,vodka,evaj kreñv,hini kreñv,likor,korev,koreñv"
         },
         "shop/anime": {
-          "name": "Stal mangaoù ha anime"
+          "name": "Stal mangaoù hag anime",
+          "terms": "Stal mangaoù hag anime,stal,manga,anime"
         },
         "shop/antiques": {
           "name": "Hendraour",
@@ -7364,6 +7638,10 @@
           "name": "Perukenner",
           "terms": "perukenner,ficher,ficherez,blev,ficher-blev,ficherez-vlev,peruker,troc'her,troc'herez,troc'her-blev,troc'herez-vlev,barver,perukerezh,perukennerezh"
         },
+        "shop/hairdresser/barber": {
+          "name": "Barver",
+          "terms": "barver, perukenner"
+        },
         "shop/hairdresser_supply": {
           "name": "Stal dafar perukenner",
           "terms": "perukenner,ficher,ficherez,blev,ficher-blev,ficherez-vlev,peruker,troc'her,troc'herez,troc'her-blev,troc'herez-vlev,barver,perukerezh,perukennerezh,stal dafar perukenner,kribañ,gribañ,fichañ"
@@ -7534,12 +7812,17 @@
           "name": "Stal boued-mor",
           "terms": "stal,boued-mor,peskerezh,stal-besked"
         },
+        "shop/sewing": {
+          "name": "Stal dilhad kozh",
+          "terms": "Stal dilhad kozh,dilhad kozh,takonerezh"
+        },
         "shop/shoe_repair": {
-          "name": "Kereour"
+          "name": "Kereour",
+          "terms": "Kereour,botoù,kere,botaouer"
         },
         "shop/shoes": {
           "name": "Stal-votoù",
-          "terms": "botez,botoù,botoù-lêr"
+          "terms": "botez,botoù,botoù-lêr,stal botoù,stal votoù,stal-votoù"
         },
         "shop/spices": {
           "name": "Stal spisoù",
@@ -7550,17 +7833,20 @@
           "terms": "sport,sportoù,danvez sport,atletour,atleterezh,gourenour,gourenerezh,gouennelerezh"
         },
         "shop/stationery": {
-          "name": "Paperaerezh"
+          "name": "Paperaerezh",
+          "terms": "Paperaerezh"
         },
         "shop/supermarket": {
           "name": "Gourmarc'had",
           "terms": "gourmarc'had,stal,marc'had"
         },
         "shop/supermarket/organic": {
-          "name": "Gourmarc'had biologel"
+          "name": "Gourmarc'had biologel",
+          "terms": "Gourmarc'had biologel,bio,biologel,biologek,marc'had,gourmarc'had"
         },
         "shop/swimming_pool": {
-          "name": "Stal dafar poull-neuial"
+          "name": "Stal dafar poull-neuial",
+          "terms": "Stal dafar poull-neuial,poull-neuial,neuial"
         },
         "shop/tailor": {
           "name": "Kemener",
@@ -7574,16 +7860,21 @@
           "name": "Stal te",
           "terms": "te,stal,stal-te,stal-de"
         },
+        "shop/ticket": {
+          "name": "Gwerzher bilhedoù",
+          "terms": "Gwerzher bilhedoù,tikedenn,tikedennoù,bilhedoù,bilhed,gwerzher"
+        },
         "shop/tiles": {
           "name": "Stal-garrelladur",
           "terms": "Stal-garrelladur,karrelladur,karrellerezh,garrellerezh,karrezadur,garrezadur,garrellañ,karrellañ,karrezañ,garrezañ"
         },
         "shop/tobacco": {
           "name": "Stal-vutun",
-          "terms": "butun"
+          "terms": "butun,stal-vutun,stal butun"
         },
         "shop/tool_hire": {
-          "name": "Binviji da feurmiñ"
+          "name": "Binviji da feurmiñ",
+          "terms": "Binviji da feurmiñ,binviji,ostilhoù,binvioù,feurmiñ"
         },
         "shop/toys": {
           "name": "Stal c'hoarielloù",
@@ -7626,7 +7917,7 @@
         },
         "shop/watches": {
           "name": "Horolajerezh",
-          "terms": "Horolajerezh"
+          "terms": "Horolajerezh,stal horolajoù,horolajoù,eurieroù,montroù"
         },
         "shop/water": {
           "name": "Stal dour mat da evañ",
@@ -7658,7 +7949,8 @@
           "name": "Elfenn Douristel"
         },
         "tourism/alpine_hut": {
-          "name": "Bod"
+          "name": "Bod",
+          "terms": "bod"
         },
         "tourism/aquarium": {
           "name": "Akwariom",
@@ -7705,7 +7997,8 @@
           "terms": "Takad kampiñ,Lec'h kampiñ"
         },
         "tourism/camp_site/backcountry": {
-          "name": "Tachenn-gampiñ gouez"
+          "name": "Tachenn-gampiñ gouez",
+          "terms": "Tachenn-gampiñ gouez"
         },
         "tourism/caravan_site": {
           "name": "Leur kirri-kampiñ",
@@ -7744,7 +8037,7 @@
           "terms": "Kartenn"
         },
         "tourism/motel": {
-          "terms": "Motel"
+          "terms": "Motel,leti"
         },
         "tourism/museum": {
           "name": "Mirdi",
@@ -7759,7 +8052,8 @@
           "terms": "Lec'h piknikañ"
         },
         "tourism/viewpoint": {
-          "name": "Gwelva"
+          "name": "Gwelva",
+          "terms": "Gwelva"
         },
         "tourism/zoo": {
           "terms": "Zoo,Liorzh-loened,Gouezvilva"
@@ -7773,7 +8067,8 @@
           "terms": "mirva,natur,naturel,park,gwarezva,gwareziñ,mirout"
         },
         "traffic_calming": {
-          "name": "Kein-gwiz"
+          "name": "Gorrekaer",
+          "terms": "gorrekaer,skoilh torr-tizh"
         },
         "traffic_calming/bump": {
           "name": "Skoilh torr-tizh",
@@ -7795,16 +8090,20 @@
           "name": "Gorrekaer (n'eo ket spisaet)"
         },
         "traffic_sign": {
-          "name": "Panell-henchañ"
+          "name": "Panell-henchañ",
+          "terms": "Panell-henchañ"
         },
         "traffic_sign/city_limit": {
-          "name": "Panell gêr"
+          "name": "Panell gêr",
+          "terms": "Panell gêr,panell degemer,panell kêr"
         },
         "traffic_sign/maxspeed": {
-          "name": "Panell bevenn tizh"
+          "name": "Panell bevenn tizh",
+          "terms": "Panell bevenn tizh,bevenn tizh"
         },
         "type/boundary": {
-          "name": "Harzoù"
+          "name": "Harzoù",
+          "terms": "harzoù,harz,bevenn"
         },
         "type/boundary/administrative": {
           "name": "Harzoù melestradurel",
@@ -7815,29 +8114,36 @@
           "terms": "liestu,liestuek,liestueg,lieskogn,lieskorn,lieskogneg,lieskognek,lieskorneg,lieskornek"
         },
         "type/restriction/no_left_turn": {
-          "name": "Arabat treiñ a-gleiz"
+          "name": "Arabat treiñ a-gleiz",
+          "terms": "Arabat treiñ a-gleiz,na dreiñ a-gleiz"
         },
         "type/restriction/no_right_turn": {
-          "name": "Arabat treiñ a-zehou"
+          "name": "Arabat treiñ a-zehoù",
+          "terms": "Arabat treiñ a-zehoù,na dreiñ a-zehoù"
         },
         "type/restriction/no_straight_on": {
-          "name": "Arabat mont war-eeun"
+          "name": "Arabat mont war-eeun",
+          "terms": "Arabat mont war-eeun,na vont war-eeun"
         },
         "type/restriction/no_u_turn": {
-          "name": "Hanter-dro ebet"
+          "name": "Hanter-dro ebet",
+          "terms": "Hanter-dro ebet,na ober hanter-dro,arabat ober hanter-dro"
         },
         "type/restriction/only_left_turn": {
-          "name": "Ret eo treiñ a-gleiz"
+          "name": "Ret eo treiñ a-gleiz",
+          "terms": "Ret eo treiñ a-gleiz"
         },
         "type/restriction/only_right_turn": {
-          "name": "Ret eo treiñ a-zehou"
+          "name": "Ret eo treiñ a-zehoù",
+          "terms": "Ret eo treiñ a-zehoù"
         },
         "type/restriction/only_straight_on": {
-          "name": "Mont war-eeun rediet"
+          "name": "Ret eo mont war-eeun",
+          "terms": "Ret eo mont war-eeun"
         },
         "type/restriction/only_u_turn": {
           "name": "Hanter-dro nemetken",
-          "terms": "hanter-dro,rediet"
+          "terms": "hanter-dro,rediet,hanter-dro hepken,hanter-dro nemetken"
         },
         "type/route": {
           "name": "Hentad",
@@ -7848,10 +8154,12 @@
           "terms": "belo,beloioù,marc'h-houarn,mirc'hi-houarn,marc'hhouarnerezh,marc'hoù-houarn,hent,hentad,forzh,gwenodenn"
         },
         "type/route/bus": {
-          "name": "Hentad bus"
+          "name": "Hentad bus",
+          "terms": "Hentad bus"
         },
         "type/route/ferry": {
-          "name": "Hentad ferry"
+          "name": "Hentad ferry",
+          "terms": "hentad,hent,roudenn,mordreizher,ferry,karrlestr"
         },
         "type/route/hiking": {
           "name": "Hentad tro-vale",
@@ -7862,13 +8170,16 @@
           "terms": "Hentad marc'hegezh,hent bale,hent,gwenodenn,vale,marc'hañ,varc'hegezh,varc'hañ"
         },
         "type/route/light_rail": {
-          "name": "Hentad metro skañv"
+          "name": "Hentad metro skañv",
+          "terms": "Hentad metro skañv"
         },
         "type/route/monorail": {
-          "name": "Hentad unroudenn"
+          "name": "Hentad unroudenn",
+          "terms": "Hentad unroudenn,monorail"
         },
         "type/route/mtb": {
-          "name": "Hentad MTB"
+          "name": "Hentad MTB",
+          "terms": "Hentad MTB,MTB,VTT"
         },
         "type/route/pipeline": {
           "name": "Hentad eoulsan",

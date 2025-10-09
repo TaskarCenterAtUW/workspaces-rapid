@@ -1,9 +1,10 @@
 import { zoom as d3_zoom, zoomIdentity as d3_zoomIdentity } from 'd3-zoom';
 import { Tiler } from '@rapid-sdk/math';
-import { utilArrayUnion, utilQsString } from '@rapid-sdk/util';
+import { utilQsString } from '@rapid-sdk/util';
 import RBush from 'rbush';
 
 import { AbstractSystem } from '../core/AbstractSystem.js';
+import { uiIcon } from '../ui/icon.js';
 import { utilFetchResponse, utilSetTransform } from '../util/index.js';
 
 
@@ -15,6 +16,13 @@ const TILEZOOM = 14;
 
 /**
  * `KartaviewService`
+ * This service loads photos and sequences from the Kartaview/OpenStreetCam APIs.
+ * ('Kartaview' used to be named 'OpenStreetCam', and this code uses a mix of APIs to work.)
+ * @see https://doc.kartaview.org/
+ * @see https://api.openstreetcam.org/api/doc.html
+ *
+ * It also manages a simple embedded photo viewer,
+ * allowing the user to zoom, pan, and rotate the photos.
  *
  * Events available:
  *   `imageChanged`
@@ -36,13 +44,11 @@ export class KartaviewService extends AbstractSystem {
       .translateExtent([[0, 0], [320, 240]])
       .scaleExtent([1, 15]);
 
+    this._hires = false;
     this._cache = {};
-    this._selectedImage = null;
-    this._waitingForPhotoID = null;
     this._startPromise = null;
     this._tiler = new Tiler().zoomRange(TILEZOOM).skipNullIsland(true);
     this._lastv = null;
-    this.fetchedSequences = new Set(); // Initialize an empty set
 
     // Ensure methods used as callbacks always have `this` bound correctly.
     this._zoomPan = this._zoomPan.bind(this);
@@ -66,56 +72,70 @@ export class KartaviewService extends AbstractSystem {
    */
   startAsync() {
     if (this._startPromise) return this._startPromise;
+
     const context = this.context;
+    const ui = context.systems.ui;
 
     // add osc-wrapper
-    let wrap = context.container().select('.photoviewer').selectAll('.osc-wrapper')
+    const $wrapper = context.container().select('.photoviewer .middle-middle')
+      .selectAll('.osc-wrapper')
       .data([0]);
 
-    let wrapEnter = wrap.enter()
+    const $$wrapper = $wrapper.enter()
       .append('div')
       .attr('class', 'photo-wrapper osc-wrapper')
       .classed('hide', true)
       .call(this._imgZoom.on('zoom', this._zoomPan))
       .on('dblclick.zoom', null);
 
-    wrapEnter
+    // add .photo-footer
+    const $$footer = $$wrapper
       .append('div')
-      .attr('class', 'photo-attribution fillD');
+      .attr('class', 'photo-footer');
 
-    let controlsEnter = wrapEnter
+    $$footer
+      .append('div')
+      .attr('class', 'photo-options');
+
+    $$footer
+      .append('div')
+      .attr('class', 'photo-attribution');
+
+
+    // add .photo-controls
+    const $$controls = $$wrapper
       .append('div')
       .attr('class', 'photo-controls-wrap')
       .append('div')
       .attr('class', 'photo-controls');
 
-    controlsEnter
+    $$controls
       .append('button')
       .on('click.back', () => this._step(-1))
-      .html('◄');
+      .call(uiIcon('#fas-backward-step'));
 
-    controlsEnter
+    $$controls
       .append('button')
       .on('click.rotate-ccw', () => this._rotate(-90))
-      .html('⤿');
+      .call(uiIcon('#fas-arrow-rotate-left'));
 
-    controlsEnter
+    $$controls
       .append('button')
       .on('click.rotate-cw', () => this._rotate(90))
-      .html('⤾');
+      .call(uiIcon('#fas-arrow-rotate-right'));
 
-    controlsEnter
+    $$controls
       .append('button')
       .on('click.forward', () => this._step(1))
-      .html('►');
+      .call(uiIcon('#fas-forward-step'));
 
-    wrapEnter
+    $$wrapper
       .append('div')
       .attr('class', 'osc-image-wrap');
 
 
     // Register viewer resize handler
-    context.systems.ui.photoviewer.on('resize.kartaview', dimensions => {
+    ui.PhotoViewer.on('resize', dimensions => {
       this._imgZoom = d3_zoom()
         .extent([[0, 0], dimensions])
         .translateExtent([[0, 0], dimensions])
@@ -142,15 +162,14 @@ export class KartaviewService extends AbstractSystem {
     }
 
     this._cache = {
-      inflight:  new Map(),   // Map(k -> { Promise, AbortController})
-      loaded:    new Set(),   // Set(k)   (where k is like `${tile.id},${nextPage}`)
-      nextPage:  new Map(),   // Map(tileID -> Number)
-      images:    new Map(),   // Map(imageID -> image data)
-      sequences: new Map(),   // Map(sequenceID -> sequence data)
-      rtree:     new RBush(),
+      inflight:  new Map(),   // Map(k, {Promise, AbortController})
+      loaded:    new Set(),   // Set(k)  (where k is like `${tile.id},${nextPage}`)
+      nextPage:  new Map(),   // Map(tileID, Number)
+      images:    new Map(),   // Map(imageID, image data)
+      sequences: new Map(),   // Map(sequenceID, sequence data)
+      rbush:     new RBush()
     };
 
-    this._selectedImage = null;
     this._lastv = null;
 
     return Promise.resolve();
@@ -164,7 +183,7 @@ export class KartaviewService extends AbstractSystem {
    */
   getImages() {
     const extent = this.context.viewport.visibleExtent();
-    return this._cache.rtree.search(extent.bbox()).map(d => d.data);
+    return this._cache.rbush.search(extent.bbox()).map(d => d.data);
   }
 
 
@@ -175,33 +194,40 @@ export class KartaviewService extends AbstractSystem {
    */
   getSequences() {
     const extent = this.context.viewport.visibleExtent();
-    let sequenceIDs = new Set();
+    const sequenceIDs = new Set();
 
     // Gather sequences for images in viewport
-    for (const box of this._cache.rtree.search(extent.bbox())) {
+    for (const box of this._cache.rbush.search(extent.bbox())) {
       if (box.data.sequenceID) {
         sequenceIDs.add(box.data.sequenceID);
       }
     }
 
     // Make GeoJSON LineStrings from those sequences..
-    let lineStrings = [];
+    const lineStrings = [];
     for (const sequenceID of sequenceIDs) {
       const sequence = this._cache.sequences.get(sequenceID);
+      if (!sequence) continue;
+
       const images = sequence?.images ?? [];   // note that `images` may be a sparse array
       if (!images.length) continue;
+
+      const first = images.find(i => i);  // find any image
 
       lineStrings.push({
         type: 'LineString',
         properties: {
+          type: 'sequence',
           id: sequenceID,
-          v: sequence.v,
-          captured_at: images[0]?.captured_at,
-          captured_by: images[0]?.captured_by
+          v:  sequence.v,
+          isPano:      first.isPano,
+          captured_at: first.captured_at,
+          captured_by: first.captured_by
         },
-        coordinates: images.map(image => image.loc).filter(Boolean)
+        coordinates: images.map(i => i.loc).filter(Boolean)
       });
     }
+
     return lineStrings;
   }
 
@@ -228,7 +254,7 @@ export class KartaviewService extends AbstractSystem {
 
     // Fetch files that are needed
     for (const tile of needTiles) {
-      this._loadNextTilePage(viewport.transform.zoom, tile);
+      this._loadNextTilePageAsync(tile);
     }
   }
 
@@ -238,17 +264,17 @@ export class KartaviewService extends AbstractSystem {
    * Shows the photo viewer, and hides all other photo viewers
    */
   showViewer() {
-    let viewer = this.context.container().select('.photoviewer')
+    const $viewer = this.context.container().select('.photoviewer')
       .classed('hide', false);
 
-    let isHidden = viewer.selectAll('.photo-wrapper.osc-wrapper.hide').size();
+    const isHidden = $viewer.selectAll('.photo-wrapper.osc-wrapper.hide').size();
 
     if (isHidden) {
-      viewer
+      $viewer
         .selectAll('.photo-wrapper:not(.osc-wrapper)')
         .classed('hide', true);
 
-      viewer
+      $viewer
         .selectAll('.photo-wrapper.osc-wrapper')
         .classed('hide', false);
     }
@@ -260,22 +286,15 @@ export class KartaviewService extends AbstractSystem {
    * Hides the photo viewer and clears the currently selected image
    */
   hideViewer() {
-    this._selectedImage = null;
     const context = this.context;
     context.systems.photos.selectPhoto(null);
 
-    let viewer = context.container().select('.photoviewer');
-    if (!viewer.empty()) viewer.datum(null);
-
-    viewer
+    const $viewer = context.container().select('.photoviewer');
+    $viewer
       .classed('hide', true)
       .selectAll('.photo-wrapper')
       .classed('hide', true);
 
-    context.container().selectAll('.viewfield-group, .sequence, .icon-sign')
-      .classed('currentView', false);
-
-    this.setStyles(context, null, true);
     this.emit('imageChanged');
   }
 
@@ -285,73 +304,129 @@ export class KartaviewService extends AbstractSystem {
    * Note:  most code should call `PhotoSystem.selectPhoto(layerID, photoID)` instead.
    * That will manage the state of what the user clicked on, and then call this function.
    * @param  {string} imageID - the id of the image to select
-   * @return {Promise} Promise that always resolves (we should change this to resolve after the image is ready)
+   * @return {Promise} Promise that resolves to the image after it has been selected
    */
   selectImageAsync(imageID) {
-    let d = this._cache.images.get(imageID);
-    this._selectedImage = d;
+    if (!imageID) {
+      this._updatePhotoFooter(null);  // reset
+      return Promise.resolve();  // do nothing
+    }
 
     const context = this.context;
-    if (!context.container()) return;
+    const cache = this._cache;
 
-    let viewer = context.container().select('.photoviewer');
-    if (!viewer.empty()) viewer.datum(d);
+    return this.startAsync()
+      .then(() => this._loadImageAsync(imageID))
+      .then(image => {
+        const $wrapper = context.container().select('.photoviewer .osc-wrapper');
+        const $imageWrap = $wrapper.selectAll('.osc-image-wrap');
 
-    this.setStyles(context, null, true);
+        $wrapper
+          .transition()
+          .duration(100)
+          .call(this._imgZoom.transform, d3_zoomIdentity);
 
-    context.container().selectAll('.icon-sign')
-      .classed('currentView', false);
+        $imageWrap
+          .selectAll('.osc-image')
+          .remove();
 
-    // It's possible we could be trying to show a photo that hasn't been fetched yet
-    // (e.g. if we are starting up with a photoID specified in the url hash)
-    if (imageID && !d) {
-      this._waitingForPhotoID = imageID;
+        const sequence = cache.sequences.get(image.sequenceID);
+        const r = sequence?.rotation ?? 0;
+
+        $imageWrap
+          .append('img')
+          .attr('class', 'osc-image')
+          .attr('src', this._hires ? image.imageHighUrl : image.imageMedUrl)
+          .style('transform', `rotate(${r}deg)`);
+
+        this._updatePhotoFooter(image.id);
+
+        return image;  // pass the image to anything that chains off this Promise
+      });
+  }
+
+
+  /**
+   * _updatePhotoFooter
+   * Update the photo attribution section of the image viewer
+   * @param  {string} imageID - the new imageID
+   */
+  _updatePhotoFooter(imageID) {
+    const context = this.context;
+    const l10n = context.systems.l10n;
+    const photos = context.systems.photos;
+    const $wrapper = context.container().select('.photoviewer .osc-wrapper');
+
+    // Options Section
+    const $options = $wrapper.selectAll('.photo-options');
+
+    // .hires checkbox
+    let $label = $options.selectAll('.hires')
+      .data([0]);
+
+    // enter
+    const $$label = $label.enter()
+      .append('label')
+      .attr('for', 'osc-hires-input')
+      .attr('class', 'hires');
+
+    $$label
+      .append('input')
+      .attr('type', 'checkbox')
+      .attr('id', 'osc-hires-input')
+      .on('click', e => {
+        e.stopPropagation();
+
+        this._hires = !this._hires;
+        this.selectImageAsync(photos.currPhotoID);  // reselect
+      });
+
+    $$label
+      .append('span');
+
+    // update
+    $label = $label.merge($$label);
+    $label.selectAll('#osc-hires-input')
+      .property('checked', this._hires);
+
+    $label.selectAll('span')
+      .text(l10n.t('photos.hires'));
+
+
+    // Attribution Section
+    const $attribution = $wrapper.selectAll('.photo-attribution').html('&nbsp;');  // clear DOM content
+
+    const image = this._cache.images.get(imageID);
+    if (!image) return;
+
+    if (image.captured_by) {
+      $attribution
+        .append('span')
+        .attr('class', 'captured_by')
+        .text(image.captured_by);
+
+      $attribution
+        .append('span')
+        .text('|');
     }
-    if (!d) return Promise.resolve();
 
-    let wrap = context.container().select('.photoviewer .osc-wrapper');
-    let imageWrap = wrap.selectAll('.osc-image-wrap');
-    let attribution = wrap.selectAll('.photo-attribution').html('');
+    if (image.captured_at) {
+      $attribution
+        .append('span')
+        .attr('class', 'captured_at')
+        .text(_localeDateString(image.captured_at));
 
-    wrap
-      .transition()
-      .duration(100)
-      .call(this._imgZoom.transform, d3_zoomIdentity);
-
-    imageWrap
-      .selectAll('.osc-image')
-      .remove();
-
-    if (d) {
-      const sequence = this._cache.sequences.get(d.sequenceID);
-      const r = sequence?.rotation ?? 0;
-
-      imageWrap
-        .append('img')
-        .attr('class', 'osc-image')
-        .attr('src', `${KARTAVIEW_API}/${d.storageNum}/files/photo/${d.imagePath}`)
-        .style('transform', `rotate(${r}deg)`);
-
-      if (d.captured_at) {
-        attribution
-          .append('span')
-          .attr('class', 'captured_at')
-          .text(_localeDateString(d.captured_at));
-
-        attribution
-          .append('span')
-          .text('|');
-      }
-
-      attribution
-        .append('a')
-        .attr('class', 'image-link')
-        .attr('target', '_blank')
-        .attr('href', `https://kartaview.org/details/${d.sequenceID}/${d.sequenceIndex}/track-info`)
-        .text('kartaview.org');
+      $attribution
+        .append('span')
+        .text('|');
     }
 
-    return Promise.resolve();
+    $attribution
+      .append('a')
+      .attr('class', 'image-link')
+      .attr('target', '_blank')
+      .attr('href', `https://kartaview.org/details/${image.sequenceID}/${image.sequenceIndex}/track-info`)
+      .text('kartaview.org');
 
 
     function _localeDateString(s) {
@@ -366,63 +441,6 @@ export class KartaviewService extends AbstractSystem {
   }
 
 
-  // NOTE: the setStyles() functions all dont work right now since the WebGL rewrite.
-  // They depended on selecting svg stuff from the container - see #740
-
-  // Updates the currently highlighted sequence and selected bubble.
-  // Reset is only necessary when interacting with the viewport because
-  // this implicitly changes the currently selected bubble/sequence
-  setStyles(context, hovered, reset) {
-    if (reset) {  // reset all layers
-      context.container().selectAll('.viewfield-group')
-        .classed('highlighted', false)
-        .classed('hovered', false)
-        .classed('currentView', false);
-
-      context.container().selectAll('.sequence')
-        .classed('highlighted', false)
-        .classed('currentView', false);
-    }
-
-    let hoveredImageID = hovered?.id;
-    let hoveredSequenceID = hovered?.sequenceID;
-    let hoveredSequence = hoveredSequenceID && this._cache.sequences.get(hoveredSequenceID);
-    let hoveredImageIDs = (hoveredSequence && hoveredSequence.images.map(function (d) { return d.id; })) || [];
-
-    let viewer = context.container().select('.photoviewer');
-    let selected = viewer.empty() ? undefined : viewer.datum();
-    let selectedImageID = selected?.id;
-    let selectedSequenceID = selected?.sequenceID;
-    let selectedSequence = selectedSequenceID && this._cache.sequences.get(selectedSequenceID);
-    let selectedImageIDs = (selectedSequence && selectedSequence.images.map(function (d) { return d.id; })) || [];
-
-    // highlight sibling viewfields on either the selected or the hovered sequences
-    let highlightedImageIDs = utilArrayUnion(hoveredImageIDs, selectedImageIDs);
-
-    context.container().selectAll('.layer-kartaview .viewfield-group')
-      .classed('highlighted', function(d) { return highlightedImageIDs.indexOf(d.id) !== -1; })
-      .classed('hovered', function(d) { return d.id === hoveredImageID; })
-      .classed('currentView', function(d) { return d.id === selectedImageID; });
-
-    context.container().selectAll('.layer-kartaview .sequence')
-      .classed('highlighted', function(d) { return d.properties.id === hoveredSequenceID; })
-      .classed('currentView', function(d) { return d.properties.id === selectedSequenceID; });
-
-    // update viewfields if needed
-    context.container().selectAll('.layer-kartaview .viewfield-group .viewfield')
-      .attr('d', viewfieldPath);
-
-    function viewfieldPath() {
-      let d = this.parentNode.__data__;
-      if (d.isPano && d.id !== selectedImageID) {
-        return 'M 8,13 m -10,0 a 10,10 0 1,0 20,0 a 10,10 0 1,0 -20,0';
-      } else {
-        return 'M 6,9 C 8,8.4 8,8.4 10,9 L 16,-2 C 12,-5 4,-5 0,-2 z';
-      }
-    }
-  }
-
-
   /**
    * _maxPageAtZoom
    * How many pages of data should we fetch at different zooms?
@@ -431,143 +449,186 @@ export class KartaviewService extends AbstractSystem {
    * @return {Number} max pages of data to fetch
    */
   _maxPageAtZoom(z) {
-    if (z < 15)   return 2;
-    if (z === 15) return 5;
-    if (z === 16) return 10;
-    if (z === 17) return 20;
-    if (z === 18) return 40;
-    if (z > 18)   return 80;
+    if (z < 15) return 2;
+    if (z < 16) return 5;
+    if (z < 17) return 10;
+    if (z < 18) return 20;
+    if (z < 19) return 40;
+    return 80;
   }
 
 
   /**
-   * _loadNextTilePage
-   * Loads more image data
-   * @param  {Number} currZoom - current zoom level
-   * @param  {Tile} tile - tile object
+   * _loadNextTilePageAsync
+   * Load the next page of image data for the given tile.
+   * This uses `https://kartaview.org/1.0/list/nearby-photos/`
+   * @param  {Tile}  tile - tile object
+   * @return {Promise} Promise resolved when there is nothing more to do
    */
-  _loadNextTilePage(currZoom, tile) {
-  const bbox = tile.wgs84Extent.bbox();
-  const maxPages = this._maxPageAtZoom(currZoom);
-  const nextPage = this._cache.nextPage.get(tile.id) ?? 1;
+  _loadNextTilePageAsync(tile) {
+    const context = this.context;
+    const cache = this._cache;
+    const bbox = tile.wgs84Extent.bbox();
+    const currZoom = context.viewport.transform.zoom;
+    const maxPages = this._maxPageAtZoom(currZoom);
+    const nextPage = cache.nextPage.get(tile.id) ?? 1;
 
-  if (nextPage > maxPages) return;
+    if (nextPage > maxPages) return Promise.resolve();
 
-  const k = `${tile.id},${nextPage}`;
-  if (this._cache.loaded.has(k) || this._cache.inflight.has(k)) return;
+    const k = `${tile.id},${nextPage}`;
+    if (cache.loaded.has(k) || cache.inflight.has(k)) return Promise.resolve();
 
-  const params = utilQsString({
-    ipp: MAXRESULTS,
-    page: nextPage,
-    bbTopLeft: [bbox.maxY, bbox.minX].join(','),
-    bbBottomRight: [bbox.minY, bbox.maxX].join(','),
-  }, true);
+    const params = utilQsString({
+      ipp: MAXRESULTS,
+      page: nextPage,
+      bbTopLeft: [bbox.maxY, bbox.minX].join(','),
+      bbBottomRight: [bbox.minY, bbox.maxX].join(','),
+    }, true);
 
-  const controller = new AbortController();
-  const options = {
-    method: 'POST',
-    signal: controller.signal,
-    body: params,
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  };
-  const url = `${KARTAVIEW_API}/1.0/list/nearby-photos/`;
+    const controller = new AbortController();
+    const url = `${KARTAVIEW_API}/1.0/list/nearby-photos/`;
+    const options = {
+      method: 'POST',
+      signal: controller.signal,
+      body: params,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    };
 
-  fetch(url, options)
-    .then(utilFetchResponse)
-    .then(sequenceData => {
-      this._cache.loaded.add(k);
-      if (!sequenceData || !sequenceData.currentPageItems || !sequenceData.currentPageItems.length) {
-        throw new Error('No Data');
-      }
-      // Extract the sequence IDs from the data
-      const sequenceIDs = sequenceData.currentPageItems.map(image => image.sequence_id);
+    const prom = fetch(url, options)
+      .then(utilFetchResponse)
+      .then(response => {
+        cache.loaded.add(k);
+        const data = response?.currentPageItems || [];
+        if (!data.length) return;
 
-      // Fetch images for each sequence
-      sequenceIDs.forEach(sequenceID => {
-        this._fetchImagesForSequence(sequenceID);
-      });
-
-      if (sequenceData.currentPageItems.length === MAXRESULTS) {
-        this._cache.nextPage.set(tile.id, nextPage + 1);
-        this._loadNextTilePage(currZoom, tile);
-      } else {
-        this._cache.nextPage.set(tile.id, Infinity);
-      }
-
-      this.context.deferredRedraw();
-      this.emit('loadedData');
-    })
-    .catch(err => {
-      if (err.name === 'AbortError') return;
-      if (err instanceof Error) console.error(err);  // eslint-disable-line no-console
-    })
-    .finally(() => {
-      this._cache.inflight.delete(k);
-    });
-
-  this._cache.inflight.set(k, { promise: null, controller: controller });
-}
-
-_fetchImagesForSequence(sequenceID) {
-  if (!sequenceID) {
-    console.error('Invalid sequenceID:', sequenceID);   // eslint-disable-line no-console
-    return; // Abort the operation if sequenceID is not defined
-  }
-
-  if (this.fetchedSequences.has(sequenceID)) {
-    return; // Sequence already fetched
-  }
-
-  // Add the sequence to the fetched set to avoid duplicate fetching
-  this.fetchedSequences.add(sequenceID);
-  const controller = new AbortController();
-  const sequenceUrl = `${OPENSTREETCAM_API}/2.0/photo/?sequenceId=${sequenceID}`;
-  const sequenceOptions = {
-    method: 'GET',
-    signal: controller.signal,
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  };
-  fetch(sequenceUrl, sequenceOptions)
-    .then(utilFetchResponse)
-    .then(data => {
-      if (data && data.result && data.result.data) {
         // Process and cache the images
-        const imageBoxes = data.result.data.map(image => {
-          const loc = [+image.lng, +image.lat];
-          const d = {
-            id: image.id,
-            loc: loc,
-            ca: +image.heading,
-            captured_at: (image.shotDate || image.dateAdded),
-            storageNum: image.storage,
-            imagePath: image.filepathLTh,
-            sequenceID: image.sequenceId,
-            sequenceIndex: +image.sequenceIndex
-          };
-          this._cache.images.set(image.id, d);
+        for (const d of data) {
+          const imageID = d.id.toString();
+          const sequenceID = d.sequence_id.toString();
 
-          // Cache sequence info
-          let sequence = this._cache.sequences.get(d.sequenceID);
+          // Note that this API call gives us the `username`, but not the image urls.
+          // It also uses 'snake_case' instead of 'camelCase'.
+          const image = this._cacheImage(cache, {
+            id:             imageID,
+            sequenceID:     sequenceID,
+            loc:            [+d.lng, +d.lat],
+            ca:             parseFloat(d.heading ?? d.headers),
+            isPano:         (d.field_of_view === '360'),
+            captured_by:    d.username,
+            captured_at:    (d.shot_date ?? d.date_added),
+            sequenceIndex:  parseInt(d.sequence_index, 10)
+          });
+
+          // Cache sequence, create if needed
+          let sequence = cache.sequences.get(sequenceID);
           if (!sequence) {
-            sequence = { rotation: 0, images: [], v: 0 };
-            this._cache.sequences.set(d.sequenceID, sequence);
+            sequence = {
+              type: 'sequence',
+              id: sequenceID,
+              rotation: 0,
+              images: [],
+              v: 0
+            };
+            cache.sequences.set(sequenceID, sequence);
           }
 
-          // Add image to sequence - note that `images` may be a sparse array
-          sequence.images[d.sequenceIndex] = d;
+          // Add image to sequence - note that `sequence.images` may be a sparse array.
+          sequence.images[image.sequenceIndex] = image;
           sequence.v++;
+        }
 
-          return {
-            minX: loc[0], minY: loc[1], maxX: loc[0], maxY: loc[1], data: d
+        const gfx = context.systems.gfx;
+        gfx.deferredRedraw();
+        this.emit('loadedData');
+
+        if (data.length === MAXRESULTS) {
+          cache.nextPage.set(tile.id, nextPage + 1);
+          this._loadNextTilePageAsync(tile);
+        } else {
+          cache.nextPage.set(tile.id, Infinity);   // loaded all available pages for this tile
+        }
+      })
+      .catch(err => {
+        if (err.name === 'AbortError') return;
+        if (err instanceof Error) console.error(err);  // eslint-disable-line no-console
+      })
+      .finally(() => {
+        cache.inflight.delete(k);
+      });
+
+    cache.inflight.set(k, { promise: prom, controller: controller });
+    return prom;
+  }
+
+
+  /**
+   * _loadImageAsync
+   * Load a single image.
+   * This uses `https://api.openstreetcam.org/2.0/photo/<imageID>`
+   * If the image has not yet been fetched (for example if we are loading an image
+   *  specified in the urlhash and we haven't loaded tiles yet) we will cache the image data also.
+   * @param  {string}  imageID - the imageID to load
+   * @return {Promise} Promise resolved with the image Object
+   */
+  _loadImageAsync(imageID) {
+    const context = this.context;
+    const cache = this._cache;
+
+    // If the image is already cached with an imageUrl, we can just resolve.
+    const image = cache.images.get(imageID);
+    if (image?.imageLowUrl) return Promise.resolve(image);  // fetched it already
+
+    const url = `${OPENSTREETCAM_API}/2.0/photo/${imageID}`;
+
+    return fetch(url)
+      .then(utilFetchResponse)
+      .then(response => {
+        const d = response?.result?.data;
+        if (!d) throw new Error(`Image ${imageID} not found`);
+
+        const sequenceID = d.sequenceId.toString();
+
+        // Note that this API call gives us the image urls, but not the `username`.
+        // It also uses 'camelCase' instead of 'snake_case'.
+        const image = this._cacheImage(cache, {
+          id:             imageID,
+          sequenceID:     sequenceID,
+          loc:            [+d.lng, +d.lat],
+          ca:             parseFloat(d.heading ?? d.headers),
+          isPano:         (d.fieldOfView === '360'),
+          captured_at:    (d.shotDate ?? d.dateAdded),
+          sequenceIndex:  parseInt(d.sequenceIndex, 10),
+          imageLowUrl:    d.imageThUrl,     // thumbnail
+          imageMedUrl:    d.imageLthUrl,    // large thumbnail
+          imageHighUrl:   d.imageProcUrl    // full resolution
+        });
+
+        // Cache sequence, create if needed
+        let sequence = cache.sequences.get(sequenceID);
+        if (!sequence) {
+          sequence = {
+            type: 'sequence',
+            id: sequenceID,
+            rotation: 0,
+            images: [],
+            v: 0
           };
-        }).filter(Boolean);
+          cache.sequences.set(sequenceID, sequence);
+        }
 
-        this._cache.rtree.load(imageBoxes);
-      }
-    })
-    .catch(err => {
-      if (err instanceof Error) console.error(err);  // eslint-disable-line no-console
-    });
+        // Add image to sequence - note that `sequence.images` may be a sparse array.
+        sequence.images[image.sequenceIndex] = image;
+        sequence.v++;
+
+        const gfx = context.systems.gfx;
+        gfx.deferredRedraw();
+        this.emit('loadedData');
+
+        return image;
+      })
+      .catch(err => {
+        if (err instanceof Error) console.error(err);  // eslint-disable-line no-console
+      });
   }
 
 
@@ -579,8 +640,12 @@ _fetchImagesForSequence(sequenceID) {
    */
   _zoomPan(d3_event) {
     const t = d3_event.transform;
-    this.context.container().select('.photoviewer .osc-image-wrap')
-      .call(utilSetTransform, t.x, t.y, t.k);
+    const $container = this.context.container();
+    const $imageWrap = $container.select('.photoviewer .osc-image-wrap');
+
+    if ($imageWrap.size()) {
+      utilSetTransform($imageWrap.node(), t.x, t.y, t.k);
+    }
   }
 
 
@@ -591,10 +656,13 @@ _fetchImagesForSequence(sequenceID) {
    * @param  {Number}  deg - degrees to rotate
    */
   _rotate(deg) {
-    if (!this._selectedImage) return;
+    const context = this.context;
+    const photos = context.systems.photos;
 
-    const sequenceID = this._selectedImage.sequenceID;
-    const sequence = this._cache.sequences.get(sequenceID);
+    const image = this._cache.images.get(photos.currPhotoID);
+    if (!image) return;
+
+    const sequence = this._cache.sequences.get(image.sequenceID);
     if (!sequence) return;
 
     let r = sequence.rotation || 0;
@@ -604,14 +672,14 @@ _fetchImagesForSequence(sequenceID) {
     if (r < -180) r += 360;
     sequence.rotation = r;
 
-    let wrap = this.context.container().select('.photoviewer .osc-wrapper');
+    const $wrapper = context.container().select('.photoviewer .osc-wrapper');
 
-    wrap
+    $wrapper
       .transition()
       .duration(100)
       .call(this._imgZoom.transform, d3_zoomIdentity);
 
-    wrap.selectAll('.osc-image')
+    $wrapper.selectAll('.osc-image')
       .transition()
       .duration(100)
       .style('transform', `rotate(${r}deg)`);
@@ -624,20 +692,63 @@ _fetchImagesForSequence(sequenceID) {
    * @param  {Number}  stepBy - number to step by, either +1 or -1
    */
   _step(stepBy) {
-    if (!this._selectedImage) return;
+    const context = this.context;
+    const photos = context.systems.photos;
 
-    const sequenceID = this._selectedImage.sequenceID;
-    const sequence = this._cache.sequences.get(sequenceID);
+    const image = this._cache.images.get(photos.currPhotoID);
+    if (!image) return;
+
+    const sequence = this._cache.sequences.get(image.sequenceID);
     if (!sequence) return;
 
-    const nextIndex = this._selectedImage.sequenceIndex + stepBy;
+    const nextIndex = image.sequenceIndex + stepBy;
     const nextImage = sequence.images[nextIndex];
     if (!nextImage) return;
 
-    const context = this.context;
-    context.systems.map.centerEase(nextImage.loc);
-    context.systems.photos.selectPhoto('kartaview', nextImage.id);
+    photos.selectPhoto('kartaview', nextImage.id);
+
     this.emit('imageChanged');
   }
-}
 
+
+  /**
+   * _cacheImage
+   * Store the given image in the caches
+   * @param  {Object}  cache - the cache to use
+   * @param  {Object}  props - the image properties
+   * @return {Object}  The image
+   */
+  _cacheImage(cache, props) {
+    let image = cache.images.get(props.id);
+    if (!image) {
+      image = {
+        type:    'photo',
+        service: 'kartaview',
+        id:      props.id,
+        loc:     props.loc
+      };
+
+      cache.images.set(image.id, image);
+
+      const [x, y] = props.loc;
+      cache.rbush.insert({ minX: x, minY: y, maxX: x, maxY: y, data: image });
+    }
+
+    // Allow 0, but not things like NaN, null, Infinity
+    const caIsNumber = (!isNaN(props.ca) && isFinite(props.ca));
+
+    // Update whatever additional props we were passed..
+    if (props.sequenceID)     image.sequenceID     = props.sequenceID;
+    if (props.sequenceIndex)  image.sequenceIndex  = props.sequenceIndex;
+    if (props.captured_at)    image.captured_at    = props.captured_at;
+    if (props.captured_by)    image.captured_by    = props.captured_by;
+    if (caIsNumber)           image.ca             = props.ca;
+    if (props.isPano)         image.isPano         = props.isPano;
+    if (props.imageLowUrl)    image.imageLowUrl    = props.imageLowUrl;   // thumbnail
+    if (props.imageMedUrl)    image.imageMedUrl    = props.imageMedUrl;   // large thumbnail
+    if (props.imageHighUrl)   image.imageHighUrl   = props.imageHighUrl;  // full resolution
+
+    return image;
+  }
+
+}

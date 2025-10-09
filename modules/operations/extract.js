@@ -13,7 +13,6 @@ export function operationExtract(context, selectedIDs) {
   const storage = context.systems.storage;
   const viewport = context.viewport;
 
-  const multi = selectedIDs.length === 1 ? 'single' : 'multiple';
   const entities = selectedIDs.map(entityID => graph.hasEntity(entityID)).filter(Boolean);
   const isNew = entities.every(entity => entity.isNew());
   const extent = utilTotalExtent(entities, graph);
@@ -100,8 +99,8 @@ export function operationExtract(context, selectedIDs) {
   operation.tooltip = function () {
     const disabledReason = operation.disabled();
     return disabledReason ?
-      l10n.t(`operations.extract.${disabledReason}.${multi}`) :
-      l10n.t(`operations.extract.description.${geometryType}.${multi}`);
+      l10n.t(`operations.extract.${disabledReason}`, { n: selectedIDs.length }) :
+      l10n.t(`operations.extract.description.${geometryType}`, { n: selectedIDs.length });
   };
 
 
@@ -111,7 +110,7 @@ export function operationExtract(context, selectedIDs) {
 
 
   operation.id = 'extract';
-  operation.keys = [ l10n.t('operations.extract.key') ];
+  operation.keys = [ l10n.t('shortcuts.command.extract.key') ];
   operation.title = l10n.t('operations.extract.title');
   operation.behavior = new KeyOperationBehavior(context, operation);
 

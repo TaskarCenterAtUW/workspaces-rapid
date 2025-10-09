@@ -168,6 +168,7 @@ export function uiPaneHelp(context) {
     ]],
     ['notes', [
       'intro',
+      'show_notes',
       'add_note_h',
       'add_note',
       'place_note',
@@ -259,9 +260,10 @@ export function uiPaneHelp(context) {
   };
 
   // common replacements that we may use anywhere in the help text
+  const rtl = l10n.isRTL() ? '-rtl' : '';
   const replacements = {
     version: `**${context.version}**`,
-    rapidicon: `<svg class="icon pre-text rapid"><use xlink:href="#rapid-logo-rapid-wordmark"></use></svg>`
+    rapidicon: `<svg class="icon pre-text rapid"><use xlink:href="#rapid-logo-rapid-wordmark${rtl}"></use></svg>`
   };
 
 
@@ -285,7 +287,7 @@ export function uiPaneHelp(context) {
 
 
   const helpPane = uiPane(context, 'help')
-    .key(l10n.t('help.key'))
+    .key(l10n.t('shortcuts.command.toggle_help.key'))
     .label(l10n.t('help.title'))
     .description(l10n.t('help.title'))
     .iconName('rapid-icon-help');
@@ -453,7 +455,7 @@ export function uiPaneHelp(context) {
 
   function clickShortcuts(d3_event) {
     d3_event.preventDefault();
-    ui.shortcuts.show();
+    ui.Shortcuts.show();
   }
 
 

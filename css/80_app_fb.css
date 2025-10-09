@@ -42,7 +42,7 @@ button.rapid-features svg.logo-rapid {
   width: 60px;
   height: 16px;
 }
-.top-toolbar.narrow button.rapid-features svg.logo-rapid {
+.map-toolbar.narrow button.rapid-features svg.logo-rapid {
   width: 22px;
   height: 22px;
 }
@@ -56,29 +56,15 @@ button.rapid-features.layer-off use {
   color: rgba(0,0,0,.4);
 }
 
-.fb-road-license a {
-  padding: 2px 4px 4px 4px;
-  border-radius: 2px;
-}
-
-button.bugnub {
-  margin-right: 2px;
-}
-
-/* bug nub */
-.ideditor .icon.bugnub {
-    color: #ff26db;
-}
-
 /* rapid logo with wordmark embedded in text */
 .icon.pre-text.rapid {
-    vertical-align: text-top;
-    margin-right: 0;
-    margin-left: 0;
-    display: inline-block;
-    width: 60px;
-    fill: #333;
-    color: #da26d3;
+  vertical-align: text-top;
+  margin-right: 0;
+  margin-left: 0;
+  display: inline-block;
+  width: 60px;
+  fill: #333;
+  color: #da26d3;
 }
 
 
@@ -87,119 +73,118 @@ button.bugnub {
 /* We can not just add an `opacity: 0.5` .disabled rule because that affects children too including tooltips */
 .rapid-inspector button,
 .modal.rapid-modal button {
-    border: 0;
-    background: #c000c0;  /* rapid magenta is just too bold for giant buttons: #da26d3;*/
-    color: #eee;
-    font-size: 16px;
-    border-radius: 30px;
-    height: 3rem;
+  border: 0;
+  background: #c000c0;  /* rapid magenta is just too bold for giant buttons: #da26d3;*/
+  color: #eee;
+  font-size: 16px;
+  border-radius: 30px;
+  height: 3rem;
 }
 .rapid-inspector button svg,
 .modal.rapid-modal button svg {
-    color: #eee;
-    fill: #da26d3;
+  color: #eee;
+  fill: #da26d3;
 }
 .rapid-inspector button:focus,
 .rapid-inspector button:hover,
 .modal.rapid-modal button:focus,
 .modal.rapid-modal button:hover {
-    background: #c6d;
+  background: #c6d;
 }
 .rapid-inspector button:focus svg,
 .rapid-inspector button:hover svg,
 .modal.rapid-modal button:focus svg,
 .modal.rapid-modal button:hover svg {
-    fill: #c6d;
+  fill: #c6d;
 }
 
 .rapid-inspector button.disabled,
 .modal.rapid-modal button.disabled {
-    background: #da26d388;
-    color: #eee8;
+  background: #da26d388;
+  color: #eee8;
 }
 .rapid-inspector button.disabled svg,
 .modal.rapid-modal button.disabled svg {
-    color: #eee8;
-    fill: #da26d388;
+  color: #eee8;
+  fill: #da26d388;
 }
 .rapid-inspector button.disabled:focus,
 .rapid-inspector button.disabled:hover,
 .modal.rapid-modal button.disabled:focus,
 .modal.rapid-modal button.disabled:hover {
-    background: #c6d8;
+  background: #c6d8;
 }
 .rapid-inspector button.disabled:focus svg,
 .rapid-inspector button.disabled:hover svg,
 .modal.rapid-modal button.disabled:focus svg,
 .modal.rapid-modal button.disabled:hover svg {
-    fill: #c6d8;
+  fill: #c6d8;
 }
-
 
 .rapid-inspector button.secondary,
 .modal.rapid-modal button.secondary {
-    border: 0;
-    background: #666;
-    color: #eee;
+  border: 0;
+  background: #666;
+  color: #eee;
 }
 .rapid-inspector button.secondary svg,
 .modal.rapid-modal button.secondary svg {
-    color: #eee;
-    fill: #666;
+  color: #eee;
+  fill: #666;
 }
 .rapid-inspector button.secondary:focus,
 .rapid-inspector button.secondary:hover,
 .modal.rapid-modal button.secondary:focus,
 .modal.rapid-modal button.secondary:hover {
-    background: #888;
+  background: #888;
 }
 .rapid-inspector button.secondary:focus svg,
 .rapid-inspector button.secondary:hover svg,
 .modal.rapid-modal button.secondary:focus svg,
 .modal.rapid-modal button.secondary:hover svg {
-    fill: #888;
+  fill: #888;
 }
 
 .rapid-inspector button.secondary.disabled,
 .modal.rapid-modal button.secondary.disabled {
-    background: #6668;
-    color: #eee8;
+  background: #6668;
+  color: #eee8;
 }
 .rapid-inspector button.secondary.disabled svg,
 .modal.rapid-modal button.secondary.disabled svg {
-    color: #eee8;
-    fill: #6668;
+  color: #eee8;
+  fill: #6668;
 }
 .rapid-inspector button.secondary.disabled:focus,
 .rapid-inspector button.secondary.disabled:hover,
 .modal.rapid-modal button.secondary.disabled:focus,
 .modal.rapid-modal button.secondary.disabled:hover {
-    background: #8888;
+  background: #8888;
 }
 .rapid-inspector button.secondary.disabled:focus svg,
 .rapid-inspector button.secondary.disabled:hover svg,
 .modal.rapid-modal button.secondary.disabled:focus svg,
 .modal.rapid-modal button.secondary.disabled:hover svg {
-    fill: #8888;
+  fill: #8888;
 }
-
 
 .modal.rapid-modal button svg.logo-rapid,
 .modal.rapid-modal button svg.logo-rapid:focus,
 .modal.rapid-modal button svg.logo-rapid:hover {
-    color: #eee;
-    fill: #eee;
+  color: #eee;
+  fill: #eee;
 }
 .modal.rapid-modal button.disabled svg.logo-rapid,
 .modal.rapid-modal button.disabled svg.logo-rapid:focus,
 .modal.rapid-modal button.disabled svg.logo-rapid:hover {
-    color: #eee8;
-    fill: #eee8;
+  color: #eee8;
+  fill: #eee8;
 }
 
 
-/* Sidebar - Rapid Inspector */
-.rapid-inspector {
+/* Sidebar - Rapid/Overture Inspectors */
+.rapid-inspector,
+.overture-inspector {
   display: flex;
   flex: 1 1 0px;
   flex-flow: column nowrap;
@@ -217,29 +202,40 @@ button.bugnub {
 .rapid-inspector .header svg.logo-rapid {
   height: 35px;
 }
-.rapid-inspector .header button.rapid-inspector-close {
+
+button.rapid-inspector-close,
+button.overture-inspector-close {
   position: absolute;
   top: 0;
   right: 0;
   background: transparent;
+  border-radius: 0px;
+  height: 100%;
 }
-.ideditor[dir='rtl'] .rapid-inspector .header button.rapid-inspector-close {
+.ideditor[dir='rtl'] button.rapid-inspector-close,
+.ideditor[dir='rtl'] button.overture-inspector-close {
   right: unset;
   left: 0;
 }
-.rapid-inspector .header button.rapid-inspector-close svg {
+button.rapid-inspector-close svg,
+button.overture-inspector-close svg {
   color: #da26d3;
 }
-.rapid-inspector .header button.rapid-inspector-close:hover {
+button.rapid-inspector-close svg,
+button.overture-inspector-close svg {
+  color: #000000;
+}
+button.rapid-inspector-close:hover,
+button.overture-inspector-close:hover {
   background: #8885;
 }
-
 
 .rapid-inspector .tooltip .popover-inner {
   border: 1px solid #aaaa;
 }
 
-.rapid-inspector .body {
+.rapid-inspector .body,
+.overture-inspector .body {
   display: flex;
   flex: 1 1 0px;
   flex-flow: column nowrap;
@@ -247,21 +243,23 @@ button.bugnub {
   background: #f6f6f6;
   color: #333;
   padding: 20px;
-  opacity: 1;
 }
 
-.rapid-inspector .body p {
+.rapid-inspector .body p,
+.overture-inspector .body p {
   padding: 20px 0;
 }
 
-.rapid-inspector .feature-info {
+.rapid-inspector .feature-info,
+.overture-inspector .feature-info {
   display: flex;
   padding: 5px 10px;
   border-radius: 5px 5px 0 0;
   border: 1px solid #333;
 }
 
-.rapid-inspector .feature-info .dataset-label {
+.rapid-inspector .feature-info .dataset-label,
+.overture-inspector .feature-info .dataset-label  {
   flex: 1;
   font-size: 14px;
   font-weight: bold;
@@ -270,21 +268,33 @@ button.bugnub {
   font-size: 13px;
 }
 
-.rapid-inspector .tag-info {
+.rapid-inspector .tag-info,
+.overture-inspector .property-info {
   padding: 7px;
   background: #444;
   color: #ddd;
   border-radius: 0 0 5px 5px;
   border: 1px transparent;
+  overflow-x: auto;
+}
+.overture-inspector .property-info {
+  padding: 0px 5px 15px 5px;
 }
 .rapid-inspector .tag-bag {
   display: flex;
   flex-flow: row wrap;
+  align-items: center
 }
-.rapid-inspector .tag-heading {
+.overture-inspector .property-heading {
   margin-right: 5px;
   padding-left: 3px;
+  margin-top: 5px;
+  font-size: larger;
 }
+.rapid-inspector .tag-heading {
+  padding-left: 3px;
+}
+
 .rapid-inspector .tag-info .tag-entry {
   display: flex;
   flex: 0 1 auto;
@@ -295,76 +305,110 @@ button.bugnub {
   font-weight: 300;
   margin: 0 3px;
 }
+
+.overture-inspector .property-info .property-entry {
+  display: flex;
+  flex-flow: row wrap;
+  border-radius: 5px;
+  font-size: smaller;
+  font-weight: 300;
+  margin: 0 3px;
+}
+
 .rapid-inspector .tag-key,
-.rapid-inspector .tag-value {
+.rapid-inspector .tag-value,
+.overture-inspector .property-key {
   flex: 0 1 auto;
   padding: 0px 3px;
 }
-.rapid-inspector .tag-key {
+
+.overture-inspector .property-value {
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 0 3px;
+}
+
+.rapid-inspector .tag-key,
+.overture-inspector .property-key {
   font-weight: bold;
   font-size: unset;
 }
 
 .rapid-inspector-choices {
   display: flex;
+  flex: 0 0 0px;
   flex-flow: column nowrap;
   text-align: center;
 
-  background: linear-gradient(to top left, #ccc, #eee 90%);
+  background: #ddd;
   border-radius: 5px;
+}
+
+.rapid-inspector-choice {
+  display: flex;
+  flex: 0 0 0px;
+  flex-flow: column nowrap;
+  margin: 10px;
+}
+
+.rapid-inspector-notice {
+    font-style: italic;
 }
 
 .rapid-inspector-choice .choice-wrap {
   display: flex;
-  flex: 1;
-  margin: 10px;
-  height: 50px;
+  flex: 1 0 50px;
+  flex-flow: row nowrap;
 }
 
 .rapid-inspector-choice .choice-wrap > button {
-    display: flex;
-    flex: 1;
-    border: 0;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  flex: 1 1 0px;
+
+  border: 0;
+  align-items: center;
 }
+
 .rapid-inspector-choice .choice-wrap > button.choice-button {
-    border-right: 1px solid #333a;
-    border-radius: 25px 0 0 25px;
+  border-right: 1px solid #333a;
+  border-radius: 25px 0 0 25px;
 }
 .ideditor[dir='rtl'] .rapid-inspector-choice .choice-wrap > button.choice-button {
-    border-right: unset;
-    border-left: 1px solid #333a;
-    border-radius: 0 25px 25px 0;
+  border-right: unset;
+  border-left: 1px solid #333a;
+  border-radius: 0 25px 25px 0;
 }
 .rapid-inspector-choice .choice-wrap > button.tag-reference-button {
-    display: flex;
-    flex: 0 0 40px;
-    border-radius: 0 25px 25px 0;
+  flex: 0 0 40px;
+  border-radius: 0 25px 25px 0;
 }
 .ideditor[dir='rtl'] .rapid-inspector-choice .choice-wrap > button.tag-reference-button {
-    border-radius: 25px 0 0 25px;
+  border-radius: 25px 0 0 25px;
 }
 
 .rapid-inspector-choice .choice-button .choice-icon {
-    width: 30px;
-    height: 30px;
-    margin: 0 15px;
+  width: 30px;
+  height: 30px;
+  margin: 0 15px;
 }
 .rapid-inspector-choice .tag-reference-button .icon {
-    margin: 0 5px;
+  margin: 0 5px;
+}
+.rapid-inspector-choice .tag-reference-body {
+  padding: 15px;
 }
 
-/* when hovering, hide the choices */
-.inspector-hover .rapid-inspector-choices {
-    display: none;
+.overture-inspector img.wordmark-overture {
+  width: 100%;
+  max-width: 225px;
+  object-fit: contain;
 }
 
 /* For things that should stack in rows */
 .rapid-stack {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 /* Rapid modal dialogs */
@@ -418,6 +462,11 @@ button.bugnub {
   height: 40px;
   border-radius: 0;
 }
+.ideditor[dir='rtl'] .modal.rapid-modal button.close {
+   right: unset;
+   left: 0;
+ }
+
 .modal.rapid-modal button.close svg {
   color: #da26d3;
 }
@@ -476,8 +525,6 @@ button.bugnub {
   font-size: 16px;
 }
 .modal.rapid-modal.modal-whatsnew .rapid-checkbox-label {
-  display: flex;
-  align-items: center;
   width: 100%;
 }
 .modal.rapid-modal.modal-whatsnew .rapid-checkbox-text {
@@ -493,521 +540,539 @@ button.bugnub {
 
 
 /* dark scrollbars */
-.modal.rapid-modal {
-    scrollbar-width: thin;
-    scrollbar-color: #aaa #555;
-}
 .modal.rapid-modal ::-webkit-scrollbar {
-    width: 10px;
+  width: 8px;
 }
 .modal.rapid-modal ::-webkit-scrollbar-track {
-    background: #444;
+  background: #444;
 }
 .modal.rapid-modal ::-webkit-scrollbar-thumb {
-    background-color: #da26d3;
-    border-radius: 6px;
-    border: 0;
+  background-color: #da26d3;
+  border-radius: 6px;
+  border: 0;
 }
 .modal.rapid-modal ::-webkit-scrollbar-thumb:hover {
-    background-color: #c6d;
-    cursor: pointer;
+  background-color: #c6d;
+  cursor: pointer;
 }
 
 
 /* Toggle Features */
 .modal.rapid-modal .rapid-checkbox {
-    font-size: 24px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 5px 10px;
-    width: 100%;
+  font-size: 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 10px;
+  width: 100%;
 }
 .modal.rapid-modal .rapid-datasets-container > .rapid-checkbox:last-of-type {
-    padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 .modal.rapid-modal .rapid-stack .rapid-datasets-container {
-    display: flex;
-    flex-flow: column;
-    width: 100%;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
 }
 
 .rapid-stack .rapid-checkbox.rapid-toggle-all {
-    border-bottom: 1px solid #888a;
-    padding: 45px 10px 10px 10px;
+  border-bottom: 1px solid #888a;
+  padding: 45px 10px 10px 10px;
 }
 .rapid-stack .rapid-checkbox.rapid-manage-datasets {
-    border-top: 1px solid #888a;
-    padding: 10px;
-    cursor: pointer;
+  border-top: 1px solid #888a;
+  padding: 10px;
+  cursor: pointer;
 }
 .rapid-stack .rapid-checkbox.rapid-manage-datasets:hover {
-    color: #ddd;
-    background: #8885;
+  color: #ddd;
+  background: #8885;
 }
 
 .modal.rapid-modal .rapid-stack .rapid-feature {
-    display: flex;
-    flex-flow: column nowrap;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
-.rapid-feature-label-container {
-    display: flex;
-    align-items: center;
+.rapid-feature-label,
+.rapid-feature-label-container,
+.rapid-feature-extent-container {
+  display: flex;
+  align-items: center;
 }
-.rapid-feature-label-container > div {
-    margin: 0 5px;
+.rapid-feature-label-container > div,
+.rapid-feature-extent-container > div {
+  margin: 0 5px;
 }
 .rapid-feature-extent-container {
-    font-size: 14px;
-    font-style: italic;
-    margin: -5px 5px 5px 5px;
-    color: #aaa;
+  font-size: 14px;
+  font-style: italic;
+  margin: -5px 5px 5px 5px;
+  color: #aaa;
 }
 
-.rapid-feature-label {
-    display: flex;
-    align-items: center;
-}
 .rapid-feature-label-container .rapid-feature-label-beta {
-    font-size: 14px;
+  font-size: 14px;
 }
 .rapid-feature-label > svg.icon.logo-rapid {
-    width: 4em;
-    height: 1.3em;
-    margin: -5px;
+  width: 4em;
+  height: 1.3em;
+  margin: -5px;
 }
 .rapid-feature-label-divider {
-    width: 1px;
-    height: 20px;
-    background: #888a;
+  width: 1px;
+  height: 20px;
+  background: #888a;
 }
 
 .rapid-feature-description {
-    font-size: 14px;
-    margin: 4px;
+  font-size: 14px;
+  margin: 4px;
 }
-.rapid-feature-license p {
-    font-size: 10px;
+.rapid-feature-license {
+  font-size: 12px;
 }
 .rapid-checkbox.disabled {
-    opacity: .5;
+  opacity: .5;
 }
 .rapid-feature-checkbox {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .rapid-checkbox.section-divider {
-    width: 100%;
-    height: 1px;
-    background: #888a;
-    padding: 1px;
-    align-self: center;
-    margin-top: 3px;
-    margin-bottom: 3px;
+  width: 100%;
+  height: 1px;
+  background: #888a;
+  padding: 1px;
+  align-self: center;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .rapid-checkbox.section-divider.strong {
-    background: #fffa;
+  background: #fffa;
 }
 
 .rapid-feature-hotkey {
-    margin: 0 5px;
-    font-size: 14px;
+  margin: 0 5px;
+  font-size: 14px;
 }
 
 .rapid-checkbox-inputs {
-    display: flex;
-    flex: 1 1 auto;
-    justify-content: flex-end;
-    align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.rapid-checkbox-label {
+  display: flex;
+  align-items: center;
 }
 
 .rapid-colorpicker-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    margin: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 15px;
 }
 .rapid-colorpicker-label:not(.disabled),
 .rapid-checkbox-label:not(.disabled) {
-    cursor: pointer;
+  cursor: pointer;
 }
 .rapid-colorpicker-label.disabled {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .rapid-colorpicker {
-    padding: 2px;
-    border: none;
-    background: #fff;
-    border-radius: 6px;
-    width: 36px;
-    height: 36px;
+  padding: 2px;
+  border: none;
+  background: #fff;
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
 }
 .rapid-colorpicker-label:not(.disabled):hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 .rapid-colorpicker-fill {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    border-radius: 4px;
-    width: 32px;
-    height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
 }
 .rapid-colorpicker-fill .icon {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 /* since checkboxes can't be styled, we'll
 hide this one and style something on top of it.  */
 .rapid-checkbox-label input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .rapid-checkbox-label .rapid-checkbox-custom {
-    height: 36px;
-    width: 36px;
-    background-color: transparent;
-    border-radius: 5px;
-    border: 2px solid #fff;
+  height: 36px;
+  width: 36px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 2px solid #fff;
 }
 
 .rapid-checkbox-label .rapid-checkbox-custom::after {
-    content: "";
-    height: 0px;
-    width: 0px;
+  content: "";
+  height: 0px;
+  width: 0px;
 }
 
 .rapid-checkbox-label input:checked ~ .rapid-checkbox-custom::after {
-    content: "";
-    display: block;
-    padding: 2px;
-    border-radius: 0;
-    border: solid #da26d3;
-    background-color: transparent;
-    border-width: 0 4px 4px 0;
-    transform: rotate(45deg);
-    opacity: 1;
-    margin: 3px 9px;
-    height: 12px;
-    width: 6px;
-}
-.ideditor[dir='rtl'] .rapid-checkbox-label input:checked ~ .rapid-checkbox-custom::after {
-    margin: 6px 6px;
-    height: 6px;
-    width: 12px;
+  content: "";
+  display: block;
+  padding: 2px;
+  border-radius: 0;
+  border: solid #da26d3;
+  background-color: transparent;
+  border-width: 0 4px 4px 0;
+  transform: rotate(45deg);
+  opacity: 1;
+  margin: 3px 9px;
+  height: 12px;
+  width: 6px;
 }
 
 
 /* Rapid Power User features */
-
 .rapid-stack.poweruser .modal-section-heading {
-    display: flex;
-    flex-flow: column;
-    padding: 10px 20px;
-    width: 100%;
+  display: flex;
+  flex-flow: column;
+  padding: 10px 20px;
+  width: 100%;
 }
 
 .rapid-stack.poweruser .modal-section-heading h3 {
-    font-size: 24px
+  font-size: 24px
 }
 .rapid-stack.poweruser .modal-heading-desc {
-    font-size: 16px;
-    font-style: italic;
+  font-size: 16px;
+  font-style: italic;
 }
 .rapid-stack.poweruser .modal-heading-desc .smile {
-    font-style: normal;
-    margin: 0 10px;
+  font-style: normal;
+  margin: 0 10px;
 }
 .rapid-stack.poweruser .rapid-features-container {
-    width: 100%;
-    border-top: 1px solid #888a;
+  width: 100%;
+  border-top: 1px solid #888a;
 }
 .rapid-stack.poweruser .rapid-features-container > .rapid-checkbox:last-of-type {
-    padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 .rapid-stack.poweruser .rapid-features-container .rapid-feature-label {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
 .rapid-stack.poweruser .rapid-features-container .rapid-feature-description {
-    font-size: 14px;
-    font-style: italic;
-    margin: -5px 5px 5px 5px;
-    color: #aaa;
+  font-size: 14px;
+  font-style: italic;
+  margin: -5px 5px 5px 5px;
+  color: #aaa;
 }
 
-/* Add/Manage Datasets modal */
-/* view-manage-wrap is an absolutely positioned div to create a new stacking context,
+/* Rapid Catalog modal */
+/* catalog-wrap is an absolutely positioned div to create a new stacking context,
    so we can put a modal on top of the other modal.
    (it functions like .shaded for layout but without adding any shading)
 */
-.view-manage-wrap {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    overflow: auto;
-    z-index: 51;   /* above existing modal */
+.catalog-wrap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  z-index: 51;   /* above existing modal */
 }
-.modal.rapid-modal.modal-view-manage {
-    width: 80%;
-    min-width: 600px;
-    max-width: 1000px;
-    min-height: 85%;
+.modal.rapid-modal.modal-catalog {
+  width: 80%;
+  min-width: 600px;
+  max-width: 1000px;
+  min-height: 85%;
 }
-.modal.rapid-modal.modal-view-manage p {
-    font-size: 12px;
-}
-
-.modal-view-manage .modal-section {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    width: 100%;
-    padding: 0;
+.modal.rapid-modal.modal-catalog p {
+  font-size: 12px;
 }
 
-.modal-view-manage .modal-section.rapid-view-manage-header {
-    display: flex;
-    flex-flow: column nowrap;
-    padding: 10px 20px;
-    border-bottom: 1px solid #aaaa;
-    color: #fff;
-}
-.modal-view-manage .modal-section.rapid-view-manage-header > div {
-    display: flex;
-    flex: 1;
-    width: 100%;
-    align-items: center;
+.modal-catalog .modal-section {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  width: 100%;
+  padding: 0;
 }
 
-.rapid-view-manage-header-icon {
-    flex: 0 0 40px;
+.modal-catalog .modal-section.rapid-catalog-header {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 10px 20px;
+  border-bottom: 1px solid #aaaa;
+  color: #fff;
 }
-.rapid-view-manage-header-text {
-    flex: 1 1 auto;
-    font-size: 24px;
-    padding: 0 5px;
-}
-.rapid-view-manage-header-about {
-    color: #ddd;
+.modal-catalog .modal-section.rapid-catalog-header > div {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  align-items: center;
 }
 
-.modal-view-manage .modal-section.rapid-view-manage-filter {
-    display: flex;
-    flex-flow: row nowrap;
-    padding: 10px 20px;
-    border-bottom: 1px solid #aaaa;
-    color: #fff;
+.rapid-catalog-header-icon {
+  flex: 0 0 40px;
 }
-.rapid-view-manage-filter-search-wrap,
-.rapid-view-manage-filter-type-wrap {
-    position: relative;
-    flex: 1;
-    padding: 0 5px;
+.rapid-catalog-header-text {
+  flex: 1 1 auto;
+  font-size: 24px;
+  padding: 0 5px;
 }
-.rapid-view-manage-filter-search-wrap > .icon {
-    position: absolute;
-    left: 16px;
-    top: 11px;
-    color: #aaa;
-    width: 16px;
-    height: 16px;
+.rapid-catalog-header-about {
+  color: #ddd;
 }
-.rapid-view-manage-filter-search,
-.rapid-view-manage-filter-type {
-    background: #444;
-    color: #ddd;
-    padding: 4px 12px;
-    border-radius: 10px;
-    border: 1px solid #333;
-    font-size: 16px;
-    width: 90%;
+
+.modal-catalog .modal-section.rapid-catalog-filter {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 10px 20px;
+  border-bottom: 1px solid #aaaa;
+  color: #fff;
 }
-.rapid-view-manage-filter-search {
-    padding: 4px 12px 4px 40px;
+.rapid-catalog-filter-search-wrap,
+.rapid-catalog-filter-type-wrap {
+  position: relative;
+  flex: 1;
+  padding: 0 5px;
 }
-.rapid-view-manage-filter-search:focus,
-.rapid-view-manage-filter-search:active,
-.rapid-view-manage-filter-type:focus,
-.rapid-view-manage-filter-type:active {
-    background: #444;
-    color: #eee;
-    outline: none;
-    border: 1px solid #aaa;
+.rapid-catalog-filter-search-wrap > .icon {
+  position: absolute;
+  left: 16px;
+  top: 11px;
+  color: #aaa;
+  width: 16px;
+  height: 16px;
+}
+.ideditor[dir='rtl'] .rapid-catalog-filter-search-wrap > .icon {
+  left: unset;
+  right: 16px;
+}
+
+.rapid-catalog-filter-search,
+.rapid-catalog-filter-type {
+  background: #444;
+  color: #ddd;
+  padding: 4px 12px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  font-size: 16px;
+  width: 90%;
+}
+.rapid-catalog-filter-search {
+  padding: 4px 12px 4px 40px;
+}
+.ideditor[dir='rtl'] .rapid-catalog-filter-search {
+  padding: 4px 40px 4px 12px;
+}
+.rapid-catalog-filter-search:focus,
+.rapid-catalog-filter-search:active,
+.rapid-catalog-filter-type:focus,
+.rapid-catalog-filter-type:active {
+  background: #444;
+  color: #eee;
+  outline: none;
+  border: 1px solid #aaa;
 }
 
 div.combobox.combobox-dataset-categories {
-    background: #333;
-    color: #ddd;
-    border: 1px solid #222;
+  background: #333;
+  color: #ddd;
+  border: 1px solid #222;
 }
-
 div.combobox.combobox-dataset-categories a {
-    color: #ddd;
-    border-top: 1px solid #222;
+  color: #ddd;
+  border-top: 1px solid #222;
 }
-
 div.combobox.combobox-dataset-categories a.selected,
 div.combobox.combobox-dataset-categories a:active,
 div.combobox.combobox-dataset-categories a:focus {
-    color: #eee;
-    background: #3c3c3c;
+  color: #eee;
+  background: #3c3c3c;
 }
 @media (hover: hover) {
-    div.combobox.combobox-dataset-categories a:hover {
-        color: #eee;
-        background: #3c3c3c;
-    }
+  div.combobox.combobox-dataset-categories a:hover {
+    color: #eee;
+    background: #3c3c3c;
+  }
 }
 
-.rapid-view-manage-filter-clear a {
-    padding: 15px;
-    font-size: 14px;
+.rapid-catalog-filter-clear a {
+  padding: 15px;
+  font-size: 14px;
 }
 
-.rapid-view-manage-filter-results {
-    flex: 1 1 200px;
-    padding: 0 5px;
-    text-align: end;
-    font-size: 20px;
+.rapid-catalog-filter-results {
+  flex: 1 1 200px;
+  padding: 0 5px;
+  text-align: end;
+  font-size: 20px;
 }
 
-.modal-view-manage .rapid-view-manage-datasets-section {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: stretch;
-    overflow-y: auto;
+.modal-catalog .rapid-catalog-datasets-section {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  overflow-y: auto;
 }
 
 /* give this section height, even when its contents are hidden */
-.rapid-view-manage-datasets-status,
-.rapid-view-manage-datasets {
-    flex: 1 1 9999px;
+.rapid-catalog-datasets-status,
+.rapid-catalog-datasets {
+  flex: 1 1 9999px;
 }
 
-.rapid-view-manage-datasets-status {
-    font-size: 20px;
-    text-align: center;
-    margin: 50px;
-}
-.rapid-view-manage-datasets-spinner {
-    filter: brightness(2)contrast(0.8);
+.rapid-catalog-datasets-status {
+  font-size: 20px;
+  text-align: center;
+  margin: 50px;
 }
 
-.rapid-view-manage-datasets {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
+.rapid-catalog-datasets {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 5px;
+  width: 100%;
 }
-.rapid-view-manage-dataset {
-    flex: 0 1 50%;
-    padding: 15px 25px;
-    margin-bottom: 10px;
-    color: #eee;
-    display: flex;
-    flex-flow: row nowrap;
+.rapid-catalog-dataset {
+  display: flex;
+  flex: 1 1 40%;
+  flex-flow: row nowrap;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  height: 220px;
+  color: #eee;
 }
-
-.rapid-view-manage-dataset-label {
-    flex: 1;
-    padding: 0 8px;
-}
-.rapid-view-manage-dataset-thumb {
-    flex: 0;
-}
-img.rapid-view-manage-dataset-thumbnail {
-    border-radius: 10px;
-    width: 180px;
-    filter: invert(1)brightness(2)contrast(0.75);
+.rapid-catalog-dataset.added {
+  background: rgba(55, 55, 55, 0.9);
 }
 
-.rapid-view-manage-dataset button.rapid-view-manage-dataset-action {
-    font-size: 12px;
-    height: 28px;
-    border-radius: 14px;
-    margin: 10px 0;
-    padding: 0 15px;
+.rapid-catalog-dataset-label {
+  flex: 1;
+  padding: 0 8px;
 }
-.rapid-view-manage-dataset-name {
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 3px;
+.rapid-catalog-dataset-thumb {
+  flex: 0;
 }
-.rapid-view-manage-dataset-license {
-    display: inline-block;
+img.rapid-catalog-dataset-thumbnail {
+  border-radius: 10px;
+  object-fit: cover;
+  height: 130px;
+  width: 180px;
 }
-.rapid-view-manage-dataset-beta {
-    font-size: 10px;
+img.rapid-catalog-dataset-thumbnail.inverted {
+  filter: invert(1) brightness(2) contrast(0.75);
 }
-.rapid-view-manage-dataset-featured {
-    display: inline-block;
-    font-size: 11px;
-    background: #a21;
-    color: #dcdcdc;
-    padding: 1px 7px;
-    border-radius: 5px;
-    margin: 0px 10px;
-    line-height: 1.5;
+
+.rapid-catalog-dataset-name {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 3px;
 }
-.rapid-view-manage-dataset-featured span {
-    margin: 0px 3px;
+
+.dataset-categories {
+  display: flex;
+  flex-flow: row wrap;
+}
+.dataset-category {
+  display: inline-block;
+  font-size: 10px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: #666;
+  color: #eee;
+  margin-left: unset;
+  margin-right: 4px;
+  line-height: 1.5;
+}
+.ideditor[dir='rtl'] .dataset-category {
+  margin-right: unset;
+  margin-left: 4px;
+}
+.dataset-category-preview {
+  background: rgb(203,16,237);
+  background: linear-gradient(0deg, rgba(108,1,167,1) 6%, rgba(203,16,237,1) 50%, rgb(229, 140, 253) 90%, rgb(201, 42, 251) 100%);
+}
+.dataset-category-featured {
+  background: #a21;
+}
+.dataset-added-text {
+  color: #16da16;
+}
+
+.rapid-catalog-dataset button.rapid-catalog-dataset-action {
+  font-size: 12px;
+  height: 28px;
+  border-radius: 14px;
+  margin: 10px 0;
+  padding: 0 15px;
 }
 
 /* Colorpicker popup */
-
 .colorpicker-popup {
-    position: absolute;
-    padding: 10px;
-    z-index: 100;
-    background-color: #fff;
-    border: none;
-    display: flex;
-    border-radius: 6px;
-    box-shadow: 0 0 2em black;
+  position: absolute;
+  padding: 10px;
+  z-index: 100;
+  background-color: #fff;
+  border: none;
+  display: flex;
+  border-radius: 6px;
+  box-shadow: 0 0 2em black;
 }
 .colorpicker-arrow {
-    position: absolute;
-    top: -10px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 10px solid #fff;
+  position: absolute;
+  top: -10px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 10px solid #fff;
 }
 
 .colorpicker-colors {
-    display: flex;
-    flex-flow: row wrap;
+  display: flex;
+  flex-flow: row wrap;
 }
 .colorpicker-option {
-    border: 2px solid transparent;
-    background: #fff;
-    border-radius: 6px;
+  border: 2px solid transparent;
+  background: #fff;
+  border-radius: 6px;
 }
 .colorpicker-option:hover {
-    border: 2px solid #ddd;
+  border: 2px solid #ddd;
 }
 .colorpicker-option.selected {
-    border: 2px solid #444;
+  border: 2px solid #444;
 }
 .colorpicker-option-fill {
-    background-color: currentColor;
-    width: 20px;
-    height: 20px;
-    margin: 4px;
-    border-radius: 5px;
+  background-color: currentColor;
+  width: 20px;
+  height: 20px;
+  margin: 4px;
+  border-radius: 5px;
 }

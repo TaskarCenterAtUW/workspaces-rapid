@@ -1,10 +1,10 @@
 import { select as d3_select } from 'd3-selection';
-import { timer as d3_timer } from 'd3-timer';
 import { Extent, Tiler, geoMetersToLat, geoMetersToLon, geomRotatePoints, geomPointInPolygon, vecLength } from '@rapid-sdk/math';
-import { utilArrayUnion, utilQsString, utilUniqueString } from '@rapid-sdk/util';
+import { utilQsString } from '@rapid-sdk/util';
 import RBush from 'rbush';
 
 import { AbstractSystem } from '../core/AbstractSystem.js';
+import { uiIcon } from '../ui/icon.js';
 import { utilFetchResponse } from '../util/index.js';
 
 const TILEZOOM = 16.5;
@@ -12,11 +12,17 @@ const TILEZOOM = 16.5;
 
 /**
  * `StreetsideService`
+ * This service loads streetside photos and coverage information from
+ * various Microsoft/VirtualEarth APIs.
+ *
+ * It also manages the embedded Pannellum panoramic photo viewer.
+ * @see https://pannellum.org/documentation/api
  *
  * Events available:
- *   `imageChanged`
+ *   `imageChanged`   - fired when a new image is visible in the viewer
+ *   `bearingChanged` - fired when the viewer has been panned, receives the bearing value in degrees.
+ *   `fovChanged`     - fired when the viewer has been zoomed, receives the fov value in degrees.
  *   'loadedData'
- *   'viewerChanged'
  */
 export class StreetsideService extends AbstractSystem {
 
@@ -36,20 +42,21 @@ export class StreetsideService extends AbstractSystem {
     this._resolution = 512;    // higher numbers are slower - 512, 1024, 2048, 4096
     this._currScene = 0;
     this._cache = {};
-    this._pannellumViewer = null;
+    this._viewer = null;
     this._nextSequenceID = 0;
     this._waitingForPhotoID = null;
 
     this._sceneOptions = {
+      type: 'cubemap',
+      cubeMap: [],
       showFullscreenCtrl: false,
       autoLoad: true,
       compass: true,
-      yaw: 0,
-      hfov: 45,      // default field of view degrees
-      minHfov: 10,   // zoom in degrees:  20, 10, 5
-      maxHfov: 90,   // zoom out degrees
-      type: 'cubemap',
-      cubeMap: []
+      friction: 1,    // don't keep moving after interaction stops
+      minHfov: 10,    // zoom in degrees:  20, 10, 5
+      maxHfov: 90,    // zoom out degrees
+      hfov: 45,       // default field of view degrees
+      yaw: 0          // default compass angle
     };
 
     this._keydown = this._keydown.bind(this);
@@ -69,18 +76,22 @@ export class StreetsideService extends AbstractSystem {
    * @param  `e`  A DOM KeyboardEvent
    */
   _keydown(e) {
+    // Ignore keypresses unless we actually have a streetside photo showing
+    const photos = this.context.systems.photos;
+    if (!this.viewerShowing || photos.currPhotoLayerID !== 'streetside') return;
+
     // Only allow key navigation if the user doesn't have something
     // more important focused - like a input, textarea, menu, etc.
-    // and only allow key nav if we're showing the viewer!
     const activeElement = document.activeElement?.tagName ?? 'BODY';
-    if (activeElement !== 'BODY' || !this.viewerShowing || !this.context.systems.photos._currLayerID?.startsWith('streetside')) return;
+    if (activeElement !== 'BODY') return;
 
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
-        this._step(-1);
-      } else if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
-        this._step(1);
-      }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+      this._step(-1);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+      this._step(1);
+    }
   }
+
 
   /**
    * initAsync
@@ -100,72 +111,64 @@ export class StreetsideService extends AbstractSystem {
   startAsync() {
     if (this._startPromise) return this._startPromise;
 
-    // create ms-wrapper, a photo wrapper class
     const context = this.context;
-    let wrap = context.container().select('.photoviewer').selectAll('.ms-wrapper')
+    const eventManager = context.systems.gfx.events;
+    const ui = context.systems.ui;
+
+    // create ms-wrapper, a photo wrapper class
+    let $wrapper = context.container().select('.photoviewer .middle-middle')
+      .selectAll('.ms-wrapper')
       .data([0]);
 
-    // inject ms-wrapper into the photoviewer div
-    // (used by all to house each custom photo viewer)
-    let wrapEnter = wrap.enter()
+    const $$wrapper = $wrapper.enter()
       .append('div')
       .attr('class', 'photo-wrapper ms-wrapper')
       .classed('hide', true);
 
-    // inject div to support streetside viewer (pannellum) and attribution line
-    wrapEnter
+    $$wrapper
       .append('div')
-      .attr('id', 'rapideditor-viewer-streetside')
-      .on('pointerdown.streetside', () => {
-        d3_select(window)
-          .on('pointermove.streetside', () => {
-            this.emit('viewerChanged');
-            this.context.systems.map.immediateRedraw();
-          }, true);
-      })
-      .on('pointerup.streetside pointercancel.streetside', () => {
-        d3_select(window)
-          .on('pointermove.streetside', null);
+      .attr('id', 'rapideditor-viewer-streetside');
 
-        // continue emitting events for a few seconds, in case viewer has inertia.
-        const t = d3_timer(elapsed => {
-          this.emit('viewerChanged');
-          if (elapsed > 2000) {
-            t.stop();
-          }
-        });
-      })
+    // add .photo-footer
+    const $$footer = $$wrapper
       .append('div')
-      .attr('class', 'photo-attribution fillD');
+      .attr('class', 'photo-footer');
 
-    let controlsEnter = wrapEnter
+    $$footer
+      .append('div')
+      .attr('class', 'photo-options');
+
+    $$footer
+      .append('div')
+      .attr('class', 'photo-attribution');
+
+    // add .photo-controls
+    const $$controls = $$wrapper
       .append('div')
       .attr('class', 'photo-controls-wrap')
       .append('div')
       .attr('class', 'photo-controls');
 
-    controlsEnter
+    $$controls
       .append('button')
       .on('click.back', () => this._step(-1))
-      .html('◄');
+      .call(uiIcon('#fas-backward-step'));
 
-    controlsEnter
+    $$controls
       .append('button')
       .on('click.forward', () => this._step(1))
-      .html('►');
+      .call(uiIcon('#fas-forward-step'));
 
 
     // create working canvas for stitching together images
-    wrap = wrap
-      .merge(wrapEnter)
+    $wrapper = $wrapper.merge($$wrapper)
       .call(this._setupCanvas);
 
     // Register viewer resize handler
-    context.systems.ui.photoviewer.on('resize.streetside', () => {
-      if (this._pannellumViewer) this._pannellumViewer.resize();
+    ui.PhotoViewer.on('resize', () => {
+      if (this._viewer) this._viewer.resize();
     });
 
-    const eventManager = this.context.systems.map.renderer.events;
     eventManager.on('keydown', this._keydown);
 
     return this._startPromise = this._loadAssetsAsync()
@@ -190,7 +193,7 @@ export class StreetsideService extends AbstractSystem {
     }
 
     this._cache = {
-      rtree:     new RBush(),
+      rbush:     new RBush(),
       inflight:  new Map(),   // Map(tileID -> {Promise, AbortController})
       loaded:    new Set(),   // Set(tileID)
       bubbles:   new Map(),   // Map(bubbleID -> bubble data)
@@ -213,7 +216,7 @@ export class StreetsideService extends AbstractSystem {
    */
   getImages() {
     const extent = this.context.viewport.visibleExtent();
-    return this._cache.rtree.search(extent.bbox()).map(d => d.data);
+    return this._cache.rbush.search(extent.bbox()).map(d => d.data);
   }
 
 
@@ -225,19 +228,19 @@ export class StreetsideService extends AbstractSystem {
   getSequences() {
     const cache = this._cache;
     const extent = this.context.viewport.visibleExtent();
-    const result = new Map();  // Map(sequenceID -> sequence)
+    const results = new Map();  // Map(sequenceID -> sequence)
 
     // Gather sequences for the bubbles in viewport
-    for (const box of cache.rtree.search(extent.bbox())) {
+    for (const box of cache.rbush.search(extent.bbox())) {
       const bubbleID = box.data.id;
       const sequenceIDs = cache.bubbleHasSequences.get(bubbleID) ?? [];
       for (const sequenceID of sequenceIDs) {
-        if (!result.has(sequenceID)) {
-          result.set(sequenceID, cache.sequences.get(sequenceID));
+        if (!results.has(sequenceID)) {
+          results.set(sequenceID, cache.sequences.get(sequenceID));
         }
       }
     }
-    return [...result.values()];
+    return [...results.values()];
   }
 
 
@@ -284,17 +287,19 @@ export class StreetsideService extends AbstractSystem {
    * Shows the photo viewer, and hides all other photo viewers
    */
   showViewer() {
-    let wrap = this.context.container().select('.photoviewer').classed('hide', false);
-    const isHidden = wrap.selectAll('.photo-wrapper.ms-wrapper.hide').size();
+    const $viewer = this.context.container().select('.photoviewer')
+      .classed('hide', false);
+
+    const isHidden = $viewer.selectAll('.photo-wrapper.ms-wrapper.hide').size();
 
     if (isHidden) {
-      wrap
+      $viewer
         .selectAll('.photo-wrapper:not(.ms-wrapper)')
         .classed('hide', true);
 
       this._showing = true;
 
-      wrap
+      $viewer
         .selectAll('.photo-wrapper.ms-wrapper')
         .classed('hide', false);
     }
@@ -309,20 +314,14 @@ export class StreetsideService extends AbstractSystem {
     const context = this.context;
     context.systems.photos.selectPhoto(null);
 
-    let viewer = context.container().select('.photoviewer');
-    if (!viewer.empty()) viewer.datum(null);
-
-    viewer
+    const $viewer = context.container().select('.photoviewer');
+    $viewer
       .classed('hide', true)
       .selectAll('.photo-wrapper')
       .classed('hide', true);
 
     this._showing = false;
 
-    context.container().selectAll('.viewfield-group, .sequence, .icon-sign')
-      .classed('currentView', false);
-
-    this.setStyles(context, null, true);
     this.emit('imageChanged');
   }
 
@@ -332,129 +331,37 @@ export class StreetsideService extends AbstractSystem {
    * Note:  most code should call `PhotoSystem.selectPhoto(layerID, photoID)` instead.
    * That will manage the state of what the user clicked on, and then call this function.
    * @param  {string} imageID - the id of the image to select
-   * @return {Promise} Promise that always resolves (we should change this to resolve after the image is ready)
+   * @return {Promise} Promise that resolves to the image after it has been selected
    */
   selectImageAsync(bubbleID) {
-    let d = this._cache.bubbles.get(bubbleID);
-
-    const context = this.context;
-    const l10n = context.systems.l10n;
-
-    let viewer = context.container().select('.photoviewer');
-    if (!viewer.empty()) {
-      viewer.datum(d);
+    if (!bubbleID) {
+      this._updatePhotoFooter(null);  // reset
+      return Promise.resolve();  // do nothing
     }
 
-    this.setStyles(context, null, true);
+    let bubble = this._cache.bubbles.get(bubbleID);
 
-    let wrap = context.container().select('.photoviewer .ms-wrapper');
-    let attribution = wrap.selectAll('.photo-attribution').html('');
+    const context = this.context;
 
-    wrap.selectAll('.pnlm-load-box')   // display "loading.."
+    const $wrapper = context.container().select('.photoviewer .ms-wrapper');
+    $wrapper.selectAll('.pnlm-load-box')   // display "loading.."
       .style('display', 'block')
       .style('transform', 'translate(-50%, -50%)');
 
     // It's possible we could be trying to show a photo that hasn't been fetched yet
     // (e.g. if we are starting up with a photoID specified in the url hash)
-    if (bubbleID && !d) {
+    if (bubbleID && !bubble) {
       this._waitingForPhotoID = bubbleID;
     }
-    if (!d) return Promise.resolve();
+    if (!bubble) return Promise.resolve();
 
-    this._sceneOptions.northOffset = d.ca;
+    this._sceneOptions.northOffset = bubble.ca;
 
-    let line1 = attribution
-      .append('div')
-      .attr('class', 'attribution-row');
-
-    const hiresDomID = utilUniqueString('streetside-hires');
-
-    // Add hires checkbox
-    let label = line1
-      .append('label')
-      .attr('for', hiresDomID)
-      .attr('class', 'streetside-hires');
-
-    label
-      .append('input')
-      .attr('type', 'checkbox')
-      .attr('id', hiresDomID)
-      .property('checked', this._hires)
-      .on('click', d3_event => {
-        d3_event.stopPropagation();
-
-        this._hires = !this._hires;
-        this._resolution = this._hires ? 1024 : 512;
-        wrap.call(this._setupCanvas);
-
-        const viewstate = {
-          yaw: this._pannellumViewer.getYaw(),
-          pitch: this._pannellumViewer.getPitch(),
-          hfov: this._pannellumViewer.getHfov()
-        };
-
-        this._sceneOptions = Object.assign(this._sceneOptions, viewstate);
-        context.systems.photos.selectPhoto();                    // deselect
-        context.systems.photos.selectPhoto('streetside', d.id);  // reselect
-      });
-
-    label
-      .append('span')
-      .text(l10n.t('streetside.hires'));
-
-
-    let captureInfo = line1
-      .append('div')
-      .attr('class', 'attribution-capture-info');
-
-    // Add capture date
-    if (d.captured_by) {
-      const yyyy = (new Date()).getFullYear();
-
-      captureInfo
-        .append('a')
-        .attr('class', 'captured_by')
-        .attr('target', '_blank')
-        .attr('href', 'https://www.microsoft.com/en-us/maps/streetside')
-        .text(`© ${yyyy} Microsoft`);
-
-      captureInfo
-        .append('span')
-        .text('|');
-    }
-
-    if (d.captured_at) {
-      captureInfo
-        .append('span')
-        .attr('class', 'captured_at')
-        .text(this._localeDateString(d.captured_at));
-    }
-
-    // Add image links
-    let line2 = attribution
-      .append('div')
-      .attr('class', 'attribution-row');
-
-    line2
-      .append('a')
-      .attr('class', 'image-view-link')
-      .attr('target', '_blank')
-      .attr('href', 'https://www.bing.com/maps?cp=' + d.loc[1] + '~' + d.loc[0] +
-        '&lvl=17&dir=' + d.ca + '&style=x&v=2&sV=1')
-      .text(l10n.t('streetside.view_on_bing'));
-
-    line2
-      .append('a')
-      .attr('class', 'image-report-link')
-      .attr('target', '_blank')
-      .attr('href', 'https://www.bing.com/maps/privacyreport/streetsideprivacyreport?bubbleid=' +
-        encodeURIComponent(d.id) + '&focus=photo&lat=' + d.loc[1] + '&lng=' + d.loc[0] + '&z=17')
-      .text(l10n.t('streetside.report'));
-
+    this._updatePhotoFooter(bubbleID);
 
     const streetsideImagesApi = 'https://ecn.t0.tiles.virtualearth.net/tiles/';
 
-    const asNumber = parseInt(d.id, 10);
+    const asNumber = parseInt(bubbleID, 10);
     let bubbleIdQuadKey = asNumber.toString(4);
     const paddingNeeded = 16 - bubbleIdQuadKey.length;
     for (let i = 0; i < paddingNeeded; i++) {
@@ -483,80 +390,130 @@ export class StreetsideService extends AbstractSystem {
 
     return this._loadFacesAsync(faces)
       .then(() => {
-        if (!this._pannellumViewer) {
+        if (!this._viewer) {
           this._initViewer();
         } else {
           // make a new scene
           this._currScene++;
           let sceneID = this._currScene.toString();
-          this._pannellumViewer
+          this._viewer
             .addScene(sceneID, this._sceneOptions)
             .loadScene(sceneID);
 
           // remove previous scene
           if (this._currScene > 2) {
             sceneID = (this._currScene - 1).toString();
-            this._pannellumViewer
+            this._viewer
               .removeScene(sceneID);
           }
         }
+
+        return bubble; // pass the image to anything that chains off this Promise
       });
   }
 
 
-  // NOTE: the setStyles() functions all dont work right now since the WebGL rewrite.
-  // They depended on selecting svg stuff from the container - see #740
+  /**
+   * _updatePhotoFooter
+   * Update the photo attribution section of the image viewer
+   * @param  {string} bubbleID - the new bubbleID
+   */
+  _updatePhotoFooter(bubbleID) {
+    const context = this.context;
+    const l10n = context.systems.l10n;
+    const photos = context.systems.photos;
+    const $wrapper = context.container().select('.photoviewer .ms-wrapper');
 
-  // Updates the currently highlighted sequence and selected bubble.
-  // Reset is only necessary when interacting with the viewport because
-  // this implicitly changes the currently selected bubble/sequence
-  setStyles(context, hovered, reset) {
-    if (reset) {  // reset all layers
-      context.container().selectAll('.viewfield-group')
-        .classed('highlighted', false)
-        .classed('hovered', false)
-        .classed('currentView', false);
+    // Options Section
+    const $options = $wrapper.selectAll('.photo-options');
 
-      context.container().selectAll('.sequence')
-        .classed('highlighted', false)
-        .classed('currentView', false);
+    // .hires checkbox
+    let $label = $options.selectAll('.hires')
+      .data([0]);
+
+    // enter
+    const $$label = $label.enter()
+      .append('label')
+      .attr('for', 'ms-hires-input')
+      .attr('class', 'hires');
+
+    $$label
+      .append('input')
+      .attr('type', 'checkbox')
+      .attr('id', 'ms-hires-input')
+      .on('click', e => {
+        e.stopPropagation();
+
+        this._hires = !this._hires;
+        this._resolution = this._hires ? 1024 : 512;
+        $wrapper.call(this._setupCanvas);
+
+        const viewstate = {
+          yaw: this._viewer.getYaw(),
+          pitch: this._viewer.getPitch(),
+          hfov: this._viewer.getHfov()
+        };
+
+        this._sceneOptions = Object.assign(this._sceneOptions, viewstate);
+        this.selectImageAsync(photos.currPhotoID);  // reselect
+      });
+
+    $$label
+      .append('span');
+
+    // update
+    $label = $label.merge($$label);
+    $label.selectAll('#ms-hires-input')
+      .property('checked', this._hires);
+
+    $label.selectAll('span')
+      .text(l10n.t('photos.hires'));
+
+
+    // Attribution Section
+    const $attribution = $wrapper.selectAll('.photo-attribution').html('&nbsp;');  // clear DOM content
+
+    const image = this._cache.bubbles.get(bubbleID);
+    if (!image) return;
+
+    if (image.captured_by) {
+      $attribution
+        .append('span')
+        .attr('class', 'captured_by')
+        .text(image.captured_by);
+
+      $attribution
+        .append('span')
+        .text('|');
     }
 
-    let hoveredBubbleID = hovered?.id;
-    let hoveredSequenceID = hovered?.sequenceID;
-    let hoveredSequence = hoveredSequenceID && this._cache.sequences.get(hoveredSequenceID);
-    let hoveredBubbleIDs =  (hoveredSequence && hoveredSequence.bubbles.map(d => d.id)) || [];
+    if (image.captured_at) {
+      $attribution
+        .append('span')
+        .attr('class', 'captured_at')
+        .text(_localeDateString(image.captured_at));
 
-    let viewer = context.container().select('.photoviewer');
-    let selected = viewer.empty() ? undefined : viewer.datum();
-    let selectedBubbleID = selected?.id;
-    let selectedSequenceID = selected?.sequenceID;
-    let selectedSequence = selectedSequenceID && this._cache.sequences.get(selectedSequenceID);
-    let selectedBubbleIDs = (selectedSequence && selectedSequence.bubbles.map(d => d.id)) || [];
+      $attribution
+        .append('span')
+        .text('|');
+    }
 
-    // highlight sibling viewfields on either the selected or the hovered sequences
-    let highlightedBubbleIDs = utilArrayUnion(hoveredBubbleIDs, selectedBubbleIDs);
+    $attribution
+      .append('a')
+      .attr('class', 'image-link')
+      .attr('target', '_blank')
+      .attr('href', `https://www.bing.com/maps?cp=${image.loc[1]}~${image.loc[0]}&lvl=17&dir=${image.ca}&style=x&v=2&sV=1`)
+      .text('bing.com');
 
-    context.container().selectAll('.layer-streetside-images .viewfield-group')
-      .classed('highlighted', d => highlightedBubbleIDs.indexOf(d.id) !== -1)
-      .classed('hovered',     d => d.id === hoveredBubbleID)
-      .classed('currentView', d => d.id === selectedBubbleID);
 
-    context.container().selectAll('.layer-streetside-images .sequence')
-      .classed('highlighted', d => d.properties.id === hoveredSequenceID)
-      .classed('currentView', d => d.properties.id === selectedSequenceID);
+    function _localeDateString(s) {
+      if (!s) return null;
+      const options = { day: 'numeric', month: 'short', year: 'numeric' };
+      const d = new Date(s);
+      if (isNaN(d.getTime())) return null;
 
-    // update viewfields if needed
-    context.container().selectAll('.layer-streetside-images .viewfield-group .viewfield')
-      .attr('d', viewfieldPath);
-
-    function viewfieldPath() {
-      let d = this.parentNode.__data__;
-      if (d.isPano && d.id !== selectedBubbleID) {
-        return 'M 8,13 m -10,0 a 10,10 0 1,0 20,0 a 10,10 0 1,0 -20,0';
-      } else {
-        return 'M 6,9 C 8,8.4 8,8.4 10,9 L 16,-2 C 12,-5 4,-5 0,-2 z';
-      }
+      const localeCode = context.systems.l10n.localeCode();
+      return d.toLocaleDateString(localeCode, options);
     }
   }
 
@@ -577,9 +534,9 @@ export class StreetsideService extends AbstractSystem {
         if (++count === 2) resolve();
       };
 
-      const head = d3_select('head');
+      const $head = d3_select('head');
 
-      head.selectAll('#rapideditor-pannellum-css')
+      $head.selectAll('#rapideditor-pannellum-css')
         .data([0])
         .enter()
         .append('link')
@@ -590,7 +547,7 @@ export class StreetsideService extends AbstractSystem {
         .on('load', loaded)
         .on('error', reject);
 
-      head.selectAll('#rapideditor-pannellum-js')
+      $head.selectAll('#rapideditor-pannellum-js')
         .data([0])
         .enter()
         .append('script')
@@ -609,7 +566,7 @@ export class StreetsideService extends AbstractSystem {
    */
   _initViewer() {
     if (!window.pannellum) throw new Error('pannellum not loaded');
-    if (this._pannellumViewer) return;  // already initted
+    if (this._viewer) return;  // already initted
 
     this._currScene++;
     const sceneID = this._currScene.toString();
@@ -619,7 +576,30 @@ export class StreetsideService extends AbstractSystem {
     };
     options.scenes[sceneID] = this._sceneOptions;
 
-    this._pannellumViewer = window.pannellum.viewer('rapideditor-viewer-streetside', options);
+
+    const imageChanged = () => {
+      this.emit('imageChanged');
+    };
+
+    const fovChanged = () => {
+      this.emit('fovChanged', this._viewer.getHfov());
+    };
+
+    this._viewer = window.pannellum.viewer('rapideditor-viewer-streetside', options);
+    this._viewer.on('load', imageChanged);
+    this._viewer.on('zoomchange', fovChanged);
+
+    this.context.container().select('#rapideditor-viewer-streetside')
+      .on('pointerdown.streetside', () => {
+        d3_select(window)
+          .on('pointermove.streetside', () => {
+            this.emit('bearingChanged', this._viewer.getYaw());
+          });
+      })
+      .on('pointerup.streetside pointercancel.streetside', () => {
+        d3_select(window)
+          .on('pointermove.streetside', null);
+      });
   }
 
 
@@ -630,12 +610,14 @@ export class StreetsideService extends AbstractSystem {
    */
   _step(stepBy) {
     const context = this.context;
-    const viewer = context.container().select('.photoviewer');
-    const selected = viewer.empty() ? undefined : viewer.datum();
+    const photos = context.systems.photos;
+
+    const currBubbleID = photos.currPhotoID;
+    const selected = this._cache.bubbles.get(currBubbleID);
     if (!selected) return;
 
     let nextID = (stepBy === 1 ? selected.ne : selected.pr);
-    const yaw = this._pannellumViewer.getYaw();
+    const yaw = this._viewer.getYaw();
     this._sceneOptions.yaw = yaw;
 
     const ca = selected.ca + yaw;
@@ -673,7 +655,7 @@ export class StreetsideService extends AbstractSystem {
 
     // find nearest other bubble in the search polygon
     let minDist = Infinity;
-    this._cache.rtree.search(extent.bbox())
+    this._cache.rbush.search(extent.bbox())
       .forEach(d => {
         if (d.data.id === selected.id) return;
         if (!geomPointInPolygon(d.data.loc, poly)) return;
@@ -694,8 +676,7 @@ export class StreetsideService extends AbstractSystem {
     const nextBubble = this._cache.bubbles.get(nextID);
     if (!nextBubble) return;
 
-    context.systems.map.centerEase(nextBubble.loc);
-    context.systems.photos.selectPhoto('streetside', nextBubble.id);
+    photos.selectPhoto('streetside', nextBubble.id);
     this.emit('imageChanged');
   }
 
@@ -746,14 +727,16 @@ export class StreetsideService extends AbstractSystem {
 
       const loc = [bubble.lo, bubble.la];
       const bubbleData = {
-        loc: loc,
-        id: bubbleID,
-        ca: bubble.he,
-        captured_at: bubble.cd,
-        captured_by: 'microsoft',
-        pr: bubble.pr?.toString(),  // previous
-        ne: bubble.ne?.toString(),  // next
-        isPano: true
+        type:         'photo',
+        service:      'streetside',
+        loc:          loc,
+        id:           bubbleID,
+        ca:           bubble.he,
+        captured_at:  bubble.cd,
+        captured_by:  'microsoft',
+        pr:           bubble.pr?.toString(),  // previous
+        ne:           bubble.ne?.toString(),  // next
+        isPano:       true
       };
 
       cache.bubbles.set(bubbleID, bubbleData);
@@ -765,7 +748,7 @@ export class StreetsideService extends AbstractSystem {
 
     }).filter(Boolean);
 
-    this._cache.rtree.load(boxes);
+    this._cache.rbush.load(boxes);
     this._connectSequences();
 
     if (selectBubbleID) {
@@ -774,7 +757,8 @@ export class StreetsideService extends AbstractSystem {
       photos.selectPhoto('streetside', selectBubbleID);  // reselect
     }
 
-    this.context.deferredRedraw();
+    const gfx = this.context.systems.gfx;
+    gfx.deferredRedraw();
     this.emit('loadedData');
   }
 
@@ -865,7 +849,14 @@ export class StreetsideService extends AbstractSystem {
       if (cache.unattachedBubbles.has(currBubbleID)) {
         const sequenceNum = this._nextSequenceID++;
         const sequenceID = `s${sequenceNum}`;
-        const sequence = { id: sequenceID, v: 0, bubbleIDs: [currBubbleID] };
+        const sequence = {
+          type:       'sequence',
+          service:    'streetside',
+          id:         sequenceID,
+          v:          0,
+          bubbleIDs:  [currBubbleID],
+          isPano:     true
+        };
         cache.sequences.set(sequenceID, sequence);
         _updateCaches(sequenceID, currBubbleID);
 
@@ -1007,13 +998,13 @@ export class StreetsideService extends AbstractSystem {
    * Called when setting up the viewer, creates 6 canvas elements to load image data into,
    * so that it can be stitched together into a photosphere.
    */
-  _setupCanvas(selection) {
-    selection.selectAll('#rapideditor-stitcher-canvases')
+  _setupCanvas($selection) {
+    $selection.selectAll('#rapideditor-stitcher-canvases')
       .remove();
 
     // Add the Streetside working canvases. These are used for 'stitching', or combining,
     // multiple images for each of the six faces, before passing to the Pannellum control as DataUrls
-    selection.selectAll('#rapideditor-stitcher-canvases')
+    $selection.selectAll('#rapideditor-stitcher-canvases')
       .data([0])
       .enter()
       .append('div')

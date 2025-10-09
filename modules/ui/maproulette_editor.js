@@ -2,10 +2,9 @@ import { dispatch as d3_dispatch } from 'd3-dispatch';
 import { select as d3_select } from 'd3-selection';
 
 import { uiIcon } from './icon.js';
-
 import { uiMapRouletteDetails } from './maproulette_details.js';
 import { uiMapRouletteHeader } from './maproulette_header.js';
-import { uiViewOnMapRoulette } from './view_on_maproulette.js';
+import { UiViewOn } from './UiViewOn.js';
 import { utilNoAuto, utilRebind } from '../util/index.js';
 
 
@@ -15,6 +14,7 @@ export function uiMapRouletteEditor(context) {
   const dispatch = d3_dispatch('change');
   const mapRouletteDetails = uiMapRouletteDetails(context);
   const mapRouletteHeader = uiMapRouletteHeader(context);
+  const ViewOn = new UiViewOn(context);
 
   let _qaItem;
   let _actionTaken;
@@ -37,7 +37,7 @@ export function uiMapRouletteEditor(context) {
 
     headerEnter
       .append('h3')
-      .text(l10n.t('map_data.layers.maproulette.title'));
+      .text(l10n.t('map_data.layers.maproulette.title', { n: 1 }));
 
     let body = selection.selectAll('.body')
       .data([0]);
@@ -59,14 +59,18 @@ export function uiMapRouletteEditor(context) {
       .call(maprouletteSaveSection)
       .call(commentSaveSection);
 
-    const footer = selection.selectAll('.sidebar-footer')
+
+    ViewOn.stringID = 'inspector.view_on_maproulette';
+    ViewOn.url = (maproulette && _qaItem) ? maproulette.itemURL(_qaItem) : '';
+
+    const $footer = selection.selectAll('.sidebar-footer')
       .data([0]);
 
-    footer.enter()
+    $footer.enter()
       .append('div')
       .attr('class', 'sidebar-footer')
-      .merge(footer)
-      .call(uiViewOnMapRoulette(context).task(_qaItem));
+      .merge($footer)
+      .call(ViewOn.render);
   }
 
   function getMapRouletteApiKey(context, callback) {
@@ -303,6 +307,7 @@ export function uiMapRouletteEditor(context) {
         console.error(err); // eslint-disable-line no-console
         return;
       }
+
       _mapRouletteApiKey = apiKey;
       const osm = context.services.osm;
       const hasOSMAuth = osm && osm.authenticated();
@@ -310,6 +315,16 @@ export function uiMapRouletteEditor(context) {
       const hasAuth = hasOSMAuth && hasMapRouletteAuth;
       const errID = _qaItem?.id;
       const isSelected = errID && context.selectedData().has(errID);
+
+      const uiSystem = context.systems.ui;
+      // Check if the MapRoulette menu is showing
+      if (uiSystem._showsMapRouletteMenu) {
+        selection.selectAll('.mr-save .buttons').style('display', 'none');
+        return;
+      } else {
+        selection.selectAll('.mr-save .buttons').style('display', ''); // Ensure buttons are shown if menu is not open
+      }
+
       let buttonSection = selection.selectAll('.buttons')
         .data(isSelected ? [_qaItem] : [], d => d.key);
 
@@ -344,7 +359,7 @@ export function uiMapRouletteEditor(context) {
 
       buttonSection.select('.fixedIt-button')
         .attr('disabled', isSaveDisabled(_qaItem))
-        .text(l10n.t('map_data.layers.maproulette.fixedIt'))
+        .text(l10n.t('map_data.layers.maproulette.fixed'))
         .on('click.fixedIt', function(d3_event, d) {
           fixedIt(d3_event, d, selection);
         });
@@ -370,11 +385,32 @@ export function uiMapRouletteEditor(context) {
           notAnIssue(d3_event, d, selection);
         });
 
+      const checkboxSection = buttonEnter.append('div')
+        .attr('class', 'checkbox-section');
+      checkboxSection
+        .append('input')
+        .attr('type', 'checkbox')
+        .attr('id', 'nearbyTaskCheckbox')
+        .property('checked', maproulette.nearbyTaskEnabled)
+        .on('change', nearbyTaskChanged);
+      checkboxSection
+        .append('label')
+        .attr('for', 'nearbyTaskCheckbox')
+        .text(l10n.t('map_data.layers.maproulette.nearbyTask.title'));
 
       function isSaveDisabled(d) {
-        return (hasAuth && d.service === 'maproulette') ? null : true;
+        return (hasAuth && d?.service === 'maproulette') ? null : true;
       }
     });
+  }
+
+
+  function nearbyTaskChanged(d3_event) {
+    const isChecked = d3_event.target.checked;
+    const mapRouletteService = context.services.maproulette;
+    if (mapRouletteService) {
+      mapRouletteService.nearbyTaskEnabled = isChecked;
+    }
   }
 
 
@@ -439,7 +475,7 @@ export function uiMapRouletteEditor(context) {
     buttonSection.select('.submit-button')
       .text(l10n.t('map_data.layers.maproulette.submit'))
       .on('click.submit', function(d3_event, d) {
-        clickSumbit(d3_event, d, selection);
+        clickSubmit(d3_event, d, selection);
       });
   }
 
@@ -485,7 +521,7 @@ export function uiMapRouletteEditor(context) {
     selection.call(commentSaveSection);
   }
 
-  function clickSumbit(d3_event, d) {
+  function clickSubmit(d3_event, d) {
     this.blur();    // avoid keeping focus on the button - iD#4641
     const osm = context.services.osm;
     const userID = osm._userDetails.id;
@@ -501,6 +537,10 @@ export function uiMapRouletteEditor(context) {
           return;
         }
         dispatch.call('change', item);
+        // Fly to a nearby task if the feature is enabled, after the update
+        if (maproulette.nearbyTaskEnabled) {
+          maproulette.flyToNearbyTask(d);
+        }
       });
     }
   }

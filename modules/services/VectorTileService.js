@@ -14,7 +14,7 @@ import { utilFetchResponse } from '../util/index.js';
 
 /**
  * `VectorTileService`
- * This service can connect to sources of vector tile data
+ * This service can connect to sources of vector tile data.
  *
  * - Mapbox Vector Tiles (MVT) made available from a z/x/y tileserver
  *     https://github.com/mapbox/vector-tile-spec
@@ -408,7 +408,8 @@ export class VectorTileService extends AbstractSystem {
 
     if (newFeatures.length) {
       this._cacheFeatures(cache, newFeatures);
-      this.context.deferredRedraw();
+      const gfx = this.context.systems.gfx;
+      gfx.deferredRedraw();
       this.emit('loadedData');
     }
   }
@@ -603,7 +604,8 @@ export class VectorTileService extends AbstractSystem {
 
     if (newFeatures.length) {
       this._cacheFeatures(cache, newFeatures);
-      this.context.deferredRedraw();
+      const gfx = this.context.systems.gfx;
+      gfx.deferredRedraw();
     }
   }
 
