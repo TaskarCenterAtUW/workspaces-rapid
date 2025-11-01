@@ -99,7 +99,7 @@
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.51.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@mapbox/maki": "^8.2.0",
