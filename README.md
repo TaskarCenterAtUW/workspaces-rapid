@@ -32,6 +32,11 @@ You should be able to access:
 - http://localhost:8080/rapid3/
 
 
+## Contributing
+
+See the [CONTRIBUTING.md](CONTRIBUTING.md) file for info on how to get started.
+
+
 ## License
 
 workspaces-rapid is available under the [ISC License](https://opensource.org/licenses/ISC).

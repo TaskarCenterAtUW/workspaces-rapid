@@ -1,5 +1,8 @@
 # Release Checklist
 
+You can use the `/release` prompt in Copilot Chat to automate the build and verification steps.
+For the full manual process, follow the sections below.
+
 ## Update `main` branch
 
 The `main` branch includes only the scaffolding - shell scripts and Dockerfile.
