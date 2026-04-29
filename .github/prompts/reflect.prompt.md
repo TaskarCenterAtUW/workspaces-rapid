@@ -1,33 +1,26 @@
 ---
 description: Reflect on recent work and bring all project documentation up to date
+argument-hint: additional optional context
 ---
 
-You are doing a documentation update pass. Recent code changes may have left docs, guides, and inline comments out of date. Your job is to find and fix those gaps — not to write new documentation for its own sake.
+Update all project documentation to match the current state of the code. Fix gaps, stale content, spelling mistakes, and anything unclear. Make all edits — do not just list findings. Do not commit; the user will review first.
 
-**Do not commit.** Make all edits and stop. The user will review before committing.
+If the user provided additional context with the prompt, treat it as a focus area (e.g. "only README", "check AGENTS.md is accurate").
 
-## How to approach this
+## Steps
 
-First, get oriented:
-1. Review the current chat session history — this is your primary source of context for what was discussed, decided, and changed
-2. Run `git log --oneline -20` to see recent commits and confirm what was actually landed
-3. Use `#codebase` to survey the current state of the project
+1. Read `AGENTS.md` to understand the project structure.
+2. Review the current chat session history — primary source of context for what changed.
+3. Run `git log --oneline -20` to confirm what was actually landed.
+4. Search the codebase as needed to verify current state.
 
-Then work through each documentation layer below.
+## What to update
 
----
+- Inline documentation (JSDoc, comments)
+- Markdown files (`README`, design docs, contributing guides)
+- Agent instructions (`AGENTS.md`, `copilot-instructions`, etc.)
+- Working memory — e.g. `SCRATCHPAD.md`, `.scratchpad/*`, or whatever convention this project uses (see `AGENTS.md`)
 
-## Documentation layers to check
-
-### SCRATCHPAD.md (if present)
-A working-memory file for agents (gitignored). Update it with:
-- Any new quirks, gotchas, or lessons learned from recent work
-- Any known issues or follow-up tasks worth remembering
-- Remove anything that is now resolved or stale
-
-### AGENTS.md (if present)
-Agent context file. Check that:
-- The described project structure still matches reality
 - Any tool, script, or workflow guidance is still accurate
 - Nothing important from recent work is missing
 
