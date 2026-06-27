@@ -29,11 +29,11 @@ jobs:
               with:
                   node-version: '16'
 
-            - name: Install Node.js dependencies
-              run: npm install
+            # - name: Install Node.js dependencies
+            #   run: npm install
             
-            - name: Run build script
-              run: ./scripts/build.sh 
+            # - name: Run build script
+            #   run: ./scripts/build.sh 
             
             - name: Gather build artifacts
               run: |
