@@ -28,12 +28,19 @@ jobs:
               uses: actions/setup-node@v6
               with:
                   node-version: '16'
-
-            # - name: Install Node.js dependencies
-            #   run: npm install
-            
-            # - name: Run build script
-            #   run: ./scripts/build.sh 
+            # Infer the environment from the workflow input and set the appropriate environment variable
+            - name: Set the target container
+              run: |
+                    if [ "${{ github.event.inputs.environment }}" == "develop" ]; then
+                        echo "TARGET_CONTAINER=dev" >> $GITHUB_ENV
+                    elif [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+                        echo "TARGET_CONTAINER=stage" >> $GITHUB_ENV
+                    elif [ "${{ github.event.inputs.environment }}" == "production" ]; then
+                        echo "TARGET_CONTAINER=prod" >> $GITHUB_ENV
+                    else
+                        echo "Invalid environment specified"
+                        exit 1
+                    fi
             
             - name: Gather build artifacts
               run: |
@@ -47,5 +54,5 @@ jobs:
                 source_folder: 'build'
                 connection_string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
                 container_name: 'editor'
-                destination_folder: 'test'
+                destination_folder: '${{ env.TARGET_CONTAINER }}'
                 delete_if_exists: true
