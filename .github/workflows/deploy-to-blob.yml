@@ -1,0 +1,43 @@
+name: Release to Azure Blob Storage
+on:
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: 'Environment to deploy to'
+                required: true
+                default: 'develop'
+                type: choice
+                options:
+                    - develop
+                    - staging
+                    - production
+            version:
+                description: 'Version to deploy'
+                required: true
+                default: 'latest'
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+              with:
+                ref: ${{ github.event.inputs.environment }}
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v6
+              with:
+                  node-version: '16'
+
+            - name: Install Node.js dependencies
+              run: npm install
+            
+            - name: Run build script
+              run: ./scripts/build.sh 
+            
+            - name: Gather build artifacts
+              run: |
+                  mkdir -p build
+                  cp -r dist/* build/
+                  echo "Files in build directory:"
+                  ls -R build         
