@@ -41,3 +41,11 @@ jobs:
                   cp -r dist/* build/
                   echo "Files in build directory:"
                   ls -R build         
+            - name: Upload to Azure Blob Storage
+              uses: LanceMcCarthy/azure-blob-storage-upload@v3
+              with:
+                source_folder: 'build'
+                connection_string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+                container_name: 'editor'
+                destination_folder: 'test'
+                delete_if_exists: true
