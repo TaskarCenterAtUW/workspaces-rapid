@@ -42,7 +42,7 @@ jobs:
                   echo "Files in build directory:"
                   ls -R build         
             - name: Upload to Azure Blob Storage
-              uses: LanceMcCarthy/azure-blob-storage-upload@v3
+              uses: LanceMcCarthy/Action-AzureBlobUpload@v3
               with:
                 source_folder: 'build'
                 connection_string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
