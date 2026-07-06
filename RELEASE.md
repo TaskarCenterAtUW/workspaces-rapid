@@ -47,3 +47,6 @@ Tag the commit **on the `release` branch** that you want to promote for deployme
 git tag dev           # or stage, prod
 git push origin dev   # or stage, prod
 ```
+
+## Updated workflow:
+- Create and merge pull request to `develop`, `staging` or `production` branch to release the code to respective environments
