@@ -5,7 +5,7 @@ on:
         branches: [develop, staging, production]
 jobs:
     on-merge:
-        if : github.event.pull_request.merged == true
+        if: github.event.pull_request.merged == true
         runs-on: ubuntu-latest
         outputs:
              target_branch: ${{ steps.get_branch.outputs.branch_name }}

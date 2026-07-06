@@ -34,7 +34,7 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
               with:
-                ref: ${{ github.event.inputs.environment }}
+                ref: ${{ inputs.environment }}
 
             - name: Set up Node.js
               uses: actions/setup-node@v6
@@ -43,11 +43,11 @@ jobs:
             # Infer the environment from the workflow input and set the appropriate environment variable
             - name: Set the target container
               run: |
-                    if [ "${{ github.event.inputs.environment }}" == "develop" ]; then
+                    if [ "${{ inputs.environment }}" == "develop" ]; then
                         echo "TARGET_CONTAINER=dev" >> $GITHUB_ENV
-                    elif [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+                    elif [ "${{ inputs.environment }}" == "staging" ]; then
                         echo "TARGET_CONTAINER=stage" >> $GITHUB_ENV
-                    elif [ "${{ github.event.inputs.environment }}" == "production" ]; then
+                    elif [ "${{ inputs.environment }}" == "production" ]; then
                         echo "TARGET_CONTAINER=prod" >> $GITHUB_ENV
                     else
                         echo "Invalid environment specified"
