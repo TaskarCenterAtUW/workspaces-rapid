@@ -20,4 +20,4 @@ jobs:
         with:
             environment: ${{ needs.on-merge.outputs.target_branch }}
             version: 'latest'
-            
+        secrets: inherit
