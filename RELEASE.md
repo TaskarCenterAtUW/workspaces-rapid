@@ -1,5 +1,8 @@
 # Release Checklist
 
+You can use the `/release` prompt in Copilot Chat to automate the build and verification steps.
+For the full manual process, follow the sections below.
+
 ## Update `main` branch
 
 The `main` branch includes only the scaffolding - shell scripts and Dockerfile.
@@ -42,10 +45,11 @@ git push origin -f release
 This repo is referenced by [`workspaces-stack`](https://github.com/TaskarCenterAtUW/workspaces-stack), which expects to find a `dev`, `stage`, or `prod` tag.  See the workspaces-stack [README](https://github.com/TaskarCenterAtUW/workspaces-stack/blob/main/README.md) for more details.
 
 Tag the commit **on the `release` branch** that you want to promote for deployment.
+(We use `-f` to force update the tags, as they likely exist pointing to previous commits)
 
 ```sh
-git tag dev           # or stage, prod
-git push origin dev   # or stage, prod
+git tag -f dev           # or stage, prod
+git push -f origin dev   # or stage, prod
 ```
 
 ## Updated workflow:
