@@ -1,0 +1,23 @@
+name: Triggers Deployment on Pull Request Merge
+on:
+    pull_request:
+        types: [closed]
+        branches: [develop, staging, production]
+jobs:
+    on-merge:
+        if: github.event.pull_request.merged == true
+        runs-on: ubuntu-latest
+        outputs:
+             target_branch: ${{ steps.get_branch.outputs.branch_name }}
+        steps:
+            - name: Get the target branch
+              id: get_branch
+              run: echo "branch_name=${{ github.base_ref }}" >> $GITHUB_OUTPUT
+
+    trigger-deploy-workflow:
+        needs: on-merge
+        uses: ./.github/workflows/deploy-to-blob.yml
+        with:
+            environment: ${{ needs.on-merge.outputs.target_branch }}
+            version: 'latest'
+        secrets: inherit
