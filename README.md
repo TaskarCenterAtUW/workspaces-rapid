@@ -1,5 +1,7 @@
 # workspaces-rapid
 
+[![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE.md)
+
 This repository packages multiple versions of [Rapid](https://rapideditor.org) (a front-end OSM editor) into a single nginx Docker container, serving them as static files.
 
 
@@ -32,7 +34,11 @@ You should be able to access:
 - http://localhost:8080/rapid3/
 
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and contribution guidelines.
+
+
 ## License
 
-workspaces-rapid is available under the [ISC License](https://opensource.org/licenses/ISC).
-See the [LICENSE.md](LICENSE.md) file for more details.
+Available under the [ISC License](https://opensource.org/licenses/ISC). See [LICENSE.md](LICENSE.md).
