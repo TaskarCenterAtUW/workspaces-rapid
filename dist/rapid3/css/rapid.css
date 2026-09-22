@@ -4,6 +4,7 @@
 */
 
 .ideditor div, .ideditor span, .ideditor applet, .ideditor object, .ideditor iframe, .ideditor h1, .ideditor h2, .ideditor h3, .ideditor h4, .ideditor h5, .ideditor h6, .ideditor p, .ideditor blockquote, .ideditor pre, .ideditor a, .ideditor abbr, .ideditor acronym, .ideditor address, .ideditor big, .ideditor cite, .ideditor code, .ideditor del, .ideditor dfn, .ideditor em, .ideditor img, .ideditor ins, .ideditor kbd, .ideditor q, .ideditor s, .ideditor samp, .ideditor small, .ideditor strike, .ideditor strong, .ideditor sub, .ideditor sup, .ideditor tt, .ideditor var, .ideditor b, .ideditor u, .ideditor i, .ideditor center, .ideditor dl, .ideditor dt, .ideditor dd, .ideditor ol, .ideditor ul, .ideditor li, .ideditor fieldset, .ideditor form, .ideditor label, .ideditor legend, .ideditor table, .ideditor caption, .ideditor tbody, .ideditor tfoot, .ideditor thead, .ideditor tr, .ideditor th, .ideditor td, .ideditor article, .ideditor aside, .ideditor canvas, .ideditor details, .ideditor embed, .ideditor figure, .ideditor figcaption, .ideditor footer, .ideditor header, .ideditor hgroup, .ideditor menu, .ideditor nav, .ideditor output, .ideditor ruby, .ideditor section, .ideditor summary, .ideditor time, .ideditor mark, .ideditor audio, .ideditor video {
+<<<<<<< HEAD
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -28,6 +29,32 @@
 .ideditor table {
 	border-collapse: collapse;
 	border-spacing: 0;
+=======
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+.ideditor article, .ideditor aside, .ideditor details, .ideditor figcaption, .ideditor figure, .ideditor footer, .ideditor header, .ideditor hgroup, .ideditor menu, .ideditor nav, .ideditor section {
+  display: block;
+}
+.ideditor ol, .ideditor ul {
+  list-style: none;
+}
+.ideditor blockquote, .ideditor q {
+  quotes: none;
+}
+.ideditor blockquote:before, .ideditor blockquote:after, .ideditor q:before, .ideditor q:after {
+  content: '';
+  content: none;
+}
+.ideditor table {
+  border-collapse: collapse;
+  border-spacing: 0;
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor a { text-decoration: none;}
 /*
@@ -40,10 +67,17 @@
 .ideditor input,
 .ideditor select,
 .ideditor textarea {
+<<<<<<< HEAD
     font-family: inherit; /* 1 */
     font-size: 100%; /* 2 */
     margin: 0; /* 3 */
     padding: 0;
+=======
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 2 */
+  margin: 0; /* 3 */
+  padding: 0;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /*
@@ -53,17 +87,29 @@
 
 .ideditor button,
 .ideditor input {
+<<<<<<< HEAD
     line-height: inherit;
 	letter-spacing: inherit;
+=======
+  line-height: inherit;
+  letter-spacing: inherit;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Hide default number spinner controls */
 .ideditor input[type="number"]::-webkit-inner-spin-button,
 .ideditor input[type="number"]::-webkit-outer-spin-button {
+<<<<<<< HEAD
 	display: none;
 }
 .ideditor input[type=number] {
     -moz-appearance: textfield;
+=======
+  display: none;
+}
+.ideditor input[type=number] {
+  -moz-appearance: textfield;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /*
@@ -76,6 +122,7 @@
 .ideditor input[type="button"],
 .ideditor input[type="reset"],
 .ideditor input[type="submit"] {
+<<<<<<< HEAD
     -webkit-appearance: button; /* 1 */
     cursor: pointer; /* 2 */
 }
@@ -87,6 +134,18 @@
 .ideditor button[disabled],
 .ideditor input[disabled] {
     cursor: default;
+=======
+  -webkit-appearance: button; /* 1 */
+  cursor: pointer; /* 2 */
+}
+
+/*
+ * Reset default cursor for disabled elements.
+ */
+.ideditor button[disabled],
+.ideditor input[disabled] {
+  cursor: default;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /*
@@ -96,8 +155,13 @@
 
 .ideditor input[type="checkbox"],
 .ideditor input[type="radio"] {
+<<<<<<< HEAD
     box-sizing: border-box; /* 1 */
     padding: 0; /* 2 */
+=======
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /*
@@ -107,8 +171,13 @@
  */
 
 .ideditor input[type="search"] {
+<<<<<<< HEAD
     -webkit-appearance: none; /* 1 */
     box-sizing: border-box;
+=======
+  -webkit-appearance: none; /* 1 */
+  box-sizing: border-box;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /*
@@ -118,6 +187,7 @@
 
 .ideditor input[type="search"]::-webkit-search-cancel-button,
 .ideditor input[type="search"]::-webkit-search-decoration {
+<<<<<<< HEAD
     -webkit-appearance: none;
 }
 
@@ -144,6 +214,15 @@
 .ideditor .cf:after {
     clear: both;
 }
+=======
+  -webkit-appearance: none;
+}
+
+/*
+This file contains the base styling rules for Rapid. This is largely inherited from the iD project.
+For now we'll keep the UI intentionally familiar for users who are switching from iD to Rapid.
+*/
+>>>>>>> c1d930ba9 (Check in build)
 
 /* Basics
 ------------------------------------------------------- */
@@ -160,22 +239,37 @@
   overflow: hidden;
 
   /*
+<<<<<<< HEAD
    Establish a local stacking context so all elements within Rapid are on the
    same layer relative to elements outside Rapid - iD#7457.
    https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
+=======
+  Establish a local stacking context so all elements within Rapid are on the
+  same layer relative to elements outside Rapid - iD#7457.
+  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
+>>>>>>> c1d930ba9 (Check in build)
   */
   position: relative;
   z-index: 0;
 
   font: normal 12px/1.6667 ui-sans-serif, "-apple-system", BlinkMacSystemFont,
+<<<<<<< HEAD
     "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Fira Sans", "Droid Sans", "Helvetica Neue", "Arial",
     sans-serif;
+=======
+  "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+  "Fira Sans", "Droid Sans", "Helvetica Neue", "Arial",
+  sans-serif;
+>>>>>>> c1d930ba9 (Check in build)
   color: #333;
   background-color: #333;
 
   touch-action: none;
+<<<<<<< HEAD
   -ms-user-select: none;
+=======
+>>>>>>> c1d930ba9 (Check in build)
   -ms-content-zooming: none;
 }
 
@@ -191,7 +285,10 @@
   height: 0;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor div, .ideditor textarea, .ideditor label, .ideditor input, .ideditor form, .ideditor span, .ideditor ul, .ideditor li, .ideditor ol, .ideditor a, .ideditor button, .ideditor h1, .ideditor h2, .ideditor h3, .ideditor h4, .ideditor h5, .ideditor p, .ideditor img {
   box-sizing: border-box;
 }
@@ -234,6 +331,7 @@
   padding-bottom: 10px;
 }
 
+<<<<<<< HEAD
 .ideditor button:focus,
 .ideditor textarea:focus,
 .ideditor input[type=text]:focus,
@@ -245,6 +343,26 @@
 .ideditor input[type=date]:focus {
   outline-color: transparent;
   outline-style: none;
+=======
+/* Focus */
+/* Turn off the old, heavy-handed focus style for all */
+.ideditor button:focus,
+.ideditor a:focus,
+.ideditor input:focus,
+.ideditor textarea:focus {
+  outline: none;
+}
+/* focus-visible shows the focus ring, but only when tabbing */
+.ideditor button:focus-visible,
+.ideditor a:focus-visible,
+.ideditor input:focus-visible,
+.ideditor textarea:focus-visible {
+  outline: 2px solid #597be7;
+  outline-offset: -2px;
+  box-shadow: 0 0 3px 1px #acf;
+  overflow: visible !important;
+  z-index: 5;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor ::-moz-placeholder {
@@ -276,9 +394,12 @@
 .ideditor a:active {
   color: #7092ff;
 }
+<<<<<<< HEAD
 .ideditor a:focus {
   color: #597be7;
 }
+=======
+>>>>>>> c1d930ba9 (Check in build)
 @media (hover: hover) {
   .ideditor a:hover {
     color: #597be7;
@@ -340,6 +461,7 @@
   padding-bottom: 5px;
   resize: vertical;
   font:normal 12px/20px "-apple-system", BlinkMacSystemFont,
+<<<<<<< HEAD
     "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Fira Sans", "Droid Sans", "Helvetica Neue", "Arial",
     sans-serif;
@@ -349,6 +471,15 @@
 .ideditor input:active,
 .ideditor textarea:focus,
 .ideditor input:focus {
+=======
+  "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+  "Fira Sans", "Droid Sans", "Helvetica Neue", "Arial",
+  sans-serif;
+}
+
+.ideditor textarea:active,
+.ideditor input:active {
+>>>>>>> c1d930ba9 (Check in build)
   background-color: #f1f1f1;
 }
 
@@ -361,8 +492,13 @@
 
 .ideditor input[type="checkbox"],
 .ideditor input[type="radio"] {
+<<<<<<< HEAD
   width: 14px;
   height: 14px;
+=======
+  width: 16px;
+  height: 16px;
+>>>>>>> c1d930ba9 (Check in build)
   margin-right: 5px;
   cursor: pointer;
   vertical-align: middle;
@@ -372,8 +508,13 @@
 }
 .ideditor[dir='rtl'] input[type="checkbox"],
 .ideditor[dir='rtl'] input[type="radio"] {
+<<<<<<< HEAD
   margin-left: 5px;
   margin-right: 0;
+=======
+  margin-right: unset;
+  margin-left: 5px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor input.mixed::-moz-placeholder, .ideditor textarea.mixed::-moz-placeholder {
@@ -387,30 +528,53 @@
 
 /* keytraps need to be invisible yet not be display:none or visibility:hidden */
 .ideditor .keytrap {
+<<<<<<< HEAD
   width: 0;
   height: 0;
   padding: 0;
   margin: 0;
   border: 0;
+=======
+  width: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* tables */
 .ideditor table {
   background-color: #fff;
+<<<<<<< HEAD
   border-collapse: collapse;
   width: 100%;
   border-spacing: 0;
+=======
+  width: 100%;
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor table th {
   text-align: left;
 }
+<<<<<<< HEAD
+=======
+.ideditor table th.shrink {
+  width: 1px;   /* take up as little space as possible */
+  white-space: nowrap;
+}
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor table.tags, .ideditor table.tags td, .ideditor table.tags th {
   border: 1px solid #ccc;
   padding: 4px;
 }
 
 .ideditor ::-ms-clear {
+<<<<<<< HEAD
  display: none;
+=======
+  display: none;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Grid
@@ -482,9 +646,13 @@
   border-radius: 4px;
 }
 
+<<<<<<< HEAD
 .ideditor button:focus,
 .ideditor button:active,
 .ideditor button.hover {
+=======
+.ideditor button:active {
+>>>>>>> c1d930ba9 (Check in build)
   background-color: #ececec;
 }
 @media (hover: hover) {
@@ -535,7 +703,10 @@
   color: #fff;
   font-weight: bold;
 }
+<<<<<<< HEAD
 .ideditor button.action:focus,
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor button.action:active {
   background: #597be7;
 }
@@ -543,7 +714,10 @@
   background: #ececec;
   font-weight: bold;
 }
+<<<<<<< HEAD
 .ideditor button.secondary-action:focus,
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor button.secondary-action:active {
   background: #cccccc;
 }
@@ -579,11 +753,19 @@
 /* Icons
 ------------------------------------------------------- */
 /*
+<<<<<<< HEAD
  Unfortunately our icons in the rapid spritesheet are inconsistent.
  They should really fill the viewbox, but they generally take up
  less space than that.  This is why they default size them to 20px.
  The icons we use from FontAwesome are consistent and use the entire
  viewbox, so we default size them at 16px.
+=======
+Unfortunately our icons in the rapid spritesheet are inconsistent.
+They should really fill the viewbox, but they generally take up
+less space than that.  This is why they default size them to 20px.
+The icons we use from FontAwesome are consistent and use the entire
+viewbox, so we default size them at 16px.
+>>>>>>> c1d930ba9 (Check in build)
 */
 .ideditor .icon {
   vertical-align: middle;
@@ -593,7 +775,10 @@
 .ideditor .icon.icon-fas {
   width: 16px;
   height: 16px;
+<<<<<<< HEAD
   margin: 2px;
+=======
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .icon.operation use {
@@ -771,20 +956,34 @@
 }
 
 
+<<<<<<< HEAD
 /* Header for modals / panes
 ------------------------------------------------------- */
 .ideditor .header {
+=======
+/* Headings for modals / panes
+------------------------------------------------------- */
+.ideditor .heading {
+>>>>>>> c1d930ba9 (Check in build)
   display: flex;
   flex: 0 0 0px;
   align-items: center;
   justify-content: center;
 
   border-bottom: 1px solid #ccc;
+<<<<<<< HEAD
   padding: 20px 40px;
   position: relative;
 }
 
 .ideditor .header h3 {
+=======
+  padding: 15px 40px;
+  position: relative;
+}
+
+.ideditor .heading h3 {
+>>>>>>> c1d930ba9 (Check in build)
   text-align: center;
   margin-bottom: 0;
   text-overflow: ellipsis;
@@ -792,7 +991,11 @@
   padding: 0;
 }
 
+<<<<<<< HEAD
 .ideditor .header button,
+=======
+.ideditor .heading button,
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .modal > button {
   border-radius: 0;
   width: 40px;
@@ -800,31 +1003,53 @@
   overflow: hidden;
 }
 
+<<<<<<< HEAD
 .ideditor .header button {
+=======
+.ideditor .heading button {
+>>>>>>> c1d930ba9 (Check in build)
   position: relative;
   height: 100%;
 }
 
 .ideditor .field-help-title button.close,
+<<<<<<< HEAD
 .ideditor .sidebar .header button.close,
 .ideditor .preset-list-pane .header button.preset-choose {
+=======
+.ideditor .sidebar .heading button.close,
+.ideditor .preset-list-pane .heading button.preset-choose {
+>>>>>>> c1d930ba9 (Check in build)
   position: absolute;
   right: 0;
   top: 0;
 }
 .ideditor[dir='rtl'] .field-help-title button.close,
+<<<<<<< HEAD
 .ideditor[dir='rtl'] .sidebar .header button.close,
 .ideditor[dir='rtl'] .preset-list-pane .header button.preset-choose {
+=======
+.ideditor[dir='rtl'] .sidebar .heading button.close,
+.ideditor[dir='rtl'] .preset-list-pane .heading button.preset-choose {
+>>>>>>> c1d930ba9 (Check in build)
   left: 0;
   right: auto;
 }
 
+<<<<<<< HEAD
 .ideditor .entity-editor-pane .header button.preset-choose {
+=======
+.ideditor .entity-editor-pane .heading button.preset-choose {
+>>>>>>> c1d930ba9 (Check in build)
   position: absolute;
   left: 0;
   top: 0;
 }
+<<<<<<< HEAD
 .ideditor[dir='rtl'] .entity-editor-pane .header button.preset-choose {
+=======
+.ideditor[dir='rtl'] .entity-editor-pane .heading button.preset-choose {
+>>>>>>> c1d930ba9 (Check in build)
   left: auto;
   right: 0;
 }
@@ -850,8 +1075,12 @@
 
 /* Hide/Toggle collapsible sections (aka Disclosure)
 ------------------------------------------------------- */
+<<<<<<< HEAD
 .ideditor .hide-toggle .icon.pre-text {
   vertical-align: middle;
+=======
+.ideditor .hide-toggle .icon {
+>>>>>>> c1d930ba9 (Check in build)
   width: 16px;
   height: 16px;
   margin-top: -3px;
@@ -864,7 +1093,13 @@
   font-weight: bold;
   margin-bottom: 5px;
 }
+<<<<<<< HEAD
 
+=======
+.ideditor .hide-toggle-text {
+  margin: 0 5px;
+}
+>>>>>>> c1d930ba9 (Check in build)
 
 /* Sidebar / Inspector
 ------------------------------------------------------- */
@@ -875,7 +1110,10 @@
 
   z-index: 10;
   background: #f6f6f6;
+<<<<<<< HEAD
   -ms-user-select: element;
+=======
+>>>>>>> c1d930ba9 (Check in build)
   overflow: hidden;
 }
 
@@ -916,7 +1154,11 @@
 
 
 /* .collapsing: the sidebar has been set to a width that is too small,
+<<<<<<< HEAD
   set some opacity and hide the child contents */
+=======
+set some opacity and hide the child contents */
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .sidebar.collapsing { opacity: 0.5 }
 .ideditor .sidebar.collapsing > * { display: none; }
 
@@ -974,7 +1216,11 @@
   display: flex;
   flex: 1 1 0px;
   flex-flow: column nowrap;
+<<<<<<< HEAD
   overflow-y: scroll;
+=======
+  overflow-y: auto;
+>>>>>>> c1d930ba9 (Check in build)
   overflow-x: hidden;
 }
 
@@ -989,24 +1235,40 @@
   margin-bottom: 150px;
 }
 
+<<<<<<< HEAD
 .ideditor .sidebar .search-header {
+=======
+.ideditor .sidebar .search-heading {
+>>>>>>> c1d930ba9 (Check in build)
   flex: 0 0 auto;
   position: relative;
   overflow: hidden;
 }
+<<<<<<< HEAD
 .ideditor .sidebar .search-header .icon {
+=======
+.ideditor .sidebar .search-heading .icon {
+>>>>>>> c1d930ba9 (Check in build)
   display: inline-block;
   position: absolute;
   left: 10px;
   height: 100%;
   pointer-events: none;
 }
+<<<<<<< HEAD
 .ideditor[dir='rtl'] .sidebar .search-header .icon {
+=======
+.ideditor[dir='rtl'] .sidebar .search-heading .icon {
+>>>>>>> c1d930ba9 (Check in build)
   left: auto;
   right: 10px;
 }
 
+<<<<<<< HEAD
 .ideditor .sidebar .search-header input {
+=======
+.ideditor .sidebar .search-heading input {
+>>>>>>> c1d930ba9 (Check in build)
   width: 100%;
   padding: 0 10px;
   height: 3em;
@@ -1086,8 +1348,12 @@
   color: #7092ff;
   font-weight: bold;
 }
+<<<<<<< HEAD
 .ideditor .feature-list-item:active .entity-type,
 .ideditor .feature-list-item:focus .entity-type {
+=======
+.ideditor .feature-list-item:active .entity-type {
+>>>>>>> c1d930ba9 (Check in build)
   color: #597be7;
 }
 @media (hover: hover) {
@@ -1128,6 +1394,7 @@
 /* Preset List and Icons
 ------------------------------------------------------- */
 .ideditor .preset-list  {
+<<<<<<< HEAD
     width: 100%;
     padding: 20px 20px 10px 20px;
 }
@@ -1154,10 +1421,39 @@
 
 .ideditor .preset-list.filtered .preset-list-item:first-child .preset-list-button {
     background: #ececec;
+=======
+  width: 100%;
+  padding: 20px 20px 10px 20px;
+}
+
+.ideditor .preset-list-item {
+  margin-bottom: 10px;
+  position: static;
+}
+
+.ideditor .preset-list-button-wrap {
+  min-height: 62px;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.ideditor .preset-list-button {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ideditor .preset-list.filtered .preset-list-item:first-child .preset-list-button {
+  background: #ececec;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 .ideditor .preset-icon-container {
+<<<<<<< HEAD
     position: relative;
     width: 60px;
     height: 60px;
@@ -1233,10 +1529,88 @@
     stroke: #000;
     stroke-opacity: 0.3;
     stroke-width: 1px;
+=======
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.ideditor .preset-icon-container img.image-icon {
+  width: 50px;
+  height: 50px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 2px;
+  visibility: hidden;
+  z-index: 2;
+}
+.ideditor .preset-icon-container.showing-img img.image-icon {
+  visibility: visible;
+}
+.ideditor .preset-icon-container.showing-img *:not(.image-icon) {
+  display: none;
+}
+
+.ideditor .preset-icon-category-border path {
+  stroke-opacity: 1;
+  stroke-width: 1px;
+}
+
+.ideditor .preset-icon-point-border path {
+  fill: #fff;
+  stroke: #333;
+  stroke-opacity: 1;
+  stroke-width: 1px;
+}
+
+.ideditor .preset-icon-vertex-border circle {
+  fill: #efefef;
+  fill-opacity: 1;
+  stroke: #333;
+  stroke-opacity: 1;
+  stroke-width: 1.5px;
+}
+
+.ideditor .preset-icon-area-border path {
+  stroke-opacity: 1;
+  stroke-width: 1.2px;
+}
+.ideditor .preset-icon-area-border circle.vertex {
+  fill: #fff;
+  fill-opacity: 1;
+  stroke: #000;
+  stroke-opacity: 0.3;
+  stroke-width: 1px;
+}
+.ideditor .preset-icon-area-border circle.midpoint {
+  fill: transparent;
+  fill-opacity: 1;
+  stroke: #000;
+  stroke-opacity: 0.3;
+  stroke-width: 1px;
+}
+
+.ideditor .preset-icon-line path.casing {
+  stroke-width: 5px;
+}
+.ideditor .preset-icon-line path.stroke {
+  stroke-width: 4px;
+}
+.ideditor .preset-icon-line circle.vertex {
+  fill: #fff;
+  fill-opacity: 1;
+  stroke: #000;
+  stroke-opacity: 0.3;
+  stroke-width: 1px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .preset-icon,
 .ideditor .preset-icon-route {
+<<<<<<< HEAD
     position: absolute;
     width: 100%;
     height: 100%;
@@ -1267,10 +1641,43 @@
 .ideditor .preset-icon svg.icon.lowered,
 .ideditor .preset-icon-route svg.icon.lowered {
     translate: 0 12px;
+=======
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+.ideditor .preset-icon svg.icon,
+.ideditor .preset-icon-route svg.icon {
+  width: 28px;
+  height: 28px;
+  fill: #333;
+}
+.ideditor .preset-icon svg.icon.rapid-icon,
+.ideditor .preset-icon-route svg.icon.rapid-icon {
+  width: 50px;
+  height: 50px;
+}
+.ideditor .preset-icon svg.icon.shrunk,
+.ideditor .preset-icon-route svg.icon.shrunk {
+  scale: 0.8;
+}
+.ideditor .preset-icon svg.icon.raised,
+.ideditor .preset-icon-route svg.icon.raised {
+  translate: 0 -7px;
+}
+.ideditor .preset-icon svg.icon.lowered,
+.ideditor .preset-icon-route svg.icon.lowered {
+  translate: 0 12px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 .ideditor .preset-list-button .label {
+<<<<<<< HEAD
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -1352,16 +1759,103 @@
 }
 .ideditor .preset-list-button-wrap .accessory-buttons {
     display: flex;
+=======
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  background: #f6f6f6;
+  text-align: left;
+  padding: 5px 10px;
+  border-left: 1px solid rgba(0, 0, 0, .1);
+  flex: 1 1 100%;
+  align-self: stretch;
+}
+.ideditor[dir='rtl'] .preset-list-button .label {
+  text-align: right;
+  border-left: none;
+  border-right: 1px solid rgba(0, 0, 0, .1);
+}
+.ideditor[dir='ltr'] .preset-list-item.mixed-types .preset-list-button .label {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.ideditor[dir='rtl'] .preset-list-item.mixed-types .preset-list-button .label {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.ideditor[dir='ltr'] .category .preset-list-button .label {
+  border-radius: 0px 4px 4px 0px;
+}
+.ideditor[dir='rtl'] .category .preset-list-button .label {
+  border-radius: 4px 0px 0px 4px;
+}
+
+.ideditor .preset-list-item.mixed-types .label {
+  font-style: italic;
+}
+
+.ideditor .preset-list-button .label-inner {
+  width: 100%;
+  line-height: 1.35em;
+}
+.ideditor .preset-list-button .label-inner .namepart {
+  text-overflow: ellipsis;
+}
+.ideditor .preset-list-button .label-inner .namepart:nth-child(1) {
+  font-weight: bold;
+}
+
+.ideditor .preset-list-button:active .label,
+.ideditor .preset-list-button.disabled,
+.ideditor .preset-list-button.disabled .label {
+  background-color: #ececec;
+}
+@media (hover: hover) {
+  .ideditor .preset-list-button:hover .label {
+    background-color: #ececec;
+  }
+}
+
+.ideditor .preset-list-button-wrap button.tag-reference-button {
+  width: 32px;
+  flex: 0 0 auto;
+}
+.ideditor .preset-list-button-wrap button.tag-reference-button:not(:hover):not(:active) {
+  background: #f6f6f6;
+}
+.ideditor[dir='ltr'] .preset-list-button-wrap button.tag-reference-button {
+  border-left: 1px solid #ccc;
+}
+.ideditor[dir='rtl'] .preset-list-button-wrap button.tag-reference-button {
+  border-right: 1px solid #ccc;
+}
+.ideditor[dir='ltr'] .preset-list-button-wrap:not(.category) button:last-child {
+  border-radius: 0 4px 4px 0;
+}
+.ideditor[dir='rtl'] .preset-list-button-wrap:not(.category) button:last-child {
+  border-radius: 4px 0 0 4px;
+}
+.ideditor .preset-list-button-wrap button.tag-reference-button .icon {
+  opacity: .5;
+}
+.ideditor .preset-list-button-wrap .accessory-buttons {
+  display: flex;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 .ideditor .current .preset-list-button,
 .ideditor .current .preset-list-button .label {
+<<<<<<< HEAD
     background-color: #e8ebff;
+=======
+  background-color: #e8ebff;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .category .preset-list-button:after,
 .ideditor .category .preset-list-button:before {
+<<<<<<< HEAD
     content: "";
     position: absolute;
     top: -5px;
@@ -1395,12 +1889,48 @@
     height: 0;
     margin-left: 50%;
     margin-left: calc(50% - 10px);
+=======
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -1px; right: -1px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  height: 6px;
+}
+
+.ideditor .category .preset-list-button:before {
+  top: -3px;
+}
+
+.ideditor .subgrid .preset-list {
+  width: auto;
+  padding: 10px;
+  margin: 0 -10px;
+  border: 0;
+  border-radius: 8px;
+}
+.ideditor .subgrid .preset-list > *:last-child {
+  margin-bottom: 0;
+}
+
+.ideditor .subgrid .arrow {
+  border: solid rgba(0, 0, 0, 0);
+  border-width: 10px;
+  border-bottom-color: #ececec;
+  width: 0;
+  height: 0;
+  margin-left: 50%;
+  margin-left: calc(50% - 10px);
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Entity/Preset Editor
 ------------------------------------------------------- */
 .ideditor .section .grouped-items-area {
+<<<<<<< HEAD
     padding: 10px;
     margin: 0 -10px 10px -10px;
     border-radius: 8px;
@@ -1437,10 +1967,49 @@
     margin-bottom: 10px;
     width: 100%;
     transition: margin-bottom 200ms;
+=======
+  padding: 10px;
+  margin: 0 -10px 10px -10px;
+  border-radius: 8px;
+  background: #ececec;
+}
+.ideditor .section .grouped-items-area:empty {
+  display: none;
+}
+
+/*
+The parts of a field:
+- `.form-field` is a `div` wraps the entire thing
+- `.field-label` is a `label` that wraps the top part, it contains;
+- `span` classed `label-text`
+- 0..n buttons for "remove", "modified", "tag reference"
+- `.form-field-input-wrap` is a `label` or `div` that wraps the bottom part, it contains;
+- usually an `input`
+- sometimes some buttons (translate, increment, decrement)
+- or could just be a `div` with anything really
+- `.tag-reference-body` at the bottom (usually hidden)
+
+.------------------.                           -
+|  Name        | i |  <- .field-label           |
++------------------+                             |
+|  Starbucks   | + |  <- .form-field-input-wrap   >  .form-field
+'------------------'                             |
+tag reference         <- .tag-reference-body    |
+                                               -
+*/
+
+.ideditor .form-field {
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: 10px;
+  width: 100%;
+  transition: margin-bottom 200ms;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .form-field.nowrap,
 .ideditor .wrap-form-field:last-child .form-field {
+<<<<<<< HEAD
     margin-bottom: 0;
 }
 
@@ -1499,15 +2068,79 @@
 .ideditor .field-label .remove-icon,
 .ideditor .field-label .remove-icon-multilingual {
     display: none;
+=======
+  margin-bottom: 0;
+}
+
+/* A `label` element that wraps the top section */
+.ideditor .form-field .field-label {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 1 1 100%;
+  position: relative;
+  font-weight: bold;
+  color: #333;
+  background: #f6f6f6;
+  border: 1px solid #ccc;
+  border-radius: 4px 4px 0 0;
+}
+.ideditor .form-field .label-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1 1 auto;
+  padding: 5px 0 4px 10px;
+  white-space: nowrap;
+}
+.ideditor[dir='rtl'] .form-field .label-text {
+  padding: 5px 10px 4px 0;
+}
+
+.ideditor .form-field .label-textannotation svg.icon {
+  margin: 0 8px;
+  color: #333;
+  opacity: 0.5;
+  width: 14px;
+  height: 14px;
+  vertical-align: text-top;
+}
+
+.ideditor .form-field .field-label button {
+  flex: 0 0 auto;
+  border-left: 1px solid #ccc;
+  width: 32px;
+  border-radius: 0;
+}
+.ideditor[dir='rtl'] .form-field .field-label button {
+  border-left: none;
+  border-right: 1px solid #ccc;
+}
+.ideditor .form-field .field-label button:not(:hover):not(:active) {
+  background: none;
+}
+.ideditor .form-field .field-label .icon {
+  opacity: .5;
+
+}
+
+.ideditor .form-field .field-label .modified-icon,
+.ideditor .form-field .field-label .remove-icon,
+.ideditor .form-field .field-label .remove-icon-multilingual {
+  display: none;
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor .modified:not(.locked) .field-label .modified-icon,
 .ideditor .present:not(.locked) .field-label .remove-icon,
 .ideditor .present:not(.locked) .field-label .remove-icon-multilingual {
+<<<<<<< HEAD
     display: inline-block;
+=======
+  display: inline-block;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* A `div` element that wraps the bottom section */
 .ideditor .form-field-input-wrap {
+<<<<<<< HEAD
     display: flex;
     flex-flow: row nowrap;
     width: 100%;
@@ -1517,6 +2150,17 @@
 }
 .ideditor .nowrap .form-field-input-wrap {
     border-radius: 0;
+=======
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  flex: 1 1 auto;
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+}
+.ideditor .nowrap .form-field-input-wrap {
+  border-radius: 0;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -1524,6 +2168,7 @@
 .ideditor .form-field-input-wrap > label,
 .ideditor .form-field-input-wrap > textarea,
 .ideditor .form-field-input-wrap > ul.chiplist {
+<<<<<<< HEAD
     flex: 1 1 auto;
     border: 1px solid #ccc;
     border-top: 0;
@@ -1533,10 +2178,22 @@
 .ideditor .form-field-input-wrap > textarea {
     height: 65px;
     border-radius: 0 0 4px 4px;
+=======
+  flex: 1 1 auto;
+  border: 1px solid #ccc;
+  border-top: 0;
+  border-radius: 0;
+  position: relative;
+}
+.ideditor .form-field-input-wrap > textarea {
+  height: 65px;
+  border-radius: 0 0 4px 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Buttons inside fields */
 .ideditor .form-field-button {
+<<<<<<< HEAD
     flex: 0 0 auto;
     width: 32px;
     position: relative;
@@ -1563,15 +2220,49 @@
 .ideditor .form-field-button .icon {
     fill: #333;
     opacity: .5;
+=======
+  flex: 0 0 auto;
+  width: 32px;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  border-top-width: 0;
+  border-left-width: 0;
+  vertical-align: top;
+}
+.ideditor[dir='rtl'] .form-field-button {
+  border-left-width: 1px;
+  border-right-width: 0;
+}
+.ideditor .form-field-button:active {
+  background-color: #f1f1f1;
+}
+@media (hover: hover) {
+  .ideditor .form-field-button:hover {
+    background-color: #f1f1f1;
+  }
+}
+.ideditor .form-field-button .icon {
+  fill: #333;
+  opacity: .5;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* round corners of first/last child elements */
 .ideditor .form-field-input-wrap > button:last-of-type {
+<<<<<<< HEAD
     border-bottom-right-radius: 4px;
 }
 .ideditor[dir='rtl'] .form-field-input-wrap > button:last-of-type {
     border-bottom-left-radius: 4px;
+=======
+  border-bottom-right-radius: 4px;
+}
+.ideditor[dir='rtl'] .form-field-input-wrap > button:last-of-type {
+  border-bottom-left-radius: 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -1579,14 +2270,21 @@
 ------------------------------------------------------- */
 .ideditor .form-field-input-access,
 .ideditor .form-field-input-cycleway {
+<<<<<<< HEAD
     flex: 1 1 auto;
     display: flex;
     flex-flow: row wrap;
+=======
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: row wrap;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Field - lists with labeled input items
 ------------------------------------------------------- */
 .ideditor .form-field ul.rows {
+<<<<<<< HEAD
     flex: 1 1 auto;
     border: 1px solid #ccc;
     border-top: 0;
@@ -1625,11 +2323,52 @@
 .ideditor[dir='rtl'] .form-field ul.rows li.labeled-input input,
 .ideditor[dir='rtl'] .form-field ul.rows li button {
     border-right-width: 1px;
+=======
+  flex: 1 1 auto;
+  border: 1px solid #ccc;
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
+  width: 100%;
+}
+.ideditor .form-field ul.rows li {
+  border-top: 1px solid #ccc;
+}
+.ideditor .form-field ul.rows li:first-child {
+  border-top: 0;
+}
+.ideditor .form-field ul.rows li {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.ideditor .form-field ul.rows li.labeled-input > div {
+  flex: 1 1 auto;
+  width: 100%;
+  border-radius: 0;
+  line-height: 0.95rem;
+}
+.ideditor .form-field ul.rows li input {
+  border-radius: 0;
+  border-width: 0;
+  width: 100%;
+}
+.ideditor .form-field ul.rows li button {
+  border-width: 0;
+}
+.ideditor[dir='ltr'] .form-field ul.rows li.labeled-input input,
+.ideditor[dir='ltr'] .form-field ul.rows li button {
+  border-left-width: 1px;
+}
+.ideditor[dir='rtl'] .form-field ul.rows li.labeled-input input,
+.ideditor[dir='rtl'] .form-field ul.rows li button {
+  border-right-width: 1px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Field - lists with labeled input items as table
 ------------------------------------------------------- */
 .ideditor .form-field ul.rows.rows-table {
+<<<<<<< HEAD
     display: table;
     width: 100%;
 }
@@ -1647,12 +2386,32 @@
 .ideditor .form-field ul.rows.rows-table li.labeled-input > div:nth-child(2) {
     display: table-cell;
     width: auto;
+=======
+  display: table;
+  width: 100%;
+}
+.ideditor .form-field ul.rows.rows-table li.labeled-input {
+  display: table-row;
+}
+.ideditor .form-field ul.rows.rows-table li.labeled-input > div:first-child {
+  display: table-cell;
+  width: auto;
+  max-width: 170px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.ideditor .form-field ul.rows.rows-table li.labeled-input > div:nth-child(2) {
+  display: table-cell;
+  width: auto;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field - Structure
 ------------------------------------------------------- */
 .ideditor .structure-extras-wrap {
+<<<<<<< HEAD
     width: 100%;
     padding: 10px 10px;
     background: #fff;
@@ -1663,12 +2422,25 @@
 .ideditor .structure-extras-wrap > ul.rows {
     border: 1px solid #ccc;
     border-radius: 4px;
+=======
+  width: 100%;
+  padding: 10px 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: 0px;
+  border-radius: 0 0 4px 4px;
+}
+.ideditor .structure-extras-wrap > ul.rows {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field - Combo / Multicombo
 ------------------------------------------------------- */
 .ideditor .form-field-input-combo > input:only-of-type {
+<<<<<<< HEAD
     border-radius: 0 0 4px 4px;
     width: 100%;
 }
@@ -1779,6 +2551,113 @@
 }
 .ideditor .form-field-input-multicombo .full-line-chips .input-wrap {
     width: auto;
+=======
+  border-radius: 0 0 4px 4px;
+  width: 100%;
+}
+.ideditor .form-field-input-combo.empty-combobox input,
+.ideditor .form-field-input-multicombo .empty-combobox input {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.ideditor .form-field-input-combo.empty-combobox .combobox-caret,
+.ideditor .form-field-input-multicombo .empty-combobox .combobox-caret {
+  display: none;
+}
+
+.ideditor .form-field-input-combo input.raw-value {
+  font-family: monospace;
+}
+.ideditor .form-field-input-combo input.known-value {
+  color: #7092ff;
+}
+
+.ideditor .form-field-input-multicombo ul.chiplist {
+  padding: 5px 8px 5px 8px;
+  background: #fff;
+  display: block;
+  border-radius: 0 0 4px 4px;
+  width: 100%;
+}
+
+.ideditor .form-field-input-multicombo li {
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  border-radius: 4px;
+}
+.ideditor[dir='ltr'] .form-field-input-multicombo li {
+  margin-right: 6px;
+}
+.ideditor[dir='rtl'] .form-field-input-multicombo li {
+  margin-left: 6px;
+}
+
+.ideditor .form-field-input-multicombo li.chip {
+  background-color: #eff2f7;
+  border: 1px solid #ccd5e3;
+  max-width: 100%;
+  color: #7092ff;
+}
+.ideditor[dir='ltr'] .form-field-input-multicombo li.chip {
+  padding: 2px 0px 2px 5px;
+}
+.ideditor[dir='rtl'] .form-field-input-multicombo li.chip {
+  padding: 2px 5px 2px 0px;
+}
+.ideditor .form-field-input-multicombo li.chip.draggable {
+  cursor: grab;
+}
+.ideditor .form-field-input-multicombo li.chip.dragging {
+  opacity: 0.75;
+  z-index: 3000;
+  cursor: grabbing;
+}
+.ideditor .form-field-input-multicombo li.chip.raw-value {
+  font-family: monospace;
+  color: #333;
+}
+.ideditor .form-field-input-multicombo li.mixed {
+  border-color: #eff2f7;
+  color: #888;
+  font-style: italic;
+}
+
+.ideditor .form-field-input-multicombo li.chip span {
+  display: block;
+  flex: 1 1 auto;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.ideditor .form-field-input-multicombo a {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 16px !important;
+  padding: 0px 5px 0px 5px;
+  margin: 0;
+  cursor: pointer;
+  color: #a6b4ce;
+  display: block;
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+.ideditor .form-field-input-multicombo .input-wrap {
+  border: 1px solid #ddd;
+  width: 100px;
+}
+.ideditor .form-field-input-multicombo input {
+  border: none;
+  width: 100%;
+}
+.ideditor .form-field-input-multicombo .full-line-chips li.chip {
+  width: 100%;
+}
+.ideditor .form-field-input-multicombo .full-line-chips .input-wrap {
+  width: auto;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -1788,6 +2667,7 @@
 .ideditor .form-field-input-tel > input:only-of-type,
 .ideditor .form-field-input-email > input:only-of-type,
 .ideditor .form-field-input-url > input:only-child {
+<<<<<<< HEAD
     border-radius: 0 0 4px 4px;
 }
 .ideditor .form-field-input-url > input:not(:only-child) {
@@ -1804,22 +2684,49 @@
 }
 .ideditor[dir='rtl'] .form-field-input-number > button:last-of-type {
     border-radius: 0 0 0 4px;
+=======
+  border-radius: 0 0 4px 4px;
+}
+.ideditor .form-field-input-url > input:not(:only-child) {
+  border-radius: 0 0 0 4px;
+}
+.ideditor .form-field-input-number > input:only-of-type {
+  border-radius: 0 0 0 4px;
+}
+.ideditor[dir='rtl'] .form-field-input-number > input:only-of-type {
+  border-radius: 0 0 4px 0;
+}
+.ideditor .form-field-input-number > button:last-of-type {
+  border-radius: 0 0 4px 0;
+}
+.ideditor[dir='rtl'] .form-field-input-number > button:last-of-type {
+  border-radius: 0 0 0 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor[dir='ltr'] .form-field-input-identifier > input:last-child,
 .ideditor[dir='rtl'] .form-field-input-identifier > input:first-child,
 .ideditor[dir='ltr'] .form-field-input-identifier > button {
+<<<<<<< HEAD
     border-bottom-right-radius: 4px;
+=======
+  border-bottom-right-radius: 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor[dir='ltr'] .form-field-input-identifier > input:first-child,
 .ideditor[dir='rtl'] .form-field-input-identifier > input:last-child,
 .ideditor[dir='rtl'] .form-field-input-identifier > button {
+<<<<<<< HEAD
     border-bottom-left-radius: 4px;
+=======
+  border-bottom-left-radius: 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* draw the up/down on the buttons */
 .ideditor .form-field-input-number button.decrement::after,
 .ideditor .form-field-input-number button.increment::after {
+<<<<<<< HEAD
     content: "";
     height: 0; width: 0;
     position: absolute;
@@ -1835,12 +2742,30 @@
     border-bottom: 5px solid #ccc;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
+=======
+  content: "";
+  height: 0; width: 0;
+  position: absolute;
+  left: 0; right: 0; bottom: 0; top: 0;
+  margin: auto;
+}
+.ideditor .form-field-input-number button.decrement::after {
+  border-top: 5px solid #ccc;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+.ideditor .form-field-input-number button.increment::after {
+  border-bottom: 5px solid #ccc;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field - Checkbox
 ------------------------------------------------------- */
 .ideditor .form-field-input-check {
+<<<<<<< HEAD
     display: flex;
     align-items: center;
     background: #fff;
@@ -1901,12 +2826,71 @@
 }
 .ideditor .form-field-input-check label:not(.set) input[type="checkbox"] {
     opacity: .5;
+=======
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 5px 10px;
+  color: #7092ff;
+  border: 1px solid #ccc;
+  border-top: 0;
+  cursor: pointer;
+}
+.ideditor .form-field-input-check > input[type="checkbox"] {
+  flex: 0 1 auto;
+}
+.ideditor .form-field-input-check > span {
+  flex: 1 1 auto;
+}
+.ideditor .form-field-input-check > span.mixed {
+  font-style: italic;
+}
+.ideditor .form-field-input-check > .reverser {
+  flex: 0 1 auto;
+  background-color: #eff2f7;
+  border: 1px solid #ccd5e3;
+  border-radius: 2px;
+  padding: 0px 8px;
+  color: inherit;
+}
+.ideditor[dir='ltr'] .form-field-input-check > .reverser {
+  padding-right: 2px;
+}
+.ideditor[dir='rtl'] .form-field-input-check > .reverser {
+  padding-left: 2px;
+}
+.ideditor .form-field-input-check .reverser:active {
+  background: #e3e8ef;
+}
+@media (hover: hover) {
+  .ideditor .form-field-input-check .reverser:hover {
+    background: #e3e8ef;
+  }
+}
+.ideditor .form-field-input-check > .reverser.hide {
+  display: none;
+}
+.ideditor .form-field-input-check:active {
+  background: #f1f1f1;
+}
+@media (hover: hover) {
+  .ideditor .form-field-input-check:hover {
+    background: #f1f1f1;
+  }
+}
+.ideditor .form-field-input-check .set {
+  color: inherit;
+}
+.ideditor .form-field-input-check label:not(.set) input[type="checkbox"] {
+  opacity: .5;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field - Radio button
 ------------------------------------------------------- */
 .ideditor .form-field-input-radio {
+<<<<<<< HEAD
     flex: 1 1 auto;
     display: flex;
     flex-flow: row wrap;
@@ -1952,23 +2936,78 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+=======
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: row wrap;
+}
+.ideditor .form-field-input-radio > label {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  width: 100%;
+  padding: 5px 10px;
+  background-color: #fff;
+  color: #7092ff;
+  cursor: pointer;
+}
+.ideditor .form-field-input-radio > label.mixed {
+  font-style: italic;
+}
+.ideditor .form-field-input-radio > label:last-child {
+  border-radius: 0 0 4px 4px;
+}
+.ideditor .form-field-input-radio > label:active {
+  background-color: #ececec;
+}
+@media (hover: hover) {
+  .ideditor .form-field-input-radio > label:hover {
+    background-color: #ececec;
+  }
+}
+.ideditor .form-field-input-radio > label.active {
+  background-color: #e8ebff;
+}
+.ideditor .form-field-input-radio > label:not(:last-of-type) {
+  border-bottom: 1px solid #ccc;
+}
+.ideditor .form-field-input-radio > label > input[type="radio"] {
+  flex: 0 1 auto;
+}
+.ideditor .form-field-input-radio > label > span {
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Hide placeholder for radio buttons if another is active, or not in hover state */
 .ideditor .form-field-input-radio label.active ~ .placeholder,
 .ideditor .form-field-input-radio .placeholder {
+<<<<<<< HEAD
     padding: 0;
     opacity: 0;
     width: 0;
     height: 0;
     display: block;
     overflow: hidden;
+=======
+  padding: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  display: block;
+  overflow: hidden;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field - roadspeed
 ------------------------------------------------------- */
 .ideditor .form-field-input-roadspeed input.roadspeed-number {
+<<<<<<< HEAD
     flex-basis: 0;
 }
 .ideditor .form-field-input-roadspeed input.roadspeed-unit {
@@ -1988,12 +3027,34 @@
 .ideditor[dir='rtl'] .form-field-input-roadspeed > input:last-of-type {
     border-right: 0;
     border-radius: 0 0 0 4px;
+=======
+  flex-basis: 0;
+}
+.ideditor .form-field-input-roadspeed input.roadspeed-unit {
+  flex: 0 1 auto;
+  width: 80px;
+}
+.ideditor[dir='ltr'] .form-field-input-roadspeed > input:first-of-type {
+  border-radius: 0 0 0 4px;
+}
+.ideditor[dir='rtl'] .form-field-input-roadspeed > input:first-of-type {
+  border-radius: 0 0 4px 0;
+}
+.ideditor[dir='ltr'] .form-field-input-roadspeed > input:last-of-type {
+  border-left: 0;
+  border-radius: 0 0 4px 0;
+}
+.ideditor[dir='rtl'] .form-field-input-roadspeed > input:last-of-type {
+  border-right: 0;
+  border-radius: 0 0 0 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field - Localized Name
 ------------------------------------------------------- */
 .ideditor .form-field-input-localized > input.localized-main {
+<<<<<<< HEAD
     border-radius: 0 0 0 4px;
 }
 .ideditor[dir='rtl'] .form-field-input-localized > input.localized-main {
@@ -2004,29 +3065,57 @@
 }
 .ideditor[dir='rtl'] .form-field-input-localized > button.localized-add {
     border-radius: 0 0 0 4px;
+=======
+  border-radius: 0 0 0 4px;
+}
+.ideditor[dir='rtl'] .form-field-input-localized > input.localized-main {
+  border-radius: 0 0 4px 0;
+}
+.ideditor .form-field-input-localized > button.localized-add {
+  border-radius: 0 0 4px 0;
+}
+.ideditor[dir='rtl'] .form-field-input-localized > button.localized-add {
+  border-radius: 0 0 0 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .form-field-input-localized button.localized-add.disabled,
 .ideditor .form-field-input-localized input.localized-main.disabled,
 .ideditor .form-field-input-localized input.localized-lang.disabled,
 .ideditor .form-field-input-localized input.localized-value.disabled {
+<<<<<<< HEAD
     color: #777;
     background-color: #eee;
     cursor: not-allowed;
+=======
+  color: #777;
+  background-color: #eee;
+  cursor: not-allowed;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* nested subfields for name in different languages */
 .ideditor .localized-multilingual {
+<<<<<<< HEAD
     padding: 0 10px;
     flex-basis: 100%;
 }
 .ideditor .localized-multilingual .entry {
     position: relative;
     overflow: hidden;
+=======
+  padding: 0 10px;
+  flex-basis: 100%;
+}
+.ideditor .localized-multilingual .entry {
+  position: relative;
+  overflow: hidden;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* draws a little line connecting the multilingual field up to the name field */
 .ideditor .localized-multilingual .entry::before {
+<<<<<<< HEAD
     content: "";
     display: block;
     position: absolute;
@@ -2048,12 +3137,36 @@
     border-top-width: 0;
     border-radius: 0 0 4px 4px;
     width: 100%;
+=======
+  content: "";
+  display: block;
+  position: absolute;
+  background: #ccc;
+  height: 11px;
+  width: 1px;
+  left: 0;
+  right: 0;
+  top: -11px;
+  margin: auto;
+}
+
+.ideditor .localized-multilingual .entry .localized-lang {
+  border-radius: 0;
+  border-top-width: 0;
+  width: 100%;
+}
+.ideditor .localized-multilingual .entry .localized-value {
+  border-top-width: 0;
+  border-radius: 0 0 4px 4px;
+  width: 100%;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field - Address
 ------------------------------------------------------- */
 .ideditor .form-field-input-address {
+<<<<<<< HEAD
     flex: 1 1 auto;
     display: flex;
     flex-flow: row wrap;
@@ -2098,27 +3211,87 @@
 }
 .ideditor[dir='rtl'] .addr-row:last-of-type input:last-of-type {
     border-radius: 0 0 0 4px;
+=======
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: row wrap;
+  border: 1px solid #ccc;
+  border-top: 0px;
+}
+
+.ideditor .addr-row {
+  flex: 1 1 auto;
+  display: flex;
+  width: 100%;
+}
+
+.ideditor .addr-row > input {
+  flex: 1 1 auto;
+  border-radius: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+.ideditor[dir='rtl'] .addr-row input {
+  border-right: 1px solid #ccc;
+  border-left: 0;
+}
+
+.ideditor .addr-row:first-of-type input {
+  border-top: 0;
+}
+.ideditor .addr-row input:first-of-type {
+  border-left: 0;
+}
+.ideditor[dir='rtl'] .addr-row input:first-of-type {
+  border-right: 0;
+}
+.ideditor .addr-row:last-of-type input:first-of-type {
+  border-radius: 0 0 0 4px;
+}
+.ideditor[dir='rtl'] .addr-row:last-of-type input:first-of-type {
+  border-radius: 0 0 4px 0;
+}
+.ideditor .addr-row:last-of-type input:last-of-type {
+  border-radius: 0 0 4px 0;
+}
+.ideditor[dir='rtl'] .addr-row:last-of-type input:last-of-type {
+  border-radius: 0 0 0 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field - Wikipedia
 ------------------------------------------------------- */
 .ideditor .form-field-input-wikipedia {
+<<<<<<< HEAD
     display: flex;
     flex-flow: row wrap;
     flex: 1 1 auto;
+=======
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 1 auto;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .wiki-lang-container,
 .ideditor .wiki-title-container {
+<<<<<<< HEAD
     display: flex;
     flex-flow: row nowrap;
     flex: 1 1 auto;
     width: 100%;
+=======
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 1 1 auto;
+  width: 100%;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .wiki-lang-container > input.wiki-lang,
 .ideditor .wiki-title-container > input.wiki-title {
+<<<<<<< HEAD
     flex: 1 1 auto;
     border-top: 0;
     border-radius: 0;
@@ -2136,12 +3309,32 @@
 .ideditor[dir='rtl'] .wiki-title-container > button.wiki-link,
 .ideditor[dir='rtl'] .form-field-wikidata ul.rows li:last-child button.form-field-button:last-child {
     border-radius: 0 0 0 4px;
+=======
+  flex: 1 1 auto;
+  border-top: 0;
+  border-radius: 0;
+}
+.ideditor .wiki-title-container > input.wiki-title {
+  border-radius: 0 0 0 4px;
+}
+.ideditor[dir='rtl'] .wiki-title-container > input.wiki-title {
+  border-radius: 0 0 4px 0;
+}
+.ideditor .wiki-title-container > button.wiki-link,
+.ideditor .form-field-wikidata ul.rows li:last-child button.form-field-button:last-child {
+  border-radius: 0 0 4px 0;
+}
+.ideditor[dir='rtl'] .wiki-title-container > button.wiki-link,
+.ideditor[dir='rtl'] .form-field-wikidata ul.rows li:last-child button.form-field-button:last-child {
+  border-radius: 0 0 0 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field - Restriction Editor
 ------------------------------------------------------- */
 .ideditor .form-field-input-restrictions {
+<<<<<<< HEAD
     display: block;
     border: 1px solid #ccc;
     border-top: 0;
@@ -2167,10 +3360,38 @@
     display: table-row;
     padding: 5px 10px;
     height: 25px;
+=======
+  display: block;
+  border: 1px solid #ccc;
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+}
+
+.ideditor .form-field-input-restrictions .restriction-controls-container {
+  background-color: #fff;
+  width: 100%;
+  padding: 5px;
+  border-top: 1px solid #ccc;
+  border-radius: 0 0 4px 4px;
+}
+
+.ideditor .restriction-controls-container .restriction-controls {
+  display: table;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.ideditor .restriction-controls .restriction-control {
+  display: table-row;
+  padding: 5px 10px;
+  height: 25px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .restriction-control input,
 .ideditor .restriction-control > span {
+<<<<<<< HEAD
     display: table-cell;
     text-align: start;
     padding: 0px 5px;
@@ -2233,12 +3454,77 @@
 }
 .ideditor .restriction-help .qualifier.only {
     color: #78f;
+=======
+  display: table-cell;
+  text-align: start;
+  padding: 0px 5px;
+}
+
+.ideditor .restriction-control > span.restriction-control-label {
+  text-align: end;
+}
+
+.ideditor .restriction-control input {
+  width: 60px;
+  padding: 0;
+  margin: 0px 5px;
+  vertical-align: middle;
+}
+
+.ideditor .form-field-input-restrictions .restriction-container {
+  position: relative;
+  height: 370px;
+}
+/* zero width space, so container takes up space */
+.ideditor .form-field-input-restrictions .restriction-container:after {
+  content: '\200b';
+}
+
+.ideditor .form-field-input-restrictions svg.surface {
+  width: 100%;
+  height: 100%;
+}
+
+.ideditor .restriction-container .restriction-help {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 2px 6px;
+  background-color: rgba(255, 255, 255, .8);
+  color: #888;
+  text-align: center;
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.ideditor .restriction-help span {
+  margin: 2px;
+}
+
+.ideditor .restriction-help .qualifier {
+  color: #666;
+  font-weight: bold;
+}
+.ideditor .restriction-help .qualifier.allow {
+  color: #8b5;
+}
+.ideditor .restriction-help .qualifier.restrict {
+  color: #d53;
+}
+.ideditor .restriction-help .qualifier.only {
+  color: #78f;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field - Changeset Comment
 ------------------------------------------------------- */
 .ideditor .form-field-comment:not(.present) #preset-input-comment {
+<<<<<<< HEAD
     border-color: rgb(230, 100, 100);
 }
 .ideditor .form-field-comment:not(.present) .field-label {
@@ -2247,6 +3533,16 @@
 }
 .ideditor .form-field-comment:not(.present) button {
     border-color: rgb(230, 100, 100);
+=======
+  border-color: rgb(230, 100, 100);
+}
+.ideditor .form-field-comment:not(.present) .field-label {
+  border-color: rgb(230, 100, 100);
+  background: rgba(230, 100, 100, 0.2);
+}
+.ideditor .form-field-comment:not(.present) button {
+  border-color: rgb(230, 100, 100);
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -2254,6 +3550,7 @@
 ------------------------------------------------------- */
 .ideditor[dir='ltr'] textarea.combobox-input,
 .ideditor[dir='ltr'] input.combobox-input {
+<<<<<<< HEAD
     /* leave room for the caret */
     padding-right: 20px;
 }
@@ -2308,6 +3605,61 @@
     align-self: center;
     vertical-align: middle;
     cursor: pointer;
+=======
+  /* leave room for the caret */
+  padding-right: 20px;
+}
+.ideditor[dir='rtl'] textarea.combobox-input,
+.ideditor[dir='rtl'] input.combobox-input {
+  padding-left: 20px;
+}
+
+.ideditor div.combobox {
+  z-index: 9999;
+  display: none;
+  box-shadow: 0 4px 10px 1px rgba(0,0,0,.2);
+  margin-top: -1px;
+  background: #fff;
+  max-height: 245px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #ccc;
+  border-radius: 0 0 4px 4px;
+}
+
+.ideditor .combobox a {
+  display: block;
+  padding: 5px 10px;
+  border-top: 1px solid #ccc;
+  line-height: 0.95rem;
+}
+
+.ideditor .combobox a.selected,
+.ideditor .combobox a:active {
+  background: #ececec;
+}
+@media (hover: hover) {
+  .ideditor .combobox a:hover {
+    background: #ececec;
+  }
+}
+
+.ideditor .combobox a:first-child {
+  border-top: 0;
+  padding: 4px 10px;
+}
+
+.ideditor .combobox-caret {
+  display: inline-block;
+  position: relative;
+  height: 30px;
+  width: 30px !important;
+  margin-left: -30px;
+  align-self: center;
+  vertical-align: middle;
+  cursor: pointer;
+  z-index: 20;
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor[dir='rtl'] .combobox-caret {
   margin-left: 0;
@@ -2315,6 +3667,7 @@
 }
 
 .ideditor .combobox-caret::after {
+<<<<<<< HEAD
     content: "";
     height: 0; width: 0;
     position: absolute;
@@ -2328,12 +3681,28 @@
 .ideditor .combobox .combobox-option.raw-option {
     font-family: monospace;
     color: #333;
+=======
+  content: "";
+  height: 0; width: 0;
+  position: absolute;
+  left: 0; right: 0; bottom: 0; top: 0;
+  margin: auto;
+  border-top: 5px solid #ccc;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+
+.ideditor .combobox .combobox-option.raw-option {
+  font-family: monospace;
+  color: #333;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Field Help
 ------------------------------------------------------- */
 .ideditor .field-help-body {
+<<<<<<< HEAD
     display: block;
     position: absolute;
     top: 0;
@@ -2429,6 +3798,102 @@
 }
 .ideditor .field-help-content svg.only {
     color: #68f;
+=======
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+  z-index: 20;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 0 30px 5px rgba(0,0,0,.4);
+}
+
+.ideditor .field-help-title h2 {
+  padding: 10px;
+  margin-bottom: 0px;
+  font-size: 17px;
+}
+.ideditor .field-help-title button {
+  width: 45px;
+  height: 55px;
+  border-radius: 0;
+}
+
+.ideditor .field-help-nav {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.ideditor .field-help-nav-item {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #666;
+}
+.ideditor .field-help-nav-item.active {
+  color: #7092ff;
+  border-bottom: 2px solid;
+}
+.ideditor .field-help-nav-item:active {
+  color: #597be7;
+  background-color: #efefef;
+}
+@media (hover: hover) {
+  .ideditor .field-help-nav-item:hover {
+    color: #597be7;
+    background-color: #efefef;
+  }
+}
+
+.ideditor .field-help-content {
+  padding: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.ideditor .field-help-content h3 {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.ideditor .field-help-content p {
+  margin-bottom: 15px;
+}
+.ideditor .field-help-content ul li {
+  list-style: inside;
+  margin-bottom: 5px;
+}
+
+.ideditor .field-help-content .field-help-image {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.ideditor .field-help-content svg.turn {
+  width: 40px;
+  height: 20px;
+}
+.ideditor .field-help-content svg.shadow {
+  opacity: 0.7;
+  width: 60px;
+  height: 20px;
+}
+.ideditor .field-help-content svg.from {
+  color: #777;
+}
+.ideditor .field-help-content svg.allow {
+  color: #5b3;
+}
+.ideditor .field-help-content svg.restrict {
+  color: #d53;
+}
+.ideditor .field-help-content svg.only {
+  color: #68f;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .field-help-content p.from_shadow,
@@ -2436,13 +3901,18 @@
 .ideditor .field-help-content p.restrict_shadow,
 .ideditor .field-help-content p.allow_turn,
 .ideditor .field-help-content p.restrict_turn {
+<<<<<<< HEAD
     margin-bottom: 5px;
+=======
+  margin-bottom: 5px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* More Fields dropdown
 ------------------------------------------------------- */
 .ideditor .more-fields {
+<<<<<<< HEAD
     margin-top: 10px;
     font-weight: bold;
 }
@@ -2466,12 +3936,38 @@
 .ideditor .form-field-input-wrap .label {
     background: #f6f6f6;
     padding: 5px 10px;
+=======
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.ideditor .more-fields label {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ideditor .more-fields input {
+  margin-left: 10px;
+  flex: 1 1 auto;
+}
+.ideditor[dir='rtl'] .more-fields input {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.ideditor .form-field-input-wrap .label {
+  background: #f6f6f6;
+  padding: 5px 10px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Raw Tag Editor
 ------------------------------------------------------- */
 .ideditor .raw-tag-options {
+<<<<<<< HEAD
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
@@ -2508,19 +4004,65 @@
     transform: scaleX(-1);
     filter: FlipH;
     -ms-filter: "FlipH";
+=======
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  margin-top: -28px;
+}
+.ideditor button.raw-tag-option {
+  flex: 0 0 auto;
+  padding: 5px;
+  background: #aaa;
+  color: #eee;
+  margin: 0 3px;
+}
+.ideditor button.raw-tag-option.active {
+  color: #fff;
+  background: #597be7;
+}
+@media (hover: hover) {
+  .ideditor button.raw-tag-option:hover {
+    color: #fff;
+    background: #597be7;
+  }
+}
+.ideditor button.raw-tag-option.selected {
+  color: #fff;
+  background: #7092ff;
+}
+.ideditor button.raw-tag-option svg.icon {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+.ideditor[dir='ltr'] button.raw-tag-option-list {
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 .ideditor .tag-text {
+<<<<<<< HEAD
     width: 100%;
     height: 100%;
     min-height: 32px;
     font-family: monospace;
     white-space: pre;
+=======
+  width: 100%;
+  height: 100%;
+  min-height: 32px;
+  font-family: monospace;
+  white-space: pre;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .tag-text,
 .ideditor .tag-list {
+<<<<<<< HEAD
     margin-top: 10px;
 }
 .ideditor .tag-row {
@@ -2536,6 +4078,23 @@
 .ideditor .tag-row .key-wrap,
 .ideditor .tag-row .value-wrap {
     flex: 1 1 50%;
+=======
+  margin-top: 10px;
+}
+.ideditor .tag-row {
+  width: 100%;
+  position: relative;
+}
+.ideditor .tag-row .inner-wrap {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  position: relative;
+}
+.ideditor .tag-row .key-wrap,
+.ideditor .tag-row .value-wrap {
+  flex: 1 1 50%;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .tag-text.readonly,
@@ -2543,6 +4102,7 @@
 .ideditor .tag-row.readonly input.key,
 .ideditor .tag-row.readonly input.value,
 .ideditor .tag-row.readonly button.remove {
+<<<<<<< HEAD
     color: #777;
     background-color: #eee;
     cursor: not-allowed;
@@ -2558,10 +4118,28 @@
 .ideditor[dir='rtl'] .tag-row input {
     border-left: none;
     border-right: 1px solid #ccc;
+=======
+  color: #777;
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+.ideditor .tag-row input {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  width: 100%;
+}
+.ideditor[dir='rtl'] .tag-row input {
+  border-left: none;
+  border-right: 1px solid #ccc;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 .ideditor .tag-row input.key {
+<<<<<<< HEAD
     font-weight: bold;
     background-color: #f6f6f6;
 }
@@ -2635,10 +4213,85 @@
 .ideditor[dir='rtl'] .tag-row .tag-reference-button {
     border-left-width: 1px;
     border-right-width: 0;
+=======
+  font-weight: bold;
+  background-color: #f6f6f6;
+}
+
+.ideditor .tag-row input.value {
+  border-right: 1px solid #ccc;
+}
+.ideditor[dir='rtl'] .tag-row input.value {
+  border-left: 1px solid #ccc;
+}
+
+.ideditor .tag-row:first-child input.key {
+  border-top: 1px solid #ccc;
+  border-top-left-radius: 4px;
+}
+.ideditor[dir='rtl'] .tag-row:first-child input.key {
+  border-top-left-radius: 0;
+  border-top-right-radius: 4px;
+}
+
+.ideditor .tag-row:first-child input.value {
+  border-top: 1px solid #ccc;
+}
+.ideditor .tag-row button {
+  flex: 0 0 auto;
+  width: 32px;
+  border: 1px solid #ccc;
+  border-top-width: 0;
+  border-left-width: 0;
+}
+.ideditor[dir='rtl'] .tag-row button {
+  border-left-width: 1px;
+  border-right-width: 0;
+}
+
+.ideditor .tag-row button:active {
+  background: #f1f1f1;
+}
+@media (hover: hover) {
+  .ideditor .tag-row button:hover {
+    background: #f1f1f1;
+  }
+}
+.ideditor .tag-row button .icon {
+  opacity: .5;
+}
+.ideditor .tag-row:first-child button {
+  border-top-width: 1px;
+}
+
+.ideditor .tag-row:first-child .tag-reference-button {
+  border-top-right-radius: 4px;
+}
+.ideditor[dir='rtl'] .tag-row:first-child .tag-reference-button {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 0;
+}
+
+.ideditor .tag-row:last-child .tag-reference-button {
+  border-bottom-right-radius: 4px;
+}
+.ideditor[dir='rtl'] .tag-row:last-child .tag-reference-button {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 0;
+}
+
+.ideditor .tag-row .tag-reference-button {
+  border-radius: 0;
+}
+.ideditor[dir='rtl'] .tag-row .tag-reference-button {
+  border-left-width: 1px;
+  border-right-width: 0;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Tag reference */
 .ideditor .tag-reference-loading {
+<<<<<<< HEAD
     background-color: #f5f5f5;
 }
 .ideditor .tag-reference-loading .icon {
@@ -2690,6 +4343,57 @@
 }
 .ideditor .raw-tag-editor .tag-row.readonly .tag-reference-body.expanded {
     border-top: 1px solid #ccc;
+=======
+  background-color: #f5f5f5;
+}
+.ideditor .tag-reference-loading .icon {
+  background-image: url(img/mini-loader.gif);
+  background-position: 0 0;
+}
+
+.ideditor .tag-reference-body {
+  flex: 1 1 auto;
+  width: 100%;
+  overflow: hidden;
+  display: none;
+  padding-top: 10px;
+}
+.ideditor .tag-reference-body.expanded {
+  padding-bottom: 10px;
+  display: unset;
+}
+.ideditor .tag-reference-link {
+  display: block;
+}
+
+.ideditor img.tag-reference-wiki-image {
+  float: right;
+  width: 33.3333%;
+  border-radius: 4px;
+  margin: 0 0 0 5px;
+}
+.ideditor[dir='rtl'] img.tag-reference-wiki-image {
+  float: left;
+  margin: 0 5px 0 0;
+}
+
+.ideditor .preset-list .tag-reference-body {
+  position: relative;
+  width: 100%;
+}
+.ideditor .raw-tag-editor .tag-reference-body {
+  width: 100%;
+}
+.ideditor .raw-tag-editor .tag-row.readonly .tag-reference-body {
+  background: #f6f6f6;
+  color: #333;
+}
+.ideditor .raw-tag-editor .tag-row:not(:last-child) .tag-reference-body.expanded {
+  border-bottom: 1px solid #ccc;
+}
+.ideditor .raw-tag-editor .tag-row.readonly .tag-reference-body.expanded {
+  border-top: 1px solid #ccc;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -2697,11 +4401,16 @@
 ------------------------------------------------------- */
 .ideditor .section-raw-member-editor .member-list:empty,
 .ideditor .section-raw-membership-editor .member-list:empty {
+<<<<<<< HEAD
     display: none;
+=======
+  display: none;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .section-raw-member-editor .member-list,
 .ideditor .section-raw-membership-editor .member-list {
+<<<<<<< HEAD
     position: relative; /* required for drag-and-drop */
     padding-top: 5px;
 }
@@ -2716,12 +4425,29 @@
 .ideditor .section-raw-membership-editor .member-row .member-entity-name {
     font-weight: normal;
     padding-left: 10px;
+=======
+  position: relative; /* required for drag-and-drop */
+  padding-top: 5px;
+}
+.ideditor .section-raw-member-editor .member-list li,
+.ideditor .section-raw-membership-editor .member-list li {
+  position: relative;
+  border-radius: 4px;
+  margin: 0;
+  padding-bottom: 10px;
+}
+.ideditor .section-raw-member-editor .member-row .member-entity-name,
+.ideditor .section-raw-membership-editor .member-row .member-entity-name {
+  font-weight: normal;
+  padding-left: 10px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .section-raw-member-editor .member-row .member-entity-name.has-color::before,
 .ideditor .section-raw-membership-editor .member-row .member-entity-name.has-color::before,
 .ideditor .feature-list .entity-name.has-color::before,
 .ideditor .combobox-parent-relation .has-color::before {
+<<<<<<< HEAD
     display: inline-block;
     content: '';
     margin-left: -5px;
@@ -2733,17 +4459,36 @@
 }
 .ideditor .combobox-parent-relation .has-color::before  {
     margin-left: 2px;
+=======
+  display: inline-block;
+  content: '';
+  margin-left: -5px;
+  margin-right: 5px;
+  border-style: solid;
+  border-width: 4px;
+  border-radius: 4px;
+  border-color: inherit;
+}
+.ideditor .combobox-parent-relation .has-color::before  {
+  margin-left: 2px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor[dir='rtl'] .section-raw-member-editor .member-row .member-entity-name,
 .ideditor[dir='rtl'] .section-raw-membership-editor .member-row .member-entity-name {
+<<<<<<< HEAD
     padding-left:0;
     padding-right: 10px;
+=======
+  padding-left:0;
+  padding-right: 10px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor[dir='rtl'] .section-raw-member-editor .member-row .member-entity-name.has-color::before,
 .ideditor[dir='rtl'] .section-raw-membership-editor .member-row .member-entity-name.has-color::before,
 .ideditor[dir='rtl'] .feature-list .entity-name.has-color::before {
+<<<<<<< HEAD
     margin-left: 5px;
     margin-right: -5px;
 }
@@ -2768,17 +4513,50 @@
     /*
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
     */
+=======
+  margin-left: 5px;
+  margin-right: -5px;
+}
+.ideditor[dir='rtl'] .combobox-parent-relation .has-color::before  {
+  margin-left: 5px;
+  margin-right: 2px;
+}
+
+.ideditor .form-field-input-member > input.member-role {
+  border-radius: 0 0 4px 4px;
+}
+
+.ideditor .member-row-new .member-entity-input {
+  flex: 1 1 100%;
+  border-radius: 4px 4px 0 0;
+  border: 0;
+}
+
+.ideditor .section-raw-member-editor .member-row.dragging {
+  opacity: 0.75;
+  z-index: 3000;
+  /*
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+  */
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* add tag, add relation buttons */
 .ideditor .add-row {
+<<<<<<< HEAD
     display: flex;
     width: 100%;
     flex-flow: row nowrap;
+=======
+  display: flex;
+  width: 100%;
+  flex-flow: row nowrap;
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor .add-row .add-tag,
 .ideditor .add-row .add-relation,
 .ideditor .add-row .space-value {
+<<<<<<< HEAD
     flex: 1 1 50%;
 }
 .ideditor .add-row .space-buttons {
@@ -2804,6 +4582,32 @@
 .ideditor .add-relation {
     margin-top: 10px;
     border-radius: 4px;
+=======
+  flex: 1 1 50%;
+}
+.ideditor .add-row .space-buttons {
+  flex: 0 0 62px;
+}
+.ideditor .add-row button {
+  padding: 5px;
+  background: rgba(0,0,0,.5);
+}
+.ideditor .add-row button:active {
+  background: rgba(0,0,0,.8);
+}
+@media (hover: hover) {
+  .ideditor .add-row button:hover {
+    background: rgba(0,0,0,.8);
+  }
+}
+
+.ideditor .add-tag {
+  border-radius: 0 0 4px 4px;
+}
+.ideditor .add-relation {
+  margin-top: 10px;
+  border-radius: 4px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -2975,7 +4779,11 @@
   padding-top: 20px;
 }
 
+<<<<<<< HEAD
 .ideditor .qa-details-header {
+=======
+.ideditor .qa-details-heading {
+>>>>>>> c1d930ba9 (Check in build)
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -2983,7 +4791,11 @@
   padding: 0 10px;
 }
 /* Specify margin when one is followed by the other */
+<<<<<<< HEAD
 .ideditor .qa-details-header+.qa-details-container {
+=======
+.ideditor .qa-details-heading+.qa-details-container {
+>>>>>>> c1d930ba9 (Check in build)
   margin-top: 8px;
 }
 .ideditor .qa-details-container {
@@ -3135,7 +4947,10 @@
   pointer-events: auto;
 }
 
+<<<<<<< HEAD
 .ideditor .map-control > button:not(.disabled):focus,
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .map-control > button:not(.disabled):active {
   background: rgba(0, 0, 0, .8);
 }
@@ -3193,6 +5008,7 @@
   height: 22px;
 }
 
+<<<<<<< HEAD
 /* Fullscreen Button (disabled) */
 .ideditor div.full-screen {
     display: inline-block;
@@ -3220,10 +5036,13 @@
     }
 }
 
+=======
+>>>>>>> c1d930ba9 (Check in build)
 
 /* Background / Map Data / Help Pane buttons
 ------------------------------------------------------- */
 .ideditor .background-control > button {
+<<<<<<< HEAD
     border-radius: 4px 0 0 0;
 }
 .ideditor[dir='rtl'] .background-control > button {
@@ -3235,12 +5054,26 @@
 }
 .ideditor[dir='rtl'] .help-control > button {
     border-radius: 0 0 4px 0;
+=======
+  border-radius: 4px 0 0 0;
+}
+.ideditor[dir='rtl'] .background-control > button {
+  border-radius: 0 4px 0 0;
+}
+
+.ideditor .help-control > button {
+  border-radius: 0 0 0 4px;
+}
+.ideditor[dir='rtl'] .help-control > button {
+  border-radius: 0 0 4px 0;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Background / Map Data / Preferences Settings
 ------------------------------------------------------- */
 .ideditor .imagery-faq {
+<<<<<<< HEAD
     margin-bottom: 10px;
     white-space: nowrap;
 }
@@ -3281,6 +5114,48 @@
     .ideditor .layer-list li:hover {
         background-color: #ececec;
     }
+=======
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+
+.ideditor .layer-list, .ideditor .controls-list {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.ideditor .layer-list > li {
+  background-color: #fff;
+  color: #7092ff;
+  position: relative;
+  display: flex;
+}
+
+.ideditor .layer-list:empty {
+  display: none;
+}
+
+.ideditor .layer-list > li:first-child {
+  border-radius: 3px 3px 0 0;
+}
+.ideditor .layer-list > li:last-child {
+  border-radius: 0 0 3px 3px;
+}
+.ideditor .layer-list > li:only-child {
+  border-radius: 3px;
+}
+.ideditor .layer-list li:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+.ideditor .layer-list li:active {
+  background-color: #ececec;
+}
+@media (hover: hover) {
+  .ideditor .layer-list li:hover {
+    background-color: #ececec;
+  }
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .layer-list li.active button,
@@ -3316,12 +5191,17 @@
 }
 
 .ideditor[dir='rtl'] .list-item-data-browse svg {
+<<<<<<< HEAD
     transform: rotateY(180deg);
+=======
+  transform: rotateY(180deg);
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* make sure tooltip fits in map-control panel */
 /* if too wide, placement will be wrong the first time it displays */
 .ideditor .layer-list li.best .popover-inner {
+<<<<<<< HEAD
     max-width: 160px;
 }
 
@@ -3355,10 +5235,46 @@
     padding: 0px 4px;
     width: 50%;
     min-width: 160px;
+=======
+  max-width: 160px;
+}
+
+.ideditor .layer-list label {
+  padding: 5px 10px;
+  cursor: pointer;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+}
+
+.ideditor[dir='ltr'] .layer-list .indented label {
+  padding-left: 24px;
+}
+.ideditor[dir='rtl'] .layer-list .indented label {
+  padding-right: 24px;
+}
+
+.ideditor .list-item-date-filter label > span {
+  flex: 0 0 20%;
+}
+
+.ideditor .layer-list label > span.background-name {
+  display: flex;
+  flex: 1 1 0px;
+  padding: 0 5px;
+}
+
+.ideditor .layer-list input.list-item-input {
+  height: 2.2em;
+  padding: 0px 4px;
+  width: 50%;
+  min-width: 160px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .map-data-pane .layer-list button,
 .ideditor .background-pane .layer-list button {
+<<<<<<< HEAD
     border-left: 1px solid #ccc;
     border-radius: 0;
     padding-left: 4px;
@@ -3368,20 +5284,43 @@
 .ideditor[dir='rtl'] .background-pane .layer-list button {
     border-left: none;
     border-right: 1px solid #ccc;
+=======
+  border-left: 1px solid #ccc;
+  border-radius: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.ideditor[dir='rtl'] .map-data-pane .layer-list button,
+.ideditor[dir='rtl'] .background-pane .layer-list button {
+  border-left: none;
+  border-right: 1px solid #ccc;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .map-data-pane .layer-list button .icon,
 .ideditor .background-pane .layer-list button .icon {
+<<<<<<< HEAD
     opacity: 0.5;
+=======
+  opacity: 0.5;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .map-data-pane .layer-list button:last-of-type,
 .ideditor .background-pane .layer-list button:last-of-type {
+<<<<<<< HEAD
     border-radius: 0 3px 3px 0;
 }
 .ideditor[dir='rtl'] .map-data-pane .layer-list button:last-of-type,
 .ideditor[dir='rtl'] .background-pane .layer-list button:last-of-type {
     border-radius: 3px 0 0 3px;
+=======
+  border-radius: 0 3px 3px 0;
+}
+.ideditor[dir='rtl'] .map-data-pane .layer-list button:last-of-type,
+.ideditor[dir='rtl'] .background-pane .layer-list button:last-of-type {
+  border-radius: 3px 0 0 3px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .background-pane .layer-list button.favorite-background {
@@ -3389,6 +5328,7 @@
 }
 
 .ideditor .map-data-pane .vectortile-container .vectortile-header {
+<<<<<<< HEAD
     padding-bottom: 5px;
 }
 .ideditor .map-data-pane .vectortile-container .vectortile-footer {
@@ -3399,13 +5339,31 @@
     color: #444;
     font-weight: bold;
     line-height: 2;
+=======
+  padding-bottom: 5px;
+}
+.ideditor .map-data-pane .vectortile-container .vectortile-footer {
+  padding-bottom: 10px;
+}
+
+.ideditor .preferences-pane .mouse-wheel-title {
+  color: #444;
+  font-weight: bold;
+  line-height: 2;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* preferences: map color scheme */
 .ideditor .color-select {
+<<<<<<< HEAD
     width: 100%;
     border: none;
     padding-left: 10px;
+=======
+  width: 100%;
+  border: none;
+  padding-left: 10px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -3471,8 +5429,11 @@
   color: #fff;
   padding: 0;
 }
+<<<<<<< HEAD
 .ideditor button.autofix.action:focus,
 .ideditor button.autofix.action:active,
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor button.autofix.action.active {
   background: #597be7;
 }
@@ -3529,6 +5490,7 @@
   color: #dd1400;
 }
 .ideditor .error-list .issue.severity-error .issue-label:active,
+<<<<<<< HEAD
 .ideditor .error-list .issue.severity-error .issue-label:focus,
 .ideditor .issue.severity-error .issue-fix-item button.actionable:active,
 .ideditor .issue.severity-error .issue-fix-item button.actionable:focus {
@@ -3538,6 +5500,13 @@
 .ideditor .issue.severity-error .issue-fix-item button.actionable:focus,
 .ideditor .issue-container.active .issue.severity-error .issue-info-button:active,
 .ideditor .issue-container.active .issue.severity-error .issue-info-button:focus {
+=======
+.ideditor .issue.severity-error .issue-fix-item button.actionable:active {
+  background: #ffb6b6;
+}
+.ideditor .issue.severity-error .issue-fix-item button.actionable:active,
+.ideditor .issue-container.active .issue.severity-error .issue-info-button:active {
+>>>>>>> c1d930ba9 (Check in build)
   color: #840c00;
   fill: #840c00;
 }
@@ -3581,6 +5550,7 @@
   fill: #b15500;
 }
 .ideditor .warning-list .issue.severity-warning .issue-label:active,
+<<<<<<< HEAD
 .ideditor .warning-list .issue.severity-warning .issue-label:focus,
 .ideditor .issue.severity-warning .issue-fix-item button.actionable:active,
 .ideditor .issue.severity-warning .issue-fix-item button.actionable:focus {
@@ -3590,6 +5560,13 @@
 .ideditor .issue.severity-warning .issue-fix-item button.actionable:focus,
 .ideditor .issue-container.active .issue.severity-warning .issue-info-button:active,
 .ideditor .issue-container.active .issue.severity-warning .issue-info-button:focus {
+=======
+.ideditor .issue.severity-warning .issue-fix-item button.actionable:active {
+  background: #fafa30;
+}
+.ideditor .issue.severity-warning .issue-fix-item button.actionable:active,
+.ideditor .issue-container.active .issue.severity-warning .issue-info-button:active {
+>>>>>>> c1d930ba9 (Check in build)
   color: #7f3d00;
   fill: #7f3d00;
 }
@@ -3634,6 +5611,7 @@
   fill: #098787;
 }
 .ideditor .suggestion-list .issue.severity-suggestion .issue-label:active,
+<<<<<<< HEAD
 .ideditor .suggestion-list .issue.severity-suggestion .issue-label:focus,
 .ideditor .issue.severity-suggestion .issue-fix-item button.actionable:active,
 .ideditor .issue.severity-suggestion .issue-fix-item button.actionable:focus {
@@ -3643,6 +5621,13 @@
 .ideditor .issue.severity-suggestion .issue-fix-item button.actionable:focus,
 .ideditor .issue-container.active .issue.severity-suggestion .issue-info-button:active,
 .ideditor .issue-container.active .issue.severity-suggestion .issue-info-button:focus {
+=======
+.ideditor .issue.severity-suggestion .issue-fix-item button.actionable:active {
+  background: #7cfafa;
+}
+.ideditor .issue.severity-suggestion .issue-fix-item button.actionable:active,
+.ideditor .issue-container.active .issue.severity-suggestion .issue-info-button:active {
+>>>>>>> c1d930ba9 (Check in build)
   color: #066262;
   fill: #066262;
 }
@@ -3661,6 +5646,7 @@
 
 /* Issues Pane */
 .ideditor .issues-options-container {
+<<<<<<< HEAD
     display: table;
 }
 .ideditor .issues-option {
@@ -3685,11 +5671,38 @@
     border-color: inherit;    /* override .layer-list styles */
     color: inherit;
     height: unset;
+=======
+  display: table;
+}
+.ideditor .issues-option {
+  display: table-row;
+}
+.ideditor .issues-option-title {
+  display: table-cell;
+  font-weight: bold;
+  padding-right: 10px;
+}
+.ideditor[dir='rtl'] .issues-option-title {
+  padding-right: 0;
+  padding-left: 10px;
+}
+.ideditor .issues-option label {
+  display: table-cell;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+.ideditor .layer-list.issues-list li.issue {
+  border-color: inherit;    /* override .layer-list styles */
+  color: inherit;
+  height: unset;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .layer-list.issue-rules-list,
 .ideditor .layer-list.issues-list,
 .ideditor .layer-list.layer-feature-list {
+<<<<<<< HEAD
     margin-bottom: 0;
 }
 .ideditor .section-footer {
@@ -3720,11 +5733,44 @@
     text-align: center;
     background: rgba(0,0,0,0);
     color: currentColor;
+=======
+  margin-bottom: 0;
+}
+.ideditor .section-footer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  height: 30px;
+}
+.ideditor .section-footer a {
+  padding: 5px;
+}
+
+.ideditor .section-issues-status .box {
+  border-radius: 4px;
+  border: 1px solid #72d979;
+  background: #c6ffca;
+  padding: 5px !important;
+  display: flex;
+}
+.ideditor .section-issues-status .icon {
+  color: #05ac10;
+}
+
+.ideditor input.square-degrees-input {
+  padding: 2px !important; /* important needed for rtl */
+  width: 3em;
+  height: 2em;
+  text-align: center;
+  background: rgba(0,0,0,0);
+  color: currentColor;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Entity Issues List */
 .ideditor .section-entity-issues .issue-container .issue {
+<<<<<<< HEAD
     border-radius: 4px;
     border: 1px solid #ccc;
     background: #f6f6f6;
@@ -3761,10 +5807,47 @@
 }
 .ideditor .section-entity-issues .issue-container.active:not(:last-of-type) {
     margin-bottom: 10px;
+=======
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #f6f6f6;
+}
+.ideditor .section-entity-issues .issue-container:not(.active) .issue-text:active,
+.ideditor .section-entity-issues .issue-container:not(.active) .issue-info-button:active {
+  background: #f1f1f1;
+}
+@media (hover: hover) {
+  .ideditor .section-entity-issues .issue-container:not(.active) .issue-text:hover,
+  .ideditor .section-entity-issues .issue-container:not(.active) .issue-info-button:hover {
+    background: #f1f1f1;
+  }
+}
+.ideditor .section-entity-issues .issue .issue-label .issue-text {
+  padding-right: 10px;
+}
+.ideditor[dir='rtl'] .section-entity-issues .issue .issue-label .issue-text {
+  padding-right: unset;
+  padding-left: 10px;
+}
+
+.ideditor .section-entity-issues .issue-container.active .issue-label button.issue-text {
+  align-items: center;
+  font-weight: bold;
+}
+.ideditor .section-entity-issues .issue-container:not(:last-of-type) {
+  margin-bottom: 5px;
+}
+.ideditor .section-entity-issues .issue-container.active:not(:first-of-type) {
+  margin-top: 10px;
+}
+.ideditor .section-entity-issues .issue-container.active:not(:last-of-type) {
+  margin-bottom: 10px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* fixes */
 .ideditor .section-entity-issues .issue-fix-list {
+<<<<<<< HEAD
     border-top: 1px solid;
     border-color: inherit;
 }
@@ -3848,12 +5931,98 @@
     padding: 2px 10px;
     font-family: monospace;
     font-size: 10px;
+=======
+  border-top: 1px solid;
+  border-color: inherit;
+}
+.ideditor .section-entity-issues .issue-container.active .issue-fix-list:empty {
+  display: none;
+}
+
+.ideditor li.issue-fix-item button {
+  padding: 2px 10px 2px 20px;
+  background: transparent;
+  width: 100%;
+  text-align: initial;
+}
+.ideditor[dir='rtl'] li.issue-fix-item button {
+  padding: 2px 20px 2px 10px;
+}
+.ideditor li.issue-fix-item:first-of-type button {
+  padding-top: 5px;
+}
+.ideditor li.issue-fix-item:last-of-type button {
+  padding-bottom: 5px;
+}
+
+.ideditor li.issue-fix-item button .fix-message {
+  padding: 0 10px;
+  vertical-align: middle;
+}
+
+.ideditor li.issue-fix-item button.actionable {
+  cursor: pointer;
+}
+.ideditor li.issue-fix-item button:not(.actionable) .fix-icon {
+  color: #555;
+  fill: #555;
+}
+
+.ideditor .issue-container:not(.active) ul.issue-fix-list {
+  display: none;
+}
+.ideditor .issue-container:not(.active) .issue-info {
+  display: none;
+}
+
+.ideditor .issue-info {
+  flex: 1 1 auto;
+  width: 100%;
+  overflow: hidden;
+  display: none;
+  padding: 10px 0;
+}
+.ideditor .issue-info.expanded {
+  display: inline-block;
+}
+.ideditor .issue-info .suggested-update {
+  margin-top: 10px;
+}
+.ideditor .issue-info .issue-reference {
+  margin-bottom: 10px;
+}
+.ideditor .issue-info .tagDiff-table {
+  min-width: 60%;
+  width: unset;
+  border: 1px solid #ccc;
+}
+.ideditor .issue-info .tagDiff-row {
+  border: 1px solid #ccc;
+}
+.ideditor .issue-info .tagDiff-cell {
+  padding: 2px 10px;
+  font-family: monospace;
+  font-size: 10px;
+  border: 1px solid #ccc;
+}
+.ideditor .issue-info .tagDiff-cell-add {
+  background: #dfd;
+}
+.ideditor .issue-info .tagDiff-cell-remove {
+  background: #fdd;
+}
+.ideditor .issue-info .tagDiff-message {
+  padding: 2px 10px;
+  font-family: monospace;
+  font-size: 10px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Background - Display Options Sliders
 ------------------------------------------------------- */
 .ideditor .display-options-container {
+<<<<<<< HEAD
     padding: 10px;
 }
 
@@ -3888,12 +6057,49 @@
 .ideditor[dir='rtl'] .display-control button {
     margin-left: 0px;
     margin-right: 5px;
+=======
+  padding: 10px;
+}
+
+.ideditor .display-control h5 {
+  padding-bottom: 0;
+  padding-top: 10px;
+}
+
+.ideditor .display-control h5 span {
+  margin: 5px;
+}
+
+.ideditor .display-control .control-wrap {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.ideditor .display-control .display-option-input {
+  height: 20px;
+  flex: 1 1 100%;
+}
+
+.ideditor .display-control button {
+  height: 30px;
+  width: 30px;
+  margin-left: 5px;
+  margin-right: 0px;
+  vertical-align: text-bottom;
+  border-radius: 4px;
+  flex: 0 0 auto;
+}
+.ideditor[dir='rtl'] .display-control button {
+  margin-left: 0px;
+  margin-right: 5px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Background - Adjust Alignment
 ------------------------------------------------------- */
 .ideditor .background-pane .nudge-container {
+<<<<<<< HEAD
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
@@ -4027,6 +6233,141 @@
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
     border-top: 5px solid #222;
+=======
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  position: relative;
+}
+
+.ideditor .nudge-container .nudge-controls-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.ideditor .nudge-container .nudge-outer-rect {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 45px;
+  cursor: move;
+  /* prevent scrolling pane while dragging on touchscreen */
+  touch-action: none;
+  /* disable drag-to-select */
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  position: relative;
+}
+
+.ideditor .nudge-container .nudge-inner-rect {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  width: 65%;
+  min-height: 20px;
+}
+
+.ideditor .nudge-container .nudge::after {
+  content: '';
+  display: block;
+  position: absolute;
+  margin: auto;
+  left: 0; right: 0; top: 0; bottom: 0;
+  height: 0;
+  width: 0;
+}
+
+.ideditor .nudge-container input {
+  width: 100%;
+  padding: 2px;
+  text-align: center;
+  border: 0;
+}
+
+.ideditor .nudge-container input.error {
+  border: 1px solid #ff7878;
+  border-radius: 2px;
+  background: #ffb;
+}
+
+.ideditor .nudge-container button {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+}
+.ideditor .nudge-container button.right,
+.ideditor .nudge-container button.left {
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: middle;
+}
+.ideditor .nudge-container button.right {
+  right: 0;
+}
+.ideditor .nudge-container button.left {
+  left: 0;
+}
+.ideditor .nudge-container button.top,
+.ideditor .nudge-container button.bottom {
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ideditor .nudge-container button.top {
+  top: 0;
+}
+.ideditor .nudge-container button.bottom {
+  bottom: 0;
+}
+
+.ideditor .nudge-container button.nudge-reset {
+  right: 0;
+  bottom: 0;
+}
+
+.ideditor .nudge-surface {
+  position: absolute;
+  z-index: 5000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  cursor: move;
+}
+
+.ideditor .background-pane .nudge.right::after {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #222;
+}
+
+.ideditor .background-pane .nudge.left::after {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #222;
+}
+
+.ideditor .background-pane .nudge.top::after {
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  border-bottom: 5px solid #222;
+}
+
+.ideditor .background-pane .nudge.bottom::after {
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  border-top: 5px solid #222;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -4120,8 +6461,11 @@
 .ideditor .help-pane .toc li a {
   border-bottom: 0;
 }
+<<<<<<< HEAD
 .ideditor .help-pane .toc li a:focus,
 .ideditor .help-pane .nav a:focus,
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .help-pane .toc li a:active,
 .ideditor .help-pane .nav a:active {
   background: #ececec;
@@ -4177,7 +6521,11 @@
 
 .ideditor .help-pane .nav a:last-child:not(:only-child) {
   border-radius: 0 4px 4px 0;
+<<<<<<< HEAD
     border-left: 0;
+=======
+  border-left: 0;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .help-pane .nav a:only-child {
@@ -4198,23 +6546,40 @@
 .ideditor .inspector-hover input,
 .ideditor .inspector-hover textarea,
 .ideditor .inspector-hover label {
+<<<<<<< HEAD
     background: #ececec;
 }
 .ideditor .inspector-hover .preset-list-button,
 .ideditor .inspector-hover .tag-row input {
     background: #f6f6f6;
+=======
+  background: #ececec;
+}
+.ideditor .inspector-hover .preset-list-button,
+.ideditor .inspector-hover .tag-row input {
+  background: #f6f6f6;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .inspector-hover a,
 .ideditor .inspector-hover .form-field-input-multicombo .chip,
 .ideditor .inspector-hover .form-field-input-check span,
 .ideditor .inspector-hover .section-entity-issues .issue .icon {
+<<<<<<< HEAD
     color: #666;
 }
 
 .ideditor .inspector-hover .form-field-input-multicombo .chip {
     background: #eee;
     border: 1px solid #ccc;
+=======
+  color: #666;
+}
+
+.ideditor .inspector-hover .form-field-input-multicombo .chip {
+  background: #eee;
+  border: 1px solid #ccc;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* scrollbars only when necessary */
@@ -4241,7 +6606,11 @@
 
 /* hide but preserve in layout */
 .ideditor .inspector-hover .combobox-caret,
+<<<<<<< HEAD
 .ideditor .inspector-hover .header button,
+=======
+.ideditor .inspector-hover .heading button,
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .inspector-hover .form-field-input-multicombo .chip .remove,
 .ideditor .inspector-hover .hide-toggle:before,
 .ideditor .inspector-hover .more-fields,
@@ -4252,6 +6621,7 @@
 
 /* Unstyle the active entity issue on hover */
 .ideditor .inspector-hover .section-entity-issues .issue-container.active {
+<<<<<<< HEAD
     margin-top: 1px;
     margin-bottom: 1px;
 }
@@ -4263,12 +6633,26 @@
 }
 .ideditor .inspector-hover .section-entity-issues .issue-container.active .issue-label button.issue-text {
     font-weight: normal;
+=======
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+.ideditor .inspector-hover .section-entity-issues .issue-container * {
+  border-color: #ccc !important;
+}
+.ideditor .inspector-hover .section-entity-issues .issue-container.active .issue-label {
+  border-bottom: 0;
+}
+.ideditor .inspector-hover .section-entity-issues .issue-container.active .issue-label button.issue-text {
+  font-weight: normal;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Styles for raw tag inspector on hover */
 .ideditor .inspector-hover .tag-row .key-wrap,
 .ideditor .inspector-hover .tag-row .value-wrap {
+<<<<<<< HEAD
     height: 31px;
 }
 
@@ -4299,11 +6683,44 @@
 .ideditor .inspector-hover .more-fields {
     max-height: 0;
     margin-bottom: -10px;
+=======
+  height: 31px;
+}
+
+.ideditor .inspector-hover .tag-row:first-child input.value {
+  border-top-right-radius: 4px;
+}
+.ideditor[dir='rtl'] .inspector-hover .tag-row:first-child input.value {
+  border-top-right-radius: 0;
+  border-top-left-radius: 4px;
+}
+
+.ideditor .inspector-hover .tag-row:last-child input.value {
+  border-bottom-right-radius: 4px;
+}
+.ideditor[dir='rtl'] .inspector-hover .tag-row:last-child input.value {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 4px;
+}
+
+.ideditor .inspector-hover .tag-row:last-child input.key {
+  border-bottom-left-radius: 4px;
+}
+.ideditor[dir='rtl'] .inspector-hover .tag-row:last-child input.key {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 4px;
+}
+
+.ideditor .inspector-hover .more-fields {
+  max-height: 0;
+  margin-bottom: -10px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Unstyle button fields */
 .ideditor .inspector-hover .form-field-input-radio label.active,
 .ideditor .inspector-hover .entity-editor-pane a.hide-toggle {
+<<<<<<< HEAD
     opacity: 1;
     background-color: transparent;
     color: #666;
@@ -4312,10 +6729,21 @@
 }
 .ideditor .inspector-hover .form-field-input-radio button.active {
     padding-left: 10px;
+=======
+  opacity: 1;
+  background-color: transparent;
+  color: #666;
+  padding-left: 0;
+  border-width: 0;
+}
+.ideditor .inspector-hover .form-field-input-radio button.active {
+  padding-left: 10px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Show placeholder on hover for radio buttons */
 .ideditor .inspector-hover .form-field-input-radio {
+<<<<<<< HEAD
     border: 1px solid #ccc;
     border-top: 0;
     border-radius: 0 0 4px 4px;
@@ -4330,6 +6758,22 @@
 }
 .ideditor .inspector-hover .form-field-input-radio .structure-extras-wrap {
     border: 0;
+=======
+  border: 1px solid #ccc;
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+}
+.ideditor .inspector-hover .form-field-input-radio .placeholder {
+  opacity: 1;
+  color: #666;
+  padding: 5px 10px;
+  width: 100%;
+  height: auto;
+  border: 0;
+}
+.ideditor .inspector-hover .form-field-input-radio .structure-extras-wrap {
+  border: 0;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -4369,11 +6813,19 @@
   grid-template: 1fr / 1fr;
   place-content: center;
   place-items: center;
+<<<<<<< HEAD
 /* for testing */
 /*  background-image: url(img/test-pattern.png);*/
 /*  background-size:     cover;*/
 /*  background-repeat:   no-repeat;*/
 /*  background-position: center center;*/
+=======
+  /* for testing */
+  /*  background-image: url(img/test-pattern.png);*/
+  /*  background-size:     cover;*/
+  /*  background-repeat:   no-repeat;*/
+  /*  background-position: center center;*/
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .main-map > *,
@@ -4390,8 +6842,13 @@
 }
 
 /* `overlay` is a div that floats over the map but stays transformed with it.
+<<<<<<< HEAD
  *  (this is where we draw the edit menu)
  */
+=======
+*  (this is where we draw the edit menu)
+*/
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .overlay {
   z-index: 2;
   pointer-events: none;
@@ -4481,12 +6938,21 @@
 /* Debug Data
 ------------------------------------------------------- */
 .ideditor .debug {
+<<<<<<< HEAD
     stroke: currentColor;
     fill: none;
     stroke-width: 2;
 }
 .ideditor .map-in-map-data .debug {
     stroke-width: 1.5;
+=======
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+.ideditor .map-in-map-data .debug {
+  stroke-width: 1.5;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .nocolor { color: rgba(0, 0, 0, 0); }
@@ -4501,6 +6967,7 @@
 .ideditor .purple  { color: rgba(153, 85, 255, 0.75); }
 
 .ideditor .debug-legend {
+<<<<<<< HEAD
     position: absolute;
     top: 70px;
     right: 80px;
@@ -4515,6 +6982,22 @@
 .ideditor .debug-legend-item:before {
     content: "\25A0";
     padding: 0 5px;
+=======
+  position: absolute;
+  top: 70px;
+  right: 80px;
+  padding: 5px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.ideditor .debug-legend-item {
+  padding-right: 5px;
+}
+.ideditor .debug-legend-item:before {
+  content: "\25A0";
+  padding: 0 5px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -4527,7 +7010,10 @@
 
   width: 100%;
   z-index: 10;
+<<<<<<< HEAD
   -ms-user-select: element;
+=======
+>>>>>>> c1d930ba9 (Check in build)
   pointer-events: none;
   overflow: hidden;
 }
@@ -4577,7 +7063,10 @@
 .ideditor[dir='rtl'] .card-title button.close {
   float: left;
 }
+<<<<<<< HEAD
 .ideditor .card-title button.close:focus,
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .card-title button.close:active {
   color: #fff;
 }
@@ -4705,7 +7194,10 @@
 .ideditor .attribution-section a:visited {
   color: #ccf;
 }
+<<<<<<< HEAD
 .ideditor .attribution-section a:focus,
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .attribution-section a:hover {
   color: #aaf;
 }
@@ -4748,7 +7240,10 @@
   color: #ccc;
   pointer-events: all;
 }
+<<<<<<< HEAD
 .ideditor .api-status a:focus,
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .api-status a:active {
   color: inherit;
 }
@@ -4922,15 +7417,19 @@
   margin-left: 5px;
 }
 
+<<<<<<< HEAD
 .ideditor .project-links .icon.bugnub {
   color: #ff26db;
 }
 
+=======
+>>>>>>> c1d930ba9 (Check in build)
 
 /* Notification Badges
 ------------------------------------------------------- */
 /* For an icon (e.g. new version) */
 .ideditor .badge {
+<<<<<<< HEAD
     display: inline-flex;
     background: #d32232;
     width: 21px;
@@ -4951,10 +7450,33 @@
     color: #fff;
     flex: 0 0 auto;
     margin-bottom: 2px;
+=======
+  display: inline-flex;
+  background: #d32232;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+.ideditor[dir='ltr'] .badge {
+  margin-left: 6px;
+}
+.ideditor[dir='rtl'] .badge {
+  margin-right: 6px;
+}
+.ideditor .badge .icon {
+  vertical-align: baseline;
+  width: 11px;
+  color: #fff;
+  flex: 0 0 auto;
+  margin-bottom: 2px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* For text (e.g. upcoming events) */
 .ideditor .badge-text {
+<<<<<<< HEAD
     display: inline-block;
     color: #fff;
     text-align: center;
@@ -4969,12 +7491,29 @@
 .ideditor[dir='rtl'] .badge-text {
     margin-left: 0;
     margin-right: 5px;
+=======
+  display: inline-block;
+  color: #fff;
+  text-align: center;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  font-weight: bold;
+  margin-left: 5px;
+  background: #f00;
+  border-radius: 9px;
+}
+.ideditor[dir='rtl'] .badge-text {
+  margin-left: 0;
+  margin-right: 5px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Modals / Prompts
 ------------------------------------------------------- */
 .ideditor .modal {
+<<<<<<< HEAD
     top: 5%;
     max-height: 90%;
     position: relative;
@@ -5044,10 +7583,88 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+=======
+  top: 5%;
+  max-height: 90%;
+  position: relative;
+  border-radius: 3px;
+  margin: auto;
+  z-index: 50;
+  width: 80%;
+  min-width: 200px;
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ideditor .modal .content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.ideditor .modal .loader {
+  margin-bottom: 10px;
+}
+.ideditor .modal .description {
+  text-align: center;
+}
+
+.ideditor .shaded {
+  z-index: 5000;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+}
+.ideditor .shaded:before {
+  content: '';
+  background: rgba(0,0,0,0.5);
+  position: absolute;
+  left: 0px; right: 0px; top: 0px; bottom: 0px;
+}
+
+.ideditor .modal-section {
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+.ideditor .modal-section p:not(:last-child) {
+  padding-bottom: 20px;
+}
+.ideditor .modal-section h4 {
+  padding-bottom: 0;
+}
+.ideditor .modal-section.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.ideditor .modal-section.buttons button {
+  min-width: 130px;
+  padding: 10px 20px;
+}
+
+.ideditor .modal-section.buttons .action {
+  margin: 0 10px;
+}
+
+.ideditor .save-section .buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .save-section .buttons .action,
 .ideditor .save-section .buttons .secondary-action {
+<<<<<<< HEAD
     width: 45%;
     margin: 10px auto;
     text-align: center;
@@ -5080,29 +7697,80 @@
     width: 100%;
     max-width: 100px;
     margin: auto;
+=======
+  width: 45%;
+  margin: 10px auto;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.ideditor .loading-modal {
+  text-align: center;
+}
+.ideditor .modal-actions {
+  display: flex;
+  width: 100%;
+}
+.ideditor .modal-actions button {
+  color: #7092ff;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  min-height: 160px;
+  text-align: center;
+  width: 100%;
+}
+
+.ideditor .logo-small {
+  height: 40px;
+  width: 40px;
+  margin: auto;
+}
+
+.ideditor .logo {
+  height: 100px;
+  width: 100%;
+  max-width: 100px;
+  margin: auto;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .modal-actions > :first-child,
 .ideditor .modal-actions > :nth-child(2) {
+<<<<<<< HEAD
     border-right: 1px solid #ccc;
 }
 
 .ideditor .modal-section:last-child {
     border-bottom: 0;
+=======
+  border-right: 1px solid #ccc;
+}
+
+.ideditor .modal-section:last-child {
+  border-bottom: 0;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Restore Modal
 ------------------------------------------------------- */
 .ideditor .modal-actions .logo-restore {
+<<<<<<< HEAD
     color: #7092ff;
 }
 .ideditor .modal-actions .logo-reset {
     color: #e06c5e;
+=======
+  color: #7092ff;
+}
+.ideditor .modal-actions .logo-reset {
+  color: #e06c5e;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 /* Success Screen / Community Index
 ------------------------------------------------------- */
 .ideditor .save-success.body {
+<<<<<<< HEAD
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -5110,19 +7778,37 @@
 .ideditor .save-success .link-out {
     margin: 0px 5px;
     white-space: nowrap;
+=======
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.ideditor .save-success .link-out {
+  margin: 0px 5px;
+  white-space: nowrap;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .save-summary,
 .ideditor .save-communityLinks {
+<<<<<<< HEAD
     padding: 0px 20px 15px 20px;
 }
 
 .ideditor .save-communityLinks {
     border-top: 1px solid #ccc;
+=======
+  padding: 0px 20px 15px 20px;
+}
+
+.ideditor .save-communityLinks {
+  border-top: 1px solid #ccc;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .save-success table,
 .ideditor .save-success p {
+<<<<<<< HEAD
     margin-top: 15px;
 }
 .ideditor .save-success h3 {
@@ -5142,10 +7828,32 @@
 }
 .ideditor .save-success td.community-detail {
     padding-bottom: 15px;
+=======
+  margin-top: 15px;
+}
+.ideditor .save-success h3 {
+  font-size: 14px;
+  margin-top: 15px;
+  line-height: 1.5;
+  padding-bottom: 0;
+}
+.ideditor .save-success td {
+  vertical-align: top;
+}
+.ideditor .save-success td.cell-icon {
+  width: 40px;
+}
+.ideditor .save-success td.cell-detail {
+  padding: 0 10px;
+}
+.ideditor .save-success td.community-detail {
+  padding-bottom: 15px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .summary-view-on-osm,
 .ideditor .community-name {
+<<<<<<< HEAD
     font-size: 14px;
     font-weight: bold;
 }
@@ -5155,10 +7863,22 @@
 }
 .ideditor .community-languages:only-child {
     margin-top: 0;
+=======
+  font-size: 14px;
+  font-weight: bold;
+}
+.ideditor .community-languages {
+  margin-top: 5px;
+  font-style: italic;
+}
+.ideditor .community-languages:only-child {
+  margin-top: 0;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .community-detail a.hide-toggle,
 .ideditor .community-detail a:visited.hide-toggle {
+<<<<<<< HEAD
     font-size: 12px;
     font-weight: normal;
     padding-bottom: 0;
@@ -5170,10 +7890,24 @@
 
 .ideditor .community-events {
     margin-top: 5px;
+=======
+  font-size: 12px;
+  font-weight: normal;
+  padding-bottom: 0;
+}
+.ideditor .community-detail .hide-toggle svg.icon.pre-text {
+  width: 12px;
+  height: 15px;
+}
+
+.ideditor .community-events {
+  margin-top: 5px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .community-event,
 .ideditor .community-more {
+<<<<<<< HEAD
     background-color: #efefef;
     padding: 8px;
     border-radius: 4px;
@@ -5191,6 +7925,25 @@
 .ideditor .community-missing {
     padding: 10px;
     text-align: center;
+=======
+  background-color: #efefef;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.ideditor .community-event-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+.ideditor .community-event-when {
+  font-weight: bold;
+}
+
+.ideditor .community-missing {
+  padding: 10px;
+  text-align: center;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -5232,7 +7985,10 @@
   color: #7092ff;
   border-bottom: 2px solid;
 }
+<<<<<<< HEAD
 .ideditor .modal-shortcuts a.nav-item:focus,
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .modal-shortcuts a.nav-item:active {
   color: #597be7;
   background-color: #efefef;
@@ -5256,9 +8012,12 @@
   margin-bottom: 20px;
 }
 
+<<<<<<< HEAD
 .ideditor .shortcut-row {
 }
 
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .shortcut-row > td {
   padding-bottom: 3px;
 }
@@ -5288,7 +8047,11 @@
 /* Settings Modals (custom background, custom data)
 ------------------------------------------------------- */
 .ideditor .settings-modal textarea {
+<<<<<<< HEAD
   height: 70px;
+=======
+  height: 90px;
+>>>>>>> c1d930ba9 (Check in build)
   width: 100%;
 }
 
@@ -5312,6 +8075,7 @@
 /* Save Mode
 ------------------------------------------------------- */
 .ideditor a.user-info {
+<<<<<<< HEAD
     display: inline-block;
 }
 
@@ -5321,25 +8085,48 @@
 
 .ideditor .user-info img {
     float: left;
+=======
+  display: inline-block;
+}
+
+.ideditor .commit-form {
+  margin-bottom: 0;
+}
+
+.ideditor .user-info img {
+  float: left;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .note-save .field-warning,
 .ideditor .field-warning {
+<<<<<<< HEAD
     background: #ffb;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
+=======
+  background: #ffb;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .note-save .field-warning:empty,
 .ideditor .field-warning:empty {
+<<<<<<< HEAD
     display: none;
+=======
+  display: none;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .field-warning,
 .ideditor .changeset-info,
 .ideditor .request-review,
 .ideditor .commit-info {
+<<<<<<< HEAD
     margin-bottom: 10px;
 }
 
@@ -5369,6 +8156,37 @@
 }
 .ideditor .changeset-list .alert {
     opacity: 0.5;
+=======
+  margin-bottom: 10px;
+}
+
+.ideditor .request-review label {
+  cursor: pointer;
+}
+
+.ideditor .changeset-list {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.ideditor .changeset-list li button {
+  padding: 5px 10px;
+  width: 100%;
+  border-radius: 0;
+  text-align: initial;
+}
+.ideditor .changeset-list li {
+  border-top: 1px solid #ccc;
+}
+.ideditor .changeset-list li:first-child {
+  border-top: 0;
+}
+.ideditor .changeset-list .alert {
+  opacity: 0.5;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
@@ -5489,8 +8307,13 @@
   flex-flow: column nowrap;
 
   border-radius: 4px;
+<<<<<<< HEAD
 /*  max-width: 200px;*/
 /*  min-width: 80px;*/
+=======
+  /*  max-width: 200px;*/
+  /*  min-width: 80px;*/
+>>>>>>> c1d930ba9 (Check in build)
   max-width: 240px;
   min-width: 100px;
   padding: 10px;
@@ -5627,6 +8450,7 @@
 /* Contextual Edit Menu
 ------------------------------------------------------- */
 .ideditor .edit-menu {
+<<<<<<< HEAD
     position: absolute;
     z-index: 999;
     display: flex;
@@ -5662,12 +8486,50 @@
 
 .ideditor .edit-menu-item use {
     pointer-events: none;
+=======
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 4px;
+  /* padding is set in edit_menu.js */
+}
+
+.ideditor .edit-menu .tooltip {
+  width: 200px; /* see also edit_menu.js */
+}
+
+.ideditor .edit-menu-item {
+  display: flex;
+  align-items: center;
+  border-radius: 0;
+  padding: 0 12px;
+  /* height is set in edit_menu.js */
+}
+.ideditor .edit-menu-item .label {
+  max-width: 120px;
+  text-align: initial;
+  line-height: 1.1em;
+  font-weight: bold;
+}
+.ideditor[dir='ltr'] .edit-menu-item .label {
+  margin-left: 8px;
+}
+.ideditor[dir='rtl'] .edit-menu-item .label {
+  margin-right: 8px;
+}
+
+.ideditor .edit-menu-item use {
+  pointer-events: none;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* MapRoulette Context Menu
 ------------------------------------------------------- */
 .ideditor .maproulette-menu {
+<<<<<<< HEAD
     position: absolute;
     z-index: 1000; /* Ensure the menu is above other elements */
     display: flex;
@@ -5706,11 +8568,55 @@
 
 .ideditor[dir='rtl'] .maproulette-menu-item .label {
     margin-right: 8px;
+=======
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #ccc; /* Add a border for visibility */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+  /* padding is set in maproulette_menu.js */
+}
+
+.ideditor .maproulette-menu-item {
+  display: flex;
+  align-items: center;
+  border-radius: 0;
+  padding: 0 12px;
+  /* height is set in maproulette_menu.js */
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ideditor .maproulette-menu-item:hover {
+  background-color: #f0f0f0; /* Highlight on hover */
+}
+
+.ideditor .maproulette-menu-item .label {
+  max-width: 120px;
+  text-align: initial;
+  line-height: 1.1em;
+  font-weight: bold;
+}
+
+.ideditor[dir='ltr'] .maproulette-menu-item .label {
+  margin-left: 8px;
+}
+
+.ideditor[dir='rtl'] .maproulette-menu-item .label {
+  margin-right: 8px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 
 /* Scrollbars
+<<<<<<< HEAD
  ----------------------------------------------------- */
+=======
+----------------------------------------------------- */
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor ::-webkit-scrollbar {
   height: 20px;
   overflow: visible;
@@ -5748,7 +8654,11 @@
 
 
 /* Intro walkthrough
+<<<<<<< HEAD
  ----------------------------------------------------- */
+=======
+----------------------------------------------------- */
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .curtain {
   position: absolute;
   inset: 0;
@@ -5928,13 +8838,21 @@
 
 /* Nine Slice - A grid with resize handles around it:
 
+<<<<<<< HEAD
    top-left |   top-middle  | top-right
+=======
+top-left |   top-middle  | top-right
+>>>>>>> c1d930ba9 (Check in build)
 ------------+---------------+------------
 middle-left | middle-middle | middle-right
 ------------+---------------+------------
 bottom-left | bottom-middle | bottom-right
 
+<<<<<<< HEAD
  ------------------------------------------------------------ */
+=======
+------------------------------------------------------------ */
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .nineslice {
   display: grid;
   grid-template-columns: 25px 1fr 25px;
@@ -5980,7 +8898,11 @@ bottom-left | bottom-middle | bottom-right
 
 
 /* Photo Viewer
+<<<<<<< HEAD
  ----------------------------------------------------- */
+=======
+----------------------------------------------------- */
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .photoviewer {
   flex: 0 0 auto;
 
@@ -6011,10 +8933,17 @@ bottom-left | bottom-middle | bottom-right
 
 
 /*
+<<<<<<< HEAD
   Wrapper for a viewer
   absolute position within the middle-middle section of the nineframe,
   inset reserves space around it to allow the user plenty of space to resize.
  */
+=======
+Wrapper for a viewer
+absolute position within the middle-middle section of the nineframe,
+inset reserves space around it to allow the user plenty of space to resize.
+*/
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .photo-wrapper {
   position: absolute;
   inset: 10px;
@@ -6082,8 +9011,12 @@ bottom-left | bottom-middle | bottom-right
   pointer-events: initial;
 }
 
+<<<<<<< HEAD
 .ideditor .photo-controls button,
 .ideditor .photo-controls button:focus {
+=======
+.ideditor .photo-controls button {
+>>>>>>> c1d930ba9 (Check in build)
   height: 18px;
   width: 18px;
   background: rgba(0,0,0,0.65);
@@ -6190,6 +9123,14 @@ bottom-left | bottom-middle | bottom-right
      object-fit: cover;
 }
 
+<<<<<<< HEAD
+=======
+/*
+This file contains the "Rapid" styling overrides for the parts of the UI that are not iD.
+It generally uses a dark theme with magenta highlight colors.
+*/
+
+>>>>>>> c1d930ba9 (Check in build)
 /* possibly existed before and was removed? */
 .ideditor svg.icon.icon-30 {
   width: 30px;
@@ -6248,7 +9189,11 @@ bottom-left | bottom-middle | bottom-right
   color: rgba(0,0,0,.4);
 }
 
+<<<<<<< HEAD
 /* rapid logo with wordmark embedded in text */
+=======
+/* Rapid logo with wordmark embedded in text */
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .icon.pre-text.rapid {
   vertical-align: text-top;
   margin-right: 0;
@@ -6263,8 +9208,22 @@ bottom-left | bottom-middle | bottom-right
 /* UI Buttons */
 /* There are a lot of rules here to cover all permutations of primary, secondary, disabled */
 /* We can not just add an `opacity: 0.5` .disabled rule because that affects children too including tooltips */
+<<<<<<< HEAD
 .ideditor .rapid-inspector button,
 .ideditor .modal.rapid-modal button {
+=======
+
+.ideditor .rapid-inspector button,
+.ideditor .modal.rapid-modal button {
+  display: flex;
+  min-width: unset;
+  flex: 0 0 130px;
+  flex-flow: row nowrap;
+  text-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+
+>>>>>>> c1d930ba9 (Check in build)
   border: 0;
   background: #c000c0;  /* rapid magenta is just too bold for giant buttons: #da26d3;*/
   color: #eee;
@@ -6272,11 +9231,28 @@ bottom-left | bottom-middle | bottom-right
   border-radius: 30px;
   height: 3rem;
 }
+<<<<<<< HEAD
+=======
+
+.ideditor .rapid-inspector button.action .icon,
+.ideditor .modal.rapid-modal button.action .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.ideditor[dir='rtl'] .rapid-inspector button.action .icon,
+.ideditor[dir='rtl'] .modal.rapid-modal button.action .icon {
+  margin-right: unset;
+  margin-left: 10px;
+}
+
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .rapid-inspector button svg,
 .ideditor .modal.rapid-modal button svg {
   color: #eee;
   fill: #da26d3;
 }
+<<<<<<< HEAD
 .ideditor .rapid-inspector button:focus,
 .ideditor .rapid-inspector button:hover,
 .ideditor .modal.rapid-modal button:focus,
@@ -6286,6 +9262,21 @@ bottom-left | bottom-middle | bottom-right
 .ideditor .rapid-inspector button:focus svg,
 .ideditor .rapid-inspector button:hover svg,
 .ideditor .modal.rapid-modal button:focus svg,
+=======
+.ideditor .rapid-inspector button.minor,
+.ideditor .modal.rapid-modal button.minor {
+  font-size: 12px;
+  height: 28px;
+  border-radius: 14px;
+  margin: 10px 5px;
+  padding: 0 15px;
+}
+.ideditor .rapid-inspector button:hover,
+.ideditor .modal.rapid-modal button:hover {
+  background: #c6d;
+}
+.ideditor .rapid-inspector button:hover svg,
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .modal.rapid-modal button:hover svg {
   fill: #c6d;
 }
@@ -6300,6 +9291,7 @@ bottom-left | bottom-middle | bottom-right
   color: #eee8;
   fill: #da26d388;
 }
+<<<<<<< HEAD
 .ideditor .rapid-inspector button.disabled:focus,
 .ideditor .rapid-inspector button.disabled:hover,
 .ideditor .modal.rapid-modal button.disabled:focus,
@@ -6309,6 +9301,13 @@ bottom-left | bottom-middle | bottom-right
 .ideditor .rapid-inspector button.disabled:focus svg,
 .ideditor .rapid-inspector button.disabled:hover svg,
 .ideditor .modal.rapid-modal button.disabled:focus svg,
+=======
+.ideditor .rapid-inspector button.disabled:hover,
+.ideditor .modal.rapid-modal button.disabled:hover {
+  background: #c6d8;
+}
+.ideditor .rapid-inspector button.disabled:hover svg,
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .modal.rapid-modal button.disabled:hover svg {
   fill: #c6d8;
 }
@@ -6324,6 +9323,7 @@ bottom-left | bottom-middle | bottom-right
   color: #eee;
   fill: #666;
 }
+<<<<<<< HEAD
 .ideditor .rapid-inspector button.secondary:focus,
 .ideditor .rapid-inspector button.secondary:hover,
 .ideditor .modal.rapid-modal button.secondary:focus,
@@ -6333,6 +9333,13 @@ bottom-left | bottom-middle | bottom-right
 .ideditor .rapid-inspector button.secondary:focus svg,
 .ideditor .rapid-inspector button.secondary:hover svg,
 .ideditor .modal.rapid-modal button.secondary:focus svg,
+=======
+.ideditor .rapid-inspector button.secondary:hover,
+.ideditor .modal.rapid-modal button.secondary:hover {
+  background: #888;
+}
+.ideditor .rapid-inspector button.secondary:hover svg,
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .modal.rapid-modal button.secondary:hover svg {
   fill: #888;
 }
@@ -6347,6 +9354,7 @@ bottom-left | bottom-middle | bottom-right
   color: #eee8;
   fill: #6668;
 }
+<<<<<<< HEAD
 .ideditor .rapid-inspector button.secondary.disabled:focus,
 .ideditor .rapid-inspector button.secondary.disabled:hover,
 .ideditor .modal.rapid-modal button.secondary.disabled:focus,
@@ -6356,25 +9364,173 @@ bottom-left | bottom-middle | bottom-right
 .ideditor .rapid-inspector button.secondary.disabled:focus svg,
 .ideditor .rapid-inspector button.secondary.disabled:hover svg,
 .ideditor .modal.rapid-modal button.secondary.disabled:focus svg,
+=======
+.ideditor .rapid-inspector button.secondary.disabled:hover,
+.ideditor .modal.rapid-modal button.secondary.disabled:hover {
+  background: #8888;
+}
+.ideditor .rapid-inspector button.secondary.disabled:hover svg,
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .modal.rapid-modal button.secondary.disabled:hover svg {
   fill: #8888;
 }
 
+<<<<<<< HEAD
 .ideditor .modal.rapid-modal button svg.logo-rapid,
 .ideditor .modal.rapid-modal button svg.logo-rapid:focus,
+=======
+/* A more "dangerous" button, e.g. for deleting */
+.ideditor .rapid-inspector button.danger,
+.ideditor .modal.rapid-modal button.danger {
+  background: #a00;
+}
+.ideditor .rapid-inspector button.danger:hover,
+.ideditor .modal.rapid-modal button.danger:hover {
+  background: #c33;
+}
+
+/* Do we put the rapid logo on a button anywhere?  maybe not needed */
+.ideditor .modal.rapid-modal button svg.logo-rapid,
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .modal.rapid-modal button svg.logo-rapid:hover {
   color: #eee;
   fill: #eee;
 }
 .ideditor .modal.rapid-modal button.disabled svg.logo-rapid,
+<<<<<<< HEAD
 .ideditor .modal.rapid-modal button.disabled svg.logo-rapid:focus,
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .modal.rapid-modal button.disabled svg.logo-rapid:hover {
   color: #eee8;
   fill: #eee8;
 }
 
+<<<<<<< HEAD
 
 /* Sidebar - Rapid/Overture Inspectors */
+=======
+/* Dark Input fields */
+.ideditor .modal.rapid-modal input,
+.ideditor .modal.rapid-modal textarea {
+  background: #444;
+  color: #ddd;
+  padding: 4px 12px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  font-size: 14px;
+  width: 90%;
+}
+.ideditor .modal.rapid-modal input[type="checkbox"] {
+  accent-color: #da26d3;
+}
+
+.ideditor .modal.rapid-modal input.disabled,
+.ideditor .modal.rapid-modal textarea.disabled {
+  background: #222;
+  color: #aaa;
+  cursor: default;
+}
+.ideditor .modal.rapid-modal input[type="checkbox"]:disabled {
+  accent-color: #222;
+}
+
+.ideditor .modal.rapid-modal input:active:not(.disabled),
+.ideditor .modal.rapid-modal textarea:active:not(.disabled) {
+  background: #444;
+  color: #eee;
+  outline: none;
+  border: 1px solid #aaa;
+}
+
+/* Dark Tables */
+.ideditor .modal.rapid-modal table {
+  background-color: unset;  /* unset ideditor styles */
+  color: unset;
+}
+.ideditor .modal.rapid-modal th,
+.ideditor .modal.rapid-modal td {
+  padding: 2px 5px;
+  border: 1px solid #888a;
+  vertical-align: middle;
+}
+.ideditor .modal.rapid-modal th {
+  background: #333;
+  color: #fff;
+  font-weight: bold;
+}
+.ideditor .modal.rapid-modal td {
+  background: #444;
+  color: #ddd;
+  font-weight: normal;
+}
+
+.ideditor .modal.rapid-modal table.disabled th,
+.ideditor .modal.rapid-modal table.disabled td {
+  border: 1px solid #333
+}
+.ideditor .modal.rapid-modal table.disabled th {
+  background: #333;
+  color: #aaa;
+}
+.ideditor .modal.rapid-modal table.disabled td {
+  background: #222;
+  color: #999;
+}
+
+/* footer row, remove background and border */
+.ideditor .modal.rapid-modal tfoot td,
+.ideditor .modal.rapid-modal table.disabled tfoot td {
+  border: unset;
+  background: unset;
+  text-align: end;
+}
+.ideditor .modal.rapid-modal tfoot button {
+  display: inline-block;   /* don't flex these */
+}
+
+/* focus rings */
+.ideditor .modal.rapid-modal button:focus-visible,
+.ideditor .modal.rapid-modal input:focus-visible,
+.ideditor .modal.rapid-modal textarea:focus-visible {
+  outline: 2px solid #da26d3;
+  box-shadow: 0 0 3px 1px #c6d;
+}
+.ideditor .modal.rapid-modal button.action:focus-visible,
+.ideditor .modal.rapid-modal button.minor:focus-visible {
+  outline: 2px solid #eee;
+  box-shadow: 0 0 3px 1px #c6d;
+}
+
+/* Comboboxes live under container, so target '.combobox-rapid-dark' class. */
+.ideditor div.combobox.combobox-rapid-dark {
+  background: #333;
+  color: #ddd;
+  border: 1px solid #222;
+}
+
+.ideditor div.combobox.combobox-rapid-dark a {
+  color: #ddd;
+  border-top: 1px solid #222;
+}
+
+.ideditor div.combobox.combobox-rapid-dark a.selected,
+.ideditor div.combobox.combobox-rapid-dark a:active {
+  color: #eee;
+  background: #3c3c3c;
+}
+
+@media (hover: hover) {
+  .ideditor div.combobox.combobox-rapid-dark a:hover {
+    color: #eee;
+    background: #3c3c3c;
+  }
+}
+
+
+/* Sidebar - Rapid/Overture Inspectors
+------------------------------------------------------- */
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .rapid-inspector,
 .ideditor .overture-inspector {
   display: flex;
@@ -6382,17 +9538,40 @@ bottom-left | bottom-middle | bottom-right
   flex-flow: column nowrap;
 }
 
+<<<<<<< HEAD
 .ideditor .rapid-inspector .header {
   flex: 0 0 0px;
+=======
+.ideditor .rapid-inspector .heading {
+>>>>>>> c1d930ba9 (Check in build)
   background: #f6f6f6;
   color: #333;
   border-bottom: 1px solid #aaaa;
 }
+<<<<<<< HEAD
 .ideditor .rapid-inspector .header h3 {
   display: flex;
 }
 .ideditor .rapid-inspector .header svg.logo-rapid {
   height: 35px;
+=======
+.ideditor .rapid-inspector .heading h3 {
+  display: flex;
+  align-items: center;
+}
+.ideditor .rapid-inspector .heading svg.logo-rapid {
+  height: 30px;
+}
+
+.ideditor .overture-inspector .heading {
+  padding: 10px 40px;
+}
+.ideditor .overture-inspector .heading img.wordmark-overture {
+  -o-object-fit: contain;
+     object-fit: contain;
+  width: 100%;
+  height: 50px
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor button.rapid-inspector-close,
@@ -6417,11 +9596,20 @@ bottom-left | bottom-middle | bottom-right
 .ideditor button.overture-inspector-close svg {
   color: #000000;
 }
+<<<<<<< HEAD
 .ideditor button.rapid-inspector-close:hover,
 .ideditor button.overture-inspector-close:hover {
   background: #8885;
 }
 
+=======
+@media (hover: hover) {
+  .ideditor button.rapid-inspector-close:hover,
+  .ideditor button.overture-inspector-close:hover {
+    background: #8885;
+  }
+}
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .rapid-inspector .tooltip .popover-inner {
   border: 1px solid #aaaa;
 }
@@ -6452,7 +9640,11 @@ bottom-left | bottom-middle | bottom-right
 
 .ideditor .rapid-inspector .feature-info .dataset-label,
 .ideditor .overture-inspector .feature-info .dataset-label  {
+<<<<<<< HEAD
   flex: 1;
+=======
+  flex: 1 1 0px;
+>>>>>>> c1d930ba9 (Check in build)
   font-size: 14px;
   font-weight: bold;
 }
@@ -6531,7 +9723,11 @@ bottom-left | bottom-middle | bottom-right
   flex: 0 0 0px;
   flex-flow: column nowrap;
   text-align: center;
+<<<<<<< HEAD
 
+=======
+  margin-top: 15px;
+>>>>>>> c1d930ba9 (Check in build)
   background: #ddd;
   border-radius: 5px;
 }
@@ -6543,10 +9739,13 @@ bottom-left | bottom-middle | bottom-right
   margin: 10px;
 }
 
+<<<<<<< HEAD
 .ideditor .rapid-inspector-notice {
     font-style: italic;
 }
 
+=======
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .rapid-inspector-choice .choice-wrap {
   display: flex;
   flex: 1 0 50px;
@@ -6554,6 +9753,7 @@ bottom-left | bottom-middle | bottom-right
 }
 
 .ideditor .rapid-inspector-choice .choice-wrap > button {
+<<<<<<< HEAD
   display: flex;
   flex: 1 1 0px;
 
@@ -6563,11 +9763,23 @@ bottom-left | bottom-middle | bottom-right
 
 .ideditor .rapid-inspector-choice .choice-wrap > button.choice-button {
   border-right: 1px solid #333a;
+=======
+  flex: 1 1 0px;
+  justify-content: flex-start;
+}
+
+.ideditor .rapid-inspector-choice .choice-wrap > button.choice-button {
+  border-right: 1px solid #ddd8;
+>>>>>>> c1d930ba9 (Check in build)
   border-radius: 25px 0 0 25px;
 }
 .ideditor[dir='rtl'] .rapid-inspector-choice .choice-wrap > button.choice-button {
   border-right: unset;
+<<<<<<< HEAD
   border-left: 1px solid #333a;
+=======
+  border-left: 1px solid #ddd8;
+>>>>>>> c1d930ba9 (Check in build)
   border-radius: 0 25px 25px 0;
 }
 .ideditor .rapid-inspector-choice .choice-wrap > button.tag-reference-button {
@@ -6582,6 +9794,10 @@ bottom-left | bottom-middle | bottom-right
   width: 30px;
   height: 30px;
   margin: 0 15px;
+<<<<<<< HEAD
+=======
+  fill: #0000;  /* fully transparent */
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor .rapid-inspector-choice .tag-reference-button .icon {
   margin: 0 5px;
@@ -6590,6 +9806,7 @@ bottom-left | bottom-middle | bottom-right
   padding: 15px;
 }
 
+<<<<<<< HEAD
 .ideditor .overture-inspector img.wordmark-overture {
   width: 100%;
   max-width: 225px;
@@ -6608,6 +9825,15 @@ bottom-left | bottom-middle | bottom-right
 .ideditor .modal.rapid-modal {
   top: 80px;
   min-width: 650px;
+=======
+
+/* Rapid modal dialogs
+------------------------------------------------------- */
+.ideditor .modal.rapid-modal {
+  top: 80px;
+  width: 80%;
+  min-width: 200px;
+>>>>>>> c1d930ba9 (Check in build)
   max-width: 650px;
   max-height: 85%;
   background: rgba(25, 25, 25, 0.9);
@@ -6619,6 +9845,18 @@ bottom-left | bottom-middle | bottom-right
   border: 1px solid #888a;
 }
 
+<<<<<<< HEAD
+=======
+/* Larger modals that should take up a bunch more space */
+.ideditor .modal.rapid-modal.wide {
+  max-width: 1000px;
+  min-height: 85%;
+}
+.ideditor .modal.rapid-modal.wide .content {
+  flex: 1 1 0px;
+}
+
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .modal.rapid-modal h1,
 .ideditor .modal.rapid-modal h2,
 .ideditor .modal.rapid-modal h3,
@@ -6628,17 +9866,26 @@ bottom-left | bottom-middle | bottom-right
 }
 
 .ideditor .modal.rapid-modal .modal-section.buttons {
+<<<<<<< HEAD
   flex-flow: column;
+=======
+  justify-content: center;
+>>>>>>> c1d930ba9 (Check in build)
   padding: 20px;
   width: 100%;
 }
 
 .ideditor .modal.rapid-modal .modal-section {
+<<<<<<< HEAD
   border-bottom: 1px solid #aaaa;
+=======
+  border-bottom: 1px solid #888a;
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor .modal.rapid-modal .modal-section:last-child {
   border-bottom: 0;
 }
+<<<<<<< HEAD
 
 .ideditor .modal.rapid-modal .modal-section .logo-rapid {
   fill: white;
@@ -6646,28 +9893,184 @@ bottom-left | bottom-middle | bottom-right
 }
 .ideditor .modal.rapid-modal p {
   font-size: 14px;
+=======
+.ideditor .modal.rapid-modal .modal-section .logo-rapid {
+  fill: white;
+  margin: 0 5px;
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor .modal.rapid-modal button.close {
   position: absolute;
   right: 0;
   top: 0;
   background: transparent;
+<<<<<<< HEAD
   height: 40px;
   border-radius: 0;
+=======
+  height: 60px;
+  padding-bottom: 5px;
+  border-radius: 0 15px 0 0;
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor[dir='rtl'] .modal.rapid-modal button.close {
    right: unset;
    left: 0;
+<<<<<<< HEAD
+=======
+   border-radius: 15px 0 0 0;
+>>>>>>> c1d930ba9 (Check in build)
  }
 
 .ideditor .modal.rapid-modal button.close svg {
   color: #da26d3;
 }
+<<<<<<< HEAD
 .ideditor .modal.rapid-modal button.close:hover {
   background: #8885;
 }
 
 /* Splash, Whats New, Login to OSM */
+=======
+@media (hover: hover) {
+  .ideditor .modal.rapid-modal button.close:hover {
+    background: #8885;
+  }
+}
+
+.ideditor .modal.rapid-modal .modal-heading {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 0 0 0px;
+  align-items: center;
+  padding: 10px;
+  color: #fff;
+  width: 100%;
+}
+.ideditor .modal.rapid-modal .modal-heading-icon {
+  flex: 0 0 40px;
+  padding: 0 5px;
+}
+.ideditor .modal.rapid-modal .modal-heading-text {
+  flex: 1 1 0px;
+  font-size: 24px;
+  padding: 0 10px;
+}
+
+/* For modals that display rows of items (datasets, poweruser features, etc.) */
+.ideditor .rapid-row {
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2px 15px;
+  width: 100%;
+}
+.ideditor .rapid-row:last-of-type {
+  padding-bottom: 5px;
+}
+
+.ideditor .rapid-row-text {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.ideditor .rapid-row-actions {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  align-items: center;
+}
+.ideditor .rapid-row-text.disabled,
+.ideditor .rapid-row-actions.disabled {
+  opacity: .5;
+}
+.ideditor .rapid-row-actions .rapid-row-action {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.ideditor .rapid-row-actions:not(.disabled) .rapid-row-action {
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .ideditor .rapid-row-actions:not(.disabled) .rapid-row-action:hover {
+    background: #8885;
+  }
+}
+
+/* Checkboxes */
+/* since checkboxes can't be styled easily, hide and style something on top of it.  */
+.ideditor .rapid-checkbox-label {
+  display: flex;
+  align-items: center;
+}
+.ideditor .rapid-checkbox-label:not(.disabled) {
+  cursor: pointer;
+}
+.ideditor .rapid-checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.ideditor .rapid-checkbox-label .rapid-checkbox-custom {
+  height: 36px;
+  width: 36px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 2px solid #fff;
+}
+.ideditor .rapid-checkbox-label .rapid-checkbox-custom::after {
+  content: "";
+  height: 0px;
+  width: 0px;
+  /*
+   * I don't understand why we need 'content-box' here.
+   * My best guess is that the '::after' rule doesn't set to 'border-box' like everything else
+   * in `reset.css`, so we ended up sizing this control for 'content-box' inadvertantly.
+   */
+  box-sizing: content-box;
+}
+.ideditor .rapid-checkbox-label input:checked~.rapid-checkbox-custom::after {
+  content: "";
+  display: block;
+  padding: 2px;
+  border-radius: 0;
+  border: solid #da26d3;
+  background-color: transparent;
+  border-width: 0 4px 4px 0;
+  transform: rotate(45deg);
+  opacity: 1;
+  margin: 3px 9px;
+  height: 12px;
+  width: 6px;
+}
+
+/* Dark scrollbars */
+.ideditor .modal.rapid-modal ::-webkit-scrollbar {
+  width: 8px;
+}
+.ideditor .modal.rapid-modal ::-webkit-scrollbar-track {
+  background: #444;
+}
+.ideditor .modal.rapid-modal ::-webkit-scrollbar-thumb {
+  background-color: #da26d3;
+  border-radius: 6px;
+  border: 0;
+}
+@media (hover: hover) {
+  .ideditor .modal.rapid-modal ::-webkit-scrollbar-thumb:hover {
+    background-color: #c6d;
+    cursor: pointer;
+  }
+}
+
+
+/* Splash, Whats New, Login to OSM
+------------------------------------------------------- */
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .modal.rapid-modal .modal-section .icon.pre-text.rapid {
   color: #da26d3;
   fill: #fff;
@@ -6687,6 +10090,7 @@ bottom-left | bottom-middle | bottom-right
   width: 60px;
   margin: 0 2px;
 }
+<<<<<<< HEAD
 .ideditor .modal.rapid-modal .modal-actions > button {
   width: 100%;
   margin: 20px;
@@ -6702,11 +10106,32 @@ bottom-left | bottom-middle | bottom-right
 }
 
 .ideditor .modal.rapid-modal.modal-whatsnew .whatsnew-images {
+=======
+
+/* Modals that use '.modal-actions' for the button section should have big buttons */
+.ideditor .modal.rapid-modal .modal-actions > button {
+  height: unset;  /* big buttons */
+  margin: 20px;
+}
+
+.ideditor .modal.rapid-modal.modal-splash .modal-heading-text,
+.ideditor .modal.rapid-modal.modal-whatsnew .modal-heading-text {
+  font-weight: bold;  /* bold text looks closer to the "Rapid" logo wordmark text */
+}
+
+.ideditor .modal.rapid-modal.modal-splash p,
+.ideditor .modal.rapid-modal.modal-whatsnew p {
+  font-size: 14px;
+}
+
+.ideditor .modal-whatsnew .whatsnew-images {
+>>>>>>> c1d930ba9 (Check in build)
   margin-top: 20px;
   display: flex;
   justify-content: space-around;
   width: 100%;
 }
+<<<<<<< HEAD
 
 .ideditor .modal.rapid-modal.modal-whatsnew .whatsnew-image {
   max-height: 350px;
@@ -6721,11 +10146,26 @@ bottom-left | bottom-middle | bottom-right
   width: 100%;
 }
 .ideditor .modal.rapid-modal.modal-whatsnew .rapid-checkbox-text {
+=======
+.ideditor .modal-whatsnew .whatsnew-image {
+  max-height: 350px;
+  align-items: center;
+}
+.ideditor .modal-whatsnew .whatsnew-dontshow {
+  margin-top: 20px;
+  font-size: 16px;
+}
+.ideditor .modal-whatsnew .rapid-checkbox-label {
+  width: 100%;
+}
+.ideditor .modal-whatsnew .rapid-checkbox-text {
+>>>>>>> c1d930ba9 (Check in build)
   flex: 1 1 auto;
   display: flex;
   justify-content: flex-end;
   margin: 0px 20px;
 }
+<<<<<<< HEAD
 .ideditor .modal.rapid-modal.modal-whatsnew .rapid-checkbox-custom {
   display: flex;
   flex: 0 0 36px;
@@ -6809,10 +10249,40 @@ bottom-left | bottom-middle | bottom-right
   font-size: 14px;
 }
 .ideditor .rapid-feature-label > svg.icon.logo-rapid {
+=======
+
+
+/* Rapid Menu (Dataset Toggle)
+------------------------------------------------------- */
+.ideditor .modal.rapid-modal.modal-dataset-toggle button.close {
+  height: 45px;
+}
+
+.ideditor .rapid-row.rapid-toggle-all {
+  padding: 50px 15px 15px 15px;  /* leave space on top for close 'x' */
+}
+.ideditor .rapid-row.rapid-toggle-all .rapid-hotkey {
+  margin: 0 5px;
+  font-size: 14px;
+}
+
+.ideditor .modal-dataset-toggle .rapid-dataset-rows {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  padding: unset;
+}
+
+.ideditor .rapid-row-label-wrap .rapid-dataset-label-beta {
+  font-size: 14px;
+}
+.ideditor .rapid-row-label-wrap svg.icon.logo-rapid {
+>>>>>>> c1d930ba9 (Check in build)
   width: 4em;
   height: 1.3em;
   margin: -5px;
 }
+<<<<<<< HEAD
 .ideditor .rapid-feature-label-divider {
   width: 1px;
   height: 20px;
@@ -6945,11 +10415,50 @@ hide this one and style something on top of it.  */
 
 /* Rapid Power User features */
 .ideditor .rapid-stack.poweruser .modal-section-heading {
+=======
+
+.ideditor .rapid-row-description-wrap {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-style: italic;
+  margin: -5px 5px 5px 0px;
+  color: #aaa;
+}
+.ideditor .rapid-license-divider {
+  width: 1px;
+  height: 16px;
+  margin: 0 7px;
+  background: #888a;
+}
+
+.ideditor .modal-dataset-toggle .rapid-row-actions .icon {
+  width: 20px;
+  height: 20px;
+}
+.ideditor .row-search-catalog,
+.ideditor .row-custom-dataset {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .ideditor .row-search-catalog:hover,
+  .ideditor .row-custom-dataset:hover {
+    background: #8885;
+  }
+}
+
+
+/* Rapid Poweruser features
+------------------------------------------------------- */
+.ideditor .modal-poweruser .modal-section-heading {
+>>>>>>> c1d930ba9 (Check in build)
   display: flex;
   flex-flow: column;
   padding: 10px 20px;
   width: 100%;
 }
+<<<<<<< HEAD
 
 .ideditor .rapid-stack.poweruser .modal-section-heading h3 {
   font-size: 24px
@@ -7002,6 +10511,37 @@ hide this one and style something on top of it.  */
 }
 .ideditor .modal.rapid-modal.modal-catalog p {
   font-size: 12px;
+=======
+.ideditor .modal-poweruser .modal-heading-icon .beta {
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+}
+.ideditor .modal-poweruser .modal-heading-desc {
+  font-size: 14px;
+  font-style: italic;
+}
+.ideditor .modal-poweruser .modal-heading-desc .smile {
+  font-style: normal;
+  margin: 0 10px;
+}
+.ideditor .modal-poweruser .modal-section.rapid-feature-rows {
+  padding: 10px;
+}
+.ideditor .modal-poweruser .rapid-feature-rows .rapid-feature-description {
+  font-size: 14px;
+  font-style: italic;
+  margin: -5px 5px 5px 0px;
+  color: #aaa;
+}
+
+
+/* Dataset Catalog
+------------------------------------------------------- */
+.ideditor .modal.rapid-modal.modal-catalog p {
+  font-size: 12px;
+  padding-bottom: unset;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .modal-catalog .modal-section {
@@ -7012,6 +10552,7 @@ hide this one and style something on top of it.  */
   padding: 0;
 }
 
+<<<<<<< HEAD
 .ideditor .modal-catalog .modal-section.rapid-catalog-header {
   display: flex;
   flex-flow: column nowrap;
@@ -7035,10 +10576,14 @@ hide this one and style something on top of it.  */
   padding: 0 5px;
 }
 .ideditor .rapid-catalog-header-about {
+=======
+.ideditor .modal-catalog .rapid-catalog-heading-about {
+>>>>>>> c1d930ba9 (Check in build)
   color: #ddd;
 }
 
 .ideditor .modal-catalog .modal-section.rapid-catalog-filter {
+<<<<<<< HEAD
   display: flex;
   flex-flow: row nowrap;
   padding: 10px 20px;
@@ -7060,10 +10605,40 @@ hide this one and style something on top of it.  */
   height: 16px;
 }
 .ideditor[dir='rtl'] .rapid-catalog-filter-search-wrap > .icon {
+=======
+  padding: 10px 20px;
+  color: #fff;
+}
+.ideditor .modal-catalog .rapid-catalog-filter-search-wrap,
+.ideditor .modal-catalog .rapid-catalog-filter-type-wrap {
+  flex: 1 1 0px;
+  display: flex;
+  flex-flow: row nowrap;
+  position: relative;
+  align-items: center;
+  padding: 0 5px;
+}
+
+.ideditor .modal-catalog input.rapid-catalog-filter-search {
+  padding: 4px 12px 4px 40px;    /* leave space for filter icon */
+}
+.ideditor[dir='rtl'] .modal-catalog input.rapid-catalog-filter-search {
+  padding: 4px 40px 4px 12px;    /* leave space for filter icon */
+}
+
+.ideditor .modal-catalog .rapid-catalog-filter-search-wrap > .icon {
+  flex: 0 0 16px;
+  position: absolute;
+  left: 16px;
+  color: #aaa;
+}
+.ideditor[dir='rtl'] .modal-catalog .rapid-catalog-filter-search-wrap > .icon {
+>>>>>>> c1d930ba9 (Check in build)
   left: unset;
   right: 16px;
 }
 
+<<<<<<< HEAD
 .ideditor .rapid-catalog-filter-search,
 .ideditor .rapid-catalog-filter-type {
   background: #444;
@@ -7113,11 +10688,18 @@ hide this one and style something on top of it.  */
 }
 
 .ideditor .rapid-catalog-filter-clear a {
+=======
+.ideditor .modal-catalog .rapid-catalog-filter-clear a {
+>>>>>>> c1d930ba9 (Check in build)
   padding: 15px;
   font-size: 14px;
 }
 
+<<<<<<< HEAD
 .ideditor .rapid-catalog-filter-results {
+=======
+.ideditor .modal-catalog .rapid-catalog-filter-results {
+>>>>>>> c1d930ba9 (Check in build)
   flex: 1 1 200px;
   padding: 0 5px;
   text-align: end;
@@ -7132,17 +10714,27 @@ hide this one and style something on top of it.  */
 }
 
 /* give this section height, even when its contents are hidden */
+<<<<<<< HEAD
 .ideditor .rapid-catalog-datasets-status,
 .ideditor .rapid-catalog-datasets {
   flex: 1 1 9999px;
 }
 
 .ideditor .rapid-catalog-datasets-status {
+=======
+.ideditor .modal-catalog .rapid-catalog-datasets-status,
+.ideditor .modal-catalog .rapid-catalog-datasets {
+  flex: 1 1 9999px;
+}
+
+.ideditor .modal-catalog .rapid-catalog-datasets-status {
+>>>>>>> c1d930ba9 (Check in build)
   font-size: 20px;
   text-align: center;
   margin: 50px;
 }
 
+<<<<<<< HEAD
 .ideditor .rapid-catalog-datasets {
   display: flex;
   flex-flow: row wrap;
@@ -7154,6 +10746,20 @@ hide this one and style something on top of it.  */
 .ideditor .rapid-catalog-dataset {
   display: flex;
   flex: 1 1 40%;
+=======
+.ideditor .modal-catalog .rapid-catalog-datasets {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding: 5px;
+  width: 100%;
+}
+.ideditor .modal-catalog .rapid-catalog-dataset {
+  display: flex;
+  flex: 0 0 48%;
+>>>>>>> c1d930ba9 (Check in build)
   flex-flow: row nowrap;
   padding: 10px;
   margin: 5px;
@@ -7161,6 +10767,7 @@ hide this one and style something on top of it.  */
   height: 220px;
   color: #eee;
 }
+<<<<<<< HEAD
 .ideditor .rapid-catalog-dataset.added {
   background: rgba(55, 55, 55, 0.9);
 }
@@ -7173,25 +10780,57 @@ hide this one and style something on top of it.  */
   flex: 0;
 }
 .ideditor img.rapid-catalog-dataset-thumbnail {
+=======
+.ideditor .modal-catalog .rapid-catalog-dataset.added {
+  background: rgba(55, 55, 55, 0.9);
+  border: 1px solid #888a;
+}
+
+.ideditor .dataset-label {
+  flex: 1 1 0px;
+  padding: 0 8px;
+}
+
+.ideditor img.dataset-thumbnail {
+>>>>>>> c1d930ba9 (Check in build)
   border-radius: 10px;
   -o-object-fit: cover;
      object-fit: cover;
   height: 130px;
   width: 180px;
 }
+<<<<<<< HEAD
 .ideditor img.rapid-catalog-dataset-thumbnail.inverted {
   filter: invert(1) brightness(2) contrast(0.75);
 }
 
 .ideditor .rapid-catalog-dataset-name {
+=======
+.ideditor img.dataset-thumbnail.inverted {
+  filter: invert(1) brightness(2) contrast(0.75);
+}
+
+.ideditor .dataset-name {
+>>>>>>> c1d930ba9 (Check in build)
   font-weight: bold;
   font-size: 14px;
   margin-bottom: 3px;
 }
 
+<<<<<<< HEAD
 .ideditor .dataset-categories {
   display: flex;
   flex-flow: row wrap;
+=======
+.ideditor .dataset-snippet {
+  font-size: 11px;
+  line-height: 1.5;
+}
+.ideditor .dataset-categories {
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: 5px
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor .dataset-category {
   display: inline-block;
@@ -7219,6 +10858,7 @@ hide this one and style something on top of it.  */
   color: #16da16;
 }
 
+<<<<<<< HEAD
 .ideditor .rapid-catalog-dataset button.rapid-catalog-dataset-action {
   font-size: 12px;
   height: 28px;
@@ -7228,11 +10868,220 @@ hide this one and style something on top of it.  */
 }
 
 /* Colorpicker popup */
+=======
+
+/* Add Custom Dataset
+------------------------------------------------------- */
+.ideditor .modal.rapid-modal.modal-add-dataset p {
+  font-size: 12px;
+  padding-bottom: unset;
+}
+
+.ideditor .modal-add-dataset .modal-section.rapid-add-dataset-fields {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 10px 20px;
+}
+.ideditor .modal-add-dataset .field-row {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.ideditor .modal-add-dataset .field-row {
+  margin-bottom: 10px;
+}
+.ideditor .modal-add-dataset label.field-label {
+  display: flex;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.ideditor .modal-add-dataset input.field-input.warning,
+.ideditor .modal-add-dataset textarea.field-url.warning {
+  border-color: #f90 !important;
+  background-color: #440 !important;
+}
+.ideditor .modal-add-dataset .field-instruction {
+  margin: 5px 0px;
+}
+.ideditor .modal-add-dataset .field-feedback.warning {
+  color: #f90;
+}
+
+.ideditor .modal-add-dataset .rapid-add-dataset-text {
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  padding: 20px;
+}
+.ideditor .modal-add-dataset .instructions-url {
+  padding: 20px 0;
+}
+.ideditor .modal-add-dataset textarea.field-url {
+  height: 90px;
+  width: 100%;
+}
+
+
+/* Dataset Settings
+------------------------------------------------------- */
+.ideditor .modal-dataset-settings .dataset-settings-wrap {
+  display: flex;
+  flex: 1 1 0px;
+  flex-flow: column nowrap;
+  width: 100%;
+  overflow-y: auto;
+  border-bottom: 1px solid #888a;
+}
+
+/* smaller input fields on this screen - lots of information to display */
+.ideditor .modal.rapid-modal.modal-dataset-settings input,
+.ideditor .modal.rapid-modal.modal-dataset-settings textarea {
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+/* Details section */
+.ideditor .modal-dataset-settings .dataset-details {
+  display: flex;
+  flex: 0 0 0px;
+  flex-flow: row nowrap;
+}
+.ideditor .modal-dataset-settings .dataset-details-wrap {
+  display: flex;
+  flex: 1 1 0px;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+}
+.ideditor .modal-dataset-settings .field-row {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 1 1 0px;
+  align-items: flex-start;
+  width: 100%;
+}
+.ideditor .modal-dataset-settings .field-label {
+  display: flex;
+  flex: 0 0 125px;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  font-weight: bold;
+}
+.ideditor .modal-dataset-settings .field-input {
+  display: flex;
+  flex: 1 1 0px;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+}
+
+/* Thumbnail section */
+.ideditor .modal-dataset-settings .dataset-thumbnail-wrap {
+  display: flex;
+  flex: 0 0 0px;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  margin: 30px 10px 0 30px;
+}
+.ideditor[dir='rtl'] .modal-dataset-settings .dataset-thumbnail-wrap {
+  margin: 30px 30px 0 10px;
+}
+
+.ideditor .modal-dataset-settings .rapid-colorpicker-wrap .icon {
+  width: 20px;
+  height: 20px;
+}
+.ideditor .modal-dataset-settings .rapid-colorpicker-wrap {
+  cursor: pointer;
+  padding: 3px;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+@media (hover: hover) {
+  .ideditor .modal-dataset-settings .rapid-colorpicker-wrap:hover {
+    background: #8885;
+  }
+}
+
+/* Conflation section */
+.ideditor .modal-dataset-settings .dataset-conflation {
+  display: flex;
+  flex: 0 0 0px;
+  flex-flow: column nowrap;
+}
+.ideditor .modal-dataset-settings .field-row.row-conflation {
+  align-items: center;
+}
+.ideditor .modal-dataset-settings .field-row.row-conflation .field-input {
+  flex: 0 0 0px;   /* don't grow */
+}
+
+/* Data Dictionary section */
+.ideditor .modal-dataset-settings .dataset-dictionary {
+  display: flex;
+  flex: 0 0 0px;
+  flex-flow: column nowrap;
+}
+.ideditor .modal-dataset-settings .dictionary-table {
+  margin-top: 20px;
+}
+.ideditor .modal.rapid-modal .dict-row td {
+  background: #333;
+}
+.ideditor .modal.rapid-modal .dict-row input {
+  display: inline;
+  margin: 0;
+  width: 100%;
+}
+
+/* set the delete button apart from neighbor buttons */
+.ideditor .modal.modal-dataset-settings .delete-button.action {
+  margin-left: 150px;
+}
+.ideditor[dir='rtl'] .modal.modal-dataset-settings .delete-button.action {
+  margin-left: unset;
+  margin-right: 150px;
+}
+
+/* .modal.modal-dataset-settings button.action {
+  display: flex;
+  min-width: unset;
+  flex: 0 0 130px;
+  flex-flow: row nowrap;
+  text-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.modal-dataset-settings .delete-button .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.ideditor[dir='rtl'] .modal.modal-dataset-settings .delete-button .icon {
+  margin-right: unset;
+  margin-left: 10px;
+} */
+
+
+/* Colorpicker control
+------------------------------------------------------- */
+.ideditor .colorpicker-label {
+  display: flex;
+  cursor: pointer;
+}
+.ideditor .colorpicker-input {
+  display: none;
+}
+>>>>>>> c1d930ba9 (Check in build)
 .ideditor .colorpicker-popup {
   position: absolute;
   padding: 10px;
   z-index: 100;
+<<<<<<< HEAD
   background-color: #fff;
+=======
+  background-color: #444;
+>>>>>>> c1d930ba9 (Check in build)
   border: none;
   display: flex;
   border-radius: 6px;
@@ -7245,7 +11094,11 @@ hide this one and style something on top of it.  */
   height: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
+<<<<<<< HEAD
   border-bottom: 10px solid #fff;
+=======
+  border-bottom: 10px solid #444;
+>>>>>>> c1d930ba9 (Check in build)
 }
 
 .ideditor .colorpicker-colors {
@@ -7254,6 +11107,7 @@ hide this one and style something on top of it.  */
 }
 .ideditor .colorpicker-option {
   border: 2px solid transparent;
+<<<<<<< HEAD
   background: #fff;
   border-radius: 6px;
 }
@@ -7262,6 +11116,19 @@ hide this one and style something on top of it.  */
 }
 .ideditor .colorpicker-option.selected {
   border: 2px solid #444;
+=======
+  background: #444;
+  border-radius: 6px;
+}
+
+@media (hover: hover) {
+  .ideditor .colorpicker-option:hover {
+    border: 2px solid #ddd;
+  }
+}
+.ideditor .colorpicker-option.selected {
+  border: 2px solid #aaa;
+>>>>>>> c1d930ba9 (Check in build)
 }
 .ideditor .colorpicker-option-fill {
   background-color: currentColor;

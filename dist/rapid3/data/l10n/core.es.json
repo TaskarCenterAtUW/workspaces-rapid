@@ -1503,6 +1503,7 @@
           "label": "Lugares de Overture",
           "description": "Contiene más de 53 millones de representaciones puntuales de entidades del mundo real: escuelas, negocios, hospitales, organizaciones religiosas, puntos de referencia, picos de montañas y mucho más."
         }
+<<<<<<< HEAD
       },
       "omdFootways": {
         "label": "Senderos peatonales de datos abiertos",
@@ -1511,6 +1512,8 @@
       "metaSyntheticFootways": {
         "label": "Senderos peatonales sintéticos de Meta",
         "description": "Datos de senderos peatonales sintéticos recopilados de diversas entidades gubernamentales locales."
+=======
+>>>>>>> c1d930ba9 (Check in build)
       }
     },
     "rapid_poweruser": {

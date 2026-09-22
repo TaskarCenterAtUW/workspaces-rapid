@@ -88,6 +88,10 @@
       "openstreetmapguinea": "OpenStreetMap Guinea",
       "openstreetmaphaiti": "OpenStreetMap Haiti",
       "openstreetmaphamburg": "OpenStreetMap Hamburg",
+<<<<<<< HEAD
+=======
+      "openstreetmaphonduras": "OpenStreetMap Honduras",
+>>>>>>> c1d930ba9 (Check in build)
       "openstreetmaphongkong": "OpenStreetMap Hong Kong",
       "openstreetmaphungary": "OpenStreetMap Hungary",
       "openstreetmapiceland": "OpenStreetMap Iceland",
@@ -160,6 +164,10 @@
       "openstreetmaprdc": "OpenStreetMap RDC",
       "openstreetmaprennes": "OpenStreetMap Rennes",
       "openstreetmapreunion": "OpenStreetMap Réunion",
+<<<<<<< HEAD
+=======
+      "openstreetmaprheinneckar": "OpenStreetMap Rhein Neckar",
+>>>>>>> c1d930ba9 (Check in build)
       "openstreetmapriograndedosul": "OpenStreetMap Rio Grande do Sul",
       "openstreetmapromania": "OpenStreetMap Romania",
       "openstreetmaprussia": "OpenStreetMap Russia",
@@ -198,12 +206,24 @@
       "openstreetmapwesternsahara": "OpenStreetMap Western Sahara",
       "openstreetmapzambia": "OpenStreetMap Zambia",
       "openstreetmapzimbabwe": "OpenStreetMap Zimbabwe",
+<<<<<<< HEAD
+=======
+      "osmaschaffenburgandumgebung": "OSM Aschaffenburg & Umgebung",
+>>>>>>> c1d930ba9 (Check in build)
       "osmcolombia": "OSM Colombia",
       "osmewikiemiliaromagna": "OSM e Wiki Emilia-Romagna",
       "osmmainz": "OSM Mainz",
       "osmnelson": "OSM Nelson",
+<<<<<<< HEAD
       "swissopenstreetmap": "Swiss OpenStreetMap",
       "tadeomappers": "TadeoMappers",
+=======
+      "osmsheffield": "OSM Sheffield",
+      "osmveneto": "OSM Veneto",
+      "swissopenstreetmap": "Swiss OpenStreetMap",
+      "tadeomappers": "TadeoMappers",
+      "wikimediaandosminsicily": "Wikimedia & OSM in Sicily",
+>>>>>>> c1d930ba9 (Check in build)
       "youthmappersasu": "YouthMappersASU",
       "youthmappersufrj": "YouthMappers UFRJ"
     },
@@ -322,11 +342,23 @@
       "twitter": {
         "name": "{community} on X",
         "description": "Follow us on X",
+<<<<<<< HEAD
         "url": "https://twitter.com/{account}"
+=======
+        "url": "https://x.com/{account}"
+>>>>>>> c1d930ba9 (Check in build)
       },
       "url": {
         "name": "{community}"
       },
+<<<<<<< HEAD
+=======
+      "whatsapp": {
+        "name": "{community} WhatsApp",
+        "description": "Join our community WhatsApp group chat",
+        "url": "https://chat.whatsapp.com/{account}"
+      },
+>>>>>>> c1d930ba9 (Check in build)
       "wiki": {
         "name": "{community} WikiProject",
         "url": "https://wiki.openstreetmap.org/wiki/{account}"
@@ -420,7 +452,11 @@
     },
     "cape-coast-youthmappers": {
       "name": "University of Cape Coast YouthMappers",
+<<<<<<< HEAD
       "description": "Follow us on Twitter: {url}",
+=======
+      "description": "Follow us on X: {url}",
+>>>>>>> c1d930ba9 (Check in build)
       "extendedDescription": "This is the official handle for the Youth Mappers chapter of the University of Cape Coast, Ghana. we love maps, open data and helping the vulnerable."
     },
     "castilla-y-leon-wiki": {
@@ -538,6 +574,12 @@
     "de-aachen-wiki": {
       "description": "{community} Wiki page"
     },
+<<<<<<< HEAD
+=======
+    "de-aschaffenburg-signal": {
+      "description": "OpenStreetMap in Aschaffenburg und Umgebung"
+    },
+>>>>>>> c1d930ba9 (Check in build)
     "de-berlin-mailinglist": {
       "name": "Berlin Mailing List"
     },
@@ -599,6 +641,23 @@
       "name": "OWL Mailing List",
       "description": "This is the mailing list for the Ostwestfalen-Lippe OSM community"
     },
+<<<<<<< HEAD
+=======
+    "de-rheinneckar-mailinglist": {
+      "description": "Mailing list for mappers and OpenStreetMap users in the Rhein-Neckar region"
+    },
+    "de-rheinneckar-matrix": {
+      "description": "Matrix channel for mappers and OpenStreetMap users in the Rhein-Neckar region"
+    },
+    "de-rheinneckar-meetup": {
+      "name": "OpenStreetMap Rhein Neckar",
+      "description": "Mappers and OpenStreetMap users in the Rhein-Neckar region"
+    },
+    "de-signal": {
+      "name": "OpenStreetMap D-A-CH Signal",
+      "description": "A Signal group for the German-speaking community in the D-A-CH area for informal discussion."
+    },
+>>>>>>> c1d930ba9 (Check in build)
     "de-stuttgart-mailinglist": {
       "name": "Stuttgart and Baden-Wuerttemberg Mailing List",
       "description": "This is the mailing list for the OSM community of Stuttgart and whole Baden-Wuerttemberg"
@@ -669,8 +728,13 @@
       "description": "Everything you need to know about mapping in Galicia: {url}"
     },
     "Galicia-Xeoinquedos-Twitter": {
+<<<<<<< HEAD
       "name": "Xeoinquedos on Twitter",
       "description": "Follow us on Twitter at {url}"
+=======
+      "name": "Xeoinquedos on X",
+      "description": "Follow us on X at {url}"
+>>>>>>> c1d930ba9 (Check in build)
     },
     "gb-irc": {
       "extendedDescription": "Join #{account} on irc.oftc.net (port 6667), please be patient and wait for a few minutes if you ask a question"
@@ -738,9 +802,12 @@
       "description": "We help grow and improve OpenStreetMap in Ireland.",
       "extendedDescription": "OpenStreetMap Ireland provides an advocate voice for the OpenStreetMap project on the island of Ireland, in addition to interacting with other open initiatives."
     },
+<<<<<<< HEAD
     "ireland-irc": {
       "extendedDescription": "Join #{account} on irc.oftc.net (port 6667), please be patient and wait for a few minutes if you ask a question"
     },
+=======
+>>>>>>> c1d930ba9 (Check in build)
     "ireland-matrix": {
       "description": "A Matrix gateway for the OSM Ireland IRC channel: {url}"
     },
@@ -754,7 +821,14 @@
       "description": "A Forum to discuss OpenStreetMap in Italy"
     },
     "it-emilia-romagna-telegram": {
+<<<<<<< HEAD
       "description": "Everybody is welcome! You can enter the chat with this link: {signupUrl}"
+=======
+      "description": "Everybody is welcome! You can enter the chat with this link: {url}"
+    },
+    "it-veneto-telegram": {
+      "description": "Group for editors in the Veneto region. You can enter the chat using this link: {url}"
+>>>>>>> c1d930ba9 (Check in build)
     },
     "ivides_website": {
       "description": "We are focused on sustainable development, mapping, and support of the OpenStreetMap community."
@@ -837,17 +911,24 @@
     },
     "MapLYH": {
       "name": "MapLYH",
+<<<<<<< HEAD
       "description": "MapLYH group"
+=======
+      "description": "OpenStreetMap enthusiasts in and around Lynchburg, Virginia"
+>>>>>>> c1d930ba9 (Check in build)
     },
     "mappa-mercia-group": {
       "name": "Mappa Mercia local group",
       "description": "A home for OpenStreetMap enthusiasts in the Midlands",
       "extendedDescription": "Mappa Mercia is a project to grow OpenStreetMap in the West Midlands, UK. We run community events, provide training and support local organisations wishing to open up their data."
     },
+<<<<<<< HEAD
     "MappingWR": {
       "name": "MappingWR",
       "description": "Making low carbon routes around Waterloo Region easy to find."
     },
+=======
+>>>>>>> c1d930ba9 (Check in build)
     "MapRVA": {
       "name": "MapRVA",
       "description": "MapRVA is a group of mapping enthusiasts in Richmond, Virginia who work to create and share geospatial data of our city using OpenStreetMap."
@@ -1138,6 +1219,14 @@
     "osm-kerala-wiki": {
       "description": "Want to know more about Kerala Mapping? {url}"
     },
+<<<<<<< HEAD
+=======
+    "osm-malaga-zulip": {
+      "name": "OSM Málaga",
+      "description": "Local OpenStreetMap group in Málaga",
+      "extendedDescription": "Workspace for the local OpenStreetMap group in Málaga, dedicated to coordinating collaborative mapping in the municipality."
+    },
+>>>>>>> c1d930ba9 (Check in build)
     "osm-mg-facebook": {
       "description": "Malagasy Facebook group for people interested in OpenStreetMap."
     },
@@ -1177,6 +1266,14 @@
       "description": "FSHM Puducherry mailing list to discuss mapping in Puducherry and other things.",
       "extendedDescription": "FSHM organizes events relating to free software/hardware, technology, activism and OpenStreetMap."
     },
+<<<<<<< HEAD
+=======
+    "OSM-Puducherry-Signal": {
+      "name": "OSM Puducherry - Signal",
+      "description": "A special interest group created under FSHMPY with a focus on enriching OpenStreetMap data.",
+      "extendedDescription": "FSHM community members share their OSM mapping updates / experiences through the signal group."
+    },
+>>>>>>> c1d930ba9 (Check in build)
     "osm-punjab-matrix": {
       "description": "We map Punjab together. Join our Matrix group",
       "extendedDescription": "Unofficial chat room for OSM Punjab, also bridged to OSMPunjab Telegram group"
@@ -1193,6 +1290,13 @@
       "name": "OpenStreetMap Seattle",
       "description": "Mappers and OpenStreetMap users in the Seattle area"
     },
+<<<<<<< HEAD
+=======
+    "osm-sheffield-matrix": {
+      "name": "OSM Sheffield Matrix",
+      "description": "Mappers of any skill interested in mapping Sheffield. Local meetups to be planned through this group as well."
+    },
+>>>>>>> c1d930ba9 (Check in build)
     "OSM-SoCal": {
       "name": "OpenStreetMap Southern California",
       "description": "Let's have some fun, contribute something to Los Angeles, and learn about mapping!",
@@ -1222,6 +1326,7 @@
     },
     "OSM-US": {
       "description": "We help grow and improve OpenStreetMap in the United States.",
+<<<<<<< HEAD
       "extendedDescription": "We support OpenStreetMap by holding annual conferences, providing community resources, building partnerships, and by spreading the word. Join OpenStreetMap US here: {signupUrl}",
       "events": {
         "mappingusa2022": {
@@ -1230,6 +1335,9 @@
           "where": "virtual"
         }
       }
+=======
+      "extendedDescription": "We support OpenStreetMap by holding annual conferences, providing community resources, building partnerships, and by spreading the word. Join OpenStreetMap US here: {signupUrl}"
+>>>>>>> c1d930ba9 (Check in build)
     },
     "OSM-US-Slack": {
       "description": "All are welcome! Sign up at {signupUrl}"
@@ -1245,13 +1353,23 @@
       "extendedDescription": "OpenStreetMap (OSM) Wyoming is a local collaboration of people interested in contributing their efforts to create free maps. We encourage all of our mappers to organize or suggest mapping events throughout the state. Meetup activities can be simple social mixers, OSM basic to advanced training, or community mapping parties."
     },
     "osmcz-twitter": {
+<<<<<<< HEAD
       "description": "Follow the Czech community on Twitter - including translated WeeklyOSM!"
+=======
+      "description": "Follow the Czech community on X - including translated WeeklyOSM!"
+>>>>>>> c1d930ba9 (Check in build)
     },
     "OSMF": {
       "name": "OpenStreetMap Foundation",
       "description": "OSMF is a UK-based not-for-profit that supports the OpenStreetMap Project",
       "extendedDescription": "OSMF supports the OpenStreetMap project by fundraising, maintaining the servers which power OSM, organizing the annual State of the Map conference, and coordinating the volunteers who keep OSM running. You can show your support and have a voice in the direction of OpenStreetMap by joining as an OSMF member here: {signupUrl}"
     },
+<<<<<<< HEAD
+=======
+    "OSMFR-Mastodon": {
+      "name": "Compte Mastodon d'OpenStreetMap France"
+    },
+>>>>>>> c1d930ba9 (Check in build)
     "ph-facebook-group": {
       "name": "{community} Facebook Group"
     },
@@ -1261,8 +1379,13 @@
       "extendedDescription": "This is a meetup group for those in the Phoenix area who like maps, GIS, OpenStreetMap, cartography and anything in between."
     },
     "PHXGeo-twitter": {
+<<<<<<< HEAD
       "name": "PHXGeo Twitter",
       "description": "Follow us on Twitter at {url}"
+=======
+      "name": "PHXGeo on X",
+      "description": "Follow us on X at {url}"
+>>>>>>> c1d930ba9 (Check in build)
     },
     "pt-wiki": {
       "description": "WikiProject with information and coordination guidelines for mapping in Portugal."
@@ -1297,6 +1420,12 @@
     "si-wiki": {
       "description": "{community} Wiki page"
     },
+<<<<<<< HEAD
+=======
+    "sicilia-telegram": {
+      "description": "Everyone is welcome! You can join using this link: {url}"
+    },
+>>>>>>> c1d930ba9 (Check in build)
     "sk-freemap": {
       "description": "OpenStreetMap map website with tools in Slovakia and surrounding regions"
     },
@@ -1343,8 +1472,13 @@
       "description": "OpenStreetMap London on Mastodon: {url}"
     },
     "uk-london-twitter": {
+<<<<<<< HEAD
       "name": "OpenStreetMap London on Twitter",
       "description": "OpenStreetMap London on Twitter: {url}"
+=======
+      "name": "OpenStreetMap London on X",
+      "description": "OpenStreetMap London on X: {url}"
+>>>>>>> c1d930ba9 (Check in build)
     },
     "uk-london-wiki": {
       "description": "{community} Wiki page"

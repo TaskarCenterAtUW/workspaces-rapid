@@ -2,15 +2,30 @@
   "$id": "selector.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "StyleSelector",
+<<<<<<< HEAD
   "description": "Maps tag/geometry conditions to style IDs. All matching selectors are applied, sorted by specificity.",
   "type": "object",
   "properties": {
     "styleIDs": {
       "description": "Array of style IDs to apply when matched (merged in order, later overrides earlier).",
+=======
+  "description": "Maps tag/geometry conditions to styleIDs. All matching selectors are applied, sorted by weight.",
+  "type": "object",
+  "properties": {
+    "styleIDs": {
+      "description": "Array of styleIDs to apply when matched (applies in order, later overrides earlier).",
+>>>>>>> c1d930ba9 (Check in build)
       "type": "array",
       "items": { "type": "string" },
       "minItems": 1
     },
+<<<<<<< HEAD
+=======
+    "weight": {
+      "description": "Weight of this style selector - default is 1.0",
+      "type": "number"
+    },
+>>>>>>> c1d930ba9 (Check in build)
     "match": {
       "description": "Conditions for matching features.",
       "type": "object",

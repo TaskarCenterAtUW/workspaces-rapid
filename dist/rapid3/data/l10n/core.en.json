@@ -1,5 +1,119 @@
 {
   "en": {
+<<<<<<< HEAD
+=======
+    "text": {
+      "no": "No",
+      "yes": "Yes",
+      "add": "Add",
+      "cancel": "Cancel",
+      "changeset": {
+        "one": "Changeset",
+        "other": "Changesets"
+      },
+      "comment": {
+        "one": "Comment",
+        "other": "Comments"
+      },
+      "created": "Created",
+      "custom": "Custom",
+      "date": {
+        "one": "Date",
+        "other": "Dates"
+      },
+      "default": "Default",
+      "deleted": "Deleted",
+      "description": {
+        "one": "Description",
+        "other": "Descriptions"
+      },
+      "detail": {
+        "one": "Detail",
+        "other": "Details"
+      },
+      "download": "Download",
+      "error": {
+        "one": "Error",
+        "other": "Errors"
+      },
+      "feature": {
+        "one": "Feature",
+        "other": "Features"
+      },
+      "field": {
+        "one": "Field",
+        "other": "Fields"
+      },
+      "help": "Help",
+      "issue": {
+        "one": "Issue",
+        "other": "Issues"
+      },
+      "label": {
+        "one": "Label",
+        "other": "Labels"
+      },
+      "location": {
+        "one": "Location",
+        "other": "Locations"
+      },
+      "member": {
+        "one": "Member",
+        "other": "Members"
+      },
+      "modified": "Modified",
+      "more": "More",
+      "name": {
+        "one": "Name",
+        "other": "Names"
+      },
+      "next": "Next",
+      "node": {
+        "one": "Node",
+        "other": "Nodes"
+      },
+      "none": "None",
+      "note": {
+        "one": "Note",
+        "other": "Notes"
+      },
+      "okay": "OK",
+      "previous": "Previous",
+      "relation": {
+        "one": "Relation",
+        "other": "Relations"
+      },
+      "remove": "Remove",
+      "role": {
+        "one": "Role",
+        "other": "Roles"
+      },
+      "save": "Save",
+      "search": "Search",
+      "suggestion": {
+        "one": "Suggestion",
+        "other": "Suggestions"
+      },
+      "tag": {
+        "one": "Tag",
+        "other": "Tags"
+      },
+      "type": {
+        "one": "Type",
+        "other": "Types"
+      },
+      "unknown": "Unknown",
+      "upload": "Upload",
+      "warning": {
+        "one": "Warning",
+        "other": "Warnings"
+      },
+      "way": {
+        "one": "Way",
+        "other": "Ways"
+      }
+    },
+>>>>>>> c1d930ba9 (Check in build)
     "icons": {
       "download": "download",
       "information": "info",
@@ -760,6 +874,7 @@
       "upload_explanation_with_user": "The changes you upload as {user} will be visible on all maps that use OpenStreetMap data.",
       "request_review": "I would like someone to review my edits.",
       "request_review_info": "Unsure about something? Invite an experienced mapper to check your work once it's live.",
+<<<<<<< HEAD
       "save": "Upload",
       "cancel": "Cancel",
       "changes": "Changes",
@@ -769,6 +884,10 @@
       "modified": "Modified",
       "deleted": "Deleted",
       "created": "Created",
+=======
+      "changes": "Changes",
+      "download_changes": "Download osmChange file",
+>>>>>>> c1d930ba9 (Check in build)
       "outstanding_errors_message": "Please resolve all errors first. {count} remaining.",
       "comment_needed_message": "Please add a changeset comment first.",
       "about_changeset_comments": "About changeset comments",
@@ -805,16 +924,24 @@
         "version": "Version",
         "last_edit": "Last Edit",
         "edited_by": "Edited By",
+<<<<<<< HEAD
         "changeset": "Changeset",
         "link_text": "History on openstreetmap.org",
         "note_no_history": "No History (New Note)",
         "note_comments": "Comments",
+=======
+        "link_text": "History on openstreetmap.org",
+        "note_no_history": "No History (New Note)",
+>>>>>>> c1d930ba9 (Check in build)
         "note_created_date": "Created Date",
         "note_created_user": "Created By",
         "note_link_text": "Note on openstreetmap.org"
       },
       "location": {
+<<<<<<< HEAD
         "title": "Location",
+=======
+>>>>>>> c1d930ba9 (Check in build)
         "unknown_location": "Unknown Location"
       },
       "measurement": {
@@ -863,16 +990,22 @@
       "view_on_keepright": "View on keepright.at",
       "view_on_maproulette": "View on maproulette.org",
       "feature_type": "Feature Type",
+<<<<<<< HEAD
       "fields": "Fields",
       "tags": "Tags",
       "members": "Members",
       "relations": "Relations",
       "features": "Features",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "title_count": "{title} ({count})",
       "add_to_relation": "Add to a relation",
       "new_relation": "New relation...",
       "choose_relation": "Choose a parent relation",
+<<<<<<< HEAD
       "role": "Role",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "multiple_roles": "Multiple Roles",
       "choose": "Select feature type",
       "results": {
@@ -888,11 +1021,14 @@
       "multiple_types": "Multiple Types",
       "unshared_value_tooltip": "not shared by all features",
       "back_tooltip": "Change feature type",
+<<<<<<< HEAD
       "type": "Type",
       "details": "Details",
       "remove": "Remove",
       "search": "Search",
       "unknown": "Unknown",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "incomplete": "<not downloaded>",
       "feature_list": "Search features",
       "multiselect": "Multiple Selection",
@@ -907,12 +1043,15 @@
           "layer": "Layer"
         }
       },
+<<<<<<< HEAD
       "add": "Add",
       "none": "None",
       "node": "Node",
       "way": "Way",
       "relation": "Relation",
       "location": "Location",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "add_fields": "Add field:",
       "lock": {
         "suggestion": "The \"{label}\" field is locked because there is a Wikidata tag. You can delete it or edit the tags in the \"Tags\" section."
@@ -943,10 +1082,15 @@
       "title": "Background",
       "description": "Background Settings",
       "backgrounds": "Backgrounds",
+<<<<<<< HEAD
       "none": "None",
       "best_imagery": "Best known imagery source for this location",
       "switch": "Switch back to this background",
       "custom": "Custom",
+=======
+      "best_imagery": "Best known imagery source for this location",
+      "switch": "Switch back to this background",
+>>>>>>> c1d930ba9 (Check in build)
       "overlays": "Overlays",
       "grid": {
         "grids": "Grids",
@@ -960,8 +1104,12 @@
       "display_options": "Display Options",
       "wayback": {
         "name": "Esri Wayback",
+<<<<<<< HEAD
         "description": "Esri Wayback contains archived snapshots of Esri World Imagery created over time.",
         "date": "Date"
+=======
+        "description": "Esri Wayback contains archived snapshots of Esri World Imagery created over time."
+>>>>>>> c1d930ba9 (Check in build)
       },
       "brightness": "Brightness",
       "contrast": "Contrast",
@@ -1013,7 +1161,10 @@
           },
           "loading_task_details": "Loading Task Details...",
           "error_loading_task_details": "Error while loading the task details. Try waiting and selecting it again.",
+<<<<<<< HEAD
           "detail_title": "Details",
+=======
+>>>>>>> c1d930ba9 (Check in build)
           "id_title": "Challenge Id / Task Id",
           "id_placeholder": "Challenge IDs",
           "instruction_title": "Instructions",
@@ -1183,7 +1334,11 @@
     "settings": {
       "custom_background": {
         "tooltip": "Edit custom background",
+<<<<<<< HEAD
         "header": "Custom Background Settings",
+=======
+        "heading": "Custom Background Settings",
+>>>>>>> c1d930ba9 (Check in build)
         "instructions": {
           "info": "Enter a tile URL template below.",
           "wms": {
@@ -1212,7 +1367,11 @@
       },
       "custom_data": {
         "tooltip": "Edit custom data layer",
+<<<<<<< HEAD
         "header": "Custom Map Data Settings",
+=======
+        "heading": "Custom Map Data Settings",
+>>>>>>> c1d930ba9 (Check in build)
         "instructions": "Custom map data can be added to the map as a reference layer either of two ways:",
         "file": {
           "heading": "Local Data File",
@@ -1287,7 +1446,10 @@
       "reset": "Discard my changes"
     },
     "save": {
+<<<<<<< HEAD
       "title": "Save",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "help": "Review your changes and upload them to OpenStreetMap, making them visible to other users.",
       "no_changes": "No changes to save.",
       "error": "Errors occurred while trying to save",
@@ -1297,10 +1459,15 @@
       "conflict_progress": "Checking for conflicts: {num} of {total}",
       "unsaved_changes": "You have unsaved changes",
       "conflict": {
+<<<<<<< HEAD
         "header": "Resolve conflicting edits",
         "count": "Conflict {num} of {total}",
         "previous": "< Previous",
         "next": "Next >",
+=======
+        "heading": "Resolve conflicting edits",
+        "count": "Conflict {num} of {total}",
+>>>>>>> c1d930ba9 (Check in build)
         "keep_local": "Keep mine",
         "keep_remote": "Use theirs",
         "restore": "Restore",
@@ -1311,7 +1478,10 @@
       }
     },
     "download_osc": {
+<<<<<<< HEAD
       "title": "Download",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "help": "Download current changes to the map in an osc file.",
       "no_changes": "No changes to download."
     },
@@ -1333,21 +1503,30 @@
         "separator": ", "
       },
       "your_changes": "Your changes should appear on OpenStreetMap within a few minutes. It may take longer for maps elsewhere to receive updates.",
+<<<<<<< HEAD
       "help_link_text": "Details",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "help_link_url": "https://wiki.openstreetmap.org/wiki/FAQ#I_have_just_made_some_changes_to_the_map._How_do_I_get_to_see_my_changes.3F",
       "view_on_osm": "View Changes on OSM",
       "your_changeset_id": "Your changeset #:",
       "like_osm": "Like OpenStreetMap? Connect with others:",
+<<<<<<< HEAD
       "more": "More",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "events": "Events",
       "languages": "Languages: {languages}",
       "missing": "Is something missing from this list?",
       "tell_us": "Tell us!"
     },
+<<<<<<< HEAD
     "confirm": {
       "okay": "OK",
       "cancel": "Cancel"
     },
+=======
+>>>>>>> c1d930ba9 (Check in build)
     "splash": {
       "welcome": "Welcome to {rapidicon} {version}!",
       "text": "Rapid is a friendly but powerful editor for OpenStreetMap, a free map of the world. If this is your first time here, click the button below to start the tutorial. Anyone can be a mapper!\n\nFor more information visit our [changelog](https://github.com/facebook/Rapid/blob/main/CHANGELOG.md#whats-new) and [issue tracker](https://github.com/facebook/Rapid/issues) on GitHub. Happy Mapping! 👍",
@@ -1367,12 +1546,37 @@
       "live": "live",
       "lose_changes": "You have unsaved changes. Switching the map server will discard them. Are you sure you want to switch servers?"
     },
+<<<<<<< HEAD
     "rapid_splash": {
       "welcome": "Introducing AI-assisted mapping!",
       "text": "Select the {rapidicon} option to start the Rapid walkthrough. If you're new to OSM and haven't mapped before, select the first {walkthrough} option. Finally, click the last {edit} option if you want to get straight to mapping. You can always access the walkthrough later from the help menu.",
       "walkthrough": "Start the whole walkthrough",
       "skip_to_rapid": "Learn about Rapid!",
       "start": "No thanks, just start mapping"
+=======
+    "version": {
+      "whats_new": "What's new in Rapid {version}"
+    },
+    "zoom": {
+      "in": "Zoom In",
+      "out": "Zoom Out",
+      "disabled": {
+        "in": "Cannot zoom in further.",
+        "out": "Cannot zoom out further."
+      }
+    },
+    "bearing": {
+      "reset_bearing": "Reset Bearing",
+      "rotate_the_map": "Rotate the map:",
+      "n": "N"
+    },
+    "full_screen": "Toggle Full Screen",
+    "self_intersection": {
+      "error": {
+        "lines": "Lines cannot cross over themselves.",
+        "areas": "Areas cannot cross over themselves."
+      }
+>>>>>>> c1d930ba9 (Check in build)
     },
     "rapid_first_edit": {
       "nice": "You just added your first {rapidicon} AI-Assisted feature, nice.",
@@ -1385,7 +1589,10 @@
       "notice": {
         "open_data": "This dataset is comprised of open data. See our [license]({url}) for more details."
       },
+<<<<<<< HEAD
       "tags": "Tags",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "option_accept": {
         "label": "Add This Feature",
         "description": "Does this look like an accurate feature? Select this to start editing it so that you can connect, tag, and save it to OpenStreetMap. 👍",
@@ -1402,6 +1609,7 @@
       }
     },
     "rapid_menu": {
+<<<<<<< HEAD
       "license": "License",
       "toggle_all": "Toggle all {rapidicon} data",
       "add_manage_datasets": "Add/Manage Datasets",
@@ -1434,6 +1642,14 @@
         "roads": "roads",
         "trees": "trees"
       },
+=======
+      "search_dataset_catalog": "Search Dataset Catalog",
+      "add_custom_dataset": "Add Custom Dataset",
+      "center_map": "Center map here",
+      "license": "License",
+      "toggle_all": "Toggle all {rapidicon} data",
+      "worldwide": "Worldwide",
+>>>>>>> c1d930ba9 (Check in build)
       "fbRoads": {
         "label": "Facebook Roads",
         "description": "AI predicted roads detected from Maxar Premium imagery and available in over 80 countries."
@@ -1445,6 +1661,7 @@
       "overture": {
         "places": {
           "label": "Overture Places",
+<<<<<<< HEAD
           "description": "Contains over 53 million point representations of real-world entities: schools, businesses, hospitals, religious organizations, landmarks, mountain peaks, and much more."
         }
       },
@@ -1455,6 +1672,18 @@
       "metaSyntheticFootways": {
         "label": "Synthetic Footways from Meta",
         "description": "Synthetic footways data collected from various local government entities."
+=======
+          "description": "Points of interest sourced from various commercial and community contributors, available through the Overture Maps Foundation."
+        },
+        "buildings": {
+          "label": "Overture Buildings",
+          "description": "Building footprints contributed by various open data providers, available through the Overture Maps Foundation."
+        },
+        "tomtom_roads": {
+          "label": "TomTom Roads",
+          "description": "Road network data sourced from TomTom, available through the Overture Maps Foundation."
+        }
+>>>>>>> c1d930ba9 (Check in build)
       }
     },
     "rapid_poweruser": {
@@ -1463,6 +1692,13 @@
         "label": "Rapid Power User Features",
         "description": "for Rapid Insiders"
       },
+<<<<<<< HEAD
+=======
+      "autoConnect": {
+        "label": "Autoconnect on Accept",
+        "description": "Accepted new features are automatically connected to existing features"
+      },
+>>>>>>> c1d930ba9 (Check in build)
       "previewDatasets": {
         "label": "Show preview datasets",
         "description": "Preview datasets are still in review and not available for all users"
@@ -1484,6 +1720,7 @@
         "description": "Remove the limitations about editing features that are not currently visible"
       }
     },
+<<<<<<< HEAD
     "version": {
       "whats_new": "What's new in Rapid {version}"
     },
@@ -1510,20 +1747,166 @@
       "error": {
         "lines": "Lines cannot cross over themselves.",
         "areas": "Areas cannot cross over themselves."
+=======
+    "rapid_catalog": {
+      "heading": "Dataset Catalog",
+      "about_the_catalog": "These datasets have been provided as open data by various organizations for the purpose of improving OpenStreetMap.<br/>You can learn more by clicking the links below, or visiting [the Rapid Guide](https://github.com/facebookmicrosites/Open-Mapping-At-Facebook/wiki/Esri-ArcGIS-FAQ) or [Esri/ArcGIS dataset page on the OSM Wiki](https://wiki.openstreetmap.org/wiki/Esri/ArcGIS_Datasets).",
+      "filter_datasets": "filter datasets",
+      "any_type": "any type",
+      "add_dataset": "Add to Rapid",
+      "remove_dataset": "Remove from Rapid",
+      "clear_filters": "Clear Filters",
+      "dataset_added": "Dataset added",
+      "no_datasets": "No datasets available.",
+      "more_info": "More Info",
+      "datasets_found": {
+        "one": "{n} dataset found",
+        "other": "{gt}{n} datasets found"
+      },
+      "category": {
+        "addresses": "addresses",
+        "buildings": "buildings",
+        "esri": "Esri",
+        "featured": "featured",
+        "footways": "footways",
+        "meta": "Meta",
+        "microsoft": "Microsoft",
+        "overture": "Overture",
+        "places": "places",
+        "preview": "preview",
+        "roads": "roads",
+        "trees": "trees"
+      }
+    },
+    "rapid_add_dataset": {
+      "heading": "Add Custom Dataset",
+      "name": {
+        "label": "Dataset Name",
+        "placeholder": "Enter a Dataset Name"
+      },
+      "identifier": {
+        "label": "Dataset ID",
+        "placeholder": "Enter a Dataset ID",
+        "instruction": "Must be 36 characters or less, and use only letters, numbers, and dashes.",
+        "invalid": "This DatasetID contains invalid characters.",
+        "taken": "This DatasetID is already in use. Please choose another."
+      },
+      "instructions": "Custom map data can be added either of two ways:",
+      "file": {
+        "heading": "Local Data File",
+        "instructions": "Choose a local data file. Supported file types are:",
+        "types": "`.gpx`, `.kml`, `.geojson`, `.json`",
+        "label": "Browse files"
+      },
+      "or": "Or",
+      "url": {
+        "heading": "Remote Data URL",
+        "instructions": "Enter a URL to any of the above file types, an MVT-style vector tile service, or a .pmtiles archive.",
+        "tokens": "Supported replacement tokens:",
+        "xyz": "`{zoom}` or `{z}`, `{x}`, `{y}` for Z/X/Y tile scheme",
+        "example_file": "https://example.com/custom.gpx",
+        "example_xyz": "https://example.com/{z}/{x}/{y}.mvt?access_token=123",
+        "example_pmtiles": "https://example.com/buildings.pmtiles",
+        "placeholder": "Enter a url"
+      }
+    },
+    "rapid_dataset_settings": {
+      "heading": "Dataset Settings",
+      "delete": {
+        "label": "Delete Dataset",
+        "heading": "Are you sure?",
+        "instructions": "This dataset will be removed from the Rapid menu and dataset catalog.  Any stored settings and data mapping will be removed too.",
+        "ok": "Yes, delete it",
+        "cancel": "No, keep it"
+      },
+      "details": {
+        "heading": "Dataset Details",
+        "fields": {
+          "source": {
+            "label": "Source"
+          },
+          "sourceurl": {
+            "label": "Source URL"
+          },
+          "identifier": {
+            "label": "Dataset ID"
+          },
+          "name": {
+            "label": "Dataset Name",
+            "placeholder": "Enter a Dataset Name"
+          },
+          "thumbnailurl": {
+            "label": "Thumbnail URL",
+            "placeholder": "Enter a Thumbnail URL"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Enter a Dataset Description"
+          }
+        }
+      },
+      "conflation": {
+        "heading": "Conflation Settings",
+        "instruction": "This section controls how new data is merged or filtered where it overlaps existing data.",
+        "conflation": {
+          "label": "Conflation?"
+        }
+      },
+      "dictionary": {
+        "heading": "Data Mapping",
+        "instruction": "This section controls how Rapid accepts new data from this dataset.",
+        "locked": "This section is locked because this dataset is provided by {name}.",
+        "is_missing": "There is no data mapping for this dataset. Rapid can still show the data, but you will not be able to accept it.",
+        "add_data_mapping": "To get started, you can:",
+        "default_data_mapping": "Create a default data mapping (copy all)",
+        "detect_data_mapping": "Detect the fields present in the data",
+        "is_default": "This is a default data mapping - it simply copies all source attributes into target tags.",
+        "add_more": "Add More",
+        "remove_all": "Remove All",
+        "fields": {
+          "order": {
+            "label": "Order"
+          },
+          "isid": {
+            "label": "ID?"
+          },
+          "source": {
+            "label": "Source Attribute"
+          },
+          "function": {
+            "label": "Function",
+            "ignore": "Ignore",
+            "copy": "Copy",
+            "constant": "Constant"
+          },
+          "target": {
+            "label": "Target Tag"
+          },
+          "params": {
+            "label": "Parameters"
+          }
+        }
+>>>>>>> c1d930ba9 (Check in build)
       }
     },
     "QA": {
       "osmose": {
         "title": "Osmose Issue",
+<<<<<<< HEAD
         "detail_title": "Details",
         "elems_title": "Features",
+=======
+>>>>>>> c1d930ba9 (Check in build)
         "fix_title": "Fix Guidelines",
         "trap_title": "Common Mistakes"
       },
       "keepRight": {
         "title": "KeepRight Issue",
+<<<<<<< HEAD
         "detail_description": "Description",
         "comment": "Comment",
+=======
+>>>>>>> c1d930ba9 (Check in build)
         "comment_placeholder": "Enter a comment to share with other users.",
         "close": "Close (Issue Fixed)",
         "ignore": "Remove (False Positive)",
@@ -1934,11 +2317,17 @@
       "tooltip": "Street-level photos from KartaView"
     },
     "note": {
+<<<<<<< HEAD
       "note": "Note",
       "title": "Edit note",
       "anonymous": "anonymous",
       "closed": "(Closed)",
       "commentTitle": "Comments",
+=======
+      "title": "Edit note",
+      "anonymous": "anonymous",
+      "closed": "(Closed)",
+>>>>>>> c1d930ba9 (Check in build)
       "status": {
         "opened": "opened {when}",
         "reopened": "reopened {when}",
@@ -1949,7 +2338,10 @@
       "inputPlaceholder": "Enter a comment to share with other users.",
       "close": "Close Note",
       "open": "Reopen Note",
+<<<<<<< HEAD
       "comment": "Comment",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "close_comment": "Close and Comment",
       "open_comment": "Reopen and Comment",
       "report": "Report",
@@ -1961,7 +2353,10 @@
       "upload_explanation_with_user": "Your comments as {user} will be publicly visible to all OpenStreetMap users."
     },
     "help": {
+<<<<<<< HEAD
       "title": "Help",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "help": {
         "title": "Help",
         "welcome": "Welcome to the {rapidicon} editor for [OpenStreetMap](https://www.openstreetmap.org/). With this editor you can update OpenStreetMap right from your web browser.",
@@ -2209,10 +2604,13 @@
       }
     },
     "issues": {
+<<<<<<< HEAD
       "title": "Issues",
       "errors": "Errors",
       "warnings": "Warnings",
       "suggestions": "Suggestions",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "rules": "Rules",
       "open_tooltip": "Detected errors, warnings, and suggestions",
       "resolved_tooltip": "Issues resolved by your edits",
@@ -2307,14 +2705,24 @@
           "reference": "Separate points should not share a location."
         }
       },
+<<<<<<< HEAD
       "duplicate_way_segments": {
         "title": "Duplicate Way Segments",
         "tip": "Find way segments that are duplicated (same node endpoints)",
+=======
+      "duplicate_segments": {
+        "title": "Duplicate Segments",
+        "tip": "Find segments that are duplicated (same node endpoints)",
+>>>>>>> c1d930ba9 (Check in build)
         "message": "Two or more segments share the same pair of nodes",
         "reference": "Redundant way segments should be merged or moved apart."
       },
       "curb_nodes": {
         "title": "Curb Nodes",
+<<<<<<< HEAD
+=======
+        "tip": "Find crossings that are missing curb nodes",
+>>>>>>> c1d930ba9 (Check in build)
         "message": "{feature} may be missing curb nodes.",
         "footway-highway": "Footways crossing highways should have separately-mapped curb nodes.",
         "reference": {
@@ -2335,7 +2743,11 @@
         }
       },
       "crossing_ways": {
+<<<<<<< HEAD
         "title": "Crossings Ways",
+=======
+        "title": "Crossing Ways",
+>>>>>>> c1d930ba9 (Check in build)
         "message": "{feature} crosses {feature2}",
         "tip": "Find features that incorrectly cross over one another",
         "aeroway-aeroway": {
@@ -2657,9 +3069,12 @@
         "merge_close_vertices": {
           "annotation": "Merged very close points in a way."
         },
+<<<<<<< HEAD
         "merge_duplicate_way_segments": {
           "annotation": "Merged duplicate segments in a way."
         },
+=======
+>>>>>>> c1d930ba9 (Check in build)
         "merge_points": {
           "title": "Merge these points"
         },
@@ -2763,7 +3178,10 @@
     },
     "intro": {
       "done": "done",
+<<<<<<< HEAD
       "ok": "OK",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "graph": {
         "block_number": "<value for addr:block_number>",
         "city": "Three Rivers",
@@ -3428,7 +3846,10 @@
     },
     "wikidata": {
       "identifier": "Identifier",
+<<<<<<< HEAD
       "label": "Label",
+=======
+>>>>>>> c1d930ba9 (Check in build)
       "description": "Description"
     },
     "languageNames": {
@@ -3936,7 +4357,11 @@
       "saq": "Samburu",
       "sas": "Sasak",
       "sat": "Santali",
+<<<<<<< HEAD
       "saz": "Saurashtra",
+=======
+      "saz": "Sourashtra",
+>>>>>>> c1d930ba9 (Check in build)
       "sba": "Ngambay",
       "sbp": "Sangu",
       "sc": "Sardinian",
@@ -4250,7 +4675,11 @@
       "Samr": "Samaritan",
       "Sara": "Sarati",
       "Sarb": "Old South Arabian",
+<<<<<<< HEAD
       "Saur": "Saurashtra",
+=======
+      "Saur": "Sourashtra",
+>>>>>>> c1d930ba9 (Check in build)
       "Sgnw": "SignWriting",
       "Shaw": "Shavian",
       "Shrd": "Sharada",
