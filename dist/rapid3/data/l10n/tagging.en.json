@@ -165,32 +165,6 @@
         "vending": {
           "label": "Types of Goods",
           "options": {
-<<<<<<< HEAD
-            "bicycle_tube": "Bicycle Tubes",
-            "bread": "Bread",
-            "cigarettes": "Cigarettes",
-            "coffee": "Coffee",
-            "condoms": "Condoms",
-            "drinks": "Drinks",
-            "e-cigarettes": "E-Cigarettes",
-            "eggs": "Eggs",
-            "electronics": "Electronics",
-            "elongated_coin": "Souvenir Coins",
-            "excrement_bags": "Excrement Bags",
-            "feminine_hygiene": "Feminine Hygiene Products",
-            "food": "Food",
-            "fuel": "Fuel",
-            "ice_cream": "Ice Cream",
-            "ice_cubes": "Ice Cubes",
-            "milk": "Milk",
-            "newspapers": "Newspapers",
-            "parking_tickets": "Parking Tickets",
-            "pizza": "Pizza",
-            "public_transport_tickets": "Public Transport Tickets",
-            "stamps": "Postage Stamps",
-            "sweets": "Sweets",
-            "water": "Drinking Water"
-=======
             "parking_tickets": "Parking Tickets",
             "excrement_bags": "Excrement Bags",
             "drinks": "Drinks",
@@ -217,7 +191,6 @@
             "electronics": "Electronics",
             "feminine_hygiene": "Feminine Hygiene Products",
             "e-cigarettes": "E-Cigarettes"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "vehicles": {
@@ -287,17 +260,10 @@
         "tunnel_combo": {
           "label": "Type",
           "options": {
-<<<<<<< HEAD
-            "avalanche_protector": "Avalanche Protector",
-            "building_passage": "Building Passage",
-            "culvert": "Culvert",
-            "flooded": "Flooded Tunnel"
-=======
             "building_passage": "Building Passage",
             "culvert": "Culvert",
             "flooded": "Flooded Tunnel",
             "avalanche_protector": "Avalanche Protector"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "tunnel": {
@@ -406,11 +372,7 @@
         },
         "toilets": {
           "label": "Toilets",
-<<<<<<< HEAD
-          "terms": "bathroom,latrine,lavatory,outhouse,privy,restroom,toilet,water closet,w.c.,wc"
-=======
           "terms": "bathroom,latrine,lavatory,outhouse,privy,restroom,toilet,w.c.,water closet,wc"
->>>>>>> c1d930ba9 (Check in build)
         },
         "to": {
           "label": "To"
@@ -431,8 +393,6 @@
             "service_device": "Service Device"
           }
         },
-<<<<<<< HEAD
-=======
         "tee_disc_golf": {
           "label": "Tee Color",
           "placeholder": "Blue, White, Red...",
@@ -445,7 +405,6 @@
             "purple": "Purple"
           }
         },
->>>>>>> c1d930ba9 (Check in build)
         "tee": {
           "label": "Tee Color/Type"
         },
@@ -478,22 +437,12 @@
           "label": "Target"
         },
         "takeaway": {
-<<<<<<< HEAD
-          "label": "Takeaway",
-          "terms": "take out,takeout",
-          "placeholder": "Yes, No, Takeaway Only...",
-          "options": {
-            "yes": "Yes",
-            "no": "No",
-            "only": "Takeaway Only"
-=======
           "label": "Takeout",
           "terms": "take out,takeaway,takeout",
           "options": {
             "yes": "Yes",
             "no": "No",
             "only": "Takeout Only"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "tactile_paving": {
@@ -527,37 +476,6 @@
         "surveillance": {
           "label": "Surveillance Kind"
         },
-<<<<<<< HEAD
-        "surface": {
-          "label": "Surface",
-          "options": {
-            "artificial_turf": "Artificial Turf",
-            "asphalt": "Asphalt",
-            "clay": "Clay",
-            "compacted": "Compacted",
-            "concrete": "Concrete",
-            "concrete:lanes": "Concrete Lanes",
-            "concrete:plates": "Concrete Plates",
-            "dirt": "Dirt",
-            "fine_gravel": "Fine Gravel",
-            "grass": "Grass",
-            "grass_paver": "Grass Paver",
-            "gravel": "Gravel",
-            "ground": "Ground",
-            "metal": "Metal",
-            "mud": "Persistently Muddy",
-            "paved": "Paved",
-            "paving_stones": "Paving Stones",
-            "pebblestone": "Pebblestone",
-            "salt": "Salt",
-            "sand": "Sand",
-            "sett": "Sett",
-            "tartan": "Tartan",
-            "unhewn_cobblestone": "Cobblestone (uncut, rounded stones)",
-            "unpaved": "Unpaved",
-            "wood": "Wood",
-            "woodchips": "Woodchips"
-=======
         "surface_sport_pitch": {},
         "surface": {
           "label": "Surface",
@@ -588,7 +506,6 @@
             "artificial_turf": "Artificial Turf",
             "tartan": "Tartan",
             "clay": "Clay"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "support": {
@@ -720,64 +637,6 @@
         "sport": {
           "label": "Sports",
           "options": {
-<<<<<<< HEAD
-            "10pin": "Ten-Pin Bowling",
-            "9pin": "Nine-Pin Bowling",
-            "american_football": "American Football",
-            "athletics": "Track & Field",
-            "badminton": "Badminton",
-            "baseball": "Baseball",
-            "basketball": "Basketball",
-            "beachvolleyball": "Beach Volleyball",
-            "billiards": "Cue Sports",
-            "bmx": "BMX",
-            "boules": "Boules",
-            "bowls": "Bowls",
-            "canoe": "Canoeing",
-            "chess": "Chess",
-            "climbing": "Climbing",
-            "cricket": "Cricket",
-            "curling": "Curling",
-            "cycling": "Cycling",
-            "darts": "Darts",
-            "disc_golf": "Disc Golf",
-            "dog_racing": "Dog Racing",
-            "equestrian": "Equestrian Sports",
-            "fitness": "Fitness Training",
-            "free_flying": "Paragliding / Hang Gliding",
-            "futsal": "Futsal",
-            "gaelic_games": "Gaelic Games",
-            "golf": "Golf",
-            "gymnastics": "Gymnastics",
-            "handball": "Team Handball",
-            "horse_racing": "Horse Racing",
-            "ice_hockey": "Ice Hockey",
-            "ice_skating": "Ice Skating",
-            "ice_stock": "Ice Stock",
-            "karting": "Kart Racing",
-            "motocross": "Motocross",
-            "motor": "Motorsports",
-            "multi": "Unspecified Other Sports",
-            "netball": "Netball",
-            "orienteering": "Orienteering",
-            "padel": "Padel",
-            "pelota": "Pelota",
-            "rugby_union": "Rugby Union",
-            "running": "Running",
-            "scuba_diving": "Scuba Diving",
-            "shooting": "Shooting",
-            "skateboard": "Skateboard",
-            "skiing": "Skiing",
-            "ski_jumping": "Ski Jumping",
-            "soccer": "Soccer",
-            "softball": "Softball",
-            "speedway": "Motorcycle Speedway",
-            "swimming": "Swimming",
-            "table_tennis": "Table Tennis",
-            "tennis": "Tennis",
-            "volleyball": "Volleyball",
-            "yoga": "Yoga"
-=======
             "soccer": "Soccer",
             "tennis": "Tennis",
             "basketball": "Basketball",
@@ -838,7 +697,6 @@
             "candlepin": "Candlepin Bowling",
             "5pin": "Five-Pin Bowling",
             "duckpin": "Duckpin Bowling"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "species": {
@@ -862,28 +720,6 @@
         "social_facility_for": {
           "label": "People Served",
           "options": {
-<<<<<<< HEAD
-            "abused": "Abuse victims",
-            "child": "Children",
-            "dementia": "People suffering from dementia",
-            "disabled": "People with disabilities",
-            "diseased": "People suffering from a disease",
-            "displaced": "People displaced by disasters or conflicts",
-            "drug_addicted": "Drug addicted",
-            "homeless": "Homeless",
-            "juvenile": "Juveniles",
-            "mental_health": "People with mental health problems",
-            "migrant": "Migrants",
-            "orphan": "Orphans",
-            "refugee": "Refugees",
-            "senior": "Elderly",
-            "terminally_ill": "People with a terminal illness",
-            "underprivileged": "Underprivileged people",
-            "unemployed": "People without a job",
-            "veteran": "Veterans",
-            "victim": "Victims of crime",
-            "woman": "Women"
-=======
             "senior": "Elderly",
             "disabled": "People with disabilities",
             "child": "Children",
@@ -904,7 +740,6 @@
             "veteran": "Veterans",
             "terminally_ill": "People with a terminal illness",
             "victim": "Victims of crime"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "social_facility": {
@@ -957,8 +792,6 @@
         "site": {
           "label": "Type"
         },
-<<<<<<< HEAD
-=======
         "sidewalk": {
           "label": "Sidewalks",
           "placeholder": "Yes, No, Mapped Separately",
@@ -981,7 +814,6 @@
             }
           }
         },
->>>>>>> c1d930ba9 (Check in build)
         "side": {
           "label": "Side",
           "options": {
@@ -1046,10 +878,6 @@
         },
         "second_hand": {
           "label": "Sells Used",
-<<<<<<< HEAD
-          "placeholder": "Yes, No, Only",
-=======
->>>>>>> c1d930ba9 (Check in build)
           "options": {
             "yes": "Yes",
             "no": "No",
@@ -1164,33 +992,6 @@
             "recommended": "Recommended"
           }
         },
-<<<<<<< HEAD
-        "religion": {
-          "label": "Religion",
-          "options": {
-            "bahai": "Bahá’í",
-            "benzhu": "Benzhu",
-            "buddhist": "Buddhist",
-            "caodaism": "Caodaist",
-            "chinese_folk": "Chinese Folk Religion",
-            "christian": "Christian",
-            "confucian": "Confucian",
-            "hindu": "Hindu",
-            "jain": "Jain",
-            "jewish": "Jewish",
-            "multifaith": "Multifaith",
-            "muslim": "Muslim",
-            "none": "Nonreligious",
-            "pagan": "Pagan",
-            "shinto": "Shinto",
-            "sikh": "Sikh",
-            "spiritualist": "Spiritualist",
-            "taoist": "Taoist",
-            "tenrikyo": "Tenrikyo",
-            "unitarian_universalist": "Unitarian Universalist",
-            "vietnamese_folk": "Vietnamese Folk Religion",
-            "voodoo": "Voodoo"
-=======
         "religion_place_of_worship": {
           "label": "Religion"
         },
@@ -1219,7 +1020,6 @@
             "bahai": "Bahá’í",
             "caodaism": "Caodaist",
             "benzhu": "Benzhu"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "relation": {
@@ -1335,8 +1135,6 @@
             "no": "None"
           }
         },
-<<<<<<< HEAD
-=======
         "protection_title": {
           "label": "Protection Title"
         },
@@ -1352,7 +1150,6 @@
             "1b": "1b: Wilderness Area"
           }
         },
->>>>>>> c1d930ba9 (Check in build)
         "product": {
           "label": "Products"
         },
@@ -1389,95 +1186,6 @@
         "playground": {
           "label": "Type",
           "options": {
-<<<<<<< HEAD
-            "activitypanel": "Activity Panel",
-            "aerialrotator": "Aerial Rotator",
-            "agility_trail": "Agility Trail",
-            "archimedes_screw": "Archimedes Screw",
-            "balance": "Balancing Device (unspecified)",
-            "balancebeam": "Balance Beam",
-            "ball_pool": "Ball Pool",
-            "bannister_bars": "Banister Bars",
-            "basketrotator": "Basket Rotator",
-            "basketswing": "Basket Swing",
-            "belt_bridge": "Belt Bridge",
-            "blackboard": "Blackboard",
-            "bridge": "Bridge",
-            "cushion": "Bouncy Cushion",
-            "chute": "Chute",
-            "climbing": "Climbing Device (unspecified)",
-            "climbing_pole": "Climbing Pole",
-            "climbing_slope": "Climbing Slope",
-            "climbingframe": "Climbing Frame",
-            "climbingwall": "Climbing Wall",
-            "dome": "Dome",
-            "excavator": "Excavator",
-            "exercise": "Exercise Device",
-            "funnel_ball": "Funnel Ball",
-            "hammock": "Hammock",
-            "hamster_wheel": "Hamster Wheel",
-            "hopscotch": "Hopscotch",
-            "horizontal_bar": "Horizontal Bar",
-            "ladder": "Ladder",
-            "map": "Map",
-            "maze": "Maze",
-            "marble_run": "Marble Run",
-            "monkey_bars": "Monkey Bars",
-            "mound": "Artificial Mound",
-            "musical_instrument": "Musical Instrument",
-            "parallel_bars": "Parallel Bars",
-            "platform": "Platform",
-            "playhouse": "Playhouse",
-            "pump": "Pump",
-            "ride_on": "Fixed Riding Device",
-            "rope_swing": "Rope Swing",
-            "rope_traverse": "Rope Traverse",
-            "rotator": "Rotating Device (unspecified)",
-            "roundabout": "Merry-Go-Round / Roundabout",
-            "sand": "Sand Play Device (unspecified)",
-            "sand_pulley": "Sand Pulley",
-            "sand_seesaw": "Sand Seesaw",
-            "sand_wheel": "Sand Wheel",
-            "sandpit": "Sandbox / Sandpit",
-            "seat": "Seat",
-            "seesaw": "Seesaw",
-            "rotating_seesaw": "Rotating Seesaw",
-            "sieve": "Sieve",
-            "sledding": "Sledding Hill",
-            "slide": "Slide",
-            "speaking_tube": "Speaking Tube",
-            "spinner": "Spinner",
-            "spinner_bowl": "Spinner Bowl",
-            "spinning_circle": "Spinning Circle",
-            "spinning_disc": "Spinning Disc",
-            "spring_board": "Spring Board",
-            "springy": "Spring Rider",
-            "splash_pad": "Splash Pad",
-            "stepping_post": "Stepping Post",
-            "stepping_stone": "Stepping Stone",
-            "steps": "Steps",
-            "structure": "Playground Structure",
-            "swing": "Swing",
-            "baby_swing": "Baby Swing",
-            "tire_swing": "Tire Swing",
-            "table": "Table",
-            "teenshelter": "Teen Shelter",
-            "track": "Playground Track",
-            "trampoline": "Trampoline",
-            "tunnel_tube": "Tunnel Tube",
-            "water": "Water Device (unspecified)",
-            "water_barrier": "Water Barrier",
-            "water_basin": "Water Basin",
-            "water_cannon": "Water Cannon",
-            "water_channel": "Water Channel",
-            "water_seesaw": "Water Seesaw",
-            "water_sprayer": "Water Sprayer",
-            "water_stream": "Water Stream",
-            "water_wheel": "Water Wheel",
-            "wobble_bridge": "Wobble Bridge",
-            "youth_bench": "Youth Bench",
-            "zipwire": "Zipline / Zipwire"
-=======
             "swing": "Swing",
             "structure": "Playground Structure",
             "slide": "Slide",
@@ -1565,7 +1273,6 @@
             "sieve": "Sieve",
             "water_seesaw": "Water Seesaw",
             "sand_seesaw": "Sand Seesaw"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "plant": {
@@ -1577,12 +1284,9 @@
         "pipeline": {
           "label": "Type"
         },
-<<<<<<< HEAD
-=======
         "piercing": {
           "label": "Offers piercings"
         },
->>>>>>> c1d930ba9 (Check in build)
         "picnic_table": {
           "label": "Picnic Table",
           "terms": "bench,outdoor table"
@@ -1686,11 +1390,7 @@
             },
             "sheds": {
               "title": "Sheds",
-<<<<<<< HEAD
-              "description": "Private hangars for vehicles."
-=======
               "description": "Sheds for vehicle storage."
->>>>>>> c1d930ba9 (Check in build)
             },
             "layby": {
               "title": "Turnout / Lay-By",
@@ -1790,55 +1490,6 @@
         "office": {
           "label": "Type",
           "options": {
-<<<<<<< HEAD
-            "accountant": "Accountant Office",
-            "adoption_agency": "Adoption Agency",
-            "advertising_agency": "Advertising Agency",
-            "architect": "Architect Office",
-            "association": "Nonprofit Organization Office",
-            "charity": "Charity Office",
-            "company": "Corporate Office",
-            "construction_company": "Construction Company Office",
-            "consulting": "Consultancy Office",
-            "courier": "Courier Office",
-            "coworking": "Coworking Space",
-            "diplomatic": "Diplomatic Office",
-            "educational_institution": "Educational Institution",
-            "employment_agency": "Employment Agency",
-            "energy_supplier": "Energy Supplier Office",
-            "engineer": "Engineering Office",
-            "estate_agent": "Real Estate Office",
-            "financial": "Financial Office",
-            "financial_advisor": "Financial Advisor",
-            "forestry": "Forestry Office",
-            "foundation": "Foundation Office",
-            "government": "Government Office",
-            "graphic_design": "Graphic Design Office",
-            "guide": "Tour Guide Office",
-            "insurance": "Insurance Office",
-            "it": "Information Technology Office",
-            "lawyer": "Law Office",
-            "logistics": "Forwarding Agency",
-            "moving_company": "Moving Company Office",
-            "newspaper": "Newspaper Office",
-            "ngo": "NGO Office",
-            "notary": "Notary Office",
-            "physician": "Physician",
-            "political_party": "Political Party Office",
-            "private_investigator": "Private Investigator Office",
-            "property_management": "Property Management Office",
-            "quango": "Quasi-NGO Office",
-            "religion": "Religious Office",
-            "research": "Research Office",
-            "security": "Security Office",
-            "surveyor": "Surveyor Office",
-            "tax_advisor": "Tax Advisor Office",
-            "telecommunication": "Telecom Office",
-            "therapist": "Therapist Office",
-            "travel_agent": "Travel Agency",
-            "union": "Labor Union Office",
-            "water_utility": "Water Utility Office"
-=======
             "government": "Government Office",
             "company": "Corporate Office",
             "estate_agent": "Real Estate Office",
@@ -1886,7 +1537,6 @@
             "quango": "Quasi-NGO Office",
             "private_investigator": "Private Investigator Office",
             "adoption_agency": "Adoption Agency"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "nudism": {
@@ -2014,20 +1664,6 @@
         "memorial": {
           "label": "Type",
           "options": {
-<<<<<<< HEAD
-            "blue_plaque": "Blue Plaque",
-            "bust": "Bust",
-            "cross": "Memorial Cross",
-            "ghost_bike": "Ghost Bike",
-            "obelisk": "Obelisk",
-            "plaque": "Commemorative Plaque",
-            "sculpture": "Sculpture",
-            "statue": "Statue",
-            "stele": "Stele",
-            "stolperstein": "Stolperstein",
-            "stone": "Stone",
-            "war_memorial": "War Memorial"
-=======
             "plaque": "Commemorative Plaque",
             "war_memorial": "War Memorial",
             "stolperstein": "Stolperstein",
@@ -2040,21 +1676,17 @@
             "cross": "Memorial Cross",
             "blue_plaque": "Blue Plaque",
             "ghost_bike": "Ghost Bike"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "maxwidth": {
           "label": "Width Limit"
         },
-<<<<<<< HEAD
-=======
         "maxweightrating": {
           "label": "Maximum Vehicle Weight Rating"
         },
         "maxweight_general": {
           "label": "Weight Limit"
         },
->>>>>>> c1d930ba9 (Check in build)
         "maxweight_bridge": {},
         "maxweight": {
           "label": "Weight Limit"
@@ -2086,30 +1718,6 @@
         "material": {
           "label": "Material",
           "options": {
-<<<<<<< HEAD
-            "adobe": "Adobe",
-            "aluminium": "Aluminum",
-            "brass": "Brass",
-            "brick": "Brick",
-            "bronze": "Bronze",
-            "concrete": "Concrete",
-            "dry_stone": "Dry Stone",
-            "glass": "Glass",
-            "granite": "Granite",
-            "iron": "Iron",
-            "limestone": "Limestone",
-            "marble": "Marble",
-            "metal": "Metal",
-            "plastic": "Plastic",
-            "reinforced_concrete": "Reinforced Concrete",
-            "rock": "Rock",
-            "sand": "Sand",
-            "sandstone": "Sandstone",
-            "soil": "Soil, Earth",
-            "steel": "Steel",
-            "stone": "Stone",
-            "wood": "Wood"
-=======
             "wood": "Wood",
             "concrete": "Concrete",
             "metal": "Metal",
@@ -2132,7 +1740,6 @@
             "limestone": "Limestone",
             "adobe": "Adobe",
             "sand": "Sand"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "marker": {
@@ -2142,21 +1749,6 @@
               "title": "Aerial",
               "description": "Designed to be visible from the air."
             },
-<<<<<<< HEAD
-            "ground": {
-              "title": "Ground",
-              "description": "Flat marker laid in the ground."
-            },
-            "pedestal": {
-              "title": "Pedestal",
-              "description": "Raised marker mounted on a small base."
-            },
-            "plate": {
-              "title": "Plate",
-              "description": "Flat marker mounted directly on walls or similar."
-            },
-=======
->>>>>>> c1d930ba9 (Check in build)
             "post": {
               "title": "Post",
               "description": "Raised marker mounted on a small pole or mast."
@@ -2164,8 +1756,6 @@
             "stone": {
               "title": "Stone",
               "description": "Markings directly etched or painted on a stone."
-<<<<<<< HEAD
-=======
             },
             "plate": {
               "title": "Plate",
@@ -2178,7 +1768,6 @@
             "ground": {
               "title": "Ground",
               "description": "Flat marker laid in the ground."
->>>>>>> c1d930ba9 (Check in build)
             }
           }
         },
@@ -2412,12 +2001,9 @@
         "indoor_type": {
           "label": "Type"
         },
-<<<<<<< HEAD
-=======
         "indoor_seating": {
           "label": "Indoor Seating"
         },
->>>>>>> c1d930ba9 (Check in build)
         "indoor": {
           "label": "Indoor"
         },
@@ -2444,51 +2030,26 @@
         "house": {
           "label": "House Type",
           "options": {
-<<<<<<< HEAD
-            "bungalow": {
-              "title": "Bungalow",
-              "description": "A small house with a single storey"
-=======
             "terraced": {
               "title": "Single Townhouse",
               "description": "Individual house in a row of townhouses"
->>>>>>> c1d930ba9 (Check in build)
             },
             "detached": {
               "title": "Detached House",
               "description": "A house that is not connected to any other houses"
             },
-<<<<<<< HEAD
-            "link-detached": {
-              "title": "Link-Detached House",
-              "description": "A house that is connected to another house by a garage or other non-living area"
-            },
-            "maisonette": {
-              "title": "Maisonette",
-              "description": "A residential dwelling, split over two floors with private external entrances rather than a communal entrance"
-            },
-=======
->>>>>>> c1d930ba9 (Check in build)
             "semi-detached": {
               "title": "Semi-Detached House",
               "description": "A house that is attached to another house on one side"
             },
-<<<<<<< HEAD
-=======
             "bungalow": {
               "title": "Bungalow",
               "description": "A small house with a single storey"
             },
->>>>>>> c1d930ba9 (Check in build)
             "terrace": {
               "title": "Row of Townhouses",
               "description": "A row of houses that are attached to each other in a line (mapping each house as a separate area is preferred)"
             },
-<<<<<<< HEAD
-            "terraced": {
-              "title": "Single Townhouse",
-              "description": "Individual house in a row of townhouses"
-=======
             "maisonette": {
               "title": "Maisonette",
               "description": "A residential dwelling, split over two floors with private external entrances rather than a communal entrance"
@@ -2496,7 +2057,6 @@
             "link-detached": {
               "title": "Link-Detached House",
               "description": "A house that is connected to another house by a garage or other non-living area"
->>>>>>> c1d930ba9 (Check in build)
             }
           }
         },
@@ -2529,33 +2089,6 @@
         "historic": {
           "label": "Type",
           "options": {
-<<<<<<< HEAD
-            "archaeological_site": "Archaeological Site",
-            "bomb_crater": "Bomb Crater",
-            "boundary_stone": "Boundary Stone",
-            "building": "Historic Building",
-            "castle": "Castle",
-            "charcoal_pile": "Charcoal Pile",
-            "church": "Church",
-            "city_gate": "City Gate",
-            "citywalls": "Citywall",
-            "fort": "Historic Fort",
-            "manor": "Manor House",
-            "memorial": "Memorial",
-            "milestone": "Milestone",
-            "millstone": "Millstone",
-            "mine": "Mine",
-            "mine_shaft": "Mine Shaft",
-            "monument": "Monument",
-            "pillory": "Historic Pillory",
-            "railway": "Railway",
-            "ruins": "Ruins",
-            "shieling": "Shieling",
-            "tomb": "Tomb",
-            "wayside_cross": "Wayside Cross",
-            "wayside_shrine": "Wayside Shrine",
-            "wreck": "Shipwreck"
-=======
             "memorial": "Memorial",
             "wayside_cross": "Wayside Cross",
             "archaeological_site": "Archaeological Site",
@@ -2581,7 +2114,6 @@
             "wreck": "Shipwreck",
             "pillory": "Historic Pillory",
             "millstone": "Millstone"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "highway_cartpath": {
@@ -2614,34 +2146,6 @@
         "healthcare": {
           "label": "Type",
           "options": {
-<<<<<<< HEAD
-            "alternative": "Alternative Medicine",
-            "audiologist": "Audiologist",
-            "birthing_centre": "Birthing Center",
-            "blood_bank": "Blood Bank",
-            "blood_donation": "Blood Donation Center",
-            "clinic": "Clinic",
-            "community_health_worker": "Community Health Worker",
-            "counselling": "Counselling Center",
-            "dentist": "Dentist",
-            "dialysis": "Dialysis Center",
-            "doctor": "Doctor",
-            "hospice": "Hospice",
-            "hospital": "Hospital",
-            "laboratory": "Medical Laboratory",
-            "midwife": "Midwife",
-            "nurse": "Nurse",
-            "occupational_therapist": "Occupational Therapist",
-            "optometrist": "Optometrist",
-            "pharmacy": "Pharmacy",
-            "physiotherapist": "Physiotherapist",
-            "podiatrist": "Podiatrist",
-            "psychotherapist": "Psychotherapist",
-            "rehabilitation": "Rehabilitation Facility",
-            "sample_collection": "Sample Collection Facility",
-            "speech_therapist": "Speech Therapist",
-            "vaccination_centre": "Vaccination Center"
-=======
             "pharmacy": "Pharmacy",
             "doctor": "Doctor",
             "clinic": "Clinic",
@@ -2695,23 +2199,11 @@
             "horse_riders": "Horse Riders",
             "loose_gravel": "Loose Gravel",
             "frost_heave": "Frost Heave"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "hazard_boundary": {
           "label": "Hazard",
           "options": {
-<<<<<<< HEAD
-            "archery_range": "Arrows",
-            "avalanche": "Avalanche",
-            "biohazard": "Biohazard",
-            "contamination": "Chemical Contamination",
-            "electricity": "Electric Shock",
-            "shooting_range": "Gunfire",
-            "hole": "Hole",
-            "minefield": "Land Mines",
-            "nuclear": "Nuclear / Radioactive",
-=======
             "contamination": "Chemical Contamination",
             "shooting_range": "Gunfire",
             "hole": "Hole",
@@ -2721,7 +2213,6 @@
             "avalanche": "Avalanche",
             "archery_range": "Arrows",
             "biohazard": "Biohazard",
->>>>>>> c1d930ba9 (Check in build)
             "quicksand": "Quicksand"
           }
         },
@@ -2798,13 +2289,10 @@
         "footrest": {
           "label": "Footrest"
         },
-<<<<<<< HEAD
-=======
         "food": {
           "label": "Is food available?",
           "terms": "eating,food,meals,snacks"
         },
->>>>>>> c1d930ba9 (Check in build)
         "flood_prone": {
           "label": "Flood Prone"
         },
@@ -2970,17 +2458,6 @@
         "education": {
           "label": "Type",
           "options": {
-<<<<<<< HEAD
-            "college": "College",
-            "dancing_school": "Dancing School",
-            "driving_school": "Driving School",
-            "kindergarten": "Kindergarten",
-            "language_school": "Language School",
-            "music_school": "Music School",
-            "prep_school": "Test Prep / Tutoring School",
-            "school": "School",
-            "university": "University"
-=======
             "school": "School",
             "kindergarten": "Kindergarten",
             "university": "University",
@@ -2990,7 +2467,6 @@
             "music_school": "Music School",
             "prep_school": "Test Prep / Tutoring School",
             "dancing_school": "Dancing School"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "duration": {
@@ -3314,11 +2790,8 @@
             "argentinian": "Argentinian",
             "balkan": "Balkan",
             "bavarian": "Bavarian",
-<<<<<<< HEAD
-=======
             "british": "British",
             "ethiopian": "Ethiopian",
->>>>>>> c1d930ba9 (Check in build)
             "shawarma": "Shawarma",
             "persian": "Persian",
             "middle_eastern": "Middle Eastern",
@@ -3332,12 +2805,8 @@
             "hawaiian": "Hawaiian",
             "brunch": "Brunch",
             "udon": "Udon",
-<<<<<<< HEAD
-            "ukrainian": "Ukrainian"
-=======
             "ukrainian": "Ukrainian",
             "austrian": "Austrian"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "crossing_raised": {
@@ -3353,34 +2822,6 @@
         "crop": {
           "label": "Crops",
           "options": {
-<<<<<<< HEAD
-            "asparagus": "Asparagus",
-            "barley": "Barley",
-            "beet": "Beets",
-            "cassava": "Cassava",
-            "coffee": "Coffee",
-            "cotton": "Cotton",
-            "cranberries": "Cranberries",
-            "fast_growing_wood": "Short-Rotation Coppice",
-            "flowers": "Flowers",
-            "grape": "Grapes",
-            "grass": "Grass",
-            "hop": "Hops",
-            "lavender": "Lavender",
-            "maize": "Corn",
-            "potato": "Potatoes",
-            "rape": "Rapeseed",
-            "rice": "Rice",
-            "strawberry": "Strawberries",
-            "sugar_beet": "Sugar Beets",
-            "sugarcane": "Sugarcane",
-            "sunflower": "Sunflowers",
-            "soy": "Soybeans",
-            "tea": "Tea",
-            "tobacco": "Tobacco",
-            "vegetable": "Vegetables",
-            "wheat": "Wheat"
-=======
             "rice": "Rice",
             "grass": "Grass",
             "sugarcane": "Sugarcane",
@@ -3407,70 +2848,11 @@
             "potato": "Potatoes",
             "cassava": "Cassava",
             "grape": "Grapes"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "craft": {
           "label": "Type",
           "options": {
-<<<<<<< HEAD
-            "agricultural_engines": "Agricultural Engines Mechanic",
-            "basket_maker": "Basket Maker",
-            "beekeeper": "Beekeeper",
-            "blacksmith": "Blacksmith",
-            "boatbuilder": "Boat Builder",
-            "bookbinder": "Bookbinder",
-            "brewery": "Brewery",
-            "builder": "Builder",
-            "carpenter": "Carpenter",
-            "carpet_layer": "Carpet Layer",
-            "caterer": "Caterer",
-            "chimney_sweeper": "Chimney Sweeper",
-            "cleaning": "Cleaning Service",
-            "clockmaker": "Clockmaker",
-            "confectionery": "Candy Maker",
-            "distillery": "Distillery",
-            "dressmaker": "Dressmaker",
-            "electronics_repair": "Electronics Repair",
-            "electrician": "Electrician",
-            "floorer": "Floorer",
-            "gardener": "Gardener",
-            "glaziery": "Glaziery",
-            "grinding_mill": "Grinding Mill",
-            "handicraft": "Handicraft",
-            "hvac": "HVAC",
-            "insulation": "Insulator",
-            "jeweller": "Jeweller",
-            "joiner": "Joiner",
-            "key_cutter": "Key Cutter",
-            "locksmith": "Locksmith",
-            "metal_construction": "Metalworker",
-            "oil_mill": "Oil Mill",
-            "painter": "Painter",
-            "parquet_layer": "Parquet Layer",
-            "photographer": "Photographer",
-            "photographic_laboratory": "Photographic Laboratory",
-            "plasterer": "Plasterer",
-            "plumber": "Plumber",
-            "pottery": "Pottery Maker",
-            "rigger": "Rigger",
-            "roofer": "Roofer",
-            "saddler": "Saddler",
-            "sailmaker": "Sailmaker",
-            "sawmill": "Sawmill",
-            "scaffolder": "Scaffolder",
-            "sculptor": "Sculptor",
-            "shoemaker": "Shoemaker",
-            "signmaker": "Signmaker",
-            "stonemason": "Stonemason",
-            "tailor": "Tailor",
-            "tiler": "Tiler",
-            "tinsmith": "Tinsmith",
-            "upholsterer": "Upholsterer",
-            "watchmaker": "Watchmaker",
-            "window_construction": "Window Construction",
-            "winery": "Winery"
-=======
             "carpenter": "Carpenter",
             "electronics_repair": "Electronics Repair",
             "winery": "Winery",
@@ -3527,7 +2909,6 @@
             "sailmaker": "Sailmaker",
             "basket_maker": "Basket Maker",
             "rigger": "Rigger"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "covered_no": {
@@ -3565,9 +2946,6 @@
           }
         },
         "content": {
-<<<<<<< HEAD
-          "label": "Content"
-=======
           "label": "Content",
           "options": {
             "crop": "Crop",
@@ -3582,7 +2960,6 @@
             "water": "Water",
             "wine": "Wine"
           }
->>>>>>> c1d930ba9 (Check in build)
         },
         "consulting": {
           "label": "Expertise"
@@ -3643,26 +3020,6 @@
         "clothes": {
           "label": "Clothes",
           "options": {
-<<<<<<< HEAD
-            "babies": "Baby Clothing",
-            "children": "Children's Clothing",
-            "denim": "Jeans Clothing",
-            "fur": "Fur Clothing",
-            "hats": "Hats",
-            "maternity": "Maternity Clothing",
-            "men": "Men's Clothing",
-            "motorcycle": "Motorcycle Clothing",
-            "oversize": "Plus Size Clothing",
-            "socks": "Socks",
-            "sports": "Sportswear",
-            "suits": "Suits",
-            "swimwear": "Swimwear",
-            "traditional": "Traditional Garments / Folk Costumes",
-            "underwear": "Underwear",
-            "wedding": "Wedding Clothing",
-            "women": "Women's Clothing",
-            "workwear": "Workwear"
-=======
             "women": "Women's Clothing",
             "underwear": "Underwear",
             "men": "Men's Clothing",
@@ -3681,7 +3038,6 @@
             "motorcycle": "Motorcycle Clothing",
             "maternity": "Maternity Clothing",
             "socks": "Socks"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "circumference": {
@@ -3745,12 +3101,8 @@
         },
         "capacity": {
           "label": "Capacity",
-<<<<<<< HEAD
-          "placeholder": "50, 100, 200..."
-=======
           "terms": "people",
           "placeholder": "2, 20, 200..."
->>>>>>> c1d930ba9 (Check in build)
         },
         "canoe": {
           "label": "Canoe Access"
@@ -3804,80 +3156,13 @@
           "label": "Type"
         },
         "building_area_yes": {},
-<<<<<<< HEAD
-        "building_area": {},
-=======
         "building_area": {
           "label": "Building, if applicable"
         },
->>>>>>> c1d930ba9 (Check in build)
         "building": {
           "label": "Building",
           "terms": "structure",
           "options": {
-<<<<<<< HEAD
-            "allotment_house": "Allotment House",
-            "apartments": "Apartment Building",
-            "barn": "Barn",
-            "boathouse": "Boathouse",
-            "bungalow": "Bungalow",
-            "bunker": "Bunker",
-            "cabin": "Cabin",
-            "carport": "Carport",
-            "cathedral": "Cathedral Building",
-            "chapel": "Chapel Building",
-            "church": "Church Building",
-            "civic": "Civic Building",
-            "college": "College Building",
-            "commercial": "Commercial Building",
-            "construction": "Building Under Construction",
-            "cowshed": "Cowshed",
-            "detached": "Detached House",
-            "dormitory": "Dormitory",
-            "farm": "Farm House",
-            "farm_auxiliary": "Farm Building",
-            "fire_station": "Fire Station Building",
-            "garage": "Garage",
-            "garages": "Garages",
-            "ger": "Yurt",
-            "grandstand": "Grandstand",
-            "greenhouse": "Greenhouse",
-            "hangar": "Hangar Building",
-            "hospital": "Hospital Building",
-            "hotel": "Hotel Building",
-            "house": "House",
-            "houseboat": "Houseboat",
-            "hut": "Hut",
-            "industrial": "Industrial Building",
-            "kindergarten": "Preschool / Kindergarten Building",
-            "manufacture": "Industrial Production Building",
-            "mosque": "Mosque Building",
-            "office": "Office Building",
-            "outbuilding": "Outbuilding",
-            "pavilion": "Pavilion Building",
-            "public": "Public Building",
-            "residential": "Residential Building",
-            "retail": "Retail Building",
-            "riding_hall": "Horseback Riding Arena",
-            "roof": "Roof",
-            "ruins": "Building Ruins",
-            "school": "School Building",
-            "semidetached_house": "Semi-Detached House",
-            "service": "Service Building",
-            "shed": "Shed",
-            "stable": "Stable",
-            "stadium": "Stadium Building",
-            "static_caravan": "Mobile Home",
-            "sty": "Pigsty",
-            "synagogue": "Synagogue Building",
-            "temple": "Temple Building",
-            "terrace": "Row Houses",
-            "train_station": "Train Station Building",
-            "transportation": "Transportation Building",
-            "university": "University Building",
-            "warehouse": "Warehouse",
-            "container": "Container"
-=======
             "yes": "Unspecified Building Type",
             "house": "House",
             "residential": "Residential Building",
@@ -3942,22 +3227,11 @@
             "riding_hall": "Horseback Riding Arena",
             "barracks": "Barracks Building",
             "synagogue": "Synagogue Building"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "bridge_combo": {
           "label": "Type",
           "options": {
-<<<<<<< HEAD
-            "aqueduct": "Aqueduct",
-            "boardwalk": "Boardwalk",
-            "cantilever": "Cantilever Bridge",
-            "covered": "Covered Bridge",
-            "low_water_crossing": "Low Water Crossing",
-            "movable": "Movable Bridge",
-            "trestle": "Trestle Bridge",
-            "viaduct": "Viaduct"
-=======
             "viaduct": "Viaduct",
             "boardwalk": "Boardwalk",
             "aqueduct": "Aqueduct",
@@ -3966,7 +3240,6 @@
             "cantilever": "Cantilever Bridge",
             "covered": "Covered Bridge",
             "trestle": "Trestle Bridge"
->>>>>>> c1d930ba9 (Check in build)
           }
         },
         "bridge": {
@@ -3974,11 +3247,7 @@
           "placeholder": "Default"
         },
         "brewery": {
-<<<<<<< HEAD
-          "label": "Sold Beer brands",
-=======
           "label": "Sold Beer Brands",
->>>>>>> c1d930ba9 (Check in build)
           "terms": "beer brand,beer dispensing,bottled beer,draft beer,on tap,tap beer"
         },
         "brand": {
@@ -4300,13 +3569,10 @@
         "address": {
           "label": "Address",
           "terms": "location",
-<<<<<<< HEAD
-=======
           "labels": {
             "conscriptionnumber": "Conscription Number",
             "housenumber": "House Number"
           },
->>>>>>> c1d930ba9 (Check in build)
           "placeholders": {
             "block_number": "Block Number",
             "block_number!jp": "Block No.",
@@ -4321,20 +3587,13 @@
             "district": "District",
             "district!cn": "District/County/Banner",
             "district!vn": "Arrondissement/Town/District",
-<<<<<<< HEAD
-=======
             "door": "Door Number",
->>>>>>> c1d930ba9 (Check in build)
             "floor": "Floor",
             "hamlet": "Hamlet",
             "housename": "Housename",
             "housenumber": "123",
             "housenumber!jp": "Building No./Lot No.",
-<<<<<<< HEAD
-            "neighbourhood": "Neighbourhood",
-=======
             "neighbourhood": "Neighborhood",
->>>>>>> c1d930ba9 (Check in build)
             "neighbourhood!jp": "Machi/Chōme/Aza/Koaza",
             "place": "Place",
             "postcode": "Postcode",
@@ -4628,10 +3887,7 @@
           "options": {
             "camera": "Camera",
             "guard": "Guard",
-<<<<<<< HEAD
-=======
             "gunshot_detector": "Gunshot Detector",
->>>>>>> c1d930ba9 (Check in build)
             "ALPR": "Automatic License Plate Reader"
           }
         },
@@ -4654,12 +3910,9 @@
         "sport/sport_ice": {
           "label": "Sports"
         },
-<<<<<<< HEAD
-=======
         "sport/sport_bowling": {
           "label": "Sports"
         },
->>>>>>> c1d930ba9 (Check in build)
         "species/wikidata": {
           "label": "Species Wikidata"
         },
@@ -5419,9 +4672,6 @@
           "label": "Flag Wikidata"
         },
         "flag/type": {
-<<<<<<< HEAD
-          "label": "Flag Type"
-=======
           "label": "Flag Type",
           "options": {
             "advertising": "Advertising",
@@ -5436,7 +4686,6 @@
             "national": "National",
             "regional": "Regional"
           }
->>>>>>> c1d930ba9 (Check in build)
         },
         "flag/name": {
           "label": "Flag Name"
@@ -5490,12 +4739,9 @@
         "disused/amenity": {
           "label": "Type"
         },
-<<<<<<< HEAD
-=======
         "disused/aeroway": {
           "label": "Type"
         },
->>>>>>> c1d930ba9 (Check in build)
         "diplomatic/services": {
           "label": "Services"
         },
@@ -5541,16 +4787,12 @@
           "label": "Lights"
         },
         "crossing/island": {
-<<<<<<< HEAD
-          "label": "Refuge Island"
-=======
           "label": "Refuge Island",
           "options": {
             "undefined": "Assumed to be No",
             "yes": "Yes",
             "no": "No"
           }
->>>>>>> c1d930ba9 (Check in build)
         },
         "crossing/bell": {
           "label": "Bell"
@@ -5579,13 +4821,10 @@
           "label": "Webcam URL",
           "placeholder": "http://example.com/"
         },
-<<<<<<< HEAD
-=======
         "contact/instagram": {
           "label": "Instagram account name or URL",
           "placeholder": "https://www.instagram.com/openstreetmap/"
         },
->>>>>>> c1d930ba9 (Check in build)
         "contact/facebook": {
           "label": "Facebook Username or URL",
           "placeholder": "https://www.facebook.com/LocalBusiness"
@@ -5740,25 +4979,12 @@
           "options": {
             "entry": "Entry",
             "exit": "Exit",
-<<<<<<< HEAD
-            "both": "Both"
-          }
-        },
-        "aerialway/summer/access": {
-          "label": "Access (summer)",
-          "options": {
-            "entry": "Entry",
-            "exit": "Exit",
-            "both": "Both"
-          }
-=======
             "both": "Both",
             "no": "Neither"
           }
         },
         "aerialway/summer/access": {
           "label": "Access (summer)"
->>>>>>> c1d930ba9 (Check in build)
         },
         "addr/interpolation": {
           "label": "Type",
@@ -5797,12 +5023,9 @@
           "name": "Point",
           "terms": "node,other,vertex,vertices"
         },
-<<<<<<< HEAD
-=======
         "playground": {
           "name": "Playground Equipment"
         },
->>>>>>> c1d930ba9 (Check in build)
         "office": {
           "name": "Office",
           "terms": "administration"
@@ -5884,12 +5107,6 @@
         "power": {
           "name": "Power Feature"
         },
-<<<<<<< HEAD
-        "playground": {
-          "name": "Playground Equipment"
-        },
-=======
->>>>>>> c1d930ba9 (Check in build)
         "place": {
           "name": "Place"
         },
@@ -5994,11 +5211,7 @@
         },
         "waterway/dock": {
           "name": "Wet Dock / Dry Dock",
-<<<<<<< HEAD
-          "terms": "boat,marine,ship,vessel"
-=======
           "terms": "boat,floating dock,floating dry dock,marine,ship,vessel"
->>>>>>> c1d930ba9 (Check in build)
         },
         "waterway/ditch": {
           "name": "Ditch"
@@ -6084,11 +5297,7 @@
           "name": "Power Route"
         },
         "type/route/piste": {
-<<<<<<< HEAD
-          "name": "Piste/Ski Route"
-=======
           "name": "Piste / Ski Route"
->>>>>>> c1d930ba9 (Check in build)
         },
         "type/route/pipeline": {
           "name": "Pipeline Route"
@@ -6131,12 +5340,8 @@
           "name": "Bicycle Route"
         },
         "type/route/aerialway": {
-<<<<<<< HEAD
-          "name": "Aerial Route"
-=======
           "name": "Aerial Route",
           "terms": "aerialway"
->>>>>>> c1d930ba9 (Check in build)
         },
         "type/restriction/only_u_turn": {
           "name": "U-Turn Only"
@@ -6169,13 +5374,10 @@
           "name": "Speed Limit Enforcement",
           "terms": "maxspeed,radar,speed camera"
         },
-<<<<<<< HEAD
-=======
         "type/boundary/protected_area": {
           "name": "Protected Area",
           "terms": "conservation,heritage,national park,nature,protection,wilderness,wildlife"
         },
->>>>>>> c1d930ba9 (Check in build)
         "type/boundary/administrative": {
           "name": "Administrative Boundary"
         },
@@ -6194,45 +5396,6 @@
         },
         "traffic_calming/table": {
           "name": "Speed Table",
-<<<<<<< HEAD
-          "terms": "flat top,hump,slow,speed"
-        },
-        "traffic_calming/rumble_strip": {
-          "name": "Rumble Strip",
-          "terms": "audible lines,growlers,sleeper lines"
-        },
-        "traffic_calming/mini_bumps": {
-          "name": "Mini Speed Bumps",
-          "terms": "bumps,circular bumps,circular speed bumps,slow,small bumps,small speed bumps,speed"
-        },
-        "traffic_calming/island": {
-          "name": "Traffic Calming Island",
-          "terms": "circle,roundabout,slow"
-        },
-        "traffic_calming/hump": {
-          "name": "Speed Hump",
-          "terms": "bump,slow,speed"
-        },
-        "traffic_calming/dip": {
-          "name": "Dip",
-          "terms": "slow,speed"
-        },
-        "traffic_calming/cushion": {
-          "name": "Speed Cushion",
-          "terms": "bump,hump,slow,speed"
-        },
-        "traffic_calming/choker": {
-          "name": "Traffic Choker",
-          "terms": "slow,speed"
-        },
-        "traffic_calming/chicane": {
-          "name": "Traffic Chicane",
-          "terms": "driveway link,slow,speed"
-        },
-        "traffic_calming/bump": {
-          "name": "Speed Bump",
-          "terms": "hump,slow,speed"
-=======
           "terms": "flat top,hump,slow,speed,traffic calming"
         },
         "traffic_calming/rumble_strip": {
@@ -6270,7 +5433,6 @@
         "traffic_calming/bump": {
           "name": "Speed Bump",
           "terms": "hump,slow,speed,traffic calming"
->>>>>>> c1d930ba9 (Check in build)
         },
         "traffic_calming/yes": {
           "name": "Traffic Calming (Unspecified Type)"
@@ -6286,11 +5448,7 @@
         },
         "tourism/viewpoint": {
           "name": "Viewpoint",
-<<<<<<< HEAD
-          "terms": "lookout"
-=======
           "terms": "lookout,overlook,scenery,scenic,vantage point,vista"
->>>>>>> c1d930ba9 (Check in build)
         },
         "tourism/trail_riding_station": {
           "name": "Trail Riding Station"
@@ -6305,11 +5463,7 @@
         },
         "tourism/museum": {
           "name": "Museum",
-<<<<<<< HEAD
-          "terms": "archaeological,archeological,art,cultural,excavation,exhibition,foundation,gallery,hall,history,institution,nature,painting,photograph,science,sculpture,technology"
-=======
           "terms": "archaeological,archeological,art,art museum,cultural,excavation,exhibition,foundation,gallery,hall,history,institution,nature,painting,photograph,science,sculpture,technology"
->>>>>>> c1d930ba9 (Check in build)
         },
         "tourism/motel": {
           "name": "Motel",
@@ -6320,17 +5474,6 @@
         },
         "tourism/hotel": {
           "name": "Hotel",
-<<<<<<< HEAD
-          "terms": "concierge,lodge,lodging,overnight accommodations"
-        },
-        "tourism/hostel": {
-          "name": "Hostel",
-          "terms": "bunk beds,dormitories,dorms,lodging,overnight accommodations"
-        },
-        "tourism/guest_house": {
-          "name": "Guest House",
-          "terms": "b & b,b and b,b&b,bed and breakfast,bnb,lodging,overnight accommodations"
-=======
           "terms": "concierge,inn,lodge,lodging,overnight accommodations,suite"
         },
         "tourism/hostel": {
@@ -6340,7 +5483,6 @@
         "tourism/guest_house": {
           "name": "Guest House",
           "terms": "airbnb,b & b,b and b,b&b,bed and breakfast,bnb,lodging,overnight accommodations"
->>>>>>> c1d930ba9 (Check in build)
         },
         "tourism/gallery": {
           "name": "Art Gallery",
@@ -6371,19 +5513,11 @@
         },
         "tourism/aquarium": {
           "name": "Aquarium",
-<<<<<<< HEAD
-          "terms": "fish,sea,water"
-        },
-        "tourism/apartment": {
-          "name": "Guest Apartment / Condo",
-          "terms": "bnb,holiday rental,lodging,overnight accommodations,vacation rental"
-=======
           "terms": "aquatic,fish,marine life,sea,sea life,water"
         },
         "tourism/apartment": {
           "name": "Guest Apartment / Condo",
           "terms": "airbnb,b & b,b and b,b&b,bed and breakfast,bnb,holiday rental,lodging,overnight accommodations,vacation rental"
->>>>>>> c1d930ba9 (Check in build)
         },
         "tourism/alpine_hut": {
           "name": "Mountain Lodge",
@@ -6419,11 +5553,7 @@
         },
         "tourism/information/office": {
           "name": "Tourist Information Office",
-<<<<<<< HEAD
-          "terms": "information office,tour guide,tourism office,tourist office,tourist information center,visitors center,visitors information center,welcome center"
-=======
           "terms": "information office,tour guide,tourism office,tourist information center,tourist office,visitors center,visitors information center,welcome center"
->>>>>>> c1d930ba9 (Check in build)
         },
         "tourism/information/map": {
           "name": "Map"
@@ -6498,11 +5628,7 @@
           "terms": "ammo,gun,knife,knives"
         },
         "shop/water_sports": {
-<<<<<<< HEAD
-          "name": "Watersport/Swim Shop"
-=======
           "name": "Watersport / Swim Shop"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/water": {
           "name": "Drinking Water Shop",
@@ -6536,11 +5662,7 @@
         },
         "shop/travel_agency": {
           "name": "Travel Agency",
-<<<<<<< HEAD
-          "terms": "cruises,flights,hotels,tickets,travel packages"
-=======
           "terms": "cruises,flights,holiday,hotels,tickets,tour operator,tours,travel packages,vacation"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/trade": {
           "name": "Trade Shop"
@@ -6573,11 +5695,7 @@
         },
         "shop/tattoo": {
           "name": "Tattoo Parlor",
-<<<<<<< HEAD
-          "terms": "ink"
-=======
           "terms": "ink,piercing"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/tailor": {
           "name": "Tailor",
@@ -6602,11 +5720,7 @@
         },
         "shop/sports": {
           "name": "Sporting Goods Store",
-<<<<<<< HEAD
-          "terms": "athletics,hobby"
-=======
           "terms": "athletics,fitness,hobby"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/spices": {
           "name": "Spice Shop",
@@ -6627,20 +5741,12 @@
         "shop/second_hand": {
           "name": "Thrift Store",
           "aliases": "Thrift Shop\nConsignment Store\nResale Shop\nSecondhand Shop",
-<<<<<<< HEAD
-          "terms": "resale,second-hand,used"
-        },
-        "shop/seafood": {
-          "name": "Seafood Shop",
-          "aliases": "Fishmonger"
-=======
           "terms": "preowned,resale,second-hand,used,vintage"
         },
         "shop/seafood": {
           "name": "Seafood Shop",
           "aliases": "Fishmonger",
           "terms": "fish"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/scuba_diving": {
           "name": "Scuba Diving Shop",
@@ -6651,11 +5757,7 @@
         },
         "shop/repair": {
           "name": "Repair Shop",
-<<<<<<< HEAD
-          "terms": "broken,fixit shop,mend,patch,refurbish,rehabilitate,tinker"
-=======
           "terms": "broken,fixit shop,maintenance,mend,patch,refurbish,rehabilitate,tinker"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/rental": {
           "name": "Rental Shop"
@@ -6664,11 +5766,7 @@
           "name": "Religious Store"
         },
         "shop/radiotechnics": {
-<<<<<<< HEAD
-          "name": "Radio/Electronic Component Store",
-=======
           "name": "Radio / Electronic Component Store",
->>>>>>> c1d930ba9 (Check in build)
           "terms": "antenna,transistor"
         },
         "shop/pyrotechnics": {
@@ -6687,12 +5785,9 @@
           "name": "Pottery Store",
           "terms": "ceramic,pot,vase"
         },
-<<<<<<< HEAD
-=======
         "shop/piercing": {
           "name": "Piercing Studio"
         },
->>>>>>> c1d930ba9 (Check in build)
         "shop/photo": {
           "name": "Photography Store",
           "terms": "camera,film,lens,photo"
@@ -6708,17 +5803,6 @@
         },
         "shop/perfumery": {
           "name": "Perfume Store",
-<<<<<<< HEAD
-          "terms": "cologne,fragrance,purfume"
-        },
-        "shop/pawnbroker": {
-          "name": "Pawnshop",
-          "aliases": "Pawnbroker\nPawn Shop"
-        },
-        "shop/pastry": {
-          "name": "Pastry Shop",
-          "terms": "cake shop,cakery,cookies,patisserie"
-=======
           "terms": "cologne,fragrance,perfume"
         },
         "shop/pawnbroker": {
@@ -6729,7 +5813,6 @@
         "shop/pastry": {
           "name": "Pastry Shop",
           "terms": "cake shop,cakery,chimney cake shop,cookies,patisserie"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/pasta": {
           "name": "Pasta Store",
@@ -6753,11 +5836,7 @@
         },
         "shop/optician": {
           "name": "Optician",
-<<<<<<< HEAD
-          "terms": "eye,glasses"
-=======
           "terms": "eye,glasses,spectacles"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/nuts": {
           "name": "Nuts Shop",
@@ -6769,11 +5848,7 @@
         },
         "shop/newsagent": {
           "name": "Newsstand",
-<<<<<<< HEAD
-          "aliases": "Newspaper/Magazine Shop"
-=======
           "aliases": "Newspaper / Magazine Shop"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/musical_instrument": {
           "name": "Musical Instrument Store",
@@ -6781,11 +5856,7 @@
         },
         "shop/music": {
           "name": "Music Store",
-<<<<<<< HEAD
-          "terms": "casette,casette store,cd store,cds,compact discs,hobby,tape cassettes,vinyl records"
-=======
           "terms": "casette,casette store,cd store,cds,compact discs,hobby,record store,tape cassettes,vinyl records"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/motorcycle_repair": {
           "name": "Motorcycle Repair Shop",
@@ -6806,18 +5877,11 @@
         },
         "shop/mobile_phone_accessories": {
           "name": "Mobile Phone Accessory Store",
-<<<<<<< HEAD
-          "terms": "phone case"
-        },
-        "shop/mobile_phone": {
-          "name": "Mobile Phone Store"
-=======
           "terms": "cell phone,phone case,smartphone"
         },
         "shop/mobile_phone": {
           "name": "Mobile Phone Store",
           "terms": "cell phone,smartphone"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/military_surplus": {
           "name": "Military Surplus Store",
@@ -6875,11 +5939,7 @@
         "shop/houseware": {
           "name": "Houseware Store",
           "aliases": "Household Goods Store",
-<<<<<<< HEAD
-          "terms": "home,kitchenware"
-=======
           "terms": "cookware,home,home goods,kitchenware"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/household_linen": {
           "name": "Household Linen Shop",
@@ -6890,11 +5950,7 @@
         },
         "shop/hifi": {
           "name": "Hifi Store",
-<<<<<<< HEAD
-          "terms": "audio,hi-fi,high fidelity,stereo,video"
-=======
           "terms": "audio,hi-fi,high fidelity,speakers,stereo,video"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/herbalist": {
           "name": "Herbalist",
@@ -6938,11 +5994,7 @@
         "shop/gift": {
           "name": "Gift Shop",
           "aliases": "Souvenir Shop",
-<<<<<<< HEAD
-          "terms": "tourist trap"
-=======
           "terms": "present,tourist trap"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/general": {
           "name": "General Store",
@@ -6963,11 +6015,7 @@
         },
         "shop/furniture": {
           "name": "Furniture Store",
-<<<<<<< HEAD
-          "terms": "chair,sofa,table"
-=======
           "terms": "chair,couch,interior,sofa,table"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/funeral_directors": {
           "name": "Funeral Home",
@@ -6975,12 +6023,8 @@
           "terms": "memorial home,mortuary,undertaker"
         },
         "shop/fuel": {
-<<<<<<< HEAD
-          "name": "Fuel Shop"
-=======
           "name": "Fuel Shop",
           "terms": "briquettes,coal,firewood,heating oil,kerosene,pellets"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/frozen_food": {
           "name": "Frozen Food Store"
@@ -6991,11 +6035,7 @@
         },
         "shop/florist": {
           "name": "Florist",
-<<<<<<< HEAD
-          "terms": "flower"
-=======
           "terms": "bouquet,flower,flowers"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/flooring": {
           "name": "Flooring Supply Shop",
@@ -7011,11 +6051,7 @@
         },
         "shop/fashion_accessories": {
           "name": "Fashion Accessories Store",
-<<<<<<< HEAD
-          "terms": "bag,cologne,fragrance,hat,jewellery,purfume,purse,scarf,sunglasses,umbrella,wallet,watch"
-=======
           "terms": "bag,cologne,fragrance,hat,jewelry,perfume,purse,scarf,sunglasses,umbrella,wallet,watch"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/farm": {
           "name": "Produce Stand",
@@ -7032,19 +6068,11 @@
         },
         "shop/erotic": {
           "name": "Erotic Store",
-<<<<<<< HEAD
-          "terms": "porn,sex"
-        },
-        "shop/electronics": {
-          "name": "Electronics Store",
-          "terms": "appliance,audio,blueray,camera,computer,dvd,home theater,radio,speaker,tv,video"
-=======
           "terms": "18+,porn,sex"
         },
         "shop/electronics": {
           "name": "Electronics Store",
           "terms": "appliance,audio,blueray,camera,computer,consumer electronics,dvd,gadgets,home theater,phone,radio,smartphone,speaker,tv,video"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/electrical": {
           "name": "Electrical Equipment Store",
@@ -7055,12 +6083,8 @@
           "terms": "ecigarette,electronic,vape,vaping,vapor"
         },
         "shop/dry_cleaning": {
-<<<<<<< HEAD
-          "name": "Dry Cleaner"
-=======
           "name": "Dry Cleaner",
           "terms": "dry cleaning"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/doors": {
           "name": "Door Shop"
@@ -7075,11 +6099,7 @@
         "shop/deli": {
           "name": "Delicatessen",
           "aliases": "Specialty Food Store\nGourmet Food Store\nFine Food Store\nGourmet Food Shop",
-<<<<<<< HEAD
-          "terms": "deli"
-=======
           "terms": "charcuterie,cold cuts,deli"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/dairy": {
           "name": "Dairy Store",
@@ -7125,12 +6145,8 @@
           "terms": "antiques,coins,collection,collectors,comics,dolls,figurines,hobby,numismatics,philately,stamps,thrift"
         },
         "shop/coffee": {
-<<<<<<< HEAD
-          "name": "Coffee Store"
-=======
           "name": "Coffee Store",
           "terms": "cafe,espresso,latte"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/clothes": {
           "name": "Clothing Store",
@@ -7138,11 +6154,7 @@
         },
         "shop/chocolate": {
           "name": "Chocolate Store",
-<<<<<<< HEAD
-          "terms": "cocoa"
-=======
           "terms": "cocoa,confectionery"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/chemist": {
           "name": "Drugstore",
@@ -7178,11 +6190,7 @@
         "shop/car": {
           "name": "Car Dealership",
           "aliases": "Car Dealer",
-<<<<<<< HEAD
-          "terms": "automobile,automotive"
-=======
           "terms": "automobile,automotive,vehicle"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/cannabis": {
           "name": "Cannabis Shop",
@@ -7222,22 +6230,14 @@
         "shop/bicycle": {
           "name": "Bicycle Shop",
           "aliases": "Bike Shop",
-<<<<<<< HEAD
-          "terms": "bicycle store,bike,bike store,hobby,repair,tricycle,unicycle"
-=======
           "terms": "bicycle store,bike,bike parts,bike store,hobby,repair,tricycle,unicycle"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/beverages": {
           "name": "Beverage Store",
           "terms": "drinks"
         },
         "shop/bed": {
-<<<<<<< HEAD
-          "name": "Bedding/Mattress Store",
-=======
           "name": "Bedding / Mattress Store",
->>>>>>> c1d930ba9 (Check in build)
           "terms": "bed,duvet,mattress,pillow"
         },
         "shop/beauty": {
@@ -7249,20 +6249,6 @@
           "terms": "barbecue,barbeque,bbq,grill"
         },
         "shop/bathroom_furnishing": {
-<<<<<<< HEAD
-          "name": "Bathroom Furnishing Store"
-        },
-        "shop/bakery": {
-          "name": "Bakery",
-          "terms": "bread,cakes,rolls"
-        },
-        "shop/bag": {
-          "name": "Bag/Luggage Store",
-          "terms": "handbag,purse"
-        },
-        "shop/baby_goods": {
-          "name": "Baby Goods Store"
-=======
           "name": "Bathroom Furnishing Store",
           "terms": "bathroom fixtures"
         },
@@ -7277,7 +6263,6 @@
         "shop/baby_goods": {
           "name": "Baby Goods Store",
           "terms": "infant,newborn,toddler"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/art": {
           "name": "Art Store",
@@ -7289,12 +6274,8 @@
         },
         "shop/antiques": {
           "name": "Antique Shop",
-<<<<<<< HEAD
-          "aliases": "Antique Store\nAntiques Shop\nAntiques Store"
-=======
           "aliases": "Antique Store\nAntiques Shop\nAntiques Store",
           "terms": "old,vintage"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/anime": {
           "name": "Anime / Manga Shop",
@@ -7315,10 +6296,7 @@
           "name": "Vacant Shop",
           "terms": "empty"
         },
-<<<<<<< HEAD
-=======
         "shop/ice_cream": {},
->>>>>>> c1d930ba9 (Check in build)
         "shop/hobby": {
           "name": "Hobby Shop"
         },
@@ -7343,11 +6321,7 @@
         },
         "shop/erotic/lgbtq": {
           "name": "LGBTQ+ Erotic Store",
-<<<<<<< HEAD
-          "terms": "porn,sex"
-=======
           "terms": "18+,porn,sex"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/clothes/workwear": {
           "name": "Workwear Store",
@@ -7367,11 +6341,7 @@
         },
         "shop/clothes/second_hand": {
           "name": "Secondhand Clothing Store",
-<<<<<<< HEAD
-          "terms": "blouses,clothes,consignment,dresses,pants,second hand,shirts,shorts,skirts,slacks,suits,used"
-=======
           "terms": "blouses,clothes,consignment,dresses,pants,preowned,second hand,shirts,shorts,skirts,slacks,suits,used,vintage"
->>>>>>> c1d930ba9 (Check in build)
         },
         "shop/car/second_hand": {
           "name": "Used Car Dealership",
@@ -7383,11 +6353,7 @@
         },
         "shop/beauty/nails": {
           "name": "Nail Salon",
-<<<<<<< HEAD
-          "terms": "manicure,pedicure"
-=======
           "terms": "manicure,nails,pedicure"
->>>>>>> c1d930ba9 (Check in build)
         },
         "seamark/mooring": {
           "name": "Mooring",
@@ -7532,11 +6498,7 @@
           "terms": "buffer,halt,stop"
         },
         "railway/abandoned": {
-<<<<<<< HEAD
-          "name": "Abandoned Railway",
-=======
           "name": "Visible Railway Track Remnants",
->>>>>>> c1d930ba9 (Check in build)
           "terms": "abandoned railroad,former train tracks,train right-of-way"
         },
         "railway/tram_stop": {
@@ -7800,11 +6762,7 @@
           "name": "Coal-Fired Power Plant",
           "terms": "carbon,coalfired,combustion,fossil fuel,power station"
         },
-<<<<<<< HEAD
-        "power/plant/source/method/photovoltaic": {
-=======
         "power/plant/source/solar/photovoltaic": {
->>>>>>> c1d930ba9 (Check in build)
           "name": "Solar Farm",
           "terms": "photovoltaic power station,solar panels,solar park,utility-scale solar"
         },
@@ -8159,11 +7117,7 @@
         },
         "office/estate_agent": {
           "name": "Real Estate Office",
-<<<<<<< HEAD
-          "terms": "real estate"
-=======
           "terms": "estate agent,real estate,real estate agent"
->>>>>>> c1d930ba9 (Check in build)
         },
         "office/engineer": {
           "name": "Engineering Office",
@@ -8419,13 +7373,10 @@
           "name": "Bare Rock",
           "terms": "rock"
         },
-<<<<<<< HEAD
-=======
         "natural/arete": {
           "name": "Arête",
           "terms": "mountains,ridge"
         },
->>>>>>> c1d930ba9 (Check in build)
         "natural/arch": {
           "name": "Natural Arch",
           "terms": "natural bridge,rock arch"
@@ -8638,11 +7589,7 @@
         },
         "man_made/silo": {
           "name": "Silo",
-<<<<<<< HEAD
-          "terms": "corn,grain,wheat"
-=======
           "terms": "corn,grain,grain elevator,wheat"
->>>>>>> c1d930ba9 (Check in build)
         },
         "man_made/satellite_dish": {
           "name": "Satellite Dish",
@@ -8683,11 +7630,7 @@
         },
         "man_made/monitoring_station": {
           "name": "Monitoring Station",
-<<<<<<< HEAD
-          "terms": "air,bicycle counter,bike counter,earthquake,gps,measurement station,seismology,traffic counter,water level,weather"
-=======
           "terms": "air,bicycle counter,bike counter,earthquake,gps,measurement station,seismology,traffic counter,water level,weather,weather station"
->>>>>>> c1d930ba9 (Check in build)
         },
         "man_made/mineshaft": {
           "name": "Mineshaft",
@@ -8720,14 +7663,11 @@
           "name": "Goods Conveyor",
           "terms": "belt conveyor,chain conveyor,conveyor belt,roller conveyor"
         },
-<<<<<<< HEAD
-=======
         "man_made/geoglyph_multilinestring": {},
         "man_made/geoglyph": {
           "name": "Geoglyph",
           "terms": "earthwork,hill figure,land art"
         },
->>>>>>> c1d930ba9 (Check in build)
         "man_made/gasometer": {
           "name": "Gasometer",
           "terms": "gas holder"
@@ -8993,13 +7933,10 @@
           "name": "Natural Swimming Area",
           "terms": "aquatics,dive,water"
         },
-<<<<<<< HEAD
-=======
         "leisure/summer_camp": {
           "name": "Summer Camp",
           "terms": "children,holidays,leisure,vacations,youth"
         },
->>>>>>> c1d930ba9 (Check in build)
         "leisure/stadium": {
           "name": "Stadium"
         },
@@ -9321,11 +8258,7 @@
         "leisure/pitch/equestrian": {
           "name": "Horseback Riding / Rodeo Arena",
           "aliases": "Horseback Riding Ring",
-<<<<<<< HEAD
-          "terms": "arena,dressage,dressage arena,dressage ring,equestrian arena,horse,horse riding,horse riding ring,horseback,horseback riding,horseback riding arena,jumping arena,jumping ring,longeing,pen,polo,riding,riding ring,ring,rodeo,round pen"
-=======
           "terms": "arena,dressage,dressage arena,dressage ring,equestrian arena,horse,horse exercising,horse riding,horse riding ring,horse training,horseback,horseback riding,horseback riding arena,jumping arena,jumping ring,longeing,pen,polo,riding,riding ring,ring,rodeo,round pen"
->>>>>>> c1d930ba9 (Check in build)
         },
         "leisure/pitch/cricket": {
           "name": "Cricket Field",
@@ -9339,11 +8272,6 @@
           "name": "Bowling Green"
         },
         "leisure/pitch/boules": {
-<<<<<<< HEAD
-          "name": "Boules/Bocce Court",
-          "terms": "bocce,lyonnaise,pétanque"
-        },
-=======
           "name": "Boules / Bocce Court",
           "terms": "bocce,lyonnaise,pétanque"
         },
@@ -9351,7 +8279,6 @@
           "name": "Biathlon Range",
           "terms": "biathlon firing range,biathlon shooting gallery,biathlon shooting range"
         },
->>>>>>> c1d930ba9 (Check in build)
         "leisure/pitch/beachvolleyball": {
           "name": "Beach Volleyball Court",
           "terms": "volleyball"
@@ -9404,11 +8331,7 @@
           "name": "Javelin Sector"
         },
         "leisure/pitch/athletics/high_jump": {
-<<<<<<< HEAD
-          "name": "High Jump Pit"
-=======
           "name": "High Jump Area"
->>>>>>> c1d930ba9 (Check in build)
         },
         "leisure/pitch/athletics/hammer_throw": {
           "name": "Hammer Throw Ring / Sector",
@@ -9784,12 +8707,8 @@
           "name": "Boundary Stone"
         },
         "historic/archaeological_site": {
-<<<<<<< HEAD
-          "name": "Archaeological Site"
-=======
           "name": "Archaeological Site",
           "terms": "archaeology,crop mark,cropmark,dig,excavation,remains"
->>>>>>> c1d930ba9 (Check in build)
         },
         "historic/aircraft": {
           "name": "Historic Aircraft",
@@ -9818,11 +8737,7 @@
           "terms": "citadel,military"
         },
         "highway/unclassified": {
-<<<<<<< HEAD
-          "name": "Minor/Unclassified Road",
-=======
           "name": "Minor / Unclassified Road",
->>>>>>> c1d930ba9 (Check in build)
           "terms": "road,street"
         },
         "highway/turning_loop": {
@@ -9978,13 +8893,10 @@
         "highway/ladder": {
           "name": "Ladder"
         },
-<<<<<<< HEAD
-=======
         "highway/hitchhiking": {
           "name": "Signed Hitchhiking Place",
           "terms": "hitchhiking,thumbing"
         },
->>>>>>> c1d930ba9 (Check in build)
         "highway/give_way": {
           "name": "Yield Sign",
           "terms": "give way,sign,yield"
@@ -10049,10 +8961,7 @@
           "terms": "bridleway,equestrian,horse,trail"
         },
         "highway/traffic_sign": {},
-<<<<<<< HEAD
-=======
         "highway/raceway_unspecific": {},
->>>>>>> c1d930ba9 (Check in build)
         "highway/bus_stop": {
           "name": "Bus Stop"
         },
@@ -10166,11 +9075,7 @@
         },
         "highway/cycleway/bicycle_foot": {
           "name": "Cycle & Foot Path",
-<<<<<<< HEAD
-          "terms": "bicycle and foot path,bike and pedestrian path,green way,greenway,mixed-use trail,multi-use trail,rail trail,segregated trail,shared path,shared use path"
-=======
           "terms": "bicycle and foot path,bike and pedestrian path,green way,greenway,mixed-use trail,multi-use path,multi-use trail,rail trail,segregated trail,shared path,shared use path"
->>>>>>> c1d930ba9 (Check in build)
         },
         "highway/cycleway/crossing": {
           "name": "Cycle & Foot Crossing",
@@ -10257,12 +9162,8 @@
           "terms": "illness,terminal"
         },
         "healthcare/counselling": {
-<<<<<<< HEAD
-          "name": "Counselling Center"
-=======
           "name": "Counselling Center",
           "terms": "sex therapist"
->>>>>>> c1d930ba9 (Check in build)
         },
         "healthcare/blood_donation": {
           "name": "Blood Donor Center",
@@ -10511,12 +9412,9 @@
         "disused/amenity": {
           "name": "Disused Amenity"
         },
-<<<<<<< HEAD
-=======
         "disused/aeroway": {
           "name": "Disused Aeroway Feature"
         },
->>>>>>> c1d930ba9 (Check in build)
         "disc_golf/tee": {
           "name": "Disc Golf Tee",
           "terms": "tee box,teeing ground"
@@ -10594,11 +9492,7 @@
         },
         "craft/plumber": {
           "name": "Plumber",
-<<<<<<< HEAD
-          "terms": "pipe"
-=======
           "terms": "pipe,plumbing"
->>>>>>> c1d930ba9 (Check in build)
         },
         "craft/plasterer": {
           "name": "Plasterer"
@@ -10859,12 +9753,8 @@
           "name": "Hangar Building"
         },
         "building/greenhouse": {
-<<<<<<< HEAD
-          "name": "Greenhouse"
-=======
           "name": "Greenhouse",
           "terms": "glass house,glasshouse"
->>>>>>> c1d930ba9 (Check in build)
         },
         "building/grandstand": {
           "name": "Grandstand",
@@ -10956,14 +9846,9 @@
         "building/manufacture": {
           "name": "Industrial Production Building"
         },
-<<<<<<< HEAD
-        "building/entrance": {
-          "name": "Entrance/Exit"
-=======
         "building/glasshouse": {},
         "building/entrance": {
           "name": "Entrance / Exit"
->>>>>>> c1d930ba9 (Check in build)
         },
         "building/bunker": {
           "name": "Bunker"
@@ -11028,11 +9913,7 @@
         },
         "barrier/log": {
           "name": "Fallen Tree Obstruction",
-<<<<<<< HEAD
-          "terms": "downed tree"
-=======
           "terms": "downed tree,log"
->>>>>>> c1d930ba9 (Check in build)
         },
         "barrier/lift_gate": {
           "name": "Boom Barrier",
@@ -11236,25 +10117,18 @@
           "name": "Traffic Island Area",
           "terms": "refuge island,traffic island"
         },
-<<<<<<< HEAD
-=======
         "animal/horse_walker": {
           "name": "Horse Walker",
           "aliases": "Horse Exerciser",
           "terms": "horse training"
         },
->>>>>>> c1d930ba9 (Check in build)
         "amenity/weighbridge": {
           "name": "Truck Scale",
           "terms": "weigh station,weighbridge"
         },
         "amenity/watering_place": {
-<<<<<<< HEAD
-          "name": "Animal Watering Place"
-=======
           "name": "Animal Watering Place",
           "terms": "livestock water,trough"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/water_point": {
           "name": "RV Drinking Water",
@@ -11297,13 +10171,10 @@
           "name": "Cart Corral",
           "terms": "carriage return,cart return,shopping cart,trolley bay"
         },
-<<<<<<< HEAD
-=======
         "amenity/traffic_park": {
           "name": "Traffic Park",
           "terms": "bicycle safety centre,children's traffic park,learn to ride centre,traffic garden,traffic playground"
         },
->>>>>>> c1d930ba9 (Check in build)
         "amenity/toy_library": {
           "name": "Toy Library",
           "terms": "game,toy"
@@ -11315,11 +10186,7 @@
         "amenity/toilets": {
           "name": "Restroom",
           "aliases": "Toilets\nBathroom\nLavatory",
-<<<<<<< HEAD
-          "terms": "head,latrine,outhouse,privy,public restroom,public toilet,water closet,w.c.,wc"
-=======
           "terms": "head,latrine,outhouse,privy,public restroom,public toilet,w.c.,water closet,wc"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/ticket_validator": {
           "name": "Ticket Validator",
@@ -11341,17 +10208,6 @@
         "amenity/swingerclub": {
           "name": "Swinger Club",
           "aliases": "Sex Club",
-<<<<<<< HEAD
-          "terms": "adult*,lifestyle club,porn*,sex,strip*,swinger*"
-        },
-        "amenity/studio": {
-          "name": "Studio",
-          "terms": "radio,recording,television"
-        },
-        "amenity/stripclub": {
-          "name": "Strip club",
-          "terms": "adult*,cabaret,gentlemen*,lap dance,strip*"
-=======
           "terms": "18+,adult,lifestyle club,porn,sex,strip,swinger"
         },
         "amenity/studio": {
@@ -11361,7 +10217,6 @@
         "amenity/stripclub": {
           "name": "Strip club",
           "terms": "18+,adult,cabaret,gentlemen,lap dance,porn,sex,strip,striptease"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/social_facility": {
           "name": "Social Facility",
@@ -11369,11 +10224,7 @@
         },
         "amenity/social_centre": {
           "name": "Social Center",
-<<<<<<< HEAD
-          "terms": "event,fraternal,fraternity,hall,organization,professional,society,sorority,union,vetern"
-=======
           "terms": "community center,community hall,event,fraternal,fraternity,hall,organization,professional,society,sorority,union,vetern"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/smoking_area": {
           "name": "Smoking Area",
@@ -11385,11 +10236,7 @@
         },
         "amenity/shelter": {
           "name": "Shelter",
-<<<<<<< HEAD
-          "terms": "gazebo,lean-to,picnic"
-=======
           "terms": "covered shelter,gazebo,lean-to,picnic"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/sanitary_dump_station": {
           "name": "RV Toilet Disposal",
@@ -11397,11 +10244,7 @@
         },
         "amenity/restaurant": {
           "name": "Restaurant",
-<<<<<<< HEAD
-          "terms": "bar,breakfast,cafe,café,canteen,coffee,dine,dining,dinner,drive-in,eat,grill,lunch,table"
-=======
           "terms": "bar,brasserie,breakfast,cafe,café,canteen,coffee,dine,dining,dinner,drive-in,eat,grill,lunch,table"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/research_institute": {
           "name": "Research Institute Grounds",
@@ -11414,19 +10257,11 @@
         "amenity/recycling_container": {
           "name": "Recycling Bin",
           "aliases": "Recycling Container",
-<<<<<<< HEAD
-          "terms": "bin,bottle,can,garbage,glass,rubbish,scrap,trash"
-        },
-        "amenity/recycling_centre": {
-          "name": "Recycling Center",
-          "terms": "bottle,can,dump,garbage,glass,rubbish,scrap,trash"
-=======
           "terms": "bin,bottle,can,garbage,glass,recycle,rubbish,scrap,trash"
         },
         "amenity/recycling_centre": {
           "name": "Recycling Center",
           "terms": "bottle,can,dump,garbage,glass,recycle,rubbish,scrap,trash"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/ranger_station": {
           "name": "Ranger Station",
@@ -11434,11 +10269,7 @@
         },
         "amenity/public_bookcase": {
           "name": "Public Bookcase",
-<<<<<<< HEAD
-          "terms": "book exchange shelf,book sharing,book swap,bookcrossing,library,little free library,share a book,sharing books"
-=======
           "terms": "book exchange shelf,book sharing,book swap,bookcrossing,community bookshelf,library,little free library,share a book,sharing books,sidewalk library,street library"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/public_bath": {
           "name": "Public Bath",
@@ -11446,17 +10277,6 @@
         },
         "amenity/pub": {
           "name": "Pub",
-<<<<<<< HEAD
-          "terms": "alcohol,beer,bier,booze,dive,drink"
-        },
-        "amenity/prison": {
-          "name": "Prison Grounds",
-          "terms": "cell,correction,jail"
-        },
-        "amenity/post_office": {
-          "name": "Post Office",
-          "terms": "letter,mail"
-=======
           "terms": "alcohol,bar,beer,bier,booze,dive,drink,tavern"
         },
         "amenity/prison": {
@@ -11466,7 +10286,6 @@
         "amenity/post_office": {
           "name": "Post Office",
           "terms": "letter,mail,package,parcel,postal service,shipping"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/post_depot": {
           "name": "Post Sorting Office",
@@ -11494,11 +10313,7 @@
         },
         "amenity/photo_booth": {
           "name": "Photo Booth",
-<<<<<<< HEAD
-          "terms": "booth,camera,kiosk,photo,photobooth"
-=======
           "terms": "booth,camera,kiosk,passport photos,photo,photobooth,picture booth"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/pharmacy": {
           "name": "Pharmacy Counter",
@@ -11506,11 +10321,7 @@
         },
         "amenity/payment_terminal": {
           "name": "Payment Terminal",
-<<<<<<< HEAD
-          "terms": "atm,bill pay,card,cash,ekiosk,finance,interactive kiosk,money transfer,phone pay,tax pay"
-=======
           "terms": "atm,bill pay,card,cash,ekiosk,finance,interactive kiosk,money transfer,payment kiosk,phone pay,tax pay"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/payment_centre": {
           "name": "Payment Center",
@@ -11556,24 +10367,16 @@
           "terms": "abbey,basilica,bethel,cathedral,chancel,chantry,chapel,church,fold,house of god,house of prayer,house of worship,minster,mission,monastery,mosque,oratory,parish,sacellum,sanctuary,shrine,synagogue,tabernacle,temple"
         },
         "amenity/marketplace": {
-<<<<<<< HEAD
-          "name": "Marketplace"
-=======
           "name": "Marketplace",
           "terms": "bazaar"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/luggage_locker": {
           "name": "Luggage Locker",
           "terms": "baggage,bags,locker,lockers,luggage,storage,travel"
         },
         "amenity/love_hotel": {
-<<<<<<< HEAD
-          "name": "Love Hotel"
-=======
           "name": "Love Hotel",
           "terms": "romantic hotel,short stay hotel"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/lounger": {
           "name": "Lounger",
@@ -11589,19 +10392,11 @@
         },
         "amenity/library": {
           "name": "Library",
-<<<<<<< HEAD
-          "terms": "book"
-        },
-        "amenity/letter_box": {
-          "name": "Letter Box",
-          "terms": "curbside delivery box,direct-to-door delivery box,home delivery box,letter hole,letter plate,letter slot,letterbox,letterhole,letterplate,letterslot,mail box,mail hole,mail slot,mailbox,mailhole,mailslot,through-door delivery box"
-=======
           "terms": "book,public library,reading"
         },
         "amenity/letter_box": {
           "name": "Letter Box",
           "terms": "curbside delivery box,direct-to-door delivery box,home delivery box,letter hole,letter plate,letter slot,letterbox,letterhole,letterplate,letterslot,mail box,mail hole,mail slot,mailbox,mailhole,mailslot,post box,through-door delivery box"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/lavoir": {
           "name": "Lavoir",
@@ -11612,11 +10407,6 @@
           "aliases": "Kneipp Water Cure",
           "terms": "foot bath,hydrotherapy,kneipp cure,kneipp hydrotherapy,kneippism"
         },
-<<<<<<< HEAD
-        "amenity/karaoke_box": {
-          "name": "Karaoke Box",
-          "terms": "karaoke club,karaoke room,karaoke television,ktv"
-=======
         "amenity/kitchen": {
           "name": "Communal Kitchen",
           "terms": "cooking,public kitchen,shared kitchen"
@@ -11624,7 +10414,6 @@
         "amenity/karaoke_box": {
           "name": "Karaoke Box",
           "terms": "karaoke club,karaoke room,karaoke television,ktv,sing along"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/internet_cafe": {
           "name": "Internet Cafe",
@@ -11632,11 +10421,7 @@
         },
         "amenity/ice_cream": {
           "name": "Ice Cream Shop",
-<<<<<<< HEAD
-          "terms": "frozen,gelato,sherbet,sorbet,yogurt"
-=======
           "terms": "froyo,frozen,gelato,sherbet,sorbet,sundae,yogurt"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/hunting_stand": {
           "name": "Hunting Stand",
@@ -11678,53 +10463,29 @@
         },
         "amenity/fountain": {
           "name": "Fountain",
-<<<<<<< HEAD
-          "terms": "basin,water"
-        },
-        "amenity/food_court": {
-          "name": "Food Court",
-          "terms": "fast food,food,restaurant"
-=======
           "terms": "basin,bubbler,water"
         },
         "amenity/food_court": {
           "name": "Food Court",
           "terms": "fast food,food,food hall,food plaza,restaurant"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/fire_station": {
           "name": "Fire Station",
           "aliases": "Fire House\nFire Hall",
-<<<<<<< HEAD
-          "terms": "fire fighters,firehouse"
-        },
-        "amenity/fast_food": {
-          "name": "Fast Food",
-          "terms": "restaurant,takeaway"
-=======
           "terms": "fire brigade,fire department,fire fighters,firehouse"
         },
         "amenity/fast_food": {
           "name": "Fast Food",
           "terms": "drive thru,drive-through,food truck,restaurant,takeaway,takeout"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/exhibition_centre": {
           "name": "Exposition Center",
           "aliases": "Exhibition Center",
-<<<<<<< HEAD
-          "terms": "expo,fair,trade exhibition,trade fair,trade show,tradeshow"
-        },
-        "amenity/events_venue": {
-          "name": "Events Venue",
-          "terms": "banquet hall,baptism,bar mitzvah,bat mitzvah,birthdays,celebrations,conferences,confirmation,meetings,parties,party,quinceañera,reunions,weddings"
-=======
           "terms": "convention center,expo,fair,trade exhibition,trade fair,trade show,tradeshow"
         },
         "amenity/events_venue": {
           "name": "Events Venue",
           "terms": "banquet hall,baptism,bar mitzvah,bat mitzvah,birthdays,celebrations,conferences,confirmation,conventions,event hall,meetings,parties,party,quinceañera,reunions,weddings"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/driver_training": {
           "name": "Driver Training Grounds",
@@ -11733,11 +10494,7 @@
         },
         "amenity/drinking_water": {
           "name": "Drinking Water",
-<<<<<<< HEAD
-          "terms": "bubbler,drinking fountain,potable water source,water fountain,water tap"
-=======
           "terms": "bubbler,drinking fountain,potable water source,water fountain,water refill,water tap"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/dressing_room": {
           "name": "Changing Room",
@@ -11753,11 +10510,7 @@
         },
         "amenity/doctors": {
           "name": "Doctor",
-<<<<<<< HEAD
-          "terms": "medic,medical doctor,physician"
-=======
           "terms": "general practitioner,medic,medical doctor,physician"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/dive_centre": {
           "name": "Dive Center",
@@ -11765,31 +10518,19 @@
         },
         "amenity/device_charging_station": {
           "name": "Device Charging Station",
-<<<<<<< HEAD
-          "terms": "charger,plug,usb"
-        },
-        "amenity/dentist": {
-          "name": "Dentist",
-          "terms": "teeth,tooth"
-=======
           "terms": "cell phone,charger,mobile,phone,plug,smartphone,usb"
         },
         "amenity/dentist": {
           "name": "Dentist",
           "terms": "dental,teeth,tooth"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/crematorium": {
           "name": "Crematorium",
           "terms": "cemetery,funeral"
         },
         "amenity/courthouse": {
-<<<<<<< HEAD
-          "name": "Courthouse"
-=======
           "name": "Courthouse",
           "terms": "judicial,justice,law court"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/conference_centre": {
           "name": "Convention Center",
@@ -11798,11 +10539,7 @@
         },
         "amenity/compressed_air": {
           "name": "Compressed Air",
-<<<<<<< HEAD
-          "terms": "air compressor"
-=======
           "terms": "air compressor,air pump,tire inflation"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/community_centre": {
           "name": "Community Center",
@@ -11818,37 +10555,14 @@
         },
         "amenity/cinema": {
           "name": "Cinema",
-<<<<<<< HEAD
-          "terms": "drive-in,film,flick,movie,picture,screen,show,theater"
-        },
-        "amenity/childcare": {
-          "name": "Nursery/Childcare",
-=======
           "terms": "drive-in,film,flick,imax,movie,multiplex,picture,screen,show,theater"
         },
         "amenity/childcare": {
           "name": "Nursery / Childcare",
->>>>>>> c1d930ba9 (Check in build)
           "terms": "daycare,orphanage,playgroup"
         },
         "amenity/charging_station": {
           "name": "Charging Station",
-<<<<<<< HEAD
-          "terms": "charge point,charging stall,electric vehicle,ev,supercharger"
-        },
-        "amenity/casino": {
-          "name": "Casino",
-          "terms": "blackjack,craps,gambling,poker,roulette"
-        },
-        "amenity/car_wash": {
-          "name": "Car Wash"
-        },
-        "amenity/car_sharing": {
-          "name": "Car Sharing Station"
-        },
-        "amenity/car_rental": {
-          "name": "Car Rental"
-=======
           "terms": "charge point,charger,charging stall,dc charger,electric vehicle,ev,fast charger,fast charging,supercharger"
         },
         "amenity/casino": {
@@ -11866,7 +10580,6 @@
         "amenity/car_rental": {
           "name": "Car Rental",
           "terms": "hire,vehicle"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/car_pooling": {
           "name": "Car Pooling Station",
@@ -11874,26 +10587,11 @@
         },
         "amenity/cafe": {
           "name": "Cafe",
-<<<<<<< HEAD
-          "terms": "bistro,coffee,tea"
-=======
           "terms": "bistro,coffee,espresso,latte,tea"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/bureau_de_change": {
           "name": "Currency Exchange",
           "aliases": "Bureau de Change",
-<<<<<<< HEAD
-          "terms": "money changer"
-        },
-        "amenity/boat_storage": {
-          "name": "Boat Storage",
-          "terms": "boathouse,dry dock,marina"
-        },
-        "amenity/boat_rental": {
-          "name": "Boat Rental",
-          "terms": "boat hire"
-=======
           "terms": "foreign exchange,money changer"
         },
         "amenity/boat_storage": {
@@ -11903,7 +10601,6 @@
         "amenity/boat_rental": {
           "name": "Boat Rental",
           "terms": "boat hire,canoe,kayak"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/binoculars": {
           "name": "Mounted Binoculars",
@@ -11911,11 +10608,7 @@
         },
         "amenity/biergarten": {
           "name": "Biergarten",
-<<<<<<< HEAD
-          "terms": "beer,bier,booze"
-=======
           "terms": "beer,beer garden,bier,booze"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/bicycle_wash": {
           "name": "Bicycle Wash",
@@ -11923,17 +10616,6 @@
         },
         "amenity/bicycle_repair_station": {
           "name": "Bicycle Repair Tool Stand",
-<<<<<<< HEAD
-          "terms": "bike chain,bike multitool,bike repair,bike tools,compressed air,cycle pump,cycle repair,cycling"
-        },
-        "amenity/bicycle_rental": {
-          "name": "Bicycle Rental",
-          "terms": "bicycle,bicycle share,bike,bike share,bikeshare,cycle dock,cycle hub,cycleshare,cycling"
-        },
-        "amenity/bicycle_parking": {
-          "name": "Bicycle Parking",
-          "terms": "bike,bike parking,cycle parking,cycling"
-=======
           "terms": "bike chain,bike multitool,bike pump,bike repair,bike tools,compressed air,cycle pump,cycle repair,cycling"
         },
         "amenity/bicycle_rental": {
@@ -11943,36 +10625,23 @@
         "amenity/bicycle_parking": {
           "name": "Bicycle Parking",
           "terms": "bike,bike parking,bike rack,bike stands,cycle parking,cycling"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/bench": {
           "name": "Bench",
           "terms": "chair,seat"
         },
         "amenity/bbq": {
-<<<<<<< HEAD
-          "name": "Barbecue/Grill",
-=======
           "name": "Barbecue / Grill",
->>>>>>> c1d930ba9 (Check in build)
           "terms": "bbq,grill"
         },
         "amenity/bar": {
           "name": "Bar",
-<<<<<<< HEAD
-          "terms": "beer,bier,booze,dive"
-=======
           "terms": "beer,bier,booze,cocktails,dive,drink,pub,tavern"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/bank": {
           "name": "Bank",
           "aliases": "Credit Union",
-<<<<<<< HEAD
-          "terms": "check,deposit,fund,investment,repository,reserve,safe,savings,stock,treasury,trust,vault"
-=======
           "terms": "check,deposit,financial,fund,investment,repository,reserve,safe,savings,stock,treasury,trust,vault"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/baking_oven": {
           "name": "Baking Oven",
@@ -11981,19 +10650,11 @@
         "amenity/atm": {
           "name": "ATM",
           "aliases": "Cash Machine\nAutomated Teller Machine",
-<<<<<<< HEAD
-          "terms": "cash,machine,money"
-        },
-        "amenity/arts_centre": {
-          "name": "Arts Center",
-          "terms": "arts centre,community arts,theater space,theatre space"
-=======
           "terms": "cash,machine,money,withdrawal"
         },
         "amenity/arts_centre": {
           "name": "Arts Center",
           "terms": "arts centre,community arts,cultural center,performance venue,theater space,theatre space"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/animal_shelter": {
           "name": "Animal Shelter",
@@ -12027,13 +10688,7 @@
         },
         "amenity/driving_school": {},
         "amenity/dancing_school": {},
-<<<<<<< HEAD
-        "amenity/coworking_space": {
-          "name": "Coworking Space"
-        },
-=======
         "amenity/coworking_space": {},
->>>>>>> c1d930ba9 (Check in build)
         "amenity/college": {},
         "amenity/bus_station": {
           "name": "Bus Station / Terminal"
@@ -12042,13 +10697,10 @@
           "name": "Dog Excrement Bin",
           "terms": "bin,dog,garbage,litter,poo,rubbish,trash"
         },
-<<<<<<< HEAD
-=======
         "amenity/vending_machine/water": {
           "name": "Drinking Water Vending Machine",
           "terms": "aqua,drinking water,potable water,water"
         },
->>>>>>> c1d930ba9 (Check in build)
         "amenity/vending_machine/sweets": {
           "name": "Candy Vending Machine",
           "terms": "gumball"
@@ -12090,13 +10742,10 @@
           "name": "Food Vending Machine",
           "terms": "food"
         },
-<<<<<<< HEAD
-=======
         "amenity/vending_machine/flowers": {
           "name": "Flower Vending Machine",
           "terms": "bouquet,flower"
         },
->>>>>>> c1d930ba9 (Check in build)
         "amenity/vending_machine/feminine_hygiene": {
           "name": "Feminine Hygiene Vending Machine",
           "terms": "condom,menstrual hygiene products,pad,personal care,tampon,woman,women"
@@ -12205,11 +10854,7 @@
         },
         "amenity/social_facility/nursing_home": {
           "name": "Nursing Home",
-<<<<<<< HEAD
-          "terms": "assisted living,elderly,living,nursing,old,senior"
-=======
           "terms": "assisted living,elderly,living,nursing,old,retired,retirement,retirement home,senior"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/social_facility/homeless_shelter": {
           "name": "Homeless Shelter",
@@ -12217,28 +10862,18 @@
         },
         "amenity/social_facility/group_home": {
           "name": "Elderly Group Home",
-<<<<<<< HEAD
-          "terms": "assisted living,care home,elderly,living,old,senior"
-=======
           "terms": "assisted living,care home,elderly,living,old,retired,retirement,retirement home,senior"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/social_facility/food_bank": {
           "name": "Food Bank",
           "terms": "food pantry,soup kitchen"
         },
-<<<<<<< HEAD
-        "amenity/social_facility/assisted_living": {
-          "name": "Senior Assisted Living Facility",
-          "terms": "assisted living,care home,elderly,living,old,senior"
-=======
         "amenity/social_facility/day_care": {
           "name": "Social Services Day Care / Day Center"
         },
         "amenity/social_facility/assisted_living": {
           "name": "Senior Assisted Living Facility",
           "terms": "assisted living,care home,elderly,living,old,retired,retirement,retirement home,senior"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/social_facility/ambulatory_care": {
           "name": "Ambulatory Care"
@@ -12258,12 +10893,9 @@
         "amenity/shelter/gazebo": {
           "name": "Gazebo"
         },
-<<<<<<< HEAD
-=======
         "amenity/shelter/field_shelter": {
           "name": "Field Shelter"
         },
->>>>>>> c1d930ba9 (Check in build)
         "amenity/restaurant/vietnamese": {
           "name": "Vietnamese Restaurant",
           "terms": "bar,breakfast,cafe,café,canteen,dine,dining,dinner,drive-in,eat,grill,lunch,table"
@@ -12328,11 +10960,7 @@
         },
         "amenity/restaurant/indian": {
           "name": "Indian Restaurant",
-<<<<<<< HEAD
-          "terms": "bar,breakfast,curry,dine,dining,dinner,drive-in,eat,grill,lunch,table"
-=======
           "terms": "bar,biryani,breakfast,butter chicken,chaat,curry,dal makhni,dine,dining,dinner,dosa,eat,garlic naan,grill,lassi,lunch,paneer tikka,roti,samosa,thali"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/restaurant/hotpot": {
           "name": "Hot Pot Restaurant",
@@ -12406,11 +11034,7 @@
         },
         "amenity/place_of_worship/muslim": {
           "name": "Muslim Mosque",
-<<<<<<< HEAD
-          "terms": "islam,islamic center,muslim"
-=======
           "terms": "islam,islamic center,masjid,muslim"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/place_of_worship/jewish": {
           "name": "Jewish Synagogue",
@@ -12422,11 +11046,7 @@
         },
         "amenity/place_of_worship/christian": {
           "name": "Christian Church",
-<<<<<<< HEAD
-          "terms": "abbey,anglican,basilica,bethel,cathedral,chancel,chantry,chapel,christian,fold,house of god,house of prayer,house of worship,minster,mission,oratory,parish,roman catholic,sacellum,sanctuary,shrine,tabernacle,temple"
-=======
           "terms": "abbey,anglican,baptist,basilica,bethel,cathedral,chancel,chantry,chapel,christian,episcopal,evangelical,fold,house of god,house of prayer,house of worship,latter day saints,lds,lutheran,methodist,minster,mission,mormon,nondenominational,oratory,orthodox,parish,pentecostal,presbyterian,protestant,reformed,roman catholic,sacellum,sanctuary,seventh day adventist,shrine,tabernacle,temple"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/place_of_worship/buddhist": {
           "name": "Buddhist Temple",
@@ -12476,13 +11096,10 @@
           "name": "Chicken Wings Fast Food",
           "terms": "chicken,dine,dining,dinner,eat,lunch,table"
         },
-<<<<<<< HEAD
-=======
         "amenity/fast_food/sushi": {
           "name": "Sushi Fast Food",
           "terms": "breakfast,canteen,dine,dining,dinner,drive thru,drive-in,drive-through,eat,food truck,lunch,restaurant,table,takeaway,takeout"
         },
->>>>>>> c1d930ba9 (Check in build)
         "amenity/fast_food/sandwich": {
           "name": "Sandwich Fast Food",
           "terms": "breakfast,cafe,café,deli,deli sandwich,dine,dining,dinner,drive-in,eat,grill,lunch,meat,table"
@@ -12503,13 +11120,10 @@
           "name": "Juice Fast Food",
           "terms": "beverages,cafe,café,fruit drinks,juice bar,shakes,smoothies"
         },
-<<<<<<< HEAD
-=======
         "amenity/fast_food/indian": {
           "name": "Indian Fast Food",
           "terms": "breakfast,chaat,dinner,dosa,eat,lassi,lunch,momos,paneer tikka,pani puri,pav bhaji,samosa,vada pav"
         },
->>>>>>> c1d930ba9 (Check in build)
         "amenity/fast_food/hot_dog": {
           "name": "Hot Dog Fast Food",
           "terms": "ballpark,frank,frankfurter,hotdog stand,sandwich,sausage,wiener"
@@ -12528,11 +11142,7 @@
         },
         "amenity/fast_food/chicken": {
           "name": "Chicken Fast Food",
-<<<<<<< HEAD
-          "terms": "breakfast,canteen,dine,dining,dinner,drive-in,eat,grill,lunch,table"
-=======
           "terms": "breakfast,canteen,dine,dining,dinner,drive-in,eat,fried chicken,grill,lunch,table"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/fast_food/cafeteria": {
           "name": "Cafeteria",
@@ -12540,11 +11150,7 @@
         },
         "amenity/fast_food/burger": {
           "name": "Burger Fast Food",
-<<<<<<< HEAD
-          "terms": "breakfast,dine,dining,dinner,drive-in,eat,grill,lunch,table"
-=======
           "terms": "breakfast,dine,dining,dinner,drive-in,eat,french fries,grill,lunch,table"
->>>>>>> c1d930ba9 (Check in build)
         },
         "amenity/fast_food/bagel": {
           "name": "Bagel Fast Food",
@@ -12647,11 +11253,7 @@
           "terms": "anemia,blood,bone marrow,haematology,leukemia,lymphoma"
         },
         "amenity/doctors/gynaecology": {
-<<<<<<< HEAD
-          "name": "Obstetrician/Gynecologist",
-=======
           "name": "Obstetrician / Gynecologist",
->>>>>>> c1d930ba9 (Check in build)
           "aliases": "Gynecologist\nObstetrician",
           "terms": "egg,gynaecologist,gynaecology,gynecology,ob/gyn,obgyn,obstetrics,ovulation,reproductive,woman's doctor,women's doctor"
         },
@@ -12812,17 +11414,6 @@
         "aerialway/zip_line": {
           "name": "Zip Line",
           "aliases": "Zip Wire\nAerial Runway\nFlying Fox",
-<<<<<<< HEAD
-          "terms": "canopy,foefie slide,gravity propelled aerial ropeslide,tyrolean traverse,zip-line,zipline,zipwire"
-        },
-        "aerialway/t-bar": {
-          "name": "T-Bar Lift",
-          "terms": "drag lift,skiing,surface cable,tbar"
-        },
-        "aerialway/rope_tow": {
-          "name": "Rope Tow Lift",
-          "terms": "bugel lift,drag lift,handle tow,skiing,snowboarding,surface cable"
-=======
           "terms": "aerialway,canopy,foefie slide,gravity propelled aerial ropeslide,tyrolean traverse,zip-line,zipline,zipwire"
         },
         "aerialway/t-bar": {
@@ -12832,7 +11423,6 @@
         "aerialway/rope_tow": {
           "name": "Rope Tow Lift",
           "terms": "aerialway,bugel lift,drag lift,handle tow,skiing,snowboarding,surface cable"
->>>>>>> c1d930ba9 (Check in build)
         },
         "aerialway/pylon": {
           "name": "Aerialway Pylon",
@@ -12840,37 +11430,6 @@
         },
         "aerialway/platter": {
           "name": "Platter Lift",
-<<<<<<< HEAD
-          "terms": "button lift,disc lift,drag lift,poma lift,skiing,snowboarding,surface cable"
-        },
-        "aerialway/mixed_lift": {
-          "name": "Mixed Lift",
-          "terms": "aerial cable,skiing,snowboarding"
-        },
-        "aerialway/magic_carpet": {
-          "name": "Magic Carpet Lift",
-          "terms": "conveyor belt,skiing,snowboarding,surface lift"
-        },
-        "aerialway/j-bar": {
-          "name": "J-Bar Lift",
-          "terms": "drag lift,jaybar,jbar,skiing,snowboarding,surface cable"
-        },
-        "aerialway/goods": {
-          "name": "Goods Aerialway",
-          "terms": "aerial cable"
-        },
-        "aerialway/gondola": {
-          "name": "Gondola Lift",
-          "terms": "aerial cable,lift,skiing,snowboarding"
-        },
-        "aerialway/drag_lift": {
-          "name": "Drag Lift",
-          "terms": "skiing,snowboarding,surface cable"
-        },
-        "aerialway/chair_lift": {
-          "name": "Chair Lift",
-          "terms": "aerial cable,skiing,snowboarding"
-=======
           "terms": "aerialway,button lift,disc lift,drag lift,poma lift,skiing,snowboarding,surface cable"
         },
         "aerialway/mixed_lift": {
@@ -12900,28 +11459,20 @@
         "aerialway/chair_lift": {
           "name": "Chair Lift",
           "terms": "aerial cable,aerialway,skiing,snowboarding"
->>>>>>> c1d930ba9 (Check in build)
         },
         "aerialway/cable_car": {
           "name": "Cable Car",
           "aliases": "Aerial Tramway\nSky Tram",
-<<<<<<< HEAD
-          "terms": "aerial cable,lift,ropeway,skiing,snowboarding,tramway"
-=======
           "terms": "aerial cable,aerialway,lift,ropeway,skiing,snowboarding,tramway"
->>>>>>> c1d930ba9 (Check in build)
         },
         "advertising/totem": {
           "name": "Advertising Totem",
           "terms": "ad,advertising,spam"
         },
-<<<<<<< HEAD
-=======
         "advertising/sign": {
           "name": "Advertising Sign",
           "terms": "ad,fascia,logo,storefront"
         },
->>>>>>> c1d930ba9 (Check in build)
         "advertising/poster_box": {
           "name": "Poster Box",
           "terms": "ad,advertising,spam"

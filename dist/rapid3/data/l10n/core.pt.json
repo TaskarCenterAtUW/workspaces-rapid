@@ -1231,13 +1231,6 @@
         "places": {
           "label": "Overture - Lugares"
         }
-<<<<<<< HEAD
-      },
-      "omdFootways": {
-        "label": "Calçadas em dados abertos",
-        "description": "Dados abertos de calçadas coletados por várias entidades governamentais locais."
-=======
->>>>>>> c1d930ba9 (Check in build)
       }
     },
     "tag_reference": {
