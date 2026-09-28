@@ -101310,7 +101310,11 @@ class PixiLayerBackgroundTiles extends AbstractPixiLayer {
           return n3;
         }
       });
-      this.convolutionFilter = new ConvolutionFilter(convolutionArray);
+      this.convolutionFilter = new ConvolutionFilter({
+        matrix: Float32Array.from(convolutionArray),
+        width: 3,
+        height: 3
+      });
       sourceContainer.filters = [...sourceContainer.filters, this.convolutionFilter];
     } else if (this.filters.sharpness < 1) {
       const blurFactor = number_default(1, 8)(1 - this.filters.sharpness);
@@ -122113,6 +122117,7 @@ class UiBackgroundCard extends AbstractUiCard {
 // modules/ui/cards/UiHistoryCard.ts
 class UiHistoryCard extends AbstractUiCard {
   id;
+  rerender;
   deferredRender;
   _keys;
   constructor(context2) {
@@ -122123,11 +122128,12 @@ class UiHistoryCard extends AbstractUiCard {
     const scheduler = context2.systems.scheduler;
     this._keys = null;
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this.deferredRender = () => {
       if (scheduler) {
-        scheduler.debounce("UiHistoryCard-render", () => this.render(), { ms: 250 });
+        scheduler.debounce("UiHistoryCard-render", this.rerender, { ms: 250 });
       } else {
-        this.render();
+        this.rerender();
       }
     };
     this.renderEntity = this.renderEntity.bind(this);
@@ -122137,7 +122143,7 @@ class UiHistoryCard extends AbstractUiCard {
     this.displayTimestamp = this.displayTimestamp.bind(this);
     this._setupKeybinding = this._setupKeybinding.bind(this);
     gfx.on("draw", this.deferredRender);
-    context2.on("modechange", this.render);
+    context2.on("modechange", this.rerender);
     l10n.on("localechange", this._setupKeybinding);
     this._setupKeybinding();
   }
@@ -122288,6 +122294,7 @@ class UiLocationCard extends AbstractUiCard {
   id;
   _currLocation;
   _keys;
+  rerender;
   _deferredUpdateLocation;
   constructor(context2) {
     super(context2);
@@ -122298,6 +122305,7 @@ class UiLocationCard extends AbstractUiCard {
     this._currLocation = null;
     this._keys = null;
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this.updateLocation = this.updateLocation.bind(this);
     this._deferredUpdateLocation = (loc) => {
       if (scheduler) {
@@ -122307,7 +122315,7 @@ class UiLocationCard extends AbstractUiCard {
       }
     };
     this._setupKeybinding = this._setupKeybinding.bind(this);
-    eventManager.on("pointermove", this.render);
+    eventManager.on("pointermove", this.rerender);
     l10n.on("localechange", this._setupKeybinding);
     this._setupKeybinding();
   }
@@ -122394,6 +122402,7 @@ function asLineString(feature2) {
 
 class UiMeasurementCard extends AbstractUiCard {
   id;
+  rerender;
   _isImperial;
   _keys;
   constructor(context2) {
@@ -122404,9 +122413,10 @@ class UiMeasurementCard extends AbstractUiCard {
     this._isImperial = !l10n.isMetric;
     this._keys = null;
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this._setupKeybinding = this._setupKeybinding.bind(this);
-    gfx.on("draw", this.render);
-    context2.on("modechange", this.render);
+    gfx.on("draw", this.rerender);
+    context2.on("modechange", this.rerender);
     l10n.on("localechange", this._setupKeybinding);
     this._setupKeybinding();
   }
@@ -123514,6 +123524,7 @@ class UiZoomControl {
   context;
   Tooltip;
   $parent;
+  rerender;
   zooms;
   constructor(context2) {
     this.context = context2;
@@ -123523,6 +123534,7 @@ class UiZoomControl {
     this.Tooltip = new UiTooltip(context2);
     this.$parent = null;
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this.zoomIn = this.zoomIn.bind(this);
     this.zoomOut = this.zoomOut.bind(this);
     this.zoomInFurther = this.zoomInFurther.bind(this);
@@ -123552,7 +123564,7 @@ class UiZoomControl {
       context2.keybinding().on(key, this.zoomOut);
       context2.keybinding().on(utilCmd("⌥" + key), this.zoomOutFurther);
     });
-    gfx.on("draw", this.render);
+    gfx.on("draw", this.rerender);
   }
   render($parent = this.$parent) {
     if ($parent instanceof selection_default) {
@@ -129975,6 +129987,7 @@ class UiSectionGridDisplayOptions extends AbstractUiSection {
 // modules/ui/sections/UiSectionOverlayList.ts
 class UiSectionOverlayList extends AbstractUiSection {
   _overlayList;
+  rerender;
   constructor(context2) {
     super(context2, "overlay-list");
     const gfx = context2.systems.gfx;
@@ -129986,7 +129999,8 @@ class UiSectionOverlayList extends AbstractUiSection {
     this._chooseOverlay = this._chooseOverlay.bind(this);
     this._onMapDraw = this._onMapDraw.bind(this);
     this._deferredOnMapDraw = this._deferredOnMapDraw.bind(this);
-    imagery.on("imagerychange", this.renderInner);
+    this.rerender = () => this.renderInner();
+    imagery.on("imagerychange", this.rerender);
     gfx.on("draw", this._deferredOnMapDraw);
   }
   label() {
@@ -135228,6 +135242,7 @@ ${url_tokens}
 class UiSectionDataLayers extends AbstractUiSection {
   _previousLayerStates;
   _keys;
+  rerender;
   _settingsCustomData;
   constructor(context2) {
     super(context2, "data-layers");
@@ -135243,9 +135258,10 @@ class UiSectionDataLayers extends AbstractUiSection {
     this._customChanged = this._customChanged.bind(this);
     this._mapRouletteIDsChanged = this._mapRouletteIDsChanged.bind(this);
     this._setupKeybinding = this._setupKeybinding.bind(this);
+    this.rerender = () => this.renderInner();
     this._settingsCustomData = new UiSettingsCustomData(context2);
     this._settingsCustomData.on("change", this._customChanged);
-    scene.on("layerchange", this.renderInner);
+    scene.on("layerchange", this.rerender);
     l10n.on("localechange", this._setupKeybinding);
     this._setupKeybinding();
   }
@@ -135478,11 +135494,13 @@ class UiSectionDataLayers extends AbstractUiSection {
 
 // modules/ui/sections/UiSectionMapFeatures.ts
 class UiSectionMapFeatures extends AbstractUiSection {
+  rerender;
   constructor(context2) {
     super(context2, "filters");
     const filters = context2.systems.filters;
     this._drawListItems = this._drawListItems.bind(this);
-    filters.on("filterchange", this.renderInner);
+    this.rerender = () => this.renderInner();
+    filters.on("filterchange", this.rerender);
   }
   label() {
     const l10n = this.context.systems.l10n;
@@ -135527,12 +135545,14 @@ class UiSectionMapFeatures extends AbstractUiSection {
 
 // modules/ui/sections/UiSectionMapStyleOptions.ts
 class UiSectionMapStyleOptions extends AbstractUiSection {
+  rerender;
   constructor(context2) {
     super(context2, "fill-area");
     const map2 = context2.systems.map;
     this._drawListItems = this._drawListItems.bind(this);
-    map2.off("mapchange", this.renderInner);
-    map2.on("mapchange", this.renderInner);
+    this.rerender = () => this.renderInner();
+    map2.off("mapchange", this.rerender);
+    map2.on("mapchange", this.rerender);
   }
   label() {
     const l10n = this.context.systems.l10n;
@@ -135575,6 +135595,7 @@ class UiSectionMapStyleOptions extends AbstractUiSection {
 
 // modules/ui/sections/UiSectionPhotoOverlays.ts
 class UiSectionPhotoOverlays extends AbstractUiSection {
+  rerender;
   constructor(context2) {
     super(context2, "photo-overlays");
     const photos = context2.systems.photos;
@@ -135582,8 +135603,9 @@ class UiSectionPhotoOverlays extends AbstractUiSection {
     this._drawPhotoItems = this._drawPhotoItems.bind(this);
     this._drawPhotoTypeItems = this._drawPhotoTypeItems.bind(this);
     this._drawDateFilter = this._drawDateFilter.bind(this);
-    scene.on("layerchange", this.renderInner);
-    photos.on("photochange", this.renderInner);
+    this.rerender = () => this.renderInner();
+    scene.on("layerchange", this.rerender);
+    photos.on("photochange", this.rerender);
   }
   label() {
     const l10n = this.context.systems.l10n;
@@ -137721,13 +137743,15 @@ class UiSectionRawTagEditor extends AbstractUiSection {
 // modules/ui/sections/UiSectionSelectionList.ts
 class UiSectionSelectionList extends AbstractUiSection {
   _selectedIDs;
+  rerender;
   constructor(context2) {
     super(context2, "selected-features");
     this._selectedIDs = [];
     this._selectEntity = this._selectEntity.bind(this);
     this._deselectEntity = this._deselectEntity.bind(this);
+    this.rerender = () => this.renderInner();
     const editor = context2.systems.editor;
-    editor.on("stablechange", this.renderInner);
+    editor.on("stablechange", this.rerender);
   }
   entityIDs(val) {
     if (!arguments.length)
@@ -137791,6 +137815,7 @@ class UiDownloadTool {
   stringID;
   Tooltip;
   $parent;
+  rerender;
   constructor(context2) {
     this.context = context2;
     this.id = "download_osc";
@@ -137800,8 +137825,9 @@ class UiDownloadTool {
     this.$parent = null;
     this.choose = this.choose.bind(this);
     this.render = this.render.bind(this);
-    context2.on("modechange", this.render);
-    editor.on("stablechange", this.render);
+    this.rerender = () => this.render();
+    context2.on("modechange", this.rerender);
+    editor.on("stablechange", this.rerender);
   }
   render($parent = this.$parent) {
     if ($parent instanceof selection_default) {
@@ -137851,6 +137877,7 @@ class UiDrawModesTool {
   Tooltip;
   commands;
   $parent;
+  rerender;
   debouncedRender;
   _keys;
   constructor(context2) {
@@ -137895,18 +137922,19 @@ class UiDrawModesTool {
     this.$parent = null;
     this.choose = this.choose.bind(this);
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this.debouncedRender = () => {
       if (scheduler) {
-        scheduler.throttle("UiDrawModesTool-render", () => this.render(), { ms: 500 });
+        scheduler.throttle("UiDrawModesTool-render", this.rerender, { ms: 500 });
       } else {
-        this.render();
+        this.rerender();
       }
     };
     this._setupKeybinding = this._setupKeybinding.bind(this);
     gfx.on("draw", this.debouncedRender);
-    gfx.scene.on("layerchange", this.render);
-    context2.on("modechange", this.render);
-    ui?.on("uichange", this.render);
+    gfx.scene.on("layerchange", this.rerender);
+    context2.on("modechange", this.rerender);
+    ui?.on("uichange", this.rerender);
     l10n.on("localechange", this._setupKeybinding);
     this._setupKeybinding();
   }
@@ -138121,6 +138149,7 @@ class UiRapidDatasetSettings extends import_ee_safe15.EventEmitter {
   _dataset;
   _transforms;
   _uuid;
+  rerender;
   constructor(context2) {
     super();
     this.context = context2;
@@ -138134,6 +138163,7 @@ class UiRapidDatasetSettings extends import_ee_safe15.EventEmitter {
     this.show = this.show.bind(this);
     this.close = this.close.bind(this);
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this._checkFields = this._checkFields.bind(this);
     this._clickedOk = this._clickedOk.bind(this);
     this._clickedDelete = this._clickedDelete.bind(this);
@@ -138148,8 +138178,8 @@ class UiRapidDatasetSettings extends import_ee_safe15.EventEmitter {
     this._renderButtons = this._renderButtons.bind(this);
     this._renderAreYouSure = this._renderAreYouSure.bind(this);
     const l10n = context2.systems.l10n;
-    l10n.on("localechange", this.render);
-    this.Colorpicker.on("change", this.render);
+    l10n.on("localechange", this.rerender);
+    this.Colorpicker.on("change", this.rerender);
   }
   get dataset() {
     return this._dataset;
@@ -138169,7 +138199,7 @@ class UiRapidDatasetSettings extends import_ee_safe15.EventEmitter {
     this.Modal.$modal.attr("class", "modal rapid-modal wide modal-dataset-settings");
     this.Modal.once("close", this._done);
     this.render();
-    l10n.on("localechange", this.render);
+    l10n.on("localechange", this.rerender);
   }
   close(e3) {
     e3?.preventDefault();
@@ -138182,7 +138212,7 @@ class UiRapidDatasetSettings extends import_ee_safe15.EventEmitter {
     this.emit("done");
     this.Modal = null;
     this.AreYouSureModal = null;
-    l10n.off("localechange", this.render);
+    l10n.off("localechange", this.rerender);
   }
   render() {
     if (!this.Modal)
@@ -138728,6 +138758,7 @@ class UiRapidAddDataset extends import_ee_safe16.EventEmitter {
   _uuid;
   _fieldStringID;
   _urlError;
+  rerender;
   constructor(context2) {
     super();
     this.context = context2;
@@ -138738,12 +138769,33 @@ class UiRapidAddDataset extends import_ee_safe16.EventEmitter {
     this.SampleCombo = new UiCombobox(context2, "rapid-dark");
     const sampleData = [
       { value: "http://bryanhousel.com/osm/STL_TREES_min.geojson" },
-      { value: "http://bryanhousel.com/osm/stops.geojson" }
+      { value: "http://bryanhousel.com/osm/Hawaii_Sidewalks_and_Paths.geojson" },
+      { value: "http://bryanhousel.com/osm/King_County_Stops.geojson" },
+      { value: "http://bryanhousel.com/ODOT/freight_terminals/Freight_Terminals_osw_clean_7.nodes.geojson" },
+      { value: "http://bryanhousel.com/ODOT/crashes_osw_clean/Crashes_osw_clean_3.points.geojson" },
+      { value: "http://bryanhousel.com/ODOT/crossings_ped_bike_sanitized_validated/crossings_ped_bike_osw_tags_full_precision.edges.geojson" },
+      { value: "http://bryanhousel.com/ODOT/crossings_ped_bike_sanitized_validated/crossings_ped_bike.nodes.geojson" },
+      { value: "http://bryanhousel.com/ODOT/bike_paths_osw_tags_sanitized_validated/bike_paths_osw_tags.edges.geojson" },
+      { value: "http://bryanhousel.com/ODOT/bike_paths_osw_tags_sanitized_validated/bike_paths.nodes.geojson" },
+      { value: "http://bryanhousel.com/ODOT/union_roads_sidewalks_bikepaths_crossings/osw.edges.geojson" },
+      { value: "http://bryanhousel.com/ODOT/union_roads_sidewalks_bikepaths_crossings/osw.nodes.geojson" },
+      { value: "http://bryanhousel.com/ODOT/pedestrian_sidewalks_osw_tags/Pedestrian_Sidewalks_osw_tags.edges.geojson" },
+      { value: "http://bryanhousel.com/ODOT/pedestrian_sidewalks_osw_tags/Pedestrian_Sidewalks_osw_tags.nodes.geojson" },
+      { value: "http://bryanhousel.com/ODOT/freight_routes_cleaned/Freight_Routes_osw.edges.geojson" },
+      { value: "http://bryanhousel.com/ODOT/freight_routes_cleaned/Freight_Routes_osw.nodes.geojson" },
+      { value: "http://bryanhousel.com/ODOT/transit_osw_tags_sanitized_validated/Transit_odot_osw_tags.edges.geojson" },
+      { value: "http://bryanhousel.com/ODOT/transit_osw_tags_sanitized_validated/Transit_odot.nodes.geojson" },
+      { value: "http://bryanhousel.com/ODOT/roads_osw_tags_sanitized_validated/roads_osw_tags.edges.geojson" },
+      { value: "http://bryanhousel.com/ODOT/roads_osw_tags_sanitized_validated/roads.nodes.geojson" }
     ];
-    this.SampleCombo.data(sampleData);
+    const detected = utilDetect();
+    if (/(localhost|127\.0\.0\.1)/.test(detected.host ?? "")) {
+      this.SampleCombo.data(sampleData);
+    }
     this.show = this.show.bind(this);
     this.close = this.close.bind(this);
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this._checkFields = this._checkFields.bind(this);
     this._clickedNext = this._clickedNext.bind(this);
     this._done = this._done.bind(this);
@@ -138761,7 +138813,7 @@ class UiRapidAddDataset extends import_ee_safe16.EventEmitter {
     this.Modal.$modal.attr("class", "modal rapid-modal modal-add-dataset");
     this.Modal.once("close", this._done);
     this.render();
-    l10n.on("localechange", this.render);
+    l10n.on("localechange", this.rerender);
   }
   close(e3) {
     e3?.preventDefault();
@@ -138777,7 +138829,7 @@ class UiRapidAddDataset extends import_ee_safe16.EventEmitter {
     const l10n = context2.systems.l10n;
     this.emit("done");
     this.Modal = null;
-    l10n.off("localechange", this.render);
+    l10n.off("localechange", this.rerender);
   }
   _clickedNext(e3) {
     e3?.preventDefault();
@@ -138938,6 +138990,7 @@ class UiRapidCatalog extends import_ee_safe17.EventEmitter {
   Modal;
   _filterText;
   _filterCategory;
+  rerender;
   constructor(context2) {
     super();
     this.context = context2;
@@ -138949,13 +139002,14 @@ class UiRapidCatalog extends import_ee_safe17.EventEmitter {
     this.show = this.show.bind(this);
     this.close = this.close.bind(this);
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this.renderDatasets = this.renderDatasets.bind(this);
     this.sortCategories = this.sortCategories.bind(this);
     this.sortDatasets = this.sortDatasets.bind(this);
     this.toggleDataset = this.toggleDataset.bind(this);
     this.highlight = this.highlight.bind(this);
     const l10n = context2.systems.l10n;
-    l10n.on("localechange", this.render);
+    l10n.on("localechange", this.rerender);
   }
   show() {
     const context2 = this.context;
@@ -139181,6 +139235,7 @@ class UiRapidDatasetToggle extends import_ee_safe18.EventEmitter {
   context;
   Modal;
   _colorpickers;
+  rerender;
   constructor(context2) {
     super();
     this.context = context2;
@@ -139190,6 +139245,7 @@ class UiRapidDatasetToggle extends import_ee_safe18.EventEmitter {
     this.show = this.show.bind(this);
     this.close = this.close.bind(this);
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this.renderDatasets = this.renderDatasets.bind(this);
     this.changeColor = this.changeColor.bind(this);
     this.isRapidEnabled = this.isRapidEnabled.bind(this);
@@ -139205,8 +139261,8 @@ class UiRapidDatasetToggle extends import_ee_safe18.EventEmitter {
     this.Modal.$modal.attr("class", "modal rapid-modal modal-dataset-toggle");
     this.Modal.once("close", this._done);
     this.render();
-    scene.on("layerchange", this.render);
-    l10n.on("localechange", this.render);
+    scene.on("layerchange", this.rerender);
+    l10n.on("localechange", this.rerender);
   }
   close(e3) {
     e3?.preventDefault();
@@ -139219,8 +139275,8 @@ class UiRapidDatasetToggle extends import_ee_safe18.EventEmitter {
     this.emit("done");
     this.Modal = null;
     this._colorpickers = {};
-    scene.off("layerchange", this.render);
-    l10n.off("localechange", this.render);
+    scene.off("layerchange", this.rerender);
+    l10n.off("localechange", this.rerender);
   }
   render() {
     if (!this.Modal)
@@ -139252,7 +139308,7 @@ class UiRapidDatasetToggle extends import_ee_safe18.EventEmitter {
     $datasets.call(this.renderDatasets);
     let $catalogOption = $content.selectAll(".row-search-catalog").data([0]);
     const $$catalogOption = $catalogOption.enter().append("div").attr("class", "modal-section rapid-row row-search-catalog").on("click", () => {
-      const CatalogModal = new UiRapidCatalog(context2).on("done", this.render);
+      const CatalogModal = new UiRapidCatalog(context2).on("done", this.rerender);
       CatalogModal.show();
     });
     $$catalogOption.append("div").attr("class", "rapid-row-text").append("span").attr("class", "rapid-row-label");
@@ -139261,7 +139317,7 @@ class UiRapidDatasetToggle extends import_ee_safe18.EventEmitter {
     $catalogOption.selectAll(".rapid-row-label").text(l10n.t("rapid_menu.search_dataset_catalog"));
     let $customOption = $content.selectAll(".row-custom-dataset").data([0]);
     const $$customOption = $customOption.enter().append("div").attr("class", "modal-section rapid-row row-custom-dataset").on("click", () => {
-      const AddDatasetModal = new UiRapidAddDataset(context2).on("done", this.render);
+      const AddDatasetModal = new UiRapidAddDataset(context2).on("done", this.rerender);
       AddDatasetModal.show();
     });
     $$customOption.append("div").attr("class", "rapid-row-text").append("span").attr("class", "rapid-row-label");
@@ -139324,7 +139380,7 @@ class UiRapidDatasetToggle extends import_ee_safe18.EventEmitter {
     $$actions.append("label").attr("class", "rapid-row-action rapid-dataset-settings").on("click", (e3, ds) => {
       if (!this.isRapidEnabled())
         return;
-      const SettingsModal = new UiRapidDatasetSettings(context2).on("done", this.render);
+      const SettingsModal = new UiRapidDatasetSettings(context2).on("done", this.rerender);
       SettingsModal.dataset = ds;
       SettingsModal.show();
     }).call(uiIcon("#fas-gear"));
@@ -139394,6 +139450,7 @@ var import_ee_safe19 = __toESM(require_ee_safe(), 1);
 class UiRapidPowerUserFeatures extends import_ee_safe19.EventEmitter {
   context;
   _featureFlags;
+  rerender;
   Modal;
   constructor(context2) {
     super();
@@ -139411,6 +139468,7 @@ class UiRapidPowerUserFeatures extends import_ee_safe19.EventEmitter {
     this.show = this.show.bind(this);
     this.close = this.close.bind(this);
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this.renderFeatures = this.renderFeatures.bind(this);
     this.updateFeatureFlags = this.updateFeatureFlags.bind(this);
     this.isFeatureEnabled = this.isFeatureEnabled.bind(this);
@@ -139427,7 +139485,7 @@ class UiRapidPowerUserFeatures extends import_ee_safe19.EventEmitter {
     this.Modal.$modal.attr("class", "modal rapid-modal modal-poweruser");
     this.Modal.once("close", this._done);
     this.render();
-    l10n.on("localechange", this.render);
+    l10n.on("localechange", this.rerender);
     urlhash.on("hashchange", this.updateFeatureFlags);
   }
   close(e3) {
@@ -139440,7 +139498,7 @@ class UiRapidPowerUserFeatures extends import_ee_safe19.EventEmitter {
     const urlhash = context2.systems.urlhash;
     this.emit("done");
     this.Modal = null;
-    l10n.off("localechange", this.render);
+    l10n.off("localechange", this.rerender);
     urlhash.off("hashchange", this.updateFeatureFlags);
   }
   render() {
@@ -139554,6 +139612,7 @@ class UiRapidTool {
   RapidTooltip;
   PowerUserTooltip;
   $parent;
+  rerender;
   constructor(context2) {
     this.context = context2;
     this.id = "rapid_features";
@@ -139568,10 +139627,11 @@ class UiRapidTool {
     this.$parent = null;
     this.choose = this.choose.bind(this);
     this.render = this.render.bind(this);
-    ui?.on("uichange", this.render);
-    urlhash.on("hashchange", this.render);
-    scene.on("layerchange", this.render);
-    context2.on("modechange", this.render);
+    this.rerender = () => this.render();
+    ui?.on("uichange", this.rerender);
+    urlhash.on("hashchange", this.rerender);
+    scene.on("layerchange", this.rerender);
+    context2.on("modechange", this.rerender);
   }
   render($parent = this.$parent) {
     if ($parent instanceof selection_default) {
@@ -139622,6 +139682,7 @@ class UiSaveTool {
   key;
   Tooltip;
   $parent;
+  rerender;
   _numChanges;
   constructor(context2) {
     this.context = context2;
@@ -139633,9 +139694,10 @@ class UiSaveTool {
     this.$parent = null;
     this.choose = this.choose.bind(this);
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     const editor = context2.systems.editor;
-    context2.on("modechange", this.render);
-    editor.on("stablechange", this.render);
+    context2.on("modechange", this.rerender);
+    editor.on("stablechange", this.rerender);
     context2.keybinding().on(this.key, this.choose, true);
   }
   render($parent = this.$parent) {
@@ -139695,6 +139757,7 @@ class UiUndoRedoTool {
   Tooltip;
   commands;
   $parent;
+  rerender;
   debouncedRender;
   constructor(context2) {
     this.context = context2;
@@ -139727,19 +139790,20 @@ class UiUndoRedoTool {
     this.$parent = null;
     this.choose = this.choose.bind(this);
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this.debouncedRender = () => {
       if (scheduler) {
-        scheduler.throttle("UiUndoRedoTool-render", () => this.render(), { ms: 500 });
+        scheduler.throttle("UiUndoRedoTool-render", this.rerender, { ms: 500 });
       } else {
-        this.render();
+        this.rerender();
       }
     };
     for (const d2 of this.commands) {
       context2.keybinding().on(d2.key, (e3) => this.choose(e3, d2));
     }
     gfx.on("draw", this.debouncedRender);
-    editor.on("stablechange", this.render);
-    context2.on("modechange", this.render);
+    editor.on("stablechange", this.rerender);
+    context2.on("modechange", this.rerender);
   }
   render($parent = this.$parent) {
     if ($parent instanceof selection_default) {
@@ -139974,6 +140038,7 @@ class UiApiStatus {
 class UiAttribution {
   context;
   $parent;
+  rerender;
   throttledRender;
   constructor(context2) {
     this.context = context2;
@@ -139982,14 +140047,15 @@ class UiAttribution {
     const scheduler = context2.systems.scheduler;
     this.$parent = null;
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this.throttledRender = () => {
       if (scheduler) {
-        scheduler.throttle("UiAttribution-render", () => this.render(), { ms: 400, leading: false });
+        scheduler.throttle("UiAttribution-render", this.rerender, { ms: 400, leading: false });
       } else {
-        this.render();
+        this.rerender();
       }
     };
-    imagery.on("imagerychange", this.render);
+    imagery.on("imagerychange", this.rerender);
     gfx.on("draw", this.throttledRender);
   }
   render($parent = this.$parent) {
@@ -145803,6 +145869,7 @@ class UiMapToolbar {
   Save;
   Download;
   $parent;
+  rerender;
   constructor(context2) {
     this.context = context2;
     this.DrawModes = new UiDrawModesTool(context2);
@@ -145812,8 +145879,9 @@ class UiMapToolbar {
     this.Download = new UiDownloadTool(context2);
     this.$parent = null;
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     const urlhash = context2.systems.urlhash;
-    urlhash.on("hashchange", this.render);
+    urlhash.on("hashchange", this.rerender);
   }
   render($parent = this.$parent) {
     if ($parent instanceof selection_default) {
@@ -146013,6 +146081,7 @@ class UiNoteEditor extends import_ee_safe29.EventEmitter {
   NoteReport;
   ViewOn;
   _authWired;
+  rerender;
   constructor(context2) {
     super();
     this.context = context2;
@@ -146025,6 +146094,7 @@ class UiNoteEditor extends import_ee_safe29.EventEmitter {
     this.NoteReport = new UiNoteReport(context2);
     this.ViewOn = new UiViewOn(context2);
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this._saveSection = this._saveSection.bind(this);
     this._userDetails = this._userDetails.bind(this);
     this._buttons = this._buttons.bind(this);
@@ -146061,7 +146131,7 @@ class UiNoteEditor extends import_ee_safe29.EventEmitter {
     $footer.enter().append("div").attr("class", "sidebar-footer").merge($footer).call(this.ViewOn.render).call(this.NoteReport.render);
     if (osm && !this._authWired) {
       this._authWired = true;
-      osm.on("authchange", this.render);
+      osm.on("authchange", this.rerender);
     }
   }
   _saveSection($selection) {
@@ -148361,15 +148431,17 @@ class UiValidatorStatus {
   IssuesTooltip;
   ResolvedTooltip;
   $parent;
+  rerender;
   constructor(context2) {
     this.context = context2;
     this.IssuesTooltip = new UiTooltip(context2).placement("top");
     this.ResolvedTooltip = new UiTooltip(context2).placement("top");
     this.$parent = null;
     this.render = this.render.bind(this);
+    this.rerender = () => this.render();
     this.click = this.click.bind(this);
     const validator = context2.systems.validator;
-    validator.on("validated", this.render);
+    validator.on("validated", this.rerender);
   }
   render($parent = this.$parent) {
     if ($parent instanceof selection_default) {
@@ -167238,5 +167310,5 @@ globalThis.Rapid = { ...exports_modules };
 globalThis.Rapid.isDebug = false;
 globalThis.Rapid.scriptURL = _scriptURL;
 
-//# debugId=187DED0A515CD37264756E2164756E21
+//# debugId=315AD70E6057555664756E2164756E21
 //# sourceMappingURL=rapid.js.map

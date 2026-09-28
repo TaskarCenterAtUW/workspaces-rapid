@@ -7051,6 +7051,8 @@ It generally uses a dark theme with magenta highlight colors.
   position: absolute;
   left: 16px;
   color: #aaa;
+  z-index: 10;  /* above input field */
+  pointer-events: none;
 }
 .ideditor[dir='rtl'] .modal-catalog .rapid-catalog-filter-search-wrap > .icon {
   left: unset;
