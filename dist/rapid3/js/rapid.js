@@ -12907,7 +12907,7 @@ class EventBoundary {
     propagationPath.reverse();
     return propagationPath;
   }
-  hitTestMoveRecursive(currentTarget, eventMode, location, testFn, pruneFn, ignore = false) {
+  hitTestMoveRecursive(currentTarget, eventMode, location2, testFn, pruneFn, ignore = false) {
     let shouldReturn = false;
     if (this._interactivePrune(currentTarget))
       return null;
@@ -12918,7 +12918,7 @@ class EventBoundary {
       const children2 = currentTarget.children;
       for (let i2 = children2.length - 1;i2 >= 0; i2--) {
         const child = children2[i2];
-        const nestedHit = this.hitTestMoveRecursive(child, this._isInteractive(eventMode) ? eventMode : child.eventMode, location, testFn, pruneFn, ignore || pruneFn(currentTarget, location));
+        const nestedHit = this.hitTestMoveRecursive(child, this._isInteractive(eventMode) ? eventMode : child.eventMode, location2, testFn, pruneFn, ignore || pruneFn(currentTarget, location2));
         if (nestedHit) {
           if (nestedHit.length > 0 && !nestedHit[nestedHit.length - 1].parent) {
             continue;
@@ -12943,13 +12943,13 @@ class EventBoundary {
       return null;
     if (shouldReturn)
       return this._hitElements;
-    if (isInteractiveMode && (!pruneFn(currentTarget, location) && testFn(currentTarget, location))) {
+    if (isInteractiveMode && (!pruneFn(currentTarget, location2) && testFn(currentTarget, location2))) {
       return isInteractiveTarget ? [currentTarget] : [];
     }
     return null;
   }
-  hitTestRecursive(currentTarget, eventMode, location, testFn, pruneFn) {
-    if (this._interactivePrune(currentTarget) || pruneFn(currentTarget, location)) {
+  hitTestRecursive(currentTarget, eventMode, location2, testFn, pruneFn) {
+    if (this._interactivePrune(currentTarget) || pruneFn(currentTarget, location2)) {
       return null;
     }
     if (currentTarget.eventMode === "dynamic" || eventMode === "dynamic") {
@@ -12957,7 +12957,7 @@ class EventBoundary {
     }
     if (currentTarget.interactiveChildren && currentTarget.children) {
       const children2 = currentTarget.children;
-      const relativeLocation = location;
+      const relativeLocation = location2;
       for (let i2 = children2.length - 1;i2 >= 0; i2--) {
         const child = children2[i2];
         const nestedHit = this.hitTestRecursive(child, this._isInteractive(eventMode) ? eventMode : child.eventMode, relativeLocation, testFn, pruneFn);
@@ -12974,7 +12974,7 @@ class EventBoundary {
     }
     const isInteractiveMode = this._isInteractive(eventMode);
     const isInteractiveTarget = currentTarget.isInteractive();
-    if (isInteractiveMode && testFn(currentTarget, location)) {
+    if (isInteractiveMode && testFn(currentTarget, location2)) {
       return isInteractiveTarget ? [currentTarget] : [];
     }
     return null;
@@ -12994,9 +12994,9 @@ class EventBoundary {
     }
     return false;
   }
-  hitPruneFn(container, location) {
+  hitPruneFn(container, location2) {
     if (container.hitArea) {
-      container.worldTransform.applyInverse(location, tempLocalMapping);
+      container.worldTransform.applyInverse(location2, tempLocalMapping);
       if (!container.hitArea.contains(tempLocalMapping.x, tempLocalMapping.y)) {
         return true;
       }
@@ -13005,7 +13005,7 @@ class EventBoundary {
       for (let i2 = 0;i2 < container.effects.length; i2++) {
         const effect = container.effects[i2];
         if (effect.containsPoint) {
-          const effectContainsPoint = effect.containsPoint(location, this.hitTestFn);
+          const effectContainsPoint = effect.containsPoint(location2, this.hitTestFn);
           if (!effectContainsPoint) {
             return true;
           }
@@ -13014,12 +13014,12 @@ class EventBoundary {
     }
     return false;
   }
-  hitTestFn(container, location) {
+  hitTestFn(container, location2) {
     if (container.hitArea) {
       return true;
     }
     if (container?.containsPoint) {
-      container.worldTransform.applyInverse(location, tempLocalMapping);
+      container.worldTransform.applyInverse(location2, tempLocalMapping);
       return container.containsPoint(tempLocalMapping);
     }
     return false;
@@ -27851,19 +27851,19 @@ class GlGeometrySystem {
           bufferSystem.bind(buffer);
           lastBuffer = glBuffer;
         }
-        const location = programAttrib.location;
-        gl.enableVertexAttribArray(location);
+        const location2 = programAttrib.location;
+        gl.enableVertexAttribArray(location2);
         const attributeInfo = getAttributeInfoFromFormat(attribute.format);
         const type = getGlTypeFromFormat(attribute.format);
         if (programAttrib.format?.substring(1, 4) === "int") {
-          gl.vertexAttribIPointer(location, attributeInfo.size, type, attribute.stride, attribute.offset);
+          gl.vertexAttribIPointer(location2, attributeInfo.size, type, attribute.stride, attribute.offset);
         } else {
-          gl.vertexAttribPointer(location, attributeInfo.size, type, attributeInfo.normalised, attribute.stride, attribute.offset);
+          gl.vertexAttribPointer(location2, attributeInfo.size, type, attributeInfo.normalised, attribute.stride, attribute.offset);
         }
         if (attribute.instance) {
           if (this.hasInstance) {
             const divisor = attribute.divisor ?? 1;
-            gl.vertexAttribDivisor(location, divisor);
+            gl.vertexAttribDivisor(location2, divisor);
           } else {
             throw new Error("geometry error, GPU Instancing is not supported on this device");
           }
@@ -30388,42 +30388,42 @@ var BYTES_PER_PIXEL = 4, _GlTextureSystem = class _GlTextureSystem2 {
   initSource(source3) {
     this.bind(source3);
   }
-  bind(texture, location = 0) {
+  bind(texture, location2 = 0) {
     const source3 = texture.source;
     if (texture) {
-      this.bindSource(source3, location);
+      this.bindSource(source3, location2);
       if (this._useSeparateSamplers) {
-        this._bindSampler(source3.style, location);
+        this._bindSampler(source3.style, location2);
       }
     } else {
-      this.bindSource(null, location);
+      this.bindSource(null, location2);
       if (this._useSeparateSamplers) {
-        this._bindSampler(null, location);
+        this._bindSampler(null, location2);
       }
     }
   }
-  bindSource(source3, location = 0) {
+  bindSource(source3, location2 = 0) {
     const gl = this._gl;
     source3._gcLastUsed = this._renderer.gc.now;
-    if (this._boundTextures[location] !== source3) {
-      this._boundTextures[location] = source3;
-      this._activateLocation(location);
+    if (this._boundTextures[location2] !== source3) {
+      this._boundTextures[location2] = source3;
+      this._activateLocation(location2);
       source3 || (source3 = Texture.EMPTY.source);
       const glTexture = this.getGlSource(source3);
       gl.bindTexture(glTexture.target, glTexture.texture);
     }
   }
-  _bindSampler(style, location = 0) {
+  _bindSampler(style, location2 = 0) {
     const gl = this._gl;
     if (!style) {
-      this._boundSamplers[location] = null;
-      gl.bindSampler(location, null);
+      this._boundSamplers[location2] = null;
+      gl.bindSampler(location2, null);
       return;
     }
     const sampler = this._getGlSampler(style);
-    if (this._boundSamplers[location] !== sampler) {
-      this._boundSamplers[location] = sampler;
-      gl.bindSampler(location, sampler);
+    if (this._boundSamplers[location2] !== sampler) {
+      this._boundSamplers[location2] = sampler;
+      gl.bindSampler(location2, sampler);
     }
   }
   unbind(texture) {
@@ -30439,10 +30439,10 @@ var BYTES_PER_PIXEL = 4, _GlTextureSystem = class _GlTextureSystem2 {
       }
     }
   }
-  _activateLocation(location) {
-    if (this._activeTextureLocation !== location) {
-      this._activeTextureLocation = location;
-      this._gl.activeTexture(this._gl.TEXTURE0 + location);
+  _activateLocation(location2) {
+    if (this._activeTextureLocation !== location2) {
+      this._activeTextureLocation = location2;
+      this._gl.activeTexture(this._gl.TEXTURE0 + location2);
     }
   }
   _initSource(source3) {
@@ -114029,39 +114029,39 @@ class LocationConflation {
   get _cache() {
     return this._resolved;
   }
-  validateLocation(location) {
-    if (Array.isArray(location) && (location.length === 2 || location.length === 3)) {
-      const lon = location[0];
-      const lat = location[1];
-      const radius = location[2];
-      if (this._isValidPoint([lon, lat]) && (location.length === 2 || radius !== undefined && Number.isFinite(radius) && radius > 0)) {
-        const id = "[" + location.toString() + "]";
-        return { type: "point", location, id };
+  validateLocation(location2) {
+    if (Array.isArray(location2) && (location2.length === 2 || location2.length === 3)) {
+      const lon = location2[0];
+      const lat = location2[1];
+      const radius = location2[2];
+      if (this._isValidPoint([lon, lat]) && (location2.length === 2 || radius !== undefined && Number.isFinite(radius) && radius > 0)) {
+        const id = "[" + location2.toString() + "]";
+        return { type: "point", location: location2, id };
       }
-    } else if (typeof location === "string" && /^\S+\.geojson$/i.test(location)) {
-      const id = location.toLowerCase();
+    } else if (typeof location2 === "string" && /^\S+\.geojson$/i.test(location2)) {
+      const id = location2.toLowerCase();
       if (this._resolved.has(id)) {
-        return { type: "geojson", location, id };
+        return { type: "geojson", location: location2, id };
       }
-    } else if (typeof location === "string" || typeof location === "number") {
-      const feature2 = feature(location);
+    } else if (typeof location2 === "string" || typeof location2 === "number") {
+      const feature2 = feature(location2);
       if (feature2) {
         const id = feature2.properties.wikidata;
-        return { type: "countrycoder", location, id };
+        return { type: "countrycoder", location: location2, id };
       }
     }
-    throw new Error(`validateLocation:  Invalid location: "${location}".`);
+    throw new Error(`validateLocation:  Invalid location: "${location2}".`);
   }
-  resolveLocation(location) {
-    const valid = this.validateLocation(location);
+  resolveLocation(location2) {
+    const valid = this.validateLocation(location2);
     const id = valid.id;
     if (this._resolved.has(id)) {
       return { ...valid, feature: this._resolved.get(id) };
     }
-    if (valid.type === "point" && Array.isArray(location)) {
-      const lon = location[0];
-      const lat = location[1];
-      const radius = location[2] || 25;
+    if (valid.type === "point" && Array.isArray(location2)) {
+      const lon = location2[0];
+      const lat = location2[1];
+      const radius = location2[2] || 25;
       const EDGES = 10;
       const PRECISION2 = 3;
       const area2 = Math.PI * radius * radius;
@@ -114105,7 +114105,7 @@ class LocationConflation {
       this._resolved.set(id, feature2);
       return { ...valid, feature: feature2 };
     }
-    throw new Error(`resolveLocation:  Couldn't resolve location "${location}".`);
+    throw new Error(`resolveLocation:  Couldn't resolve location "${location2}".`);
   }
   validateLocationSet(locationSet) {
     locationSet = locationSet || {};
@@ -114161,10 +114161,10 @@ class LocationConflation {
       if (this._registered.has(locationSetID))
         continue;
       let area2 = 0;
-      for (const location of locationSet.include ?? []) {
+      for (const location2 of locationSet.include ?? []) {
         let resolved;
         try {
-          resolved = this.resolveLocation(location);
+          resolved = this.resolveLocation(location2);
         } catch {
           continue;
         }
@@ -114177,10 +114177,10 @@ class LocationConflation {
         }
         s2.add(locationSetID);
       }
-      for (const location of locationSet.exclude ?? []) {
+      for (const location2 of locationSet.exclude ?? []) {
         let resolved;
         try {
-          resolved = this.resolveLocation(location);
+          resolved = this.resolveLocation(location2);
         } catch {
           continue;
         }
@@ -117143,7 +117143,8 @@ class RapidSystem extends AbstractSystem {
   constructor(context2) {
     super(context2);
     this.id = "rapid";
-    this.optionalDependencies = new Set(["editor", "gfx", "settings", "urlhash"]);
+    this.requiredDependencies = new Set(["network", "spatial"]);
+    this.optionalDependencies = new Set(["assets", "editor", "gfx", "l10n", "settings", "urlhash"]);
     this._hashChanged = this._hashChanged.bind(this);
     this._stablechange = this._stablechange.bind(this);
     this._datasetsChanged = this._datasetsChanged.bind(this);
@@ -122443,7 +122444,7 @@ class UiMeasurementCard extends AbstractUiCard {
     const $content = $wrap.selectAll(".card-content");
     $content.html("");
     let heading;
-    let center, location, centroid;
+    let center, location2, centroid;
     let isClosed, geometry;
     let totalNodeCount;
     let length3 = 0;
@@ -122456,7 +122457,7 @@ class UiMeasurementCard extends AbstractUiCard {
     if (selectedData.size === 1 && isNote) {
       const note = selectedItem;
       heading = l10n.t("text.note") + " " + note.id;
-      location = note.loc;
+      location2 = note.loc;
       geometry = "note";
     } else {
       const selected = selectedIDs.map((id) => graph.hasEntity(id)).filter(Boolean);
@@ -122493,11 +122494,11 @@ class UiMeasurementCard extends AbstractUiCard {
           distance = geoSphericalDistance(selected[0].loc, selected[1].loc);
         }
         if (selected.length === 1 && selected[0].type === "node") {
-          location = selected[0].loc;
+          location2 = selected[0].loc;
         } else {
           totalNodeCount = utilGetAllNodes(selectedIDs, graph).length;
         }
-        if (!location && !centroid) {
+        if (!location2 && !centroid) {
           center = allExtent.center();
         }
       }
@@ -122522,10 +122523,10 @@ class UiMeasurementCard extends AbstractUiCard {
     if (typeof distance === "number") {
       $list.append("li").text(l10n.t("info_panels.measurement.distance") + ":").append("span").text(l10n.displayLength(distance, this._isImperial));
     }
-    if (location) {
+    if (location2) {
       $item = $list.append("li").text(l10n.t("info_panels.measurement.location") + ":");
-      $item.append("span").text(l10n.dmsCoordinatePair(location));
-      $item.append("span").text(l10n.decimalCoordinatePair(location));
+      $item.append("span").text(l10n.dmsCoordinatePair(location2));
+      $item.append("span").text(l10n.decimalCoordinatePair(location2));
     }
     if (centroid) {
       $item = $list.append("li").text(l10n.t("info_panels.measurement.centroid") + ":");
@@ -144481,8 +144482,8 @@ Transform3.prototype = {
   applyY: function(y3) {
     return y3 * this.k + this.y;
   },
-  invert: function(location) {
-    return [(location[0] - this.x) / this.k, (location[1] - this.y) / this.k];
+  invert: function(location2) {
+    return [(location2[0] - this.x) / this.k, (location2[1] - this.y) / this.k];
   },
   invertX: function(x3) {
     return (x3 - this.x) / this.k;
@@ -152516,9 +152517,27 @@ class WorkerSystem extends AbstractSystem {
     this._workerIndex++;
     return worker;
   }
+  _resolveWorkerURL(workerURL) {
+    if (typeof location === "undefined" || !location.href) {
+      return workerURL;
+    }
+    let abs2;
+    try {
+      abs2 = new URL(workerURL, location.href);
+    } catch {
+      return workerURL;
+    }
+    const isSameOrigin = abs2.origin === location.origin;
+    const isHttp = abs2.protocol === "http:" || abs2.protocol === "https:";
+    if (isSameOrigin || !isHttp) {
+      return workerURL;
+    }
+    const shim = `import ${JSON.stringify(abs2.href)};`;
+    return URL.createObjectURL(new Blob([shim], { type: "text/javascript" }));
+  }
   _spawnWorker() {
     const scheduler = this.context.systems.scheduler;
-    const worker = new Worker(this._workerURL, { type: "module" });
+    const worker = new Worker(this._resolveWorkerURL(this._workerURL), { type: "module" });
     worker.onmessage = (event) => {
       const { id: id2, result, error } = event.data;
       const pending = this._pendingRequests.get(id2);
@@ -167310,5 +167329,5 @@ globalThis.Rapid = { ...exports_modules };
 globalThis.Rapid.isDebug = false;
 globalThis.Rapid.scriptURL = _scriptURL;
 
-//# debugId=315AD70E6057555664756E2164756E21
+//# debugId=E0854C625DA5D63464756E2164756E21
 //# sourceMappingURL=rapid.js.map
