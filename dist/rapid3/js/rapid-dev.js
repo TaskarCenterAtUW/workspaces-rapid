@@ -63037,13 +63037,13 @@ var require_YAMLCBWriter = __commonJS(function(exports) {
 // node:events
 var exports_events = {};
 __export(exports_events, {
-  EventEmitter: () => EventEmitter36,
+  EventEmitter: () => EventEmitter35,
   addAbortListener: () => addAbortListener,
   captureRejectionSymbol: () => captureRejectionSymbol,
   default: () => events_default,
   getEventListeners: () => getEventListeners,
   getMaxListeners: () => getMaxListeners2,
-  init: () => EventEmitter36,
+  init: () => EventEmitter35,
   listenerCount: () => listenerCount2,
   once: () => once2,
   setMaxListeners: () => setMaxListeners2
@@ -63185,7 +63185,7 @@ function addAbortListener(signal, listener) {
     removeEventListener?.();
   } };
 }
-var SymbolFor, kCapture, kErrorMonitor, kMaxEventTargetListeners, kMaxEventTargetListenersWarned, kRejection, captureRejectionSymbol, ArrayPrototypeSlice, defaultMaxListeners = 10, EventEmitter36 = function(opts) {
+var SymbolFor, kCapture, kErrorMonitor, kMaxEventTargetListeners, kMaxEventTargetListenersWarned, kRejection, captureRejectionSymbol, ArrayPrototypeSlice, defaultMaxListeners = 10, EventEmitter35 = function(opts) {
   if (this._events === undefined || this._events === this.__proto__._events)
     this._events = { __proto__: null }, this._eventsCount = 0;
   if (this._maxListeners ??= undefined, this[kCapture] = opts?.captureRejections ? Boolean(opts?.captureRejections) : EventEmitterPrototype[kCapture])
@@ -63264,14 +63264,14 @@ var init_events = __esm(() => {
   kRejection = SymbolFor("nodejs.rejection");
   captureRejectionSymbol = SymbolFor("nodejs.rejection");
   ArrayPrototypeSlice = Array.prototype.slice;
-  EventEmitterPrototype = EventEmitter36.prototype = {};
+  EventEmitterPrototype = EventEmitter35.prototype = {};
   EventEmitterPrototype._events = undefined;
   EventEmitterPrototype._eventsCount = 0;
   EventEmitterPrototype._maxListeners = undefined;
   EventEmitterPrototype.setMaxListeners = function(n3) {
     return validateNumber(n3, "setMaxListeners", 0), this._maxListeners = n3, this;
   };
-  EventEmitterPrototype.constructor = EventEmitter36;
+  EventEmitterPrototype.constructor = EventEmitter35;
   EventEmitterPrototype.getMaxListeners = function() {
     return this?._maxListeners ?? defaultMaxListeners;
   };
@@ -63394,7 +63394,7 @@ var init_events = __esm(() => {
       this.code = "ABORT_ERR", this.name = "AbortError";
     }
   };
-  Object.defineProperties(EventEmitter36, { captureRejections: { get() {
+  Object.defineProperties(EventEmitter35, { captureRejections: { get() {
     return EventEmitterPrototype[kCapture];
   }, set(value) {
     validateBoolean(value, "EventEmitter.captureRejections"), EventEmitterPrototype[kCapture] = value;
@@ -63403,8 +63403,8 @@ var init_events = __esm(() => {
   }, set: (arg) => {
     validateNumber(arg, "defaultMaxListeners", 0), defaultMaxListeners = arg;
   } }, kMaxEventTargetListeners: { value: kMaxEventTargetListeners, enumerable: false, configurable: false, writable: false }, kMaxEventTargetListenersWarned: { value: kMaxEventTargetListenersWarned, enumerable: false, configurable: false, writable: false } });
-  Object.assign(EventEmitter36, { once: once2, getEventListeners, getMaxListeners: getMaxListeners2, setMaxListeners: setMaxListeners2, EventEmitter: EventEmitter36, usingDomains: false, captureRejectionSymbol, errorMonitor: kErrorMonitor, addAbortListener, init: EventEmitter36, listenerCount: listenerCount2 });
-  events_default = EventEmitter36;
+  Object.assign(EventEmitter35, { once: once2, getEventListeners, getMaxListeners: getMaxListeners2, setMaxListeners: setMaxListeners2, EventEmitter: EventEmitter35, usingDomains: false, captureRejectionSymbol, errorMonitor: kErrorMonitor, addAbortListener, init: EventEmitter35, listenerCount: listenerCount2 });
+  events_default = EventEmitter35;
 });
 
 // node_modules/xmlbuilder2/lib/builder/XMLBuilderCBImpl.js
@@ -167299,9 +167299,6 @@ class UiSourceSwitch {
     context2.resetAsync().then(() => osm.switchAsync(this._isLive ? keys[0] : keys[1])).then(() => this.render());
   }
 }
-// modules/ui/UiSuccess.ts
-var import_ee_safe33 = __toESM(require_ee_safe(), 1);
-
 // node_modules/osm-community-index/dist/js/oci.mjs
 var import_diacritics4 = __toESM(require_diacritics(), 1);
 function simplify(str) {
@@ -167387,27 +167384,102 @@ function resolveStrings(item, defaults, localizerFn) {
 }
 
 // modules/ui/UiSuccess.ts
-var _oci = null;
 var MAXEVENTS = 2;
+var _oci = null;
 
-class UiSuccess extends import_ee_safe33.EventEmitter {
+class UiSuccess {
   context;
+  $parent;
   _changeset;
   _location;
+  _ociPromise;
+  _communityData;
+  _communityDisclosures;
   constructor(context2) {
-    super();
     this.context = context2;
     this._changeset = null;
     this._location = null;
+    this._ociPromise = null;
+    this._communityData = [];
+    this._communityDisclosures = new Map;
+    this.$parent = null;
     this.render = this.render.bind(this);
-    this._showCommunityLinks = this._showCommunityLinks.bind(this);
+    this._renderCommunityData = this._renderCommunityData.bind(this);
+    this._renderCommunityDetail = this._renderCommunityDetail.bind(this);
     this._getCommunityIndexAsync();
   }
+  render($parent = this.$parent) {
+    if ($parent instanceof selection_default) {
+      this.$parent = $parent;
+    } else {
+      return;
+    }
+    const context2 = this.context;
+    const l10n = context2.systems.l10n;
+    const locations = context2.systems.locations;
+    const map4 = context2.systems.map;
+    const osm = context2.services.osm;
+    const ui = context2.systems.ui;
+    let $heading = $parent.selectAll(".heading").data([0]);
+    const $$heading = $heading.enter().append("div").attr("class", "heading fillL");
+    $$heading.append("button").attr("class", "close").on("click", () => ui?.Sidebar?.hide()).call(uiIcon("#rapid-icon-close"));
+    $$heading.append("h3");
+    $heading = $heading.merge($$heading);
+    $heading.selectAll("h3").text(l10n.t("success.just_edited"));
+    let $body = $parent.selectAll(".body").data([0]);
+    const $$body = $body.enter().append("div").attr("class", "body save-success fillL");
+    const $$summary = $$body.append("div").attr("class", "save-summary");
+    $$summary.append("h3").attr("class", "save-thank-you");
+    const $$message = $$summary.append("p");
+    $$message.append("span").attr("class", "save-message");
+    const $$link = $$message.append("a").attr("class", "link-out").attr("target", "_blank").attr("href", "");
+    $$link.call(uiIcon("#rapid-icon-out-link", "inline"));
+    $$link.append("span").attr("class", "save-link-text");
+    const changesetURL = osm?.changesetURL(this._changeset.id);
+    if (changesetURL) {
+      const $$table = $$summary.append("table").attr("class", "summary-table");
+      const $$row = $$table.append("tr").attr("class", "summary-row");
+      $$row.append("td").attr("class", "cell-icon summary-icon").append("a").attr("target", "_blank").attr("href", changesetURL).append("svg").attr("class", "logo-small").append("use").attr("xlink:href", "#rapid-logo-osm");
+      const $$summaryDetail = $$row.append("td").attr("class", "cell-detail summary-detail");
+      $$summaryDetail.append("a").attr("class", "cell-detail summary-view-on-osm").attr("target", "_blank").attr("href", changesetURL);
+      const $$detailChangesetID = $$summaryDetail.append("div");
+      $$detailChangesetID.append("span").attr("class", "summary-changeset-id");
+      $$detailChangesetID.append("a").attr("target", "_blank").attr("href", changesetURL).text(this._changeset.id);
+    }
+    $body = $body.merge($$body);
+    $body.selectAll(".save-thank-you").text(l10n.t("success.thank_you" + (this._location ? "_location" : ""), { where: this._location ?? undefined }));
+    $body.selectAll(".save-message").text(l10n.t("success.your_changes"));
+    $body.selectAll(".save-message a.link-out").attr("href", l10n.t("success.help_link_url"));
+    $body.selectAll(".save-link-text").text(l10n.t("text.detail", { n: 100 }));
+    $body.selectAll(".summary-view-on-osm").text(l10n.t("success.view_on_osm"));
+    $body.selectAll(".summary-changeset-id").text(l10n.t("success.your_changeset_id"));
+    this._getCommunityIndexAsync().then((oci) => {
+      const loc = map4?.center();
+      const validHere = Array.isArray(loc) ? locations?.locationSetsAt(loc) : null;
+      if (!validHere)
+        return;
+      this._communityData = [];
+      for (const resource of oci.resources) {
+        const area2 = validHere.get(resource.locationSetID);
+        if (!area2)
+          continue;
+        this._communityData.push({
+          resource,
+          area: area2,
+          order: resource.order || 0
+        });
+      }
+      this._communityData.sort((a2, b11) => a2.area - b11.area || b11.order - a2.order);
+      $body.call(this._renderCommunityData);
+    });
+  }
   _getCommunityIndexAsync() {
+    if (this._ociPromise)
+      return this._ociPromise;
     const context2 = this.context;
     const assets = context2.systems.assets;
     const locations = context2.systems.locations;
-    return Promise.all([
+    this._ociPromise = Promise.all([
       assets.loadAssetAsync("oci_features"),
       assets.loadAssetAsync("oci_resources"),
       assets.loadAssetAsync("oci_defaults")
@@ -167419,9 +167491,9 @@ class UiSuccess extends import_ee_safe33.EventEmitter {
       }
       const ociResources = Object.values(vals[1].resources);
       if (locations && ociResources.length) {
-        return locations.mergeLocationSets(ociResources).then(() => {
+        return locations.mergeLocationSets(ociResources).then((resolvedResources) => {
           _oci = {
-            resources: ociResources,
+            resources: resolvedResources,
             defaults: vals[2].defaults
           };
           return _oci;
@@ -167434,6 +167506,7 @@ class UiSuccess extends import_ee_safe33.EventEmitter {
         return _oci;
       }
     });
+    return this._ociPromise;
   }
   _parseEventDate(when) {
     if (!when)
@@ -167447,74 +167520,59 @@ class UiSuccess extends import_ee_safe33.EventEmitter {
     const parsed = new Date(raw);
     return new Date(parsed.toUTCString().slice(0, 25));
   }
-  render($selection) {
-    const context2 = this.context;
-    const l10n = context2.systems.l10n;
-    const locations = context2.systems.locations;
-    const map4 = context2.systems.map;
-    const $header = $selection.append("div").attr("class", "header fillL");
-    $header.append("h3").text(l10n.t("success.just_edited"));
-    $header.append("button").attr("class", "close").on("click", () => this.emit("cancel")).call(uiIcon("#rapid-icon-close"));
-    const $body = $selection.append("div").attr("class", "body save-success fillL");
-    const $summary = $body.append("div").attr("class", "save-summary");
-    $summary.append("h3").text(l10n.t("success.thank_you" + (this._location ? "_location" : ""), { where: this._location ?? undefined }));
-    $summary.append("p").text(l10n.t("success.your_changes")).append("a").attr("class", "link-out").attr("target", "_blank").attr("href", l10n.t("success.help_link_url")).call(uiIcon("#rapid-icon-out-link", "inline")).append("span").text(l10n.t("text.detail", { n: 100 }));
-    const osm = context2.services.osm;
-    if (!osm)
+  _renderCommunityData($selection) {
+    if (!_oci)
       return;
-    const changesetURL = osm.changesetURL(this._changeset.id);
-    const $table = $summary.append("table").attr("class", "summary-table");
-    const $row = $table.append("tr").attr("class", "summary-row");
-    $row.append("td").attr("class", "cell-icon summary-icon").append("a").attr("target", "_blank").attr("href", changesetURL).append("svg").attr("class", "logo-small").append("use").attr("xlink:href", "#rapid-logo-osm");
-    const $summaryDetail = $row.append("td").attr("class", "cell-detail summary-detail");
-    $summaryDetail.append("a").attr("class", "cell-detail summary-view-on-osm").attr("target", "_blank").attr("href", changesetURL).text(l10n.t("success.view_on_osm"));
-    $summaryDetail.append("div").text(l10n.t("success.your_changeset_id")).append("a").attr("target", "_blank").attr("href", changesetURL).text(this._changeset.id);
-    this._getCommunityIndexAsync().then((oci) => {
-      if (!locations)
-        return;
-      const loc = map4.center();
-      if (!loc)
-        return;
-      const validHere = locations.locationSetsAt(loc);
-      const communities = [];
-      oci.resources.forEach((resource) => {
-        const area2 = validHere.get(resource.locationSetID);
-        if (!area2)
-          return;
-        const localize2 = (stringID) => l10n.t(`_community.${stringID}`);
-        resource.resolved = resolveStrings(resource, oci.defaults, localize2);
-        communities.push({
-          area: area2,
-          order: resource.order || 0,
-          resource
-        });
-      });
-      communities.sort((a2, b11) => a2.area - b11.area || b11.order - a2.order);
-      $body.call(this._showCommunityLinks, communities.map((c2) => c2.resource));
-    });
-  }
-  _showCommunityLinks($selection, resources) {
     const context2 = this.context;
     const l10n = context2.systems.l10n;
-    const $communityLinks = $selection.append("div").attr("class", "save-communityLinks");
-    $communityLinks.append("h3").text(l10n.t("success.like_osm"));
-    const $table = $communityLinks.append("table").attr("class", "community-table");
-    const $row = $table.selectAll(".community-row").data(resources);
-    const $$row = $row.enter().append("tr").attr("class", "community-row");
-    $$row.append("td").attr("class", "cell-icon community-icon").append("a").attr("target", "_blank").attr("href", (d2) => utilSafeURL(d2.resolved?.url)).append("svg").attr("class", "logo-small").append("use").attr("xlink:href", (d2) => `#community-${d2.type}`);
-    const $communityDetail = $$row.append("td").attr("class", "cell-detail community-detail");
-    $communityDetail.each((d2, i2, nodes) => this._showCommunityDetails(d2, i2, nodes));
-    $communityLinks.append("div").attr("class", "community-missing").text(l10n.t("success.missing")).append("a").attr("class", "link-out").attr("target", "_blank").call(uiIcon("#rapid-icon-out-link", "inline")).attr("href", "https://github.com/osmlab/osm-community-index/issues").append("span").text(l10n.t("success.tell_us"));
+    const resources = this._communityData.map((d2) => d2.resource);
+    const localize2 = (stringID) => l10n.t(`_community.${stringID}`);
+    for (const resource of resources) {
+      resource.resolved = resolveStrings(resource, _oci.defaults, localize2);
+    }
+    let $communityLinks = $selection.selectAll(".save-communityLinks").data([0]);
+    const $$communityLinks = $communityLinks.enter().append("div").attr("class", "save-communityLinks");
+    $$communityLinks.append("h3").attr("class", "community-heading");
+    $$communityLinks.append("table").attr("class", "community-table");
+    const $$missingMessage = $$communityLinks.append("div").attr("class", "community-missing");
+    $$missingMessage.append("span").attr("class", "community-missing-message");
+    const $$missingLink = $$missingMessage.append("a").attr("class", "link-out").attr("target", "_blank").attr("href", "https://github.com/osmlab/osm-community-index/issues");
+    $$missingLink.call(uiIcon("#rapid-icon-out-link", "inline"));
+    $$missingLink.append("span").attr("class", "community-missing-link-text");
+    $communityLinks = $communityLinks.merge($$communityLinks);
+    $communityLinks.selectAll(".community-heading").text(l10n.t("success.like_osm"));
+    $communityLinks.selectAll(".community-missing-message").text(l10n.t("success.missing"));
+    $communityLinks.selectAll(".community-missing-link-text").text(l10n.t("success.tell_us"));
+    const $table = $communityLinks.selectAll(".community-table");
+    let $rows = $table.selectAll(".community-row").data(resources, (d2) => d2.id);
+    $rows.exit().remove();
+    const $$rows = $rows.enter().append("tr").attr("class", "community-row");
+    $$rows.append("td").attr("class", "cell-icon community-icon").append("a").attr("target", "_blank").attr("href", (d2) => utilSafeURL(d2.resolved.url)).append("svg").attr("class", "logo-small").append("use").attr("xlink:href", (d2) => `#community-${d2.type}`);
+    $$rows.append("td").attr("class", "cell-detail community-detail");
+    $rows = $rows.merge($$rows);
+    $rows.selectAll(".community-detail").each(this._renderCommunityDetail);
   }
-  _showCommunityDetails(d2, i2, nodes) {
+  _renderCommunityDetail(d2, i2, nodes) {
     const context2 = this.context;
     const l10n = context2.systems.l10n;
-    const $selection = select_default2(nodes[i2]);
+    const $td = select_default2(nodes[i2]);
     const communityID = d2.id;
-    $selection.append("div").attr("class", "community-name").html(utilSanitizeHTML(d2.resolved.nameHTML));
-    $selection.append("div").attr("class", "community-description").html(utilSanitizeHTML(d2.resolved.descriptionHTML));
-    if (d2.resolved.extendedDescriptionHTML || d2.languageCodes && d2.languageCodes.length) {
-      $selection.append("div").call(new UiDisclosure(context2, `community-more-${d2.id}`).expanded(false).checkPreference(false).label(l10n.t("text.more")).content(showMore).render);
+    let disclosures = this._communityDisclosures.get(communityID);
+    if (!disclosures) {
+      disclosures = {};
+      this._communityDisclosures.set(communityID, disclosures);
+    }
+    const strings = d2.resolved;
+    let $name = $td.selectAll(".community-name").data([d2]);
+    $name = $name.enter().append("div").attr("class", "community-name").merge($name);
+    $name.html(utilSanitizeHTML(strings.nameHTML));
+    let $description = $td.selectAll(".community-description").data([d2]);
+    $description = $description.enter().append("div").attr("class", "community-description").merge($description);
+    $description.html(utilSanitizeHTML(strings.descriptionHTML));
+    const hasMore = strings.extendedDescriptionHTML || d2.languageCodes?.length;
+    if (hasMore) {
+      disclosures.more ??= new UiDisclosure(context2, `community-more-${d2.id}`).expanded(false).checkPreference(false).label(() => l10n.t("text.more")).content(showMore);
+      $td.call(disclosures.more.render);
     }
     const nextEvents = (d2.events || []).map((event) => {
       event.date = this._parseEventDate(event.when);
@@ -167527,31 +167585,42 @@ class UiSuccess extends import_ee_safe33.EventEmitter {
       return a2.date < b11.date ? -1 : a2.date > b11.date ? 1 : 0;
     }).slice(0, MAXEVENTS);
     if (nextEvents.length) {
-      $selection.append("div").call(new UiDisclosure(context2, `community-events-${d2.id}`).expanded(false).checkPreference(false).label(l10n.t("success.events")).content(showNextEvents).render).select(".hide-toggle").append("span").attr("class", "badge-text").text(nextEvents.length);
+      disclosures.event ??= new UiDisclosure(context2, `community-events-${d2.id}`).expanded(false).checkPreference(false).label(() => l10n.t("success.events")).content(showNextEvents);
+      $td.call(disclosures.event.render);
+      const $hidetoggle = $td.select(`.hide-toggle-community-events-${d2.id}`);
+      let $badge = $hidetoggle.selectAll(".badge-text").data([0]);
+      $badge = $badge.enter().append("span").attr("class", "badge-text").merge($badge);
+      $badge.text(nextEvents.length);
     }
-    function showMore($selection2) {
-      const $more = $selection2.selectAll(".community-more").data([0]);
-      const $$more = $more.enter().append("div").attr("class", "community-more");
-      if (d2.resolved.extendedDescriptionHTML) {
-        $$more.append("div").attr("class", "community-extended-description").html(utilSanitizeHTML(d2.resolved.extendedDescriptionHTML));
-      }
-      if (d2.languageCodes && d2.languageCodes.length) {
-        const languageList = d2.languageCodes.map((code) => l10n.languageName(code)).join(", ");
-        $$more.append("div").attr("class", "community-languages").text(l10n.t("success.languages", { languages: languageList }));
-      }
+    function showMore($wrap) {
+      let $content = $wrap.selectAll(".community-more").data([0]);
+      const $$content = $content.enter().append("div").attr("class", "community-more");
+      $$content.append("div").attr("class", "community-extended-description");
+      $$content.append("div").attr("class", "community-languages");
+      $content = $content.merge($$content);
+      $content.selectAll(".community-extended-description").html(utilSanitizeHTML(strings.extendedDescriptionHTML));
+      const languages = (d2.languageCodes || []).map((code) => l10n.languageName(code)).join(", ");
+      $content.selectAll(".community-languages").text(languages ? l10n.t("success.languages", { languages }) : null);
     }
-    function showNextEvents($selection2) {
-      const $events = $selection2.append("div").attr("class", "community-events");
-      const $item = $events.selectAll(".community-event").data(nextEvents);
-      const $$item = $item.enter().append("div").attr("class", "community-event");
-      $$item.append("div").attr("class", "community-event-name").append("a").attr("target", "_blank").attr("href", (d3) => utilSafeURL(d3.url)).text((d3) => {
+    function showNextEvents($wrap) {
+      let $content = $wrap.selectAll(".community-events").data([0]);
+      $content = $content.enter().append("div").attr("class", "community-events").merge($content);
+      let $items = $content.selectAll(".community-event").data(nextEvents);
+      $items.exit().remove();
+      const $$items = $items.enter().append("div").attr("class", "community-event");
+      $$items.append("div").attr("class", "community-event-name").append("a").attr("class", "community-event-link").attr("target", "_blank").attr("href", (d3) => utilSafeURL(d3.url));
+      $$items.append("div").attr("class", "community-event-when");
+      $$items.append("div").attr("class", "community-event-where");
+      $$items.append("div").attr("class", "community-event-description");
+      $items = $items.merge($$items);
+      $items.selectAll(".community-event-link").text((d3) => {
         let name = d3.name;
         if (d3.i18n && d3.id) {
           name = l10n.t(`_community.${communityID}.events.${d3.id}.name`, { default: name });
         }
         return name;
       });
-      $$item.append("div").attr("class", "community-event-when").text((d3) => {
+      $items.selectAll(".community-event-when").text((d3) => {
         const options = { weekday: "short", day: "numeric", month: "short", year: "numeric" };
         if (d3.date.getHours() || d3.date.getMinutes()) {
           options.hour = "numeric";
@@ -167560,14 +167629,14 @@ class UiSuccess extends import_ee_safe33.EventEmitter {
         const localeCode = l10n.localeCode;
         return d3.date.toLocaleString(localeCode, options);
       });
-      $$item.append("div").attr("class", "community-event-where").text((d3) => {
+      $items.selectAll(".community-event-where").text((d3) => {
         let where = d3.where;
         if (d3.i18n && d3.id) {
           where = l10n.t(`_community.${communityID}.events.${d3.id}.where`, { default: where });
         }
         return where ?? "";
       });
-      $$item.append("div").attr("class", "community-event-description").text((d3) => {
+      $items.selectAll(".community-event-description").text((d3) => {
         let description = d3.description;
         if (d3.i18n && d3.id) {
           description = l10n.t(`_community.${communityID}.events.${d3.id}.description`, { default: description });
@@ -171754,9 +171823,9 @@ systems4.available.set("urlhash", UrlHashSystem);
 systems4.available.set("validator", ValidationSystem);
 systems4.available.set("worker", WorkerSystem);
 // modules/modes/AbstractMode.ts
-var import_ee_safe34 = __toESM(require_ee_safe(), 1);
+var import_ee_safe33 = __toESM(require_ee_safe(), 1);
 
-class AbstractMode extends import_ee_safe34.EventEmitter {
+class AbstractMode extends import_ee_safe33.EventEmitter {
   id;
   context;
   operations;
@@ -173804,7 +173873,6 @@ class SaveMode extends AbstractMode {
     this.Conflicts = null;
     this.Commit?.removeAllListeners();
     this.Commit = null;
-    this.Success?.removeAllListeners();
     this.Success = null;
     uploader.removeAllListeners();
     this._keybindingOff();
@@ -173878,9 +173946,9 @@ class SaveMode extends AbstractMode {
     const ui = context2.systems.ui;
     const Sidebar = ui.Sidebar;
     this.Success = new UiSuccess(this.context);
-    const successContent = this.Success.changeset(changeset).location(this._location).on("cancel", () => Sidebar.hide());
+    this.Success.changeset(changeset).location(this._location);
     this._wasSuccessfulSave = true;
-    Sidebar.show(successContent.render);
+    Sidebar.show(this.Success.render);
     globalThis.setTimeout(() => {
       context2.resetAsync().then(() => context2.enter("browse"));
     }, 2500);
@@ -181283,6 +181351,10 @@ class OsmService extends AbstractSystem {
       return Promise.resolve(this._userChangesets);
     }
     return this.getUserDetailsAsync().then((user) => {
+      if (!user?.id) {
+        this._userChangesets = null;
+        return Promise.reject(new Error("No user"));
+      }
       return new Promise((resolve, reject) => {
         const errback = (err, results) => {
           if (err) {
@@ -186012,10 +186084,10 @@ services.available.set("wayback", WaybackService);
 services.available.set("wikidata", WikidataService);
 services.available.set("wikipedia", WikipediaService);
 // modules/Context.ts
-var import_ee_safe35 = __toESM(require_ee_safe(), 1);
+var import_ee_safe34 = __toESM(require_ee_safe(), 1);
 var MINZOOM15 = 15;
 
-class Context extends import_ee_safe35.EventEmitter {
+class Context extends import_ee_safe34.EventEmitter {
   version;
   privacyVersion;
   whatsNewVersion;
@@ -194299,5 +194371,5 @@ globalThis.d3 = exports_src;
 globalThis.PIXI = exports_lib;
 globalThis.SPECTOR = SPECTOR;
 
-//# debugId=E8672B6BF0B3823D64756E2164756E21
+//# debugId=8CB70061D06F37FD64756E2164756E21
 //# sourceMappingURL=rapid-dev.js.map
