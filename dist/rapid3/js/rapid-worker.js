@@ -18,7 +18,7 @@
         return cached;
     }
     target = mod != null ? __create(__getProtoOf(mod)) : {};
-    const to = isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target;
+    const to = isNodeMode || !mod || !mod.__esModule || !__hasOwnProp.call(mod, "default") ? __defProp(target, "default", { value: mod, enumerable: true }) : target;
     if (mod && typeof mod === "object" || typeof mod === "function") {
       for (let key of __getOwnPropNames(mod))
         if (!__hasOwnProp.call(to, key))
@@ -1381,8 +1381,8 @@
         }
       }
       if (isDocTypeNode(node)) {
-        let hasDoctypeChildThatIsNotChild = function(node2) {
-          return isDocTypeNode(node2) && node2 !== child;
+        let hasDoctypeChildThatIsNotChild = function(node) {
+          return isDocTypeNode(node) && node !== child;
         };
         if (find(parentChildNodes, hasDoctypeChildThatIsNotChild)) {
           throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, "Only one doctype is allowed");
@@ -4495,16 +4495,16 @@
           return String.fromCharCode(code);
         }
       }
-      function entityReplacer(a2) {
-        var complete = a2[a2.length - 1] === ";" ? a2 : a2 + ";";
-        if (!isHTML && complete !== a2) {
+      function entityReplacer(a) {
+        var complete = a[a.length - 1] === ";" ? a : a + ";";
+        if (!isHTML && complete !== a) {
           errorHandler.error("EntityRef: expecting ;");
-          return a2;
+          return a;
         }
         var match = g.Reference.exec(complete);
         if (!match || match[0].length !== complete.length) {
-          errorHandler.error("entity not matching Reference production: " + a2);
-          return a2;
+          errorHandler.error("entity not matching Reference production: " + a);
+          return a;
         }
         var k = complete.slice(1, -1);
         if (hasOwn(entityMap, k)) {
@@ -4512,16 +4512,16 @@
         } else if (k.charAt(0) === "#") {
           return fixedFromCharCode(parseInt(k.substring(1).replace("x", "0x")));
         } else {
-          errorHandler.error("entity not found:" + a2);
-          return a2;
+          errorHandler.error("entity not found:" + a);
+          return a;
         }
       }
-      function appendText(end2) {
-        if (end2 > start) {
-          var xt = source.substring(start, end2).replace(ENTITY_REG, entityReplacer);
+      function appendText(end) {
+        if (end > start) {
+          var xt = source.substring(start, end).replace(ENTITY_REG, entityReplacer);
           locator && position(start);
-          domBuilder.characters(xt, 0, end2 - start);
-          start = end2;
+          domBuilder.characters(xt, 0, end - start);
+          start = end;
         }
       }
       var lineStart = 0;
@@ -4675,14 +4675,14 @@
       return t;
     }
     function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, errorHandler, isHTML) {
-      function addAttribute(qname, value2, startIndex) {
+      function addAttribute(qname, value, startIndex) {
         if (hasOwn(el.attributeNames, qname)) {
           return errorHandler.fatalError("Attribute " + qname + " redefined");
         }
-        if (!isHTML && value2.indexOf("<") >= 0) {
+        if (!isHTML && value.indexOf("<") >= 0) {
           return errorHandler.fatalError("Unescaped '<' not allowed in attributes values");
         }
-        el.addValue(qname, value2.replace(/[\t\n\r]/g, " ").replace(ENTITY_REG, entityReplacer), startIndex);
+        el.addValue(qname, value.replace(/[\t\n\r]/g, " ").replace(ENTITY_REG, entityReplacer), startIndex);
       }
       var attrName;
       var value;
@@ -4989,15 +4989,15 @@
       };
     }
     function parseDoctypeInternalSubset(p, errorHandler) {
-      function parsePI(p2, errorHandler2) {
-        var match = g.PI.exec(p2.substringFromIndex());
+      function parsePI(p, errorHandler) {
+        var match = g.PI.exec(p.substringFromIndex());
         if (!match) {
-          return errorHandler2.fatalError("processing instruction is not well-formed at position " + p2.getIndex());
+          return errorHandler.fatalError("processing instruction is not well-formed at position " + p.getIndex());
         }
         if (match[1].toLowerCase() === "xml") {
-          return errorHandler2.fatalError("xml declaration is only allowed at the start of the document, but found at position " + p2.getIndex());
+          return errorHandler.fatalError("xml declaration is only allowed at the start of the document, but found at position " + p.getIndex());
         }
-        p2.skip(match[0].length);
+        p.skip(match[0].length);
         return match[0];
       }
       var source = p.getSource();
@@ -5251,16 +5251,16 @@
       if (this.locator) {
         domBuilder.setDocumentLocator(locator);
       }
-      var sax2 = new XMLReader;
-      sax2.errorHandler = domBuilder;
-      sax2.domBuilder = domBuilder;
+      var sax = new XMLReader;
+      sax.errorHandler = domBuilder;
+      sax.domBuilder = domBuilder;
       var isXml = !conventions.isHTMLMimeType(mimeType);
       if (isXml && typeof source !== "string") {
-        sax2.errorHandler.fatalError("source is not a string");
+        sax.errorHandler.fatalError("source is not a string");
       }
-      sax2.parse(this.normalizeLineEndings(String(source)), defaultNSMap, entityMap);
+      sax.parse(this.normalizeLineEndings(String(source)), defaultNSMap, entityMap);
       if (!domBuilder.doc.documentElement) {
-        sax2.errorHandler.fatalError("missing root element");
+        sax.errorHandler.fatalError("missing root element");
       }
       return domBuilder.doc;
     };
@@ -5560,27 +5560,27 @@
           value
         };
       };
-      var _hide = _descriptors ? function(object, key2, value) {
-        return _objectDp.f(object, key2, _propertyDesc(1, value));
-      } : function(object, key2, value) {
-        object[key2] = value;
+      var _hide = _descriptors ? function(object, key, value) {
+        return _objectDp.f(object, key, _propertyDesc(1, value));
+      } : function(object, key, value) {
+        object[key] = value;
         return object;
       };
       var hasOwnProperty = {}.hasOwnProperty;
-      var _has = function(it, key2) {
-        return hasOwnProperty.call(it, key2);
+      var _has = function(it, key) {
+        return hasOwnProperty.call(it, key);
       };
       var id = 0;
       var px = Math.random();
-      var _uid = function(key2) {
-        return "Symbol(".concat(key2 === undefined ? "" : key2, ")_", (++id + px).toString(36));
+      var _uid = function(key) {
+        return "Symbol(".concat(key === undefined ? "" : key, ")_", (++id + px).toString(36));
       };
       var _library = false;
       var _shared = createCommonjsModule(function(module2) {
         var SHARED = "__core-js_shared__";
         var store = _global[SHARED] || (_global[SHARED] = {});
-        (module2.exports = function(key2, value) {
-          return store[key2] || (store[key2] = value !== undefined ? value : {});
+        (module2.exports = function(key, value) {
+          return store[key] || (store[key] = value !== undefined ? value : {});
         })("versions", []).push({
           version: _core.version,
           mode: _library ? "pure" : "global",
@@ -5595,26 +5595,26 @@
         _core.inspectSource = function(it) {
           return _functionToString.call(it);
         };
-        (module2.exports = function(O, key2, val, safe) {
+        (module2.exports = function(O, key, val, safe) {
           var isFunction = typeof val == "function";
           if (isFunction) {
-            _has(val, "name") || _hide(val, "name", key2);
+            _has(val, "name") || _hide(val, "name", key);
           }
-          if (O[key2] === val) {
+          if (O[key] === val) {
             return;
           }
           if (isFunction) {
-            _has(val, SRC) || _hide(val, SRC, O[key2] ? "" + O[key2] : TPL.join(String(key2)));
+            _has(val, SRC) || _hide(val, SRC, O[key] ? "" + O[key] : TPL.join(String(key)));
           }
           if (O === _global) {
-            O[key2] = val;
+            O[key] = val;
           } else if (!safe) {
-            delete O[key2];
-            _hide(O, key2, val);
-          } else if (O[key2]) {
-            O[key2] = val;
+            delete O[key];
+            _hide(O, key, val);
+          } else if (O[key]) {
+            O[key] = val;
           } else {
-            _hide(O, key2, val);
+            _hide(O, key, val);
           }
         })(Function.prototype, TO_STRING, function toString() {
           return typeof this == "function" && this[SRC] || _functionToString.call(this);
@@ -5641,8 +5641,8 @@
               return fn.call(that, a, b);
             };
           case 3:
-            return function(a, b, c2) {
-              return fn.call(that, a, b, c2);
+            return function(a, b, c) {
+              return fn.call(that, a, b, c);
             };
         }
         return function() {
@@ -5650,7 +5650,7 @@
         };
       };
       var PROTOTYPE = "prototype";
-      var $export = function(type, name, source2) {
+      var $export = function(type, name, source) {
         var IS_FORCED = type & $export.F;
         var IS_GLOBAL = type & $export.G;
         var IS_STATIC = type & $export.S;
@@ -5659,22 +5659,22 @@
         var target = IS_GLOBAL ? _global : IS_STATIC ? _global[name] || (_global[name] = {}) : (_global[name] || {})[PROTOTYPE];
         var exports2 = IS_GLOBAL ? _core : _core[name] || (_core[name] = {});
         var expProto = exports2[PROTOTYPE] || (exports2[PROTOTYPE] = {});
-        var key2, own, out, exp;
+        var key, own, out, exp;
         if (IS_GLOBAL) {
-          source2 = name;
+          source = name;
         }
-        for (key2 in source2) {
-          own = !IS_FORCED && target && target[key2] !== undefined;
-          out = (own ? target : source2)[key2];
+        for (key in source) {
+          own = !IS_FORCED && target && target[key] !== undefined;
+          out = (own ? target : source)[key];
           exp = IS_BIND && own ? _ctx(out, _global) : IS_PROTO && typeof out == "function" ? _ctx(Function.call, out) : out;
           if (target) {
-            _redefine(target, key2, out, type & $export.U);
+            _redefine(target, key, out, type & $export.U);
           }
-          if (exports2[key2] != out) {
-            _hide(exports2, key2, exp);
+          if (exports2[key] != out) {
+            _hide(exports2, key, exp);
           }
-          if (IS_PROTO && expProto[key2] != out) {
-            expProto[key2] = out;
+          if (IS_PROTO && expProto[key] != out) {
+            expProto[key] = out;
           }
         }
       };
@@ -5700,9 +5700,9 @@
         return it;
       };
       var _stringAt = function(TO_STRING) {
-        return function(that, pos2) {
+        return function(that, pos) {
           var s = String(_defined(that));
-          var i = _toInteger(pos2);
+          var i = _toInteger(pos);
           var l = s.length;
           var a, b;
           if (i < 0 || i >= l) {
@@ -5714,8 +5714,8 @@
       };
       var $at = _stringAt(false);
       _export(_export.P, "String", {
-        codePointAt: function codePointAt2(pos2) {
-          return $at(this, pos2);
+        codePointAt: function codePointAt(pos) {
+          return $at(this, pos);
         }
       });
       var codePointAt = _core.String.codePointAt;
@@ -5728,7 +5728,7 @@
       var fromCharCode = String.fromCharCode;
       var $fromCodePoint = String.fromCodePoint;
       _export(_export.S + _export.F * (!!$fromCodePoint && $fromCodePoint.length != 1), "String", {
-        fromCodePoint: function fromCodePoint2(x) {
+        fromCodePoint: function fromCodePoint(x) {
           var arguments$1 = arguments;
           var res = [];
           var aLen = arguments.length;
@@ -5754,20 +5754,20 @@
         ID_Continue
       };
       var util = {
-        isSpaceSeparator: function isSpaceSeparator(c2) {
-          return typeof c2 === "string" && unicode.Space_Separator.test(c2);
+        isSpaceSeparator: function isSpaceSeparator(c) {
+          return typeof c === "string" && unicode.Space_Separator.test(c);
         },
-        isIdStartChar: function isIdStartChar(c2) {
-          return typeof c2 === "string" && (c2 >= "a" && c2 <= "z" || c2 >= "A" && c2 <= "Z" || c2 === "$" || c2 === "_" || unicode.ID_Start.test(c2));
+        isIdStartChar: function isIdStartChar(c) {
+          return typeof c === "string" && (c >= "a" && c <= "z" || c >= "A" && c <= "Z" || c === "$" || c === "_" || unicode.ID_Start.test(c));
         },
-        isIdContinueChar: function isIdContinueChar(c2) {
-          return typeof c2 === "string" && (c2 >= "a" && c2 <= "z" || c2 >= "A" && c2 <= "Z" || c2 >= "0" && c2 <= "9" || c2 === "$" || c2 === "_" || c2 === "‌" || c2 === "‍" || unicode.ID_Continue.test(c2));
+        isIdContinueChar: function isIdContinueChar(c) {
+          return typeof c === "string" && (c >= "a" && c <= "z" || c >= "A" && c <= "Z" || c >= "0" && c <= "9" || c === "$" || c === "_" || c === "‌" || c === "‍" || unicode.ID_Continue.test(c));
         },
-        isDigit: function isDigit(c2) {
-          return typeof c2 === "string" && /[0-9]/.test(c2);
+        isDigit: function isDigit(c) {
+          return typeof c === "string" && /[0-9]/.test(c);
         },
-        isHexDigit: function isHexDigit(c2) {
-          return typeof c2 === "string" && /[0-9A-Fa-f]/.test(c2);
+        isHexDigit: function isHexDigit(c) {
+          return typeof c === "string" && /[0-9A-Fa-f]/.test(c);
         }
       };
       var source;
@@ -5779,7 +5779,7 @@
       var token;
       var key;
       var root;
-      var parse = function parse2(text, reviver) {
+      var parse = function parse(text, reviver) {
         source = String(text);
         parseState = "start";
         stack = [];
@@ -5803,12 +5803,12 @@
         if (value != null && typeof value === "object") {
           if (Array.isArray(value)) {
             for (var i = 0;i < value.length; i++) {
-              var key2 = String(i);
-              var replacement = internalize(value, key2, reviver);
+              var key = String(i);
+              var replacement = internalize(value, key, reviver);
               if (replacement === undefined) {
-                delete value[key2];
+                delete value[key];
               } else {
-                Object.defineProperty(value, key2, {
+                Object.defineProperty(value, key, {
                   value: replacement,
                   writable: true,
                   enumerable: true,
@@ -5846,9 +5846,9 @@
         sign = 1;
         for (;; ) {
           c = peek();
-          var token2 = lexStates[lexState]();
-          if (token2) {
-            return token2;
+          var token = lexStates[lexState]();
+          if (token) {
+            return token;
           }
         }
       }
@@ -5858,20 +5858,20 @@
         }
       }
       function read() {
-        var c2 = peek();
-        if (c2 === `
+        var c = peek();
+        if (c === `
 `) {
           line++;
           column = 0;
-        } else if (c2) {
-          column += c2.length;
+        } else if (c) {
+          column += c.length;
         } else {
           column++;
         }
-        if (c2) {
-          pos += c2.length;
+        if (c) {
+          pos += c.length;
         }
-        return c2;
+        return c;
       }
       var lexStates = {
         default: function default$1() {
@@ -6342,17 +6342,17 @@
       }
       function literal(s) {
         for (var i = 0, list = s;i < list.length; i += 1) {
-          var c2 = list[i];
+          var c = list[i];
           var p = peek();
-          if (p !== c2) {
+          if (p !== c) {
             throw invalidChar(read());
           }
           read();
         }
       }
       function escape() {
-        var c2 = peek();
-        switch (c2) {
+        var c = peek();
+        switch (c) {
           case "b":
             read();
             return "\b";
@@ -6413,30 +6413,30 @@
         return read();
       }
       function hexEscape() {
-        var buffer2 = "";
-        var c2 = peek();
-        if (!util.isHexDigit(c2)) {
+        var buffer = "";
+        var c = peek();
+        if (!util.isHexDigit(c)) {
           throw invalidChar(read());
         }
-        buffer2 += read();
-        c2 = peek();
-        if (!util.isHexDigit(c2)) {
+        buffer += read();
+        c = peek();
+        if (!util.isHexDigit(c)) {
           throw invalidChar(read());
         }
-        buffer2 += read();
-        return String.fromCodePoint(parseInt(buffer2, 16));
+        buffer += read();
+        return String.fromCodePoint(parseInt(buffer, 16));
       }
       function unicodeEscape() {
-        var buffer2 = "";
+        var buffer = "";
         var count = 4;
         while (count-- > 0) {
-          var c2 = peek();
-          if (!util.isHexDigit(c2)) {
+          var c = peek();
+          if (!util.isHexDigit(c)) {
             throw invalidChar(read());
           }
-          buffer2 += read();
+          buffer += read();
         }
-        return String.fromCodePoint(parseInt(buffer2, 16));
+        return String.fromCodePoint(parseInt(buffer, 16));
       }
       var parseStates = {
         start: function start() {
@@ -6571,11 +6571,11 @@
           parseState = "afterPropertyValue";
         }
       }
-      function invalidChar(c2) {
-        if (c2 === undefined) {
+      function invalidChar(c) {
+        if (c === undefined) {
           return syntaxError("JSON5: invalid end of input at " + line + ":" + column);
         }
-        return syntaxError("JSON5: invalid character '" + formatChar(c2) + "' at " + line + ":" + column);
+        return syntaxError("JSON5: invalid character '" + formatChar(c) + "' at " + line + ":" + column);
       }
       function invalidEOF() {
         return syntaxError("JSON5: invalid end of input at " + line + ":" + column);
@@ -6584,10 +6584,10 @@
         column -= 5;
         return syntaxError("JSON5: invalid identifier character at " + line + ":" + column);
       }
-      function separatorChar(c2) {
-        console.warn("JSON5: '" + formatChar(c2) + "' in strings is not valid ECMAScript; consider escaping");
+      function separatorChar(c) {
+        console.warn("JSON5: '" + formatChar(c) + "' in strings is not valid ECMAScript; consider escaping");
       }
-      function formatChar(c2) {
+      function formatChar(c) {
         var replacements = {
           "'": "\\'",
           '"': "\\\"",
@@ -6602,14 +6602,14 @@
           "\u2028": "\\u2028",
           "\u2029": "\\u2029"
         };
-        if (replacements[c2]) {
-          return replacements[c2];
+        if (replacements[c]) {
+          return replacements[c];
         }
-        if (c2 < " ") {
-          var hexString = c2.charCodeAt(0).toString(16);
+        if (c < " ") {
+          var hexString = c.charCodeAt(0).toString(16);
           return "\\x" + ("00" + hexString).substring(hexString.length);
         }
-        return c2;
+        return c;
       }
       function syntaxError(message) {
         var err = new SyntaxError(message);
@@ -6617,8 +6617,8 @@
         err.columnNumber = column;
         return err;
       }
-      var stringify = function stringify2(value, replacer, space) {
-        var stack2 = [];
+      var stringify = function stringify(value, replacer, space) {
+        var stack = [];
         var indent = "";
         var propertyList;
         var replacerFunc;
@@ -6660,26 +6660,26 @@
           gap = space.substr(0, 10);
         }
         return serializeProperty("", { "": value });
-        function serializeProperty(key2, holder) {
-          var value2 = holder[key2];
-          if (value2 != null) {
-            if (typeof value2.toJSON5 === "function") {
-              value2 = value2.toJSON5(key2);
-            } else if (typeof value2.toJSON === "function") {
-              value2 = value2.toJSON(key2);
+        function serializeProperty(key, holder) {
+          var value = holder[key];
+          if (value != null) {
+            if (typeof value.toJSON5 === "function") {
+              value = value.toJSON5(key);
+            } else if (typeof value.toJSON === "function") {
+              value = value.toJSON(key);
             }
           }
           if (replacerFunc) {
-            value2 = replacerFunc.call(holder, key2, value2);
+            value = replacerFunc.call(holder, key, value);
           }
-          if (value2 instanceof Number) {
-            value2 = Number(value2);
-          } else if (value2 instanceof String) {
-            value2 = String(value2);
-          } else if (value2 instanceof Boolean) {
-            value2 = value2.valueOf();
+          if (value instanceof Number) {
+            value = Number(value);
+          } else if (value instanceof String) {
+            value = String(value);
+          } else if (value instanceof Boolean) {
+            value = value.valueOf();
           }
-          switch (value2) {
+          switch (value) {
             case null:
               return "null";
             case true:
@@ -6687,18 +6687,18 @@
             case false:
               return "false";
           }
-          if (typeof value2 === "string") {
-            return quoteString(value2, false);
+          if (typeof value === "string") {
+            return quoteString(value, false);
           }
-          if (typeof value2 === "number") {
-            return String(value2);
+          if (typeof value === "number") {
+            return String(value);
           }
-          if (typeof value2 === "object") {
-            return Array.isArray(value2) ? serializeArray(value2) : serializeObject(value2);
+          if (typeof value === "object") {
+            return Array.isArray(value) ? serializeArray(value) : serializeObject(value);
           }
           return;
         }
-        function quoteString(value2) {
+        function quoteString(value) {
           var quotes = {
             "'": 0.1,
             '"': 0.2
@@ -6718,30 +6718,30 @@
             "\u2029": "\\u2029"
           };
           var product = "";
-          for (var i2 = 0;i2 < value2.length; i2++) {
-            var c2 = value2[i2];
-            switch (c2) {
+          for (var i = 0;i < value.length; i++) {
+            var c = value[i];
+            switch (c) {
               case "'":
               case '"':
-                quotes[c2]++;
-                product += c2;
+                quotes[c]++;
+                product += c;
                 continue;
               case "\x00":
-                if (util.isDigit(value2[i2 + 1])) {
+                if (util.isDigit(value[i + 1])) {
                   product += "\\x00";
                   continue;
                 }
             }
-            if (replacements[c2]) {
-              product += replacements[c2];
+            if (replacements[c]) {
+              product += replacements[c];
               continue;
             }
-            if (c2 < " ") {
-              var hexString = c2.charCodeAt(0).toString(16);
+            if (c < " ") {
+              var hexString = c.charCodeAt(0).toString(16);
               product += "\\x" + ("00" + hexString).substring(hexString.length);
               continue;
             }
-            product += c2;
+            product += c;
           }
           var quoteChar = quote || Object.keys(quotes).reduce(function(a, b) {
             return quotes[a] < quotes[b] ? a : b;
@@ -6749,20 +6749,20 @@
           product = product.replace(new RegExp(quoteChar, "g"), replacements[quoteChar]);
           return quoteChar + product + quoteChar;
         }
-        function serializeObject(value2) {
-          if (stack2.indexOf(value2) >= 0) {
+        function serializeObject(value) {
+          if (stack.indexOf(value) >= 0) {
             throw TypeError("Converting circular structure to JSON5");
           }
-          stack2.push(value2);
+          stack.push(value);
           var stepback = indent;
           indent = indent + gap;
-          var keys = propertyList || Object.keys(value2);
+          var keys = propertyList || Object.keys(value);
           var partial = [];
-          for (var i2 = 0, list2 = keys;i2 < list2.length; i2 += 1) {
-            var key2 = list2[i2];
-            var propertyString = serializeProperty(key2, value2);
+          for (var i = 0, list = keys;i < list.length; i += 1) {
+            var key = list[i];
+            var propertyString = serializeProperty(key, value);
             if (propertyString !== undefined) {
-              var member = serializeKey(key2) + ":";
+              var member = serializeKey(key) + ":";
               if (gap !== "") {
                 member += " ";
               }
@@ -6787,35 +6787,35 @@
 ` + stepback + "}";
             }
           }
-          stack2.pop();
+          stack.pop();
           indent = stepback;
           return final;
         }
-        function serializeKey(key2) {
-          if (key2.length === 0) {
-            return quoteString(key2, true);
+        function serializeKey(key) {
+          if (key.length === 0) {
+            return quoteString(key, true);
           }
-          var firstChar = String.fromCodePoint(key2.codePointAt(0));
+          var firstChar = String.fromCodePoint(key.codePointAt(0));
           if (!util.isIdStartChar(firstChar)) {
-            return quoteString(key2, true);
+            return quoteString(key, true);
           }
-          for (var i2 = firstChar.length;i2 < key2.length; i2++) {
-            if (!util.isIdContinueChar(String.fromCodePoint(key2.codePointAt(i2)))) {
-              return quoteString(key2, true);
+          for (var i = firstChar.length;i < key.length; i++) {
+            if (!util.isIdContinueChar(String.fromCodePoint(key.codePointAt(i)))) {
+              return quoteString(key, true);
             }
           }
-          return key2;
+          return key;
         }
-        function serializeArray(value2) {
-          if (stack2.indexOf(value2) >= 0) {
+        function serializeArray(value) {
+          if (stack.indexOf(value) >= 0) {
             throw TypeError("Converting circular structure to JSON5");
           }
-          stack2.push(value2);
+          stack.push(value);
           var stepback = indent;
           indent = indent + gap;
           var partial = [];
-          for (var i2 = 0;i2 < value2.length; i2++) {
-            var propertyString = serializeProperty(String(i2), value2);
+          for (var i = 0;i < value.length; i++) {
+            var propertyString = serializeProperty(String(i), value);
             partial.push(propertyString !== undefined ? propertyString : "null");
           }
           var final;
@@ -6834,7 +6834,7 @@
 ` + stepback + "]";
             }
           }
-          stack2.pop();
+          stack.pop();
           indent = stepback;
           return final;
         }
@@ -7525,10 +7525,8 @@
 
   // modules/data/parsers/OsmJSONParser.ts
   class OsmJSONParser {
-    _seen;
     types;
     constructor() {
-      this._seen = new Set;
       this._parseNode = this._parseNode.bind(this);
       this._parseWay = this._parseWay.bind(this);
       this._parseRelation = this._parseRelation.bind(this);
@@ -7555,14 +7553,10 @@
         "bounds"
       ]);
     }
-    reset() {
-      this._seen.clear();
-    }
     parse(content, options = {}) {
       if (!content) {
         throw new Error("No content");
       }
-      const skipSeen = options.skipSeen ?? true;
       let filter;
       if (options.filter instanceof Set) {
         filter = options.filter;
@@ -7571,7 +7565,7 @@
       } else {
         filter = this.types;
       }
-      const results = { osm: {}, data: [], seenIDs: new Set };
+      const results = { osm: {}, data: [] };
       const json = typeof content === "string" ? JSON.parse(content) : content;
       if (!isObject(json)) {
         throw new Error("No JSON");
@@ -7628,24 +7622,16 @@
           let id;
           if (obj.type === "node" && filter.has("node")) {
             id = "n" + obj.id;
-            results.seenIDs.add(id);
             parser = this._parseNode;
           } else if (obj.type === "way" && filter.has("way")) {
             id = "w" + obj.id;
-            results.seenIDs.add(id);
             parser = this._parseWay;
           } else if (obj.type === "relation" && filter.has("relation")) {
             id = "r" + obj.id;
-            results.seenIDs.add(id);
             parser = this._parseRelation;
           }
           if (!parser || !id)
             continue;
-          if (skipSeen) {
-            if (this._seen.has(id))
-              continue;
-            this._seen.add(id);
-          }
           const parsed = parser(obj, id);
           if (parsed) {
             results.data.push(parsed);
@@ -7656,11 +7642,6 @@
       if (changesets.length && filter.has("changeset")) {
         for (const obj of changesets) {
           const id = "c" + obj.id;
-          if (skipSeen) {
-            if (this._seen.has(id))
-              continue;
-            this._seen.add(id);
-          }
           const parsed = this._parseChangeset(obj, id);
           if (parsed) {
             results.data.push(parsed);
@@ -7671,11 +7652,6 @@
       if (users.length && filter.has("user")) {
         for (const obj of users) {
           const id = "user" + obj.id;
-          if (skipSeen) {
-            if (this._seen.has(id))
-              continue;
-            this._seen.add(id);
-          }
           const parsed = this._parseUser(obj, id);
           if (parsed) {
             results.data.push(parsed);
@@ -7873,10 +7849,8 @@
   var import_xmldom = __toESM(require_lib(), 1);
 
   class OsmXMLParser {
-    _seen;
     types;
     constructor() {
-      this._seen = new Set;
       this._parseNode = this._parseNode.bind(this);
       this._parseWay = this._parseWay.bind(this);
       this._parseRelation = this._parseRelation.bind(this);
@@ -7904,14 +7878,10 @@
         "bounds"
       ]);
     }
-    reset() {
-      this._seen.clear();
-    }
     parse(content, options = {}) {
       if (!content) {
         throw new Error("No content");
       }
-      const skipSeen = options.skipSeen ?? true;
       let filter;
       if (options.filter instanceof Set) {
         filter = options.filter;
@@ -7920,7 +7890,7 @@
       } else {
         filter = this.types;
       }
-      const results = { osm: {}, data: [], seenIDs: new Set };
+      const results = { osm: {}, data: [] };
       const xml = typeof content === "string" ? new import_xmldom.DOMParser().parseFromString(content.trimStart(), "application/xml") : content;
       if (!xml?.childNodes) {
         throw new Error("No XML");
@@ -7941,19 +7911,15 @@
         let id;
         if (child.nodeName === "node" && filter.has("node")) {
           id = "n" + child.getAttribute("id");
-          results.seenIDs.add(id);
           parser = this._parseNode;
         } else if (child.nodeName === "way" && filter.has("way")) {
           id = "w" + child.getAttribute("id");
-          results.seenIDs.add(id);
           parser = this._parseWay;
         } else if (child.nodeName === "relation" && filter.has("relation")) {
           id = "r" + child.getAttribute("id");
-          results.seenIDs.add(id);
           parser = this._parseRelation;
         } else if (child.nodeName === "changeset" && filter.has("changeset")) {
           id = "c" + child.getAttribute("id");
-          results.seenIDs.add(id);
           parser = this._parseChangeset;
         } else if (child.nodeName === "note" && filter.has("note")) {
           id = "note" + child.getElementsByTagName("id")[0]?.textContent;
@@ -7974,11 +7940,6 @@
         }
         if (!parser)
           continue;
-        if (skipSeen && id !== undefined) {
-          if (this._seen.has(id))
-            continue;
-          this._seen.add(id);
-        }
         const parsed = parser(child, id ?? "");
         if (parsed) {
           results.data.push(parsed);
@@ -8472,16 +8433,11 @@
     const [x, y, z] = tileXYZ;
     return fetchEnvelope(fetch, url, { ...init, signal }, async (response) => decodeMVT(await utilFetchResponse(response), x, y, z));
   }
-  function reset(_data, _signal) {
-    osmJsonParser.reset();
-    osmXmlParser.reset();
-  }
   var networkListeners = {
     "network:fetchAndParse": fetchAndParse,
     "network:fetchAndParseMVT": fetchAndParseMVT,
     "network:fetchAndParseOsmJson": fetchAndParseOsmJson,
-    "network:fetchAndParseOsmXml": fetchAndParseOsmXml,
-    "network:reset": reset
+    "network:fetchAndParseOsmXml": fetchAndParseOsmXml
   };
 
   // modules/core/index.worker.ts
@@ -8497,13 +8453,8 @@
     const parser = format === "json" ? osmJsonParser2 : osmXmlParser2;
     return fetchEnvelope(fetch, url, { ...init, signal }, async (response) => parser.parse(await utilFetchResponse(response), parserOptions));
   }
-  function reset2(_data, _signal) {
-    osmJsonParser2.reset();
-    osmXmlParser2.reset();
-  }
   var osmServiceListeners = {
-    "osmService:fetchAndParse": fetchAndParse2,
-    "osmService:reset": reset2
+    "osmService:fetchAndParse": fetchAndParse2
   };
 
   // modules/services/index.worker.ts
@@ -8525,9 +8476,9 @@
   self.onmessage = async (event) => {
     const msg = event.data;
     if (msg.type === "cancel") {
-      const controller2 = activeControllers.get(msg.id);
-      if (controller2)
-        controller2.abort();
+      const controller = activeControllers.get(msg.id);
+      if (controller)
+        controller.abort();
       activeControllers.delete(msg.id);
       return;
     }
@@ -8552,5 +8503,5 @@
   };
 })();
 
-//# debugId=E140C82214117D7764756E2164756E21
+//# debugId=4368DADC0CFCB5F164756E2164756E21
 //# sourceMappingURL=rapid-worker.js.map

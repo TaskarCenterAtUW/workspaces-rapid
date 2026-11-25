@@ -1,6 +1,6 @@
 # Release Checklist
 
-You can use the `/release` prompt in Copilot Chat to automate the build and verification steps.
+Optionally, use the `/release` skill in your agent (Claude Code, Copilot Chat, etc.) to automate the build and verification steps.
 For the full manual process, follow the sections below.
 
 ## Update `main` branch
@@ -51,6 +51,3 @@ Tag the commit **on the `release` branch** that you want to promote for deployme
 git tag -f dev           # or stage, prod
 git push -f origin dev   # or stage, prod
 ```
-
-## Updated workflow:
-- Create and merge pull request to `develop`, `staging` or `production` branch to release the code to respective environments
