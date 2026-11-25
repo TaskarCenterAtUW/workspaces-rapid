@@ -1,11 +1,15 @@
 ---
+name: release
 description: Prepare a new release (build and tag for deployment)
-argument-hint: deployment target, e.g. dev, stage, prod
+disable-model-invocation: true
+argument-hint: "deployment target, for example: `dev`, `stage`, `prod`"
 ---
 
-You are preparing a deployment for this repo. Do the following steps in order:
+You are preparing a deployment for this repo. The deployment target is the argument the user passed when invoking this skill (e.g. `/release dev`), written as `TARGET` below. If no target was provided, ask the user for it and stop.
 
-1. **Confirm the target** — the deployment target is `${input:version}`. Valid targets are: `dev`, `stage`, `prod`.
+Do the following steps in order:
+
+1. **Confirm the target** — the deployment target is `TARGET`. Valid targets are: `dev`, `stage`, `prod`.
    - If the target is not one of these, stop immediately and explain the problem clearly.
 
 2. **Check the current state** by running:

@@ -1,6 +1,6 @@
 # Release Checklist
 
-You can use the `/release` prompt in Copilot Chat to automate the build and verification steps.
+Optionally, use the `/release` skill in your agent (Claude Code, Copilot Chat, etc.) to automate the build and verification steps.
 For the full manual process, follow the sections below.
 
 ## Update `main` branch
