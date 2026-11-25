@@ -1360,11 +1360,22 @@
         "placeholder": "Select colorblind mode"
       }
     },
+    "dragdrop": {
+      "drop_files": "Drop files here to add them to Rapid"
+    },
     "restore": {
-      "heading": "You have unsaved changes",
-      "description": "Do you wish to restore unsaved changes from a previous editing session?",
-      "restore": "Restore my changes",
-      "reset": "Discard my changes"
+      "heading": "We found some previous unsaved edit sessions",
+      "description": "Choose a session to restore, or skip for now to start fresh.",
+      "column_date": "Date",
+      "column_location": "Location",
+      "column_summary": "Summary",
+      "restore_session": "Restore",
+      "delete_session": "Delete",
+      "skip": "Skip for now",
+      "edits": "{n} edits",
+      "unknown_date": "Unknown date",
+      "unknown_location": "Unknown location",
+      "no_storage": "Heads up — permanent storage isn't available right now (for example in a private window). You can keep working, but your edits won't be saved when you close Rapid."
     },
     "save": {
       "help": "Review your changes and upload them to OpenStreetMap, making them visible to other users.",
@@ -1581,7 +1592,8 @@
       "heading": "Add Custom Dataset",
       "name": {
         "label": "Dataset Name",
-        "placeholder": "Enter a Dataset Name"
+        "placeholder": "Enter a Dataset Name",
+        "taken": "This Dataset Name is already in use. Please choose another."
       },
       "identifier": {
         "label": "Dataset ID",
@@ -1590,17 +1602,18 @@
         "invalid": "This DatasetID contains invalid characters.",
         "taken": "This DatasetID is already in use. Please choose another."
       },
-      "instructions": "Custom map data can be added either of two ways:",
-      "file": {
-        "heading": "Local Data File",
-        "instructions": "Choose a local data file. Supported file types are:",
-        "types": "`.gpx`, `.kml`, `.geojson`, `.json`",
-        "label": "Browse files"
+      "source": {
+        "label": "Dataset Source"
       },
-      "or": "Or",
+      "file": {
+        "instructions": "Select a local file, or drag and drop a file onto Rapid.",
+        "supported": "Supported types:",
+        "types": "`.gpx`, `.kml`, `.geojson`, `.json`",
+        "unavailable": "File storage is not supported.",
+        "insufficient": "Insufficient storage: {requested} requested, {available} available."
+      },
       "url": {
-        "heading": "Remote Data URL",
-        "instructions": "Enter a URL to any of the above file types, an MVT-style vector tile service, or a .pmtiles archive.",
+        "instructions": "Or, enter a URL to any of the above file types.",
         "tokens": "Supported replacement tokens:",
         "xyz": "`{zoom}` or `{z}`, `{x}`, `{y}` for Z/X/Y tile scheme",
         "example_file": "https://example.com/custom.gpx",
@@ -1621,13 +1634,16 @@
       "details": {
         "heading": "Dataset Details",
         "fields": {
-          "source": {
-            "label": "Source"
+          "serviceid": {
+            "label": "Service ID"
           },
           "sourceurl": {
             "label": "Source URL"
           },
-          "identifier": {
+          "sourcefileid": {
+            "label": "Source File ID"
+          },
+          "datasetid": {
             "label": "Dataset ID"
           },
           "name": {

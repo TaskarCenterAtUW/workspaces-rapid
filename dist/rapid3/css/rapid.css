@@ -121,9 +121,9 @@
 }
 
 /*
-This file contains the base styling rules for Rapid. This is largely inherited from the iD project.
-For now we'll keep the UI intentionally familiar for users who are switching from iD to Rapid.
-*/
+ * This file contains the base styling rules for Rapid. This is largely inherited from the iD project.
+ * For now we'll keep the UI intentionally familiar for users who are switching from iD to Rapid.
+ */
 
 /* Basics
 ------------------------------------------------------- */
@@ -4912,8 +4912,7 @@ tag reference         <- .tag-reference-body    |
   left: 0;
   right: 0;
   overflow: auto;
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
 }
 .ideditor .shaded:before {
   content: '';
@@ -4999,12 +4998,86 @@ tag reference         <- .tag-reference-body    |
   border-bottom: 0;
 }
 
+/* Drag-and-drop overlay
+------------------------------------------------------- */
+.ideditor .dragdrop-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6000;   /* above .shaded modal container */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  border: 4px dashed rgba(255, 255, 255, 0.8);
+  pointer-events: none;   /* never intercept the drop — the listener is on the container */
+}
+.ideditor .dragdrop-overlay.active {
+  display: flex;
+}
+.ideditor .dragdrop-overlay-message {
+  padding: 20px 30px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
 /* Restore Modal
 ------------------------------------------------------- */
-.ideditor .modal-actions .logo-restore {
+
+.ideditor .modal.restore-modal {
+  top: 80px;
+  width: 80%;
+  min-width: 200px;
+  max-width: 650px;
+  max-height: 85%;
+}
+.ideditor .modal.restore-modal .content {
+  flex: 1 0 0%;
+}
+.ideditor .restore-modal .modal-section.buttons {
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.ideditor .restore-modal .restore-no-storage p {
+  color: #e06c5e;
+}
+
+.ideditor .restore-modal .restore-list {
+  border-bottom: unset;
+}
+
+.ideditor .restore-sessions th,
+.ideditor .restore-sessions td {
+  text-align: left;
+  padding: 8px 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.ideditor .restore-sessions th {
+  font-weight: bold;
+  white-space: nowrap;
+}
+.ideditor .restore-sessions .restore-date,
+.ideditor .restore-sessions .restore-location {
+  white-space: nowrap;
+}
+.ideditor .restore-sessions .restore-actions {
+  white-space: nowrap;
+  text-align: right;
+}
+.ideditor .restore-sessions .restore-actions button {
+  margin-left: 6px;
+  padding: 4px 10px;
+}
+.ideditor .restore-sessions .restore-session {
   color: #7092ff;
 }
-.ideditor .modal-actions .logo-reset {
+.ideditor .restore-sessions .delete-session {
   color: #e06c5e;
 }
 
@@ -6094,9 +6167,9 @@ inset reserves space around it to allow the user plenty of space to resize.
 }
 
 /*
-This file contains the "Rapid" styling overrides for the parts of the UI that are not iD.
-It generally uses a dark theme with magenta highlight colors.
-*/
+ * This file contains the "Rapid" styling overrides for the parts of the UI that are not iD.
+ * It generally uses a dark theme with magenta highlight colors.
+ */
 
 /* possibly existed before and was removed? */
 .ideditor svg.icon.icon-30 {
@@ -6315,7 +6388,9 @@ It generally uses a dark theme with magenta highlight colors.
   font-size: 14px;
   width: 90%;
 }
+
 .ideditor .modal.rapid-modal input[type="checkbox"] {
+  width: unset;
   accent-color: #da26d3;
 }
 
@@ -6335,6 +6410,55 @@ It generally uses a dark theme with magenta highlight colors.
   color: #eee;
   outline: none;
   border: 1px solid #aaa;
+}
+
+/* File picker */
+.ideditor .modal.rapid-modal input[type="file"] {
+  width: unset;
+  padding: 0 75px 0 0;   /* leave space for remove 'x' */
+}
+.ideditor[dir='rtl'] .modal.rapid-modal input[type="file"] {
+  width: unset;
+  padding: 0 0 0 75px;
+}
+.ideditor .modal.rapid-modal input[type="file"]::file-selector-button {
+  font-size: 12px;
+  height: 28px;
+  border-radius: 14px;
+  margin: 10px 10px;
+  padding: 0 15px;
+  border: 0;
+  background: #c000c0;
+  color: #eee;
+}
+.ideditor .modal.rapid-modal .file-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 30px;
+  width: 30px;
+  background: unset;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 10;
+}
+@media (hover: hover) {
+  .ideditor .modal.rapid-modal .file-remove:hover {
+    background: #8885;
+  }
+}
+.ideditor[dir='rtl'] .modal.rapid-modal .file-remove {
+  left: 0;
+}
+.ideditor .modal.rapid-modal input[type="file"]::file-selector-button:hover {
+  background: #c6d;
+}
+.ideditor .modal.rapid-modal input[type="file"].disabled::file-selector-button {
+  background: #6668;
+  color: #eee8;
+}
+.ideditor .modal.rapid-modal input[type="file"].disabled::file-selector-button:hover {
+  background: #8888;
 }
 
 /* Dark Tables */
@@ -6387,13 +6511,10 @@ It generally uses a dark theme with magenta highlight colors.
 .ideditor .modal.rapid-modal button:focus-visible,
 .ideditor .modal.rapid-modal input:focus-visible,
 .ideditor .modal.rapid-modal textarea:focus-visible {
-  outline: 2px solid #da26d3;
-  box-shadow: 0 0 3px 1px #c6d;
-}
-.ideditor .modal.rapid-modal button.action:focus-visible,
-.ideditor .modal.rapid-modal button.minor:focus-visible {
   outline: 2px solid #eee;
-  box-shadow: 0 0 3px 1px #c6d;
+  box-shadow: 0 0 3px 1px #ddd;
+  /* outline: 2px solid #da26d3; */
+  /* box-shadow: 0 0 3px 1px #c6d; */
 }
 
 /* Comboboxes live under container, so target '.combobox-rapid-dark' class. */
@@ -6654,7 +6775,6 @@ It generally uses a dark theme with magenta highlight colors.
   max-width: 650px;
   max-height: 85%;
   background: rgba(25, 25, 25, 0.9);
-  -webkit-backdrop-filter: blur(2.5px);
   backdrop-filter: blur(2.5px);
   color: #ddd;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.25);
@@ -7174,21 +7294,31 @@ It generally uses a dark theme with magenta highlight colors.
 
 /* Add Custom Dataset
 ------------------------------------------------------- */
+.ideditor .modal-add-dataset .add-dataset-wrap {
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: column nowrap;
+  width: 100%;
+  overflow-y: auto;
+  border-bottom: 1px solid #888a;
+}
+
 .ideditor .modal.rapid-modal.modal-add-dataset p {
   font-size: 12px;
   padding-bottom: unset;
 }
 
-.ideditor .modal-add-dataset .modal-section.rapid-add-dataset-fields {
+.ideditor .modal-add-dataset .rapid-add-dataset-fields,
+.ideditor .modal-add-dataset .rapid-add-dataset-source {
   display: flex;
+  flex: 0 0 0px;
   flex-flow: column nowrap;
   padding: 10px 20px;
 }
 .ideditor .modal-add-dataset .field-row {
   display: flex;
+  position: relative;
   flex-flow: column nowrap;
-}
-.ideditor .modal-add-dataset .field-row {
   margin-bottom: 10px;
 }
 .ideditor .modal-add-dataset label.field-label {
@@ -7198,25 +7328,23 @@ It generally uses a dark theme with magenta highlight colors.
   color: #fff;
   margin-bottom: 2px;
 }
-.ideditor .modal-add-dataset input.field-input.warning,
-.ideditor .modal-add-dataset textarea.field-url.warning {
+.ideditor .modal-add-dataset .has-warning input,
+.ideditor .modal-add-dataset .has-warning textarea {
   border-color: #f90 !important;
   background-color: #440 !important;
+}
+.ideditor .modal-add-dataset .has-warning .field-feedback {
+  color: #f90;
 }
 .ideditor .modal-add-dataset .field-instruction {
   margin: 5px 0px;
 }
-.ideditor .modal-add-dataset .field-feedback.warning {
-  color: #f90;
-}
-
-.ideditor .modal-add-dataset .rapid-add-dataset-text {
-  flex-flow: column nowrap;
-  align-items: flex-start;
-  padding: 20px;
+.ideditor .modal-add-dataset .file-filetypes,
+.ideditor .modal-add-dataset .url-instructions {
+  margin-bottom: 5px;
 }
 .ideditor .modal-add-dataset .instructions-url {
-  padding: 20px 0;
+  padding-bottom: 20px;
 }
 .ideditor .modal-add-dataset textarea.field-url {
   height: 90px;
@@ -7258,6 +7386,7 @@ It generally uses a dark theme with magenta highlight colors.
   display: flex;
   flex-flow: row nowrap;
   flex: 1 1 0px;
+  position: relative;
   align-items: flex-start;
   width: 100%;
 }
@@ -7342,27 +7471,6 @@ It generally uses a dark theme with magenta highlight colors.
   margin-left: unset;
   margin-right: 150px;
 }
-
-/* .modal.modal-dataset-settings button.action {
-  display: flex;
-  min-width: unset;
-  flex: 0 0 130px;
-  flex-flow: row nowrap;
-  text-wrap: nowrap;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal.modal-dataset-settings .delete-button .icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
-
-.ideditor[dir='rtl'] .modal.modal-dataset-settings .delete-button .icon {
-  margin-right: unset;
-  margin-left: 10px;
-} */
 
 
 /* Colorpicker control
