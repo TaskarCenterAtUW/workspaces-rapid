@@ -4541,6 +4541,66 @@ tag reference         <- .tag-reference-body    |
   margin-top: 10px;
 }
 
+/* Rendering card: a chart of recent frames, then rows of times (with bars) and text */
+.ideditor .card-content-rendering .rendering-chart {
+  display: block;
+  width: 100%;
+  height: 48px;
+  margin-bottom: 6px;
+  background: rgba(0, 0, 0, 0.3);
+}
+.ideditor .card-content-rendering .rendering-row {
+  margin-bottom: 4px;
+  overflow-wrap: anywhere;
+}
+.ideditor .card-content-rendering .rendering-label {
+  display: block;
+  color: #aaa;
+}
+.ideditor .card-content-rendering .rendering-row-time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.ideditor .card-content-rendering .rendering-row-time .rendering-label {
+  flex: 0 0 36px;
+}
+.ideditor .card-content-rendering .rendering-row-time .rendering-value {
+  flex: 0 0 56px;
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+/* The bar is two frame budgets wide, with a line at one budget */
+.ideditor .card-content-rendering .rendering-bar {
+  flex: 1 1 auto;
+  position: relative;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.3);
+}
+.ideditor .card-content-rendering .rendering-bar::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: 50%;
+  border-left: 1px dashed rgba(255, 255, 255, 0.6);
+}
+.ideditor .card-content-rendering .rendering-bar-fill {
+  display: block;
+  height: 100%;
+  background: #7092ff;
+}
+.ideditor .card-content-rendering .rendering-row-draw .rendering-bar-fill {
+  background: #ffff88;
+}
+.ideditor .card-content-rendering .rendering-row-gpu .rendering-bar-fill {
+  background: #88dd88;
+}
+.ideditor .card-content-rendering .rendering-bar-fill.over {
+  background: #ff5555;
+}
+
 
 /* Map Footer
 ------------------------------------------------------- */
@@ -4637,7 +4697,6 @@ tag reference         <- .tag-reference-body    |
   flex: 0 0 0px;
 
   text-align: right;
-  padding: 1px 10px;
   color: #eee;
   background: rgba(170, 34, 34, 0.9);
   z-index: 101;
@@ -4649,7 +4708,16 @@ tag reference         <- .tag-reference-body    |
   display: none;
 }
 
+/* Each message gets its own row, stacked */
+.ideditor .api-status-message {
+  padding: 1px 10px;
+}
+.ideditor .api-status-message + .api-status-message {
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
 .ideditor .api-status a {
+  margin-inline-start: 0.5em;
   text-decoration: underline;
   color: #ccc;
   pointer-events: all;
@@ -5079,6 +5147,13 @@ tag reference         <- .tag-reference-body    |
 }
 .ideditor .restore-sessions .delete-session {
   color: #e06c5e;
+}
+.ideditor .restore-sessions .restore-warning {
+  margin-top: 4px;
+  color: #e06c5e;
+}
+.ideditor .restore-sessions .restore-warning a {
+  margin-left: 4px;
 }
 
 /* Success Screen / Community Index
@@ -7438,11 +7513,35 @@ inset reserves space around it to allow the user plenty of space to resize.
   flex: 0 0 0px;
   flex-flow: column nowrap;
 }
-.ideditor .modal-dataset-settings .field-row.row-conflation {
+.ideditor .modal-dataset-settings .dataset-conflation .field-row {
   align-items: center;
 }
-.ideditor .modal-dataset-settings .field-row.row-conflation .field-input {
+.ideditor .modal-dataset-settings .dataset-conflation .field-label {
+  flex: 0 0 270px;
+}
+.ideditor .modal-dataset-settings .dataset-conflation .field-input {
   flex: 0 0 0px;   /* don't grow */
+}
+.ideditor .modal-dataset-settings .conflation-table {
+  margin-top: 20px;
+}
+.ideditor .modal-dataset-settings .conflation-table.disabled {
+  opacity: 0.5;
+}
+.ideditor .modal-dataset-settings .conflation-rules-instructions {
+  margin-top: 10px;
+}
+.ideditor .modal.rapid-modal .conflation-row td {
+  background: #333;
+}
+.ideditor .modal.rapid-modal .conflation-row input {
+  display: inline;
+  margin: 0;
+  width: 100%;
+}
+.ideditor .modal.rapid-modal .conflation-row input.invalid {
+  outline: 2px solid #e06e5f;
+  outline-offset: -2px;
 }
 
 /* Data Dictionary section */
