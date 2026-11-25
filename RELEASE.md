@@ -28,26 +28,28 @@ You should be able to access:
 
 The `release` branch checks in the contents of `dist/` too - this makes it suitable for deployment.
 It's basically a copy of `main` but with one additional commit appended to it.
-This will also be the commit that we tag for deployment.
 (We use `-f` to force check-in all the files in `dist/`)
+
+We then merge `develop` using the `ours` strategy. This keeps the files in `release` exactly as they are,
+but records `develop` as merged, so the PR from `release` into `develop` merges without conflicts.
 
 ```sh
 git checkout release
 git reset --hard main
+sh ./scripts/build.sh    # populates ./dist/
 git add -f dist
 git commit -m 'Check in build'
+git fetch origin
+git merge -s ours origin/develop -m 'Merge develop, keeping release contents'
 git push origin -f release
 ```
 
 
-## Tag for Deployment
+## Deployment
 
-This repo is referenced by [`workspaces-stack`](https://github.com/TaskarCenterAtUW/workspaces-stack), which expects to find a `dev`, `stage`, or `prod` tag.  See the workspaces-stack [README](https://github.com/TaskarCenterAtUW/workspaces-stack/blob/main/README.md) for more details.
+This repo uses workflows to deploy to the target environments.
 
-Tag the commit **on the `release` branch** that you want to promote for deployment.
-(We use `-f` to force update the tags, as they likely exist pointing to previous commits)
-
-```sh
-git tag -f dev           # or stage, prod
-git push -f origin dev   # or stage, prod
-```
+1. Visit https://github.com/TaskarCenterAtUW/workspaces-rapid/pulls and open a Pull Request
+2. Select "base:" as `develop`, `staging`, or `production`  (the environment to deploy to)
+3. Select "compare:" as `release`
+4. Deploy will run when the Pull Request is merged
